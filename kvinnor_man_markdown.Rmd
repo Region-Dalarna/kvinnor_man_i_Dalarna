@@ -862,3 +862,14 @@ knitr::include_graphics(here("Diagram","andel_chefer.png"))
 knitr::include_graphics(here("Diagram","andel_chefer_linje.png"))
 
 ```
+
+```{r, include = FALSE}
+
+# kopiera html-filen till 
+file.copy(from = "kvinnor_man_markdown.html", to = "docs/index.html", overwrite = TRUE)
+file.copy(from = "kvinnor_man_markdown.Rmd", to = "docs/index.Rmd", overwrite = TRUE)
+
+# ska vi ta bort html-filen i projektmappen eller ha dubbelt, både där och i docs-mappen?
+#file.remove("laget_i_Dalarna.html")
+
+```
