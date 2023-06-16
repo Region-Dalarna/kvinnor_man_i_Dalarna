@@ -19,6 +19,9 @@ library(here)
 lista_figurer=list()
 skapa_lista=FALSE
 
+# Om man vill uppdatera den externa hemsidan sätts denna variabel till TRUE
+uppdatera_hemsida=FALSE
+
 if(skapa_lista==TRUE){
 source(here("master_kvinnor_man.R"), encoding = "utf-8", echo = FALSE)
 lista_figurer=c(lista_figurer,hamta_figurer(skapa_ppt=FALSE))
@@ -868,11 +871,13 @@ knitr::include_graphics(here("Diagram","andel_chefer_linje.png"))
 
 ```{r, include = FALSE}
 
+if(uppdatera_hemsida==TRUE){
 # kopiera html-filen till 
 file.copy(from = "kvinnor_man_markdown.html", to = "docs/index.html", overwrite = TRUE)
 file.copy(from = "kvinnor_man_markdown.Rmd", to = "docs/index.Rmd", overwrite = TRUE)
 
 # ska vi ta bort html-filen i projektmappen eller ha dubbelt, både där och i docs-mappen?
 #file.remove("laget_i_Dalarna.html")
+}
 
 ```
