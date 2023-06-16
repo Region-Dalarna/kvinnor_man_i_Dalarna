@@ -1,0 +1,94 @@
+/* CSS Stylesheet*/
+
+html {
+
+  font-size: 16px;
+
+}
+
+body {
+  border-top: 5px solid #158daf;
+  margin: 0;
+  font-family:'Montserrat', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  background-color: #fff; }
+
+#header{
+  background-repeat: no-repeat;
+  height: 50px;
+  width: 100%;
+  top:0;
+  margin-top: 0;
+  z-index:1;
+}  
+ 
+p{
+  font-family: 'Montserrat';
+  font-size: 1rem;
+}
+h1,h2,h3{
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-family: 'League Spartan'
+}
+
+h1 { /* Header 1 */
+  font-weight: bold;
+  font-size: 2.4rem;
+  color: #000000;
+}
+h2 { /* Header 2 */
+  font-weight: bold;
+  font-size: 1.6rem;
+  color: #000000;
+}
+h3 { /* Header 3 */
+  font-size: 1.4rem;
+  color: #000000;
+}
+
+details{
+  background-color: #f1f1f1;
+  font-size: 0.9rem;
+  padding: 10px 10px;
+  border-radius: 3px 3px 3px 3px;
+  border: 0.1px dotted #000000;
+}
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    font-size: 1rem;
+    font-weight: 500;
+    background: #db3747;
+    color: #fff;
+    padding: 16px 20px 12px 20px;
+    margin-bottom: 0px;
+    border-radius: 3px 3px 0 0;
+}
+
+.tocify-header {
+    font-size: 0.9rem;
+    font-weight: 1000;
+}
+
+.tocify-subheader {
+    font-size: 0.85rem;
+    font-weight: 400;
+}
+
+.tocify-subheader .tocify-subheader {
+    font-size: 0.8rem;
+    font-weight: 400;
+}
+
+.tocify ul, .tocify li { /* Increases spacing between TOC headers*/
+    line-height: 25px !important;
+}
+
+.nav-pills>li>a:hover, .nav-pills>li>a:focus, .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus{
+     background-color: #db3747;
+     color: #fff
+     border-color: #000000;
+     }

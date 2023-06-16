@@ -1,17 +1,17 @@
 ---
-title: "Kvinnor och män i Dalarna"
-output:
+title: ""
+author: ""
+date: ""
+output: 
   html_document:
     toc: yes
     toc_float: yes
     toc_depth: 6
-  pdf_document:
-    toc: yes
-    toc_depth: '6'
-editor_options: 
-  markdown: 
-    wrap: 72
+    css: "styles.css"
 ---
+:::{#header}
+<img src="logo_liggande_platta_farg.png" height="50" width="100" margin="0 auto"/>
+:::
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
@@ -24,8 +24,11 @@ source(here("master_kvinnor_man.R"), encoding = "utf-8", echo = FALSE)
 lista_figurer=c(lista_figurer,hamta_figurer(skapa_ppt=FALSE))
 }
 ```
-
-# Inledning
+# Kvinnor och män i Dalarna
+<p style = "font-size:12px">
+<i>Skapad av: Samhällsanalys, Region Dalarna<br>
+Senast uppdaterad: `r Sys.Date()`</i>
+</p>
 
 I juni 2021 antog Region Dalarna en ny regional utvecklingsstrategi,
 "Dalastrategin 2030 - Tillsammans för ett hållbart Dalarna", som pekar
@@ -93,7 +96,7 @@ finns behov av framtida fördjupningar.
     där andelen folkvalda kvinnor överstiger andelen folkvalda män men
     skillnaderna mellan kommunerna i länet är stora.
 
-# Dalarnas befolkning
+## Dalarnas befolkning
 
 Dalarnas län hade 2021 drygt 288 000 invånare, vilket är ungefär 10 000
 (3,4 procent) fler än 1968. Under samma tidsperiod ökade Sveriges
@@ -159,9 +162,9 @@ blir att en större andel än tidigare av befolkningen i arbetsför ålder
 knitr::include_graphics(here("Diagram","Befpyramid Dalarnas län 2021_jmfr_utr_inr.png"))
 ```
 
-# Utbildning och arbetsmarknad
+## Utbildning och arbetsmarknad
 
-## Utbildning
+### Utbildning
 
 Utbildningsnivån för åldersgruppen 25-64 år redovisas i figuren nedan
 och visar på skillnader mellan könen. Kvinnor har generellt en högre
@@ -233,7 +236,7 @@ följt av hantverksprogrammet och det humanistiska programmet.
 knitr::include_graphics(here("Diagram","kon_andel_programtyp.png"))
 ```
 
-## Bransch och yrke
+### Bransch och yrke
 
 De skillnader som råder i gymnasieantagningen återspeglas i skillnader
 mellan kvinnor och män senare i arbetslivet (se figuren nedan). Det
@@ -274,7 +277,7 @@ knitr::include_graphics(here("Diagram","yrken_man.png"))
 knitr::include_graphics(here("Diagram","yrken_kvinnor.png"))
 ```
 
-## Arbetsmarknadsstatus
+### Arbetsmarknadsstatus
 
 Sysselsättningsgraden, det vill säga utsträckningen i vilken människor i
 arbetsför ålder (20-64 år) arbetar, skiljer sig åt mellan inrikes och
@@ -446,7 +449,7 @@ högre oavsett arbetslöshetstid.
 knitr::include_graphics(here("Diagram","langtidsarbetsloshet_lan_utbildningsniva.png"))
 ```
 
-## Matchning på arbetsmarknaden
+### Matchning på arbetsmarknaden
 
 Nivån av matchning på arbetsmarknaden mäter i hur stor utsträckning
 människor jobbar med vad de är utbildade till. Generellt tenderar olika
@@ -476,7 +479,7 @@ Afrika (ca 60 procent).
 knitr::include_graphics(here("Diagram","matchning_bakgrund.png"))
 ```
 
-## Etablering
+### Etablering
 
 Som diskuterats tidigare är sysselsättningsgraden låg bland utrikes
 födda generellt, och framförallt bland kvinnor. En bidragande orsak till
@@ -527,9 +530,9 @@ tidigare diagram.
 knitr::include_graphics(here("Diagram","integration_syss_nyanlDalarnas län.png"))
 ```
 
-# Ekonomisk jämställdhet
+## Ekonomisk jämställdhet
 
-## Inkomst
+### Inkomst
 
 En jämförelse av kvinnor och mäns löner i Dalarna visar på stora
 skillnader som har hållit i sig över tid. Medianinkomsten för en man i
@@ -585,7 +588,7 @@ knitr::include_graphics(here("Diagram","disponibel_inkomstDalarnas län.png"))
 knitr::include_graphics(here("Diagram","ekonomiskt_bistandDalarnas län.png"))
 ```
 
-## Antal skuldsatta
+### Antal skuldsatta
 
 Ytterligare en aspekt av ekonomisk status är skuldsättningsgraden för
 olika grupper. I det första diagrammet nedan redovisas antalet personer
@@ -611,9 +614,9 @@ knitr::include_graphics(here("Diagram","antal_skuldsatta_Dalarna.png"))
 knitr::include_graphics(here("Diagram","Antal_langsiktigt_skuldsatta.png"))
 ```
 
-# (O)hälsa
+## (O)hälsa
 
-## Ohälsotalet
+### Ohälsotalet
 
 Det finns tydliga skillnader mellan kvinnor och män inom hälsa.
 Ohälsotalet[^3] mäter utsträckningen i vilken personer tvingas vara
@@ -645,7 +648,7 @@ knitr::include_graphics(here("Diagram","ohalsotalDalarnas län.png"))
 knitr::include_graphics(here("Diagram","ohalsotal_kommunDalarnas län.png"))
 ```
 
-## Sjukpenningtalet
+### Sjukpenningtalet
 
 I likhet med ohälsotalet så tenderar sjukpenningtalet, som enbart
 innefattar sjukpenning och rehabiliteringspenning, att variera kraftigt
@@ -677,7 +680,7 @@ knitr::include_graphics(here("Diagram","SjukpenningtalDalarnas län.png"))
 knitr::include_graphics(here("Diagram","Sjukpenningtal_kommunDalarnas län.png"))
 ```
 
-## Stress
+### Stress
 
 En märkbar utveckling under de senaste årtiodena är ökningen i antalet
 stressrelaterade sjukskrivningar. Ett allt större antal sjukskrivningar,
@@ -700,7 +703,7 @@ psykosociala arbetsmiljön.[^4]
 knitr::include_graphics(here("Diagram","Antal_stressDalarnas län.png"))
 ```
 
-## Är det skillnader på branscher?
+### Är det skillnader på branscher?
 
 Rent generellt är det stora skillnader i antalet startade sjukfall (per
 1000 förvärvsarbetande) mellan olika branscher. För kvinnor är antalet
@@ -717,9 +720,9 @@ och IT. Notera även att antalet startade sjukfall (per 1000 förvärvsarbetande
 knitr::include_graphics(here("Diagram","Startade_sjukfall_branschDalarnas län.png"))
 ```
 
-# Obetalt arbete
+## Obetalt arbete
 
-## Föräldrapenning
+### Föräldrapenning
 
 Antalet mottagare av föräldrapenning (den första figuren nedan) ökade
 från ungefär 13 000 i slutet av 90-talet till över 22 000 2018. 
@@ -757,7 +760,7 @@ knitr::include_graphics(here("Diagram","Foraldrapenning_andelDalarnas län.png")
 knitr::include_graphics(here("Diagram","Foraldrapenning_andel_kommunDalarnas län.png"))
 ```
 
-## Tillfällig föräldrapenning
+### Tillfällig föräldrapenning
 
 Vad gäller tillfällig föräldrapenning, det som i folkmun kallas Vab,
 minskade antalet uttagna nettodagar något mellan 2006 och 2009, för att
@@ -783,9 +786,9 @@ knitr::include_graphics(here("Diagram","Vab_antal_linjeDalarnas län.png"))
 #knitr::include_graphics(here("Diagram","Vab_antal_kommunDalarnas län.png"))
 ```
 
-# Makt och politik
+## Makt och politik
 
-## Politiskt valda
+### Politiskt valda
 
 Den politiska sfären har historiskt varit mansdominerad och kvinnor har
 haft avsevärt färre tynga politiska uppdrag. Det första diagrammet i det
@@ -832,7 +835,7 @@ knitr::include_graphics(here("Diagram","regionfullmaktige_Dalarnas län.png"))
 knitr::include_graphics(here("Diagram","kommunfullmäktige_Dalarnas län.png"))
 ```
 
-## Chefsskap
+### Chefsskap
 
 Ett annat mått på makt är den ställning individen har på arbetsplatsen
 och i yrkeslivet. I det först diagrammet nedan visas andelen chefer för
@@ -860,5 +863,16 @@ knitr::include_graphics(here("Diagram","andel_chefer.png"))
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 #lista_figurer$andel_chefer_linje
 knitr::include_graphics(here("Diagram","andel_chefer_linje.png"))
+
+```
+
+```{r, include = FALSE}
+
+# kopiera html-filen till 
+file.copy(from = "kvinnor_man_markdown.html", to = "docs/index.html", overwrite = TRUE)
+file.copy(from = "kvinnor_man_markdown.Rmd", to = "docs/index.Rmd", overwrite = TRUE)
+
+# ska vi ta bort html-filen i projektmappen eller ha dubbelt, både där och i docs-mappen?
+#file.remove("laget_i_Dalarna.html")
 
 ```
