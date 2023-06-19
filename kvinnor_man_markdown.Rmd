@@ -15,17 +15,42 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
-library(here)
+
+# Nödvändiga paket
+if (!require("pacman")) install.packages("pacman")
+p_load(here)
+
+# Funktioner som behövs
+source("G:/skript/func/func_API.R", encoding = "utf-8", echo = FALSE)
+source("G:/skript/func/func_SkapaDiagram.R", encoding = "utf-8", echo = FALSE)
+
+# Här läggs figurerna
+outputmapp = here("Diagram","/")
+
+# Kvarleva från tidigare
 lista_figurer=list()
 skapa_lista=FALSE
 
 # Om man vill uppdatera den externa hemsidan sätts denna variabel till TRUE
 uppdatera_hemsida=FALSE
 
+# Om man vill uppdatera data sätts denna variabel till TRUE
+uppdatera_data=FALSE
+
 if(skapa_lista==TRUE){
 source(here("master_kvinnor_man.R"), encoding = "utf-8", echo = FALSE)
 lista_figurer=c(lista_figurer,hamta_figurer(skapa_ppt=FALSE))
 }
+
+if(uppdatera_data==TRUE){
+source(here("Skript","1_hamta_data.R"), encoding="UTF-8")
+}
+
+# Läser in data
+befolkning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/andel_aldre.xlsx")
+utbildning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/utbildningsniva.xlsx")
+utbildning_85_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/utbildningsniva_85.xlsx")
+
 ```
 # Kvinnor och män i Dalarna
 <p style = "font-size:12px">
@@ -138,17 +163,51 @@ knitr::include_graphics(here("Diagram","Befpyramid Dalarnas län 2021.png"))
 knitr::include_graphics(here("Diagram","Befpyramid Dalarnas län 2021_jmfr_ar_1968.png"))
 ```
 
-Dalarnas befolkning är äldre än befolkningen i de flesta andra svenska
-län. I Dalarna är ungefär 23 procent av befolkningen äldre än 65 år,
-vilket är tredje högst i Sverige efter Gotland och Kalmar län. Den
-lägsta andelen äldre återfinns i Stockholms län där drygt 15 procent av
-befolkningen är äldre än 65 år. Generellt tenderar befolkningen att vara
-äldre i regioner med glesare och mindre befolkning där det inte finns större urbana
-center jämfört med län där det finns större städer.
+```{r, echo=FALSE}
 
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$andel_over_65_Sverige
-knitr::include_graphics(here("Diagram","andel_over_65_Sverige.png"))
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
+
+# Tar bort län och byter riket mot Sverige
+befolkning_df$region <- skapa_kortnamn_lan(befolkning_df$region,byt_ut_riket_mot_sverige = TRUE)
+
+# Skapar en variabel som bestämmer om personer är över 65 och summerar och beräknar andelar
+befolkning_sum <- befolkning_df %>% 
+  mutate(aldersgrupp = ifelse(as.integer(ålder)>65,"Över 65","Under 65")) %>% 
+    group_by(region,år,aldersgrupp) %>% 
+      summarize(antal = sum(Folkmängd)) %>% 
+        mutate(andel = round((antal/sum(antal))*100,2))
+
+diagramtitel <- paste0("Andel av befolkningen över 65 år i Dalarna ",unique(befolkning_sum$år))
+diagramfilnamn <- paste0("andel_over_65_Sverige.png")
+
+andel_aldre <- SkapaStapelDiagram(skickad_df = befolkning_sum %>% 
+                               filter(aldersgrupp == "Över 65") %>% 
+                                mutate(fokus = ifelse(region == "Dalarna",1,
+                                                  ifelse(region == "Sverige",2,0))),
+                             skickad_x_var = "region",
+                             skickad_y_var = "andel",
+                             manual_color = diagramfarger("rus_tre_fokus"),
+                             diagram_titel = diagramtitel,
+                             diagram_capt =  diagram_capt,
+                             x_axis_sort_value = TRUE,
+                             x_var_fokus = "fokus",
+                             manual_y_axis_title="procent",
+                             manual_x_axis_text_vjust = 1,
+                             manual_x_axis_text_hjust = 1,
+                             x_axis_lutning = 45,
+                             output_mapp = outputmapp,
+                             filnamn_diagram = diagramfilnamn,
+                             skriv_till_diagramfil = TRUE)
+
+```
+
+Dalarnas befolkning är äldre än befolkningen i de flesta andra svenska
+län. I Dalarna var ungefär `r round(befolkning_sum %>% filter(region=="Dalarna",aldersgrupp=="Över 65") %>% .$andel,0)` procent av befolkningen äldre än 65 år `r befolkning_sum %>% filter(region=="Dalarna",aldersgrupp=="Över 65") %>% .$år`,
+vilket är tredje högst i Sverige efter Gotland och Kalmar. Den
+lägsta andelen äldre återfinns i Stockholm där drygt `r round(befolkning_sum %>% filter(region=="Stockholm",aldersgrupp=="Över 65") %>% .$andel,0)` procent av befolkningen är äldre än 65 år. Generellt tenderar befolkningen att vara äldre i regioner med glesare och mindre befolkning där det inte finns större urbana center jämfört med län där det finns större städer.
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+andel_aldre
 ```
 
 Åldersstrukturen för inrikes och utrikes födda invånare i Dalarna
@@ -187,9 +246,39 @@ detta att drygt 56 procent av alla män i Dalarna har en
 gymnasieutbildning som högsta utbildning. Motsvarande siffra för kvinnor
 i Dalarna är 45 procent.
 
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$`utbildningsniva_Dalarnas län`
-knitr::include_graphics(here("Diagram","utbildningsniva_Dalarnas län.png"))
+```{r, echo=FALSE}
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna"
+
+  # Skapar en faktorvariabel som styr vilken ordning som utbildningsgrupper visas
+  utbildning_df$utbildningsnivå <- factor(utbildning_df$utbildningsnivå, levels = c("eftergymnasial utbildning, 3 år eller mer","eftergymnasial utbildning, mindre än 3 år",
+                                                                                    "gymnasial utbildning 3 år","gymnasial utbildning, högst 2 år","förgymnasial utbildning, 
+                                                                                    9 (10) år","förgymnasial utbildning kortare än 9 år")[6:1])
+
+
+  diagramtitel <-paste0("Utbildningsnivå (25-64 år) i Dalarna ", unique(utbildning_df$år))
+  diagramfilnamn <- paste0("utbildningsniva_Dalarnas län.png")
+
+  utbildning_fig <- SkapaStapelDiagram(skickad_df <- utbildning_df %>%
+                                         filter(region == "Dalarna", utbildningsnivå != "uppgift om utbildningsnivå saknas"), 
+                                       skickad_x_var = "utbildningsnivå", 
+                                       skickad_y_var = "andel", 
+                                       skickad_x_grupp = "kön",
+                                       x_axis_lutning = 0,
+                                       diagram_liggande = TRUE,
+                                       x_axis_sort_value=FALSE,
+                                       manual_color = diagramfarger("kon"),
+                                       manual_y_axis_title = "procent",
+                                       diagram_titel = diagramtitel,
+                                       diagram_capt =  diagram_capt,
+                                       facet_legend_bottom = TRUE,
+                                       berakna_index = FALSE,
+                                       output_mapp = outputmapp,
+                                       filnamn_diagram = diagramfilnamn,
+                                       skriv_till_diagramfil = TRUE)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+utbildning_fig
 ```
 
 I jämförelse med andra län har Dalarna relativt få personer med hög
@@ -204,25 +293,82 @@ län som Dalarna. Skillnaden är störst bland män, där andelen
 högutbildade män i Stockholms län är mer än dubbelt så hög som
 motsvarande andel i Dalarnas län.
 
-```{r, echo=FALSE, fig.width=5, fig.align='center', out.width="90%"}
-#lista_figurer$hogutbildade_lan_kon
-knitr::include_graphics(here("Diagram","utbildningsniva_jmf_lan_kon.png"))
+```{r, echo=FALSE}
+  
+diagramtitel <-paste0("Andel av befolkningen  (25-64 år) med minst 3 års eftergymnasial utbildning ", unique(utbildning_df$år))
+diagramfilnamn <- paste0("utbildningsniva_jmf_lan_kon.png")
+
+utbildning_lan_fig <- SkapaStapelDiagram(skickad_df <- utbildning_df %>%
+                                           filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer"), 
+                                         skickad_x_var = "region", 
+                                         skickad_y_var = "andel", 
+                                         skickad_x_grupp = "kön",
+                                         diagram_liggande=FALSE,
+                                         manual_x_axis_text_vjust=1,
+                                         manual_x_axis_text_hjust=1,
+                                         x_axis_lutning = 45,
+                                         x_axis_sort_value=TRUE,
+                                         manual_color = diagramfarger("kon"),
+                                         manual_y_axis_title="procent",
+                                         diagram_titel = diagramtitel,
+                                         diagram_capt =  diagram_capt,
+                                         facet_legend_bottom=TRUE,
+                                         berakna_index = FALSE,
+                                         output_mapp = outputmapp,
+                                         filnamn_diagram = diagramfilnamn,
+                                         skriv_till_diagramfil = TRUE)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+utbildning_lan_fig
+```
+
+
+
+```{r, echo=FALSE, include=TRUE, fig.width=5, fig.align='center', out.width="90%"}
+
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
+
+# Tar bort uppgift saknas och beräknar hur stor andel som har en viss utbildning
+utbildning_85_utskrift<-utbildning_85_df %>%
+  filter(utb_niva!="Uppgift saknas") %>%
+    group_by(år,region,kön,utb_niva) %>%
+      summarize(antal=sum(Befolkning)) %>%
+        mutate(andel=(antal/sum(antal))*100)
+
+diagramtitel <- paste0("Andel av befolkningen (25-64 år) med minst 3 års eftergymnasial utbildning i ",unique(utbildning_85_utskrift$region))
+diagramtitel <- str_wrap(diagramtitel)
+diagramfilnamn <- paste0("utbildningsniva_85_21_kon.png")
+
+utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
+                              filter(år%in%c("1985","1990","1995","2000","2005","2010","2015",max(utbildning_85_utskrift$år))) %>%
+                                filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer"),
+                             skickad_x_var = "år",
+                             skickad_y_var = "andel",
+                             skickad_x_grupp = "kön",
+                             manual_color = diagramfarger("kon"),
+                             diagram_titel = diagramtitel,
+                             diagram_capt =  diagram_capt,
+                             x_axis_lutning = 0,
+                             manual_y_axis_title="procent",
+                             output_mapp = outputmapp,
+                             filnamn_diagram = diagramfilnamn,
+                             skriv_till_diagramfil = TRUE)
+
 ```
 
 Andelen av befolkningen i Dalarna med högre utbildning har ökat de senaste
 decennierna. Bara drygt sju procent av befolkningen hade en högre utbildning
-i mitten av 80-talet. 2021 hade den andelen ökat till drygt 28 procent
+i mitten av 80-talet. `r round(utbildning_85_utskrift %>% filter(år %in% c(max(.$år)),kön=="kvnnor) %>% .$andel,0))` hade den andelen ökat till drygt 28 procent
 för kvinnor och ungefär 15 procent för män. Anmärkningsvärt är också att
 skillnaden i utbildningsnivå mellan könen har ökat avsevärt genom åren.
 I mitten av 80-talet var andelen högutbildade ungefär lika stor bland
 kvinnor och män. 2021 var nästan dubbelt så många kvinnor som män
 högutbildade i Dalarna.
 
-```{r, echo=FALSE, include=TRUE, fig.width=5, fig.align='center', out.width="90%"}
-#lista_figurer$`hogutbildade_kon_Dalarnas län`
-knitr::include_graphics(here("Diagram","utbildningsniva_85_21_kon.png"))
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+utb_85_fig
 ```
-
 En utmaning för länet är den obalans som råder för antalet antagna till
 gymnasieprogrammen i Dalarna. Av totalt 20 gymnasieprogram i länet kan
 endast fyra sägas vara jämställda, dvs. de har en könsfördelning där
