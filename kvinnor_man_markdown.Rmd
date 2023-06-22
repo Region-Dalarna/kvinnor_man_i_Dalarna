@@ -18,11 +18,13 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 # Nödvändiga paket
 if (!require("pacman")) install.packages("pacman")
-p_load(here)
+p_load(here,
+       tidyverse,
+       openxlsx)
 
-# Funktioner som behövs
-source("G:/skript/func/func_API.R", encoding = "utf-8", echo = FALSE)
-source("G:/skript/func/func_SkapaDiagram.R", encoding = "utf-8", echo = FALSE)
+# Funktioner som behövs (hämtas från Git-Hub)
+source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_SkapaDiagram.R")
+source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
 
 # Här läggs figurerna
 outputmapp = here("Diagram","/")
@@ -32,24 +34,26 @@ lista_figurer=list()
 skapa_lista=FALSE
 
 # Om man vill uppdatera den externa hemsidan sätts denna variabel till TRUE
-uppdatera_hemsida=FALSE
+uppdatera_hemsida = FALSE
 
 # Om man vill uppdatera data sätts denna variabel till TRUE
-uppdatera_data=FALSE
+uppdatera_data = FALSE
 
-if(skapa_lista==TRUE){
+if(skapa_lista == TRUE){
 source(here("master_kvinnor_man.R"), encoding = "utf-8", echo = FALSE)
 lista_figurer=c(lista_figurer,hamta_figurer(skapa_ppt=FALSE))
 }
 
-if(uppdatera_data==TRUE){
+if(uppdatera_data == TRUE){
 source(here("Skript","1_hamta_data.R"), encoding="UTF-8")
 }
 
 # Läser in data
-befolkning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/andel_aldre.xlsx")
+befolkning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/befolkning.xlsx",sheet = 1)
+befolkning_df_for <- read.xlsx("G:/skript/projekt/data/kvinnor_man/befolkning.xlsx",sheet = 2)
 utbildning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/utbildningsniva.xlsx")
 utbildning_85_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/utbildningsniva_85.xlsx")
+forvarvsarbetande_bransch <- read.xlsx("G:/skript/projekt/data/kvinnor_man/forvarvsarbetande_bransch.xlsx")
 
 ```
 # Kvinnor och män i Dalarna
@@ -89,7 +93,7 @@ finns behov av framtida fördjupningar.
 
 ## Sammanfattning av trender
 
-1. Den demografiska utmaningen för Dalarna syns tydligt i befolkningsstrukturen för länet. Befolkningen är idag äldre och andelen äldre kommer fortsätta växa under kommande år. Denna trend existerar för både kvinnor och män med tillägget att kvinnor utgör något större andelar av de äldsta befolkningsgrupperna i länet.
+1. Den demografiska utmaningen för Dalarna syns tydligt i befolkningsstrukturen för länet. Befolkningen är idag äldre och andelen äldre kommer fortsätta växa under kommande år. Denna trend existerar för både kvinnor och män med  tillägget att kvinnor utgör något större andelar av de äldsta befolkningsgrupperna i länet.
 
 2.  Det råder fortsatt stor obalans i antagningen till
     gymnasieprogrammen i Dalarna. Endast tre gymnasieprogram (hotell-
@@ -126,15 +130,41 @@ finns behov av framtida fördjupningar.
 
 ## Dalarnas befolkning
 
-Dalarnas län hade 2021 drygt 288 000 invånare, vilket är ungefär 10 000
-(3,4 procent) fler än 1968. Under samma tidsperiod ökade Sveriges
-befolkning med drygt 30 procent (se diagram nedan).
-
 ```{r, echo=FALSE, fig.align='center', include = TRUE, out.width="90%"}
-#lista_figurer$`Befolkning i Dalarnas län år 1968`
-knitr::include_graphics(here("Diagram","befolkning_forandring.png"))
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna"
+
+befolkning_df_for <- befolkning_df_for %>%
+  group_by(år,region) %>% 
+    summarize(`Folkmängd`= sum(`Folkmängd`)) %>% 
+      mutate(region = skapa_kortnamn_lan(region,byt_ut_riket_mot_sverige = TRUE))
+
+diagram_titel <- paste0("Befolkningsförändring ",min(befolkning_df_for$år)," - ",max(befolkning_df_for$år), " (basår 1968)")
+diagram_typ <- "befolkning_forandring"
+diagramfil <- paste0(diagram_typ, ".png")
+
+bef_for <- SkapaLinjeDiagram(skickad_df = befolkning_df_for %>% 
+                              filter(region %in% c("Sverige","Dalarna")), 
+                            skickad_x_var = "år", 
+                            skickad_y_var = "Folkmängd",
+                            skickad_x_grupp = "region",
+                            manual_color = diagramfarger("rus_sex"),
+                            x_axis_lutning = 45,
+                            berakna_index = TRUE,
+                            diagram_titel = diagram_titel,
+                            stodlinjer_avrunda_fem = FALSE,
+                            diagram_capt = diagram_capt,
+                            output_mapp = "",
+                            visa_var_x_xlabel = 4,
+                            filnamn_diagram = diagramfil,
+                            skriv_till_diagramfil = FALSE)
 ```
 
+Dalarnas län hade `r last(befolkning_df_for$år)` `r as.character(format(befolkning_df_for %>% filter(region == "Dalarna",år == last(.$år)) %>% .$Folkmängd, big.mark=" ", scientific=FALSE, trim=TRUE))` invånare, vilket är ungefär `r gsub("\\.",",",round(((befolkning_df_for %>% filter(region == "Dalarna",år == last(.$år)) %>% .$Folkmängd/befolkning_df_for %>% filter(region == "Dalarna",år == first(.$år)) %>% .$Folkmängd)-1)*100,1))` procent fler än 1968. Under samma tidsperiod ökade Sveriges
+befolkning med `r gsub("\\.",",",round(((befolkning_df_for %>% filter(region == "Sverige",år == last(.$år)) %>% .$Folkmängd/befolkning_df_for %>% filter(region == "Sverige",år == first(.$år)) %>% .$Folkmängd)-1)*100,1))` procent (se diagram nedan).
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+bef_for
+```
 Befolkningen i Dalarna var 2021 relativt jämnt fördelade mellan könen,
 men med något fler män än kvinnor. Åldersstrukturen har förändrats
 avsevärt sedan slutet av 60-talet, vilket en jämförelse av staplarna och de svarta linjerna i diagrammet nedanför visar. Den främsta förändringen
@@ -231,28 +261,26 @@ knitr::include_graphics(here("Diagram","Befpyramid Dalarnas län 2021_jmfr_utr_i
 Utbildningsnivån för åldersgruppen 25-64 år redovisas i figuren nedan
 och visar på skillnader mellan könen. Kvinnor har generellt en högre
 utbildningsnivå än män i länet. Bland kvinnor i Dalarna är den
-vanligaste, med 28 procent, utbildningsnivån "eftergymnasial utbildning
-som är 3 år eller längre". Inom den här utbildningskategorin är
-motsvarande siffra för män i Dalarna knappt 15 procent. I kombination
-med "kortare eftergymnasiala studier (högst 2 år)" är det totalt 42
-procent av kvinnorna i Dalarna som har någon form av eftergymnasial
-utbildning. För män i länet är motsvarande siffra cirka 26 procent.
+vanligaste, med `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel,0)` procent, utbildningsnivån "`r utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$utbildningsnivå`". Inom den här utbildningskategorin är
+motsvarande siffra för män i Dalarna knappt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer")  %>% .$andel,0)` procent. I kombination
+med "kortare eftergymnasiala studier (högst 2 år)" är det totalt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "eftergymnasial utbildning, mindre än 3 år")  %>% .$andel,0)` procent av kvinnorna i Dalarna som har någon form av eftergymnasial
+utbildning. För män i länet är motsvarande siffra cirka `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män", utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, mindre än 3 år")  %>% .$andel,0)` procent.
 
 Bland män i Dalarna är den vanligast förekommande utbildningskategorin
-"genomgången gymnasieutbildning på 3 år". Drygt 30 procent av männen i
-Dalarna återfinns inom denna kategori. Ytterligare drygt 26 procent av
+"`r utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$utbildningsnivå`". Drygt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$andel,0)` procent av männen i
+Dalarna återfinns inom denna kategori. Ytterligare drygt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av
 männen har en gymnasieutbildning om högst 2 år. Sammantaget innebär
-detta att drygt 56 procent av alla män i Dalarna har en
+detta att drygt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män", utbildningsnivå == "gymnasial utbildning, 3 år") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av alla män i Dalarna har en
 gymnasieutbildning som högsta utbildning. Motsvarande siffra för kvinnor
-i Dalarna är 45 procent.
+i Dalarna är `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor", utbildningsnivå == "gymnasial utbildning, 3 år") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent.
 
 ```{r, echo=FALSE}
 diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna"
 
   # Skapar en faktorvariabel som styr vilken ordning som utbildningsgrupper visas
   utbildning_df$utbildningsnivå <- factor(utbildning_df$utbildningsnivå, levels = c("eftergymnasial utbildning, 3 år eller mer","eftergymnasial utbildning, mindre än 3 år",
-                                                                                    "gymnasial utbildning 3 år","gymnasial utbildning, högst 2 år","förgymnasial utbildning, 
-                                                                                    9 (10) år","förgymnasial utbildning kortare än 9 år")[6:1])
+                                                                                    "gymnasial utbildning, 3 år","gymnasial utbildning, högst 2 år","förgymnasial utbildning, 9 (10) år",
+                                                                                    "förgymnasial utbildning kortare än 9 år")[6:1])
 
 
   diagramtitel <-paste0("Utbildningsnivå (25-64 år) i Dalarna ", unique(utbildning_df$år))
@@ -274,16 +302,17 @@ diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsan
                                        berakna_index = FALSE,
                                        output_mapp = outputmapp,
                                        filnamn_diagram = diagramfilnamn,
-                                       skriv_till_diagramfil = TRUE)
+                                       skriv_till_diagramfil = FALSE)
 ```
+
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
 utbildning_fig
 ```
 
 I jämförelse med andra län har Dalarna relativt få personer med hög
-utbildning. Andelen kvinnor med en högre utbildning om minst 3 år är 28
-procent och motsvarande siffra för män i länet är cirka 14 procent.
+utbildning. Andelen kvinnor med en högre utbildning om minst 3 år var `r unique(utbildning_df$år)` ungefär `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Dalarna",kön == "kvinnor") %>% .$andel,0) `
+procent och motsvarande siffra för män i länet är cirka `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Dalarna",kön == "män") %>% .$andel,0) ` procent.
 Detta utfall placerar Dalarna som sämst i klassen, tillsammans med
 Gävleborg, Kalmar och Södermanlands län som har liknande låga siffror.
 
@@ -323,8 +352,6 @@ utbildning_lan_fig <- SkapaStapelDiagram(skickad_df <- utbildning_df %>%
 utbildning_lan_fig
 ```
 
-
-
 ```{r, echo=FALSE, include=TRUE, fig.width=5, fig.align='center', out.width="90%"}
 
 diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
@@ -359,11 +386,11 @@ utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
 
 Andelen av befolkningen i Dalarna med högre utbildning har ökat de senaste
 decennierna. Bara drygt sju procent av befolkningen hade en högre utbildning
-i mitten av 80-talet. `r round(utbildning_85_utskrift %>% filter(år %in% c(max(.$år)),kön=="kvnnor) %>% .$andel,0))` hade den andelen ökat till drygt 28 procent
-för kvinnor och ungefär 15 procent för män. Anmärkningsvärt är också att
+i mitten av 80-talet. `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` hade den andelen ökat till ca `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "kvinnor") %>% .$andel,0)` procent
+för kvinnor och ungefär `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "män") %>% .$andel,0)` procent för män. Anmärkningsvärt är också att
 skillnaden i utbildningsnivå mellan könen har ökat avsevärt genom åren.
 I mitten av 80-talet var andelen högutbildade ungefär lika stor bland
-kvinnor och män. 2021 var nästan dubbelt så många kvinnor som män
+kvinnor och män. `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` var nästan dubbelt så många kvinnor som män
 högutbildade i Dalarna.
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
@@ -390,13 +417,13 @@ knitr::include_graphics(here("Diagram","kon_andel_programtyp.png"))
 De skillnader som råder i gymnasieantagningen återspeglas i skillnader
 mellan kvinnor och män senare i arbetslivet (se figuren nedan). Det
 finns branscher i länet som har en tydlig övervikt av det ena eller det
-andra könet, exempelvis byggbranschen, som inrymmer yrken inom bland
-annat el och VVS, där män utgjorde över 90 procent av de
-förvärvsarbetande 2021. Även om det har skett en ökning av andelen
+andra könet, exempelvis bygg, som inrymmer yrken inom bland
+annat el och VVS, där kvinnor utgjorde bara ca `r round((forvarvsarbetande_bransch %>% filter(kön=="kvinnor",naringsgren=="Bygg",region == "Dalarna") %>% .$antal/sum(forvarvsarbetande_bransch %>% filter(naringsgren=="Bygg",region == "Dalarna") %>% .$antal))*100,0)` av de
+förvärvsarbetande `r unique(forvarvsarbetande_bransch$år)`. Även om det har skett en ökning av andelen
 kvinnor inom byggbranschen, är denna ökning försumbar. Inom vård och
-omsorg är bilden den motsatta. Här utgjorde kvinnor ca 80 procent av
-andelen förvärvsarbetande 2021, vilket är en något lägre andel än 2008.
-Bygg samt Vård och omsorg är även de brancher som har störst övervikt
+omsorg är bilden den motsatta. Här utgjorde kvinnor ca `r round((forvarvsarbetande_bransch %>% filter(kön=="kvinnor",naringsgren=="Vård och omsorg",region == "Dalarna") %>% .$antal/sum(forvarvsarbetande_bransch %>% filter(naringsgren=="Vård och omsorg",region == "Dalarna") %>% .$antal))*100,0)` procent av
+andelen förvärvsarbetande `r unique(forvarvsarbetande_bransch$år)`.
+Bygg samt vård och omsorg är även de branscher som har störst övervikt
 för pojkar/flickor i gymnasieantagningen, vilket innebär att en framtida
 förändring i balansen mellan män och kvinnor inom olika branscher till
 stor del beror på, eller kan påverkas av, en förändring i ungdomars
@@ -412,8 +439,37 @@ vårdbiträden. Diagrammen nedan visar de yrken i länet som flest kvinnor
 respektive män utövar.
 
 ```{r, echo=FALSE,fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$`Andel kvinnor i Dalarnas län per bransch`
-knitr::include_graphics(here("Diagram","Andel kvinnor i Dalarnas län per bransch_per_bransch_förändring.png"))
+
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: 16-74 år"
+
+forvarvsarbetande_bransch$andel <- (forvarvsarbetande_bransch$andel)*100
+
+diagramtitel <- paste0("Antal förvärvsarbetande per bransch i Dalarna år ",unique(forvarvsarbetande_bransch$år))
+diagramfil <- "forvarvsarbetande_bransch.png"
+
+
+forvarvsarbetande_kon_fig <- SkapaStapelDiagram(skickad_df <- forvarvsarbetande_bransch %>%
+                                                 filter(region == "Dalarna"), 
+                                               skickad_x_var = "naringsgren", 
+                                               skickad_y_var = "antal", 
+                                               skickad_x_grupp = "kön",
+                                               diagram_liggande=FALSE,
+                                               manual_x_axis_text_vjust=1,
+                                               manual_x_axis_text_hjust=1,
+                                               x_axis_lutning = 45,
+                                               x_axis_sort_value=TRUE,
+                                               manual_color = diagramfarger("kon"),
+                                               diagram_titel = diagramtitel,
+                                               diagram_capt =  diagram_capt,
+                                               facet_legend_bottom=TRUE,
+                                               berakna_index = FALSE,
+                                               output_mapp = "outputmapp",
+                                               filnamn_diagram = diagramfilnamn,
+                                               skriv_till_diagramfil = TRUE)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+forvarvsarbetande_kon_fig
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
