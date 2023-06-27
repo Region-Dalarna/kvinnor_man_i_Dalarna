@@ -3,7 +3,7 @@ if (!require("pacman")) install.packages("pacman")
 p_load(pxweb,openxlsx)
 
 # Skript som behövs
-source("G:/skript/func/func_API.R", encoding = "utf-8", echo = FALSE)
+source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
 
 #test_list=data_utbniva_85(skapa_fil=FALSE)
 data_utbniva_85 <- function(region_vekt="20",

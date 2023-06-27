@@ -26,7 +26,7 @@ diag_etablering <- function(region_vekt = "20",
   # ========================================== Läser in data ============================================
   pxweb_query_list <- 
     list("Region"=c(region_vekt),
-         "Kon"=c("1","2"),
+         "Kon"=c("*"),
          "UtbNiv"=c("*"),
          "BakgrVar"=c("INT010","INT020","INT030","INT040"),
          "ContentsCode"=c("0000001X"),

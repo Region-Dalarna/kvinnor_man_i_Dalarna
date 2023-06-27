@@ -57,8 +57,10 @@ forvarvsarbetande_bransch <- read.xlsx("G:/skript/projekt/data/kvinnor_man/forva
 yrke_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/yrke.xlsx")
 arbetsmarknadsstatus_lan_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/arbetsmarknadsstatus_senastear.xlsx",sheet = 1)
 arbetsmarknadsstatus_kommun_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/arbetsmarknadsstatus_senastear.xlsx",sheet = 2)
-etablering_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/etableringstid.xlsx")
-
+etablering_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/etableringstid.xlsx") %>% 
+  rename(andel = `Andel.förvärvsarbetande.(ny.definition.från.och.med.2019)`)
+medianinkomst_df <-  read.xlsx("G:/skript/projekt/data/kvinnor_man/medianinkomst.xlsx") %>% 
+  rename(medianinkomst = `Medianinkomst,.tkr`)
 ```
 # Kvinnor och män i Dalarna
 <p style = "font-size:12px">
@@ -856,10 +858,10 @@ födda generellt, och framförallt bland kvinnor. En bidragande orsak till
 det är att det tar relativt lång tid för, i första hand, nyanlända
 kvinnor att etablera sig på arbetsmarknaden. För utrikesfödda kvinnor
 som befunnit sig i Sverige i upp till 2 år (0-1 år i grafen nedan) är de
-bara knappt en fjärdedel i arbetsför ålder (20-64 år) som arbetar. För
-motsvarande grupp bland männen arbetar ungefär varannan inom 2 år. Över
+bara ungefär `r round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "samtliga utbildningsnivåer") %>% .$andel,0)` procent i arbetsför ålder (20-64 år) som arbetar. För
+motsvarande grupp bland männen arbetar ungefär `r round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "samtliga utbildningsnivåer") %>% .$andel,0)` procent inom 2 år. Över
 tid tenderar etableringsgraden att öka avsevärt och efter minst tio år i
-Sverige är det ungefär 70 procent av såväl männen som kvinnorna som
+Sverige är det över 70 procent av såväl männen som kvinnorna som
 arbetar.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -876,9 +878,11 @@ diagramfilnamn <- paste0("etablering_lan.png")
 
 # Skapar diagram där etableringstiden jämförs mellan män och kvinnor, oavsett utbildning
 etablering_fig <- SkapaStapelDiagram(skickad_df =etablering_df %>%
-                                      filter(år==max(år),utbildningsnivå=="samtliga utbildningsnivåer"),
+                                      filter(år==max(år),
+                                             utbildningsnivå=="samtliga utbildningsnivåer",
+                                             kön != "män och kvinnor"),
                                     skickad_x_var = "bakgrundsvariabel",
-                                    skickad_y_var = "Andel.förvärvsarbetande.(ny.definition.från.och.med.2019)",
+                                    skickad_y_var = "andel",
                                     skickad_x_grupp = "kön",
                                     # manual_x_axis_text_vjust=0.9,
                                     manual_color = diagramfarger("kon"),
@@ -888,15 +892,11 @@ etablering_fig <- SkapaStapelDiagram(skickad_df =etablering_df %>%
                                     diagram_facet = FALSE,
                                     x_axis_sort_value = FALSE,
                                     x_axis_lutning = 0,
-                                    diagram_liggande = FALSE,
-                                    geom_position_stack = FALSE,
                                     manual_y_axis_title = "procent",
-                                    berakna_index = FALSE,
-                                    output_mapp = "",
+                                    output_mapp = outputmapp,
                                     filnamn_diagram = diagramfilnamn,
-                                    skriv_till_diagramfil = FALSE)
+                                    skriv_till_diagramfil = TRUE)
 
-knitr::include_graphics(here("Diagram","etablering_lan.png"))
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
@@ -905,21 +905,54 @@ etablering_fig
 
 Hur snabbt en nyanländ person etableras på arbetsmarknaden är nära
 kopplat till vilken utbildningsnivå personen har. För de med högst
-utbilning tenderar processen att gå relativt snabbt och nära 40 procent
-av kvinnorna och 60 procent av männen arbetar innan man varit i Sverige
+utbildning tenderar processen att gå relativt snabbt och ca `r round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: eftergymnasial utbildning") %>% .$andel,0)` procent
+av kvinnorna och `r round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: eftergymnasial utbildning") %>% .$andel,0)` procent av männen arbetar innan man varit i Sverige
 i 2 år (0-1 år i figuren nedan). Sedan ökar etableringsgraden över tid
 och efter 10 år eller längre har fler än 80 procent av kvinnorna mellan
 20 år och 64 år jobb, vilket är i linje med sysselsättningsgraden för
-inrikes födda kvinnor i samma åldersgrupp. För de med lägst utbildning
-(ej gymnasieutbildning) är situationen väsentligt annorlunda. I den
-gruppen jobbar ungefär var 10e utrikesfödd kvinna, och var 3e
-utrikesfödd man, inom 2 år efter att man kommit till Sverige. Över tid
-ökar etableringen på arbetsmarknaden, men bara ungefär hälften av
-kvinnorna och ungefär 60 procent av männen jobbar trots att de varit i
-Sverige i minst 10 år.
+inrikes födda kvinnor i samma åldersgrupp. För de med exempelvis gymnasial utbildning
+är situationen väsentligt annorlunda. I den
+gruppen jobbar ungefär `r round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: gymnasial utbildning") %>% .$andel,0)` procent av de utrikesfödd kvinnor, och var ca `r round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: gymnasial utbildning") %>% .$andel,0)` procent av de
+utrikesfödda männen, inom 2 år efter att man kommit till Sverige. Över tid
+ökar etableringen snabbt på arbetsmarknaden för gymnasialt utbildade och exempelvis män som varit i Sverige mellan 3 och 4 år (2-3 år i figuren nedan) har högre etableringsgrad än motsvarande män med en eftergymnasial utbildning.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-knitr::include_graphics(here("Diagram","etablering_lan_utb.png"))
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
+
+# Skapar en faktorvariabel för att få tid sedan etablering i "rätt" ordning i figuren
+etablering_df$bakgrundsvariabel <- factor(etablering_df$bakgrundsvariabel, levels = c("0-1 år","2-3 år",
+                                                                                "4-9 år","10- år"))
+
+diagramtitel <- paste0("Andel förvärvsarbetande 20-64 år bland utrikes födda i Dalarna"," ",max(etablering_df$år)," uppdelat på vistelsetid i Sverige")
+diagramtitel <- str_wrap(diagramtitel)
+diagramfilnamn <- paste0("etablering_lan_utb.png")
+    
+etablering_fig_utb <- SkapaStapelDiagram(skickad_df =etablering_df %>%
+                                           filter(år == max(år),
+                                                  kön != "män och kvinnor",
+                                                  utbildningsnivå %in% c("utbildningsnivå: gymnasial utbildning" ,"utbildningsnivå: eftergymnasial utbildning")),
+                                         skickad_x_var = "bakgrundsvariabel", 
+                                         skickad_y_var = "andel", 
+                                         skickad_x_grupp = "kön",
+                                         manual_x_axis_title = "Vistelsetid",
+                                         manual_color = diagramfarger("kon"),
+                                         diagram_titel = diagramtitel,
+                                         diagram_capt =  diagram_capt,
+                                         diagram_facet = TRUE,
+                                         facet_grp = "utbildningsnivå",
+                                         facet_legend_bottom = TRUE,
+                                         facet_scale = "fixed",
+                                         x_axis_sort_value = FALSE,
+                                         x_axis_lutning = 0, 
+                                         manual_y_axis_title="procent",
+                                         output_mapp = outputmapp,
+                                         filnamn_diagram = diagramfilnamn,
+                                         skriv_till_diagramfil = TRUE)
+
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+etablering_fig_utb
 ```
 
 Hur snabbt en nyanländ person etableras på arbetsmarknaden har förändrats 
@@ -928,13 +961,51 @@ avsevärt över tid, vilket åskådliggörs i diagrammet nedan. Från början av
 ungefär 20 procent av de 20-64 åringar som varit i Sverige i upp till 2 år (0-1 år i figuren nedan)
 förvärvsarbetade och ungefär 50-60 procent av de 20-64 åringar som varit i Sverige mellan 4 och 10 år (4-9 år i figuren nedan)
 förvärvsarbetade. Efter flyktingkrisen i mitten av 10-talet verkar dock någonting ha hänt och framförallt
-personer med kort vistelsetid (upp till 2 år) kommer i arbete betydligt snabbare. Mellan 2015 och 2020 ökade andelen förvärvsarbetande av de 20-64 åringar som varit i Sverige i upp till 2 år (0-1 år i figuren nedan)
-från ungefär 15 procent till närmare 40 procent, en remarkabel förbättring. Under samma tidsperiod
+personer med kort vistelsetid (upp till 2 år) kommer i arbete betydligt snabbare. Mellan 2015 och `r max(etablering_df$år)` ökade andelen förvärvsarbetande av de 20-64 åringar som varit i Sverige i upp till 2 år (0-1 år i figuren nedan)
+från ungefär 15 procent till ca `r round(etablering_df %>% filter(bakgrundsvariabel == "0-1 år",utbildningsnivå == "samtliga utbildningsnivåer",kön == "män och kvinnor",år == max(år)) %>% .$andel,0)`  procent, en remarkabel förbättring. Under samma tidsperiod
 har även arbetslösheten för gruppen utrikes födda minskat betydligt, vilket illustrerades i ett
 tidigare diagram.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
+
+etablering_df_tid <- etablering_df %>% 
+  filter(bakgrundsvariabel != "10- år",
+         utbildningsnivå == "samtliga utbildningsnivåer",
+         kön == "män och kvinnor")
+
+# Skapar en faktorvariabel för att få tid sedan etablering i "rätt" ordning i figuren
+etablering_df_tid$bakgrundsvariabel <- factor(etablering_df_tid$bakgrundsvariabel, levels = c("0-1 år","2-3 år",
+                                                                                              "4-9 år"))
+
+diagramtitel <- paste0("Andel förvärvsarbetande 20-64 år bland utrikes födda i Dalarna uppdelat på vistelsetid i Sverige")
+diagramtitel <- str_wrap(diagramtitel)
+diagramfilnamn <- paste0("etablering_tid.png")
+    
+etablering_fig_tid <- SkapaStapelDiagram(skickad_df =etablering_df_tid,
+                                         skickad_x_var = "år", 
+                                         skickad_y_var = "andel", 
+                                         skickad_x_grupp = "bakgrundsvariabel",
+                                         manual_color = diagramfarger("rus_sex"),
+                                         diagram_titel = diagramtitel,
+                                         diagram_capt =  diagram_capt,
+                                         diagram_facet = TRUE,
+                                         facet_grp = "utbildningsnivå",
+                                         facet_legend_bottom = TRUE,
+                                         facet_scale = "fixed",
+                                         x_axis_sort_value = FALSE,
+                                         x_axis_lutning = 0, 
+                                         y_axis_100proc = TRUE,
+                                         manual_y_axis_title="procent",
+                                         output_mapp = outputmapp,
+                                         filnamn_diagram = diagramfilnamn,
+                                         skriv_till_diagramfil = TRUE)
+
 knitr::include_graphics(here("Diagram","integration_syss_nyanlDalarnas län.png"))
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+etablering_fig_tid
 ```
 
 ## Ekonomisk jämställdhet
@@ -946,7 +1017,7 @@ skillnader som har hållit i sig över tid. Medianinkomsten för en man i
 Dalarna var 2020 strax över 360 000 kr före skatt, medan en kvinna hade
 en medianinkomst på drygt 300 000 kr. I den andra figuren nedan syns
 dock att den relativa skillnaden i inkomst mellan könen har minskat
-sedan millenieskiftet. Diagrammet visar att kvinnans medianinkomsten har
+sedan millennieskiftet. Diagrammet visar att kvinnans medianinkomsten har
 fördubblats medan mannens har ökat med ungefär 80 procent. Det är dock
 viktigt att notera att figurerna nedan inte tar hänsyn till andra
 faktorer än kön som kan tänkas förklara inkomstens storlek. Som vi sett
@@ -961,13 +1032,98 @@ standardvägda lön är ungefär 95% av männens standardvägda lön [^2]
     <https://www.scb.se/hitta-statistik/statistik-efter-amne/arbetsmarknad/loner-och-arbetskostnader/lonestrukturstatistik-hela-ekonomin/pong/tabell-och-diagram/kvinnors-lon-i-procent-av-mans-lon-efter-sektor>
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$`medianinkomst_kon_total_Dalarnas län`
-knitr::include_graphics(here("Diagram","medianinkomst_kon_total_Dalarnas län.png"))
+
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas. Bearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Sammaräknad förvärvsinkomst, dvs. alla skattepliktiga inkomster före skatt (dock ej kapitalinkomster)."
+
+medianinkomst_df$region <- skapa_kortnamn_lan(medianinkomst_df$region,byt_ut_riket_mot_sverige = TRUE) 
+
+diagramtitel <- paste0("Medianinkomst (20-64 år) i Dalarna")
+diagramfilnamn <- paste0("medianinkomst_Dalarana_tid.png")
+
+medianinkomst_tid_fig <- SkapaStapelDiagram(skickad_df =medianinkomst_df %>%
+                                               filter(kön != "totalt",
+                                                      region == "Dalarna"),
+                                         skickad_x_var = "år", 
+                                         skickad_y_var = "medianinkomst",
+                                         skickad_x_grupp = "kön",
+                                         manual_color = diagramfarger("kon"),
+                                         diagram_titel = diagramtitel,
+                                         diagram_capt =  diagram_capt,
+                                         manual_x_axis_text_vjust=1,
+                                         manual_x_axis_text_hjust=1,
+                                         diagram_facet = FALSE,
+                                         facet_scale = "fixed",
+                                         vand_sortering = TRUE,
+                                         x_axis_lutning = 45, 
+                                         manual_y_axis_title = "",
+                                         output_mapp = outputmapp,
+                                         filnamn_diagram = diagramfilnamn,
+                                         skriv_till_diagramfil = TRUE)
+
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+medianinkomst_tid_fig
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$`medianinkomst_kon_total_forandring_Dalarnas län`
-knitr::include_graphics(here("Diagram","medianinkomst_kon_total_forandring_Dalarnas län.png"))
+diagramtitel <- paste0("Förändring i medianinkomst (20-64 år) i Dalarna")
+diagramfilnamn <- paste0("medianinkomst_Dalarana_tid_linje.png")
+
+# Skapar diagram för medianinkomst i valt län vs riket (ej uppdelat på kön)
+medianinkomst_linje_fig <- SkapaLinjeDiagram(skickad_df = medianinkomst_df %>%
+                                               filter(kön != "totalt",
+                                                      region == "Dalarna"),
+                                            skickad_x_var = "år",
+                                            skickad_y_var = "medianinkomst",
+                                            skickad_x_grupp = "kön",
+                                            #skickad_filter_OR_var = "region",
+                                            x_axis_lutning = 45,
+                                            manual_color = diagramfarger("kon"),
+                                            diagram_titel = diagramtitel,
+                                            diagram_capt =  diagram_capt,
+                                            diagram_facet = FALSE,
+                                            berakna_index = TRUE,
+                                            output_mapp = "",
+                                            filnamn_diagram = diagramfilnamn,
+                                            skriv_till_diagramfil = FALSE)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+medianinkomst_linje_fig
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+
+diagramtitel <- paste0("Medianinkomst (20-64 år) år ",max(medianinkomst_df$år))
+diagramfilnamn <- paste0("medianinkomst_kommun.png")
+    
+medianinkomst_kommun_fig <- SkapaStapelDiagram(skickad_df =medianinkomst_df %>%
+                                               filter(kön != "totalt",
+                                                      år == max(år)),
+                                         skickad_x_var = "region", 
+                                         skickad_y_var = "medianinkomst",
+                                         skickad_x_grupp = "kön",
+                                         manual_color = diagramfarger("kon"),
+                                         diagram_titel = diagramtitel,
+                                         diagram_capt =  diagram_capt,
+                                         manual_x_axis_text_vjust=1,
+                                         manual_x_axis_text_hjust=1,
+                                         diagram_facet = FALSE,
+                                         facet_scale = "fixed",
+                                         x_axis_sort_value = TRUE,
+                                         x_axis_sort_grp = 1,
+                                         vand_sortering = TRUE,
+                                         x_axis_lutning = 45, 
+                                         manual_y_axis_title = "",
+                                         output_mapp = outputmapp,
+                                         filnamn_diagram = diagramfilnamn,
+                                         skriv_till_diagramfil = TRUE)
+
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+medianinkomst_kommun_fig
 ```
 
 Utöver inkomster är det även relevant att undersöka den disponibla

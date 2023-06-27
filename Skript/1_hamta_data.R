@@ -40,3 +40,8 @@ diag_arbetsmarknadsstatus(skapa_fil = TRUE,
 source(here("Skript","etablering.R"), encoding="UTF-8")
 diag_etablering(spara_data = TRUE,
                 output_mapp = Output_mapp)
+
+# Medianinkomst
+source(here("Skript","medianinkomst.R"), encoding="UTF-8")
+diag_medianinkomst(spara_data = TRUE,
+                   output_mapp = Output_mapp)
