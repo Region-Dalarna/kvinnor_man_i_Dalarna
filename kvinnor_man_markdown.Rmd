@@ -54,6 +54,10 @@ befolkning_df_for <- read.xlsx("G:/skript/projekt/data/kvinnor_man/befolkning.xl
 utbildning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/utbildningsniva.xlsx")
 utbildning_85_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/utbildningsniva_85.xlsx")
 forvarvsarbetande_bransch <- read.xlsx("G:/skript/projekt/data/kvinnor_man/forvarvsarbetande_bransch.xlsx")
+yrke_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/yrke.xlsx")
+arbetsmarknadsstatus_lan_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/arbetsmarknadsstatus_senastear.xlsx",sheet = 1)
+arbetsmarknadsstatus_kommun_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/arbetsmarknadsstatus_senastear.xlsx",sheet = 2)
+etablering_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/etableringstid.xlsx")
 
 ```
 # Kvinnor och män i Dalarna
@@ -159,12 +163,13 @@ bef_for <- SkapaLinjeDiagram(skickad_df = befolkning_df_for %>%
                             skriv_till_diagramfil = FALSE)
 ```
 
-Dalarnas län hade `r last(befolkning_df_for$år)` `r as.character(format(befolkning_df_for %>% filter(region == "Dalarna",år == last(.$år)) %>% .$Folkmängd, big.mark=" ", scientific=FALSE, trim=TRUE))` invånare, vilket är ungefär `r gsub("\\.",",",round(((befolkning_df_for %>% filter(region == "Dalarna",år == last(.$år)) %>% .$Folkmängd/befolkning_df_for %>% filter(region == "Dalarna",år == first(.$år)) %>% .$Folkmängd)-1)*100,1))` procent fler än 1968. Under samma tidsperiod ökade Sveriges
+Dalarnas län hade `r as.character(format(befolkning_df_for %>% filter(region == "Dalarna",år == last(.$år)) %>% .$Folkmängd, big.mark=" ", scientific=FALSE, trim=TRUE))` invånare år `r last(befolkning_df_for$år)`, vilket är ungefär `r gsub("\\.",",",round(((befolkning_df_for %>% filter(region == "Dalarna",år == last(.$år)) %>% .$Folkmängd/befolkning_df_for %>% filter(region == "Dalarna",år == first(.$år)) %>% .$Folkmängd)-1)*100,1))` procent fler än 1968. Under samma tidsperiod ökade Sveriges
 befolkning med `r gsub("\\.",",",round(((befolkning_df_for %>% filter(region == "Sverige",år == last(.$år)) %>% .$Folkmängd/befolkning_df_for %>% filter(region == "Sverige",år == first(.$år)) %>% .$Folkmängd)-1)*100,1))` procent (se diagram nedan).
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
 bef_for
 ```
+
 Befolkningen i Dalarna var 2021 relativt jämnt fördelade mellan könen,
 men med något fler män än kvinnor. Åldersstrukturen har förändrats
 avsevärt sedan slutet av 60-talet, vilket en jämförelse av staplarna och de svarta linjerna i diagrammet nedanför visar. Den främsta förändringen
@@ -418,7 +423,7 @@ De skillnader som råder i gymnasieantagningen återspeglas i skillnader
 mellan kvinnor och män senare i arbetslivet (se figuren nedan). Det
 finns branscher i länet som har en tydlig övervikt av det ena eller det
 andra könet, exempelvis bygg, som inrymmer yrken inom bland
-annat el och VVS, där kvinnor utgjorde bara ca `r round((forvarvsarbetande_bransch %>% filter(kön=="kvinnor",naringsgren=="Bygg",region == "Dalarna") %>% .$antal/sum(forvarvsarbetande_bransch %>% filter(naringsgren=="Bygg",region == "Dalarna") %>% .$antal))*100,0)` av de
+annat el och VVS, där kvinnor bara utgjorde ungefär `r round((forvarvsarbetande_bransch %>% filter(kön=="kvinnor",naringsgren=="Bygg",region == "Dalarna") %>% .$antal/sum(forvarvsarbetande_bransch %>% filter(naringsgren=="Bygg",region == "Dalarna") %>% .$antal))*100,0)` av de
 förvärvsarbetande `r unique(forvarvsarbetande_bransch$år)`. Även om det har skett en ökning av andelen
 kvinnor inom byggbranschen, är denna ökning försumbar. Inom vård och
 omsorg är bilden den motsatta. Här utgjorde kvinnor ca `r round((forvarvsarbetande_bransch %>% filter(kön=="kvinnor",naringsgren=="Vård och omsorg",region == "Dalarna") %>% .$antal/sum(forvarvsarbetande_bransch %>% filter(naringsgren=="Vård och omsorg",region == "Dalarna") %>% .$antal))*100,0)` procent av
@@ -428,15 +433,6 @@ för pojkar/flickor i gymnasieantagningen, vilket innebär att en framtida
 förändring i balansen mellan män och kvinnor inom olika branscher till
 stor del beror på, eller kan påverkas av, en förändring i ungdomars
 studieval.
-
-Skillnader mellan kvinnor och män föreligger även på yrkesnivå. Den
-största yrkesgruppen för män i Dalarnas län är kategorin som inkluderar
-träarbetare och snickare, följd av yrkesförare och lagerpersonal. Dessa
-yrken är typiska inom mansdominerade branscher som bygg och transport.
-Bland kvinnor är det istället typiska vård och utbildningsyrken som är
-vanligast. Här finns exempelvis undersköterskor, grundskollärare och
-vårdbiträden. Diagrammen nedan visar de yrken i länet som flest kvinnor
-respektive män utövar.
 
 ```{r, echo=FALSE,fig.width=10, fig.align='center', out.width="90%"}
 
@@ -463,7 +459,7 @@ forvarvsarbetande_kon_fig <- SkapaStapelDiagram(skickad_df <- forvarvsarbetande_
                                                diagram_capt =  diagram_capt,
                                                facet_legend_bottom=TRUE,
                                                berakna_index = FALSE,
-                                               output_mapp = "outputmapp",
+                                               output_mapp = outputmapp,
                                                filnamn_diagram = diagramfilnamn,
                                                skriv_till_diagramfil = TRUE)
 ```
@@ -473,13 +469,79 @@ forvarvsarbetande_kon_fig
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$`Yrken med högst antal förvärvsarbetande män (dagbef) i Dalarnas län 2020`
-knitr::include_graphics(here("Diagram","yrken_man.png"))
+
+  diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: 16-64 år"
+
+  yrke_man <- yrke_df %>% 
+    filter(kön=='män',Yrke!="yrke okänt") %>%
+      slice_max(Antal,n=10)
+    
+    diagram_titel <- paste0("Yrken med högst antal förvärvsarbetande män i Dalarnas län ",unique(yrke_df$år))
+    diagramfil="yrken_man.png"
+    
+    yrken_man_fig <- SkapaStapelDiagram(skickad_df = yrke_man, 
+                                 skickad_x_var = "Yrke", 
+                                 skickad_y_var = "Antal",
+                                 manual_y_axis_title = "Antal förvärvsarbetande",
+                                 manual_color = diagramfarger("rus_sex")[1],
+                                 x_axis_sort_value = TRUE,
+                                 diagram_titel = diagram_titel,
+                                 diagram_capt = diagram_capt,
+                                 x_axis_lutning = 0,
+                                 diagram_liggande = TRUE,
+                                 output_mapp = outputmapp,
+                                 filnamn_diagram = diagramfil,
+                                 skriv_till_diagramfil = TRUE)
+  
+
+
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$`Yrken med högst antal förvärvsarbetande kvinnor (dagbef) i Dalarnas län 2020`
-knitr::include_graphics(here("Diagram","yrken_kvinnor.png"))
+
+  diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: 16-64 år"
+
+  yrke_kvinnor <- yrke_df %>% 
+    filter(kön=='kvinnor',Yrke!="yrke okänt") %>%
+      slice_max(Antal,n=10) %>% 
+        mutate(Yrke = ifelse(Yrke == "Undersköterskor, hemtjänst, hemsjukvård och äldreboende","Undersköterskor m.fl.",Yrke))
+  
+  
+    
+    diagram_titel <- paste0("Yrken med högst antal förvärvsarbetande kvinnor i Dalarnas län ",unique(yrke_df$år))
+    diagramfil="yrken_kvinnor.png"
+    
+    yrken_kvinnor_fig <- SkapaStapelDiagram(skickad_df = yrke_kvinnor, 
+                                 skickad_x_var = "Yrke", 
+                                 skickad_y_var = "Antal",
+                                 manual_y_axis_title = "Antal förvärvsarbetande",
+                                 manual_color = diagramfarger("rus_sex")[1],
+                                 x_axis_sort_value = TRUE,
+                                 diagram_titel = diagram_titel,
+                                 diagram_capt = diagram_capt,
+                                 x_axis_lutning = 0,
+                                 diagram_liggande = TRUE,
+                                 output_mapp = outputmapp,
+                                 filnamn_diagram = diagramfil,
+                                 skriv_till_diagramfil = TRUE)
+  
+
+
+```
+
+Skillnader mellan kvinnor och män föreligger även på yrkesnivå. Den
+största yrkesgruppen för män i Dalarnas län är kategorin som inkluderar
+`r tolower(first(yrke_man$Yrke))`, följd av `r tolower(first(yrke_man[yrke_man$Yrke != first(yrke_man$Yrke),])$Yrke)`. 
+Bland kvinnor är det istället typiska vård och utbildningsyrken som är
+vanligast. Här finns exempelvis `r tolower(first(yrke_kvinnor$Yrke))` och `r tolower(first(yrke_kvinnor[yrke_kvinnor$Yrke != first(yrke_kvinnor$Yrke),])$Yrke)`. Diagrammen nedan visar de yrken i länet som flest kvinnor
+respektive män utövar.
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+yrken_man_fig
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+yrken_kvinnor_fig
 ```
 
 ### Arbetsmarknadsstatus
@@ -495,9 +557,9 @@ den ganska liten.
 
 För utrikes födda (det högra diagrammet nedan) är bilden annorlunda.
 Utrikes födda män har en högre sysselsättningsgrad än utrikes födda
-kvinnor i samtliga län förutom Norrbotten. I Dalarna är
-sysselsättningsgraden bland utrikes födda män drygt 66 procent, vilket
-är ungefär 8 procentenheter mer än för utrikes födda kvinnor i Dalarna. 
+kvinnor i samtliga län förutom Norrbotten. I Dalarna var
+sysselsättningsgraden bland utrikes födda män ungefär `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad,0)` procent, vilket
+är ca `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad-arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad,0) ` procentenheter mer än för utrikes födda kvinnor i Dalarna. 
 Något man måste ta hänsyn till när man analyserar sysselsättningsgrad och 
 arbetslöshet bland utrikes födda är hur lång tid de har varit i Sverige.
 Vistelsetid i Sverige har ett starkt samband med sysselsättningsgrad och 
@@ -505,10 +567,37 @@ arbetslöshet och därmed kommer andelen nyanlända i gruppen utrikes födda att
 påverka nivån på dessa variabler.  
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$Arbetskraftsdeltagande_lan
-knitr::include_graphics(here("Diagram","Sysselsättningsgrad_lan.png"))
+  diagram_capt <- c("Källa: SCB:s öppna statistikdatabas, befolkningens arbetsmarknadsstatus (BAS).\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Andelen av befolkningen som är sysselsatt (sysselsättningsgrad).")
+
+  diagramtitel <- paste0("Sysselsättningsgrad i åldersgruppen 20-64 i ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$manad_long)," ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$ar))
+  diagramfilnamn <- paste0("sysselsättningsgrad","_lan",".png")
+
+syss_lan_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_lan_df %>% 
+                                   filter(kön != "totalt",födelseregion != "totalt"), 
+                                 skickad_x_var = "region", 
+                                 skickad_y_var = "sysselsättningsgrad", 
+                                 skickad_x_grupp = "kön",
+                                 manual_y_axis_title = "procent",
+                                 manual_x_axis_text_vjust=1,
+                                 manual_x_axis_text_hjust=1,
+                                 manual_color = diagramfarger("kon"),
+                                 diagram_titel = diagramtitel,
+                                 diagram_capt =  diagram_capt,
+                                 diagram_facet = TRUE,
+                                 facet_grp = "födelseregion",
+                                 facet_scale = "fixed",
+                                 facet_legend_bottom = TRUE,
+                                 x_axis_sort_value = TRUE,
+                                 x_axis_lutning = 45,
+                                 output_mapp = outputmapp,
+                                 filnamn_diagram = diagramfilnamn,
+                                 skriv_till_diagramfil = TRUE)  
+
 ```
 
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+syss_lan_fig
+```
 Vad gäller sysselsättningsgrad uppvisar kommunerna i Dalarna ett
 liknande mönster som länen på nationell nivå. Gruppen inrikes födda har
 en högre sysselsättningsgrad i samtliga kommuner i Dalarna jämfört med
@@ -518,27 +607,52 @@ skillnader mellan kvinnor och män, men också mellan olika kommuner. I
 linje med den nationella bilden är sysselsättningsgraden högre för
 gruppen utrikes födda män än för utrikes födda kvinnor.
 Sysselsättningsgraden för utrikes födda män skiljer sig dock åt mellan
-kommuner där den högsta sysselsättningsgraden finns i Malung-Sälens
-kommun (drygt 74 procent) och den lägsta i Smedjebacken (knappt 62
+kommuner där den högsta sysselsättningsgraden finns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$region` (ca `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)` procent) och den lägsta i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$region` (ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)`
 procent).
 
 Skillnaderna mellan utrikes födda kvinnor och män är mer synlig mellan
-kommuner i Dalarna än när länen som helhet jämförs. Gagnefs kommun har
-den högsta sysselsättningsgraden för gruppen utrikes födda kvinnor, 70
-procent, och ligger klart över genomsnittet för Dalarnas län (knappt 58
-procent). Samtidigt är sysselsättningsgraden i Ludvika kommun bland
-utrikes födda kvinnor bara drygt 50 procent. Ludvika, tillsammans med
-Vansbro, har de största skillnaderna i sysselsättningsgrad, ungefär 15
-procentenheter vardera, mellan utrikes födda kvinnor och män.
+kommuner i Dalarna än när länen som helhet jämförs. `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$region` har
+den högsta sysselsättningsgraden för gruppen utrikes födda kvinnor, runt `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)`
+procent, och ligger klart över genomsnittet för Dalarnas län (knappt `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(region == "Dalarna") %>% .$sysselsättningsgrad,0)`
+procent). Samtidigt är sysselsättningsgraden i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$region` kommun bland
+utrikes födda kvinnor bara ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)` procent. 
 
-Värt att notera är att en del av skillnaden i utrikes föddas sysselsättningrad mellan 
+Värt att notera är att en del av skillnaden i utrikes föddas sysselsättningsgrad mellan 
 kommunerna i Dalarna sannolikt kan förklaras av skillnader i antalet personer som invandrade under åren runt
 flyktingkrisen 2015. Exempelvis var Avesta, Ludvika och Hedemora de tre kommuner som hade högst invandring i förhållande till folkmängd under 2015, 2016 och 2017.
 
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$Arbetskraftsdeltagande_kommun
-knitr::include_graphics(here("Diagram","Sysselsättningsgrad_kommun.png"))
+  diagram_capt <- c("Källa: SCB:s öppna statistikdatabas, befolkningens arbetsmarknadsstatus (BAS).\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Andelen av befolkningen som är sysselsatt (sysselsättningsgrad).")
+
+  diagramtitel <- paste0("Sysselsättningsgrad i åldersgruppen 20-64 i ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$manad_long)," ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$ar))
+  diagramfilnamn <- paste0("sysselsättningsgrad","_kommun",".png")
+
+syss_kommun_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_kommun_df %>% 
+                                       filter(kön != "totalt",födelseregion != "totalt"), 
+                                     skickad_x_var = "region", 
+                                     skickad_y_var = "sysselsättningsgrad", 
+                                     skickad_x_grupp = "kön",
+                                     manual_y_axis_title = "procent",
+                                     manual_x_axis_text_vjust=1,
+                                     manual_x_axis_text_hjust=1,
+                                     manual_color = diagramfarger("kon"),
+                                     diagram_titel = diagramtitel,
+                                     diagram_capt =  diagram_capt,
+                                     diagram_facet = TRUE,
+                                     facet_grp = "födelseregion",
+                                     facet_scale = "fixed",
+                                     facet_legend_bottom = TRUE,
+                                     x_axis_sort_value = TRUE,
+                                     x_axis_lutning = 45,
+                                     output_mapp = outputmapp,
+                                     filnamn_diagram = diagramfilnamn,
+                                     skriv_till_diagramfil = TRUE)  
+
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+syss_kommun_fig
 ```
 
 Bilden av arbetsmarknaden kompletteras genom att titta på
@@ -553,48 +667,99 @@ diagrammet nedan). Arbetslösheten för inrikes födda i Dalarna ligger
 något högre än rikets som helhet, men kan fortfarande beskrivas som låg.
 Arbetslösheten bland utrikes födda är däremot betydligt högre i samtliga
 av Sveriges län. I Dalarna är skillnaden i arbetslöshet mellan utrikes
-och inrikes födda ca 18 procentenheter för kvinnor och ca 13
+och inrikes födda ca `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "kvinnor",födelseregion == "utrikes född") %>% .$arbetslöshet - arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "kvinnor",födelseregion == "inrikes född") %>% .$arbetslöshet,0)` procentenheter för kvinnor och ca `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "män",födelseregion == "utrikes född") %>% .$arbetslöshet - arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "män",födelseregion == "inrikes född") %>% .$arbetslöshet,0)`
 procentenheter för män.
 
 Gruppen utrikes födda kvinnor har en klart högre arbetslösheten än
-gruppen utrikes födda män i de flesta av Sveriges län. Ett undantag är
-Norrbottens län, där arbetslösheten för utrikes födda män bara är
-marginellt högre än arbetslösheten för utrikes födda kvinnor.
+gruppen utrikes födda män i de flesta av Sveriges län. 
 
 I figuren nedan framgår också att det finns avsevärda skillnader mellan
-länen. Norrbottens har den lägsta arbetslösheten för utrikes födda med
-ungefär 10-11 procent för både kvinnor och män, medan arbetslösheten
-överstiger 20 procent för båda könen i såväl Gävleborg som Södermanland.
-Dalarnas län ligger något över riksgenomsnittet, men uppvisar inte
+länen. `r arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "utrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .[1,] %>% .$region ` har den lägsta arbetslösheten för utrikes födda med
+ungefär `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "utrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .[1,] %>% .$arbetslöshet,0)` procent totalt (både kvinnor och män), medan arbetslösheten
+är ca `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .[1,] %>% .$arbetslöshet,0)` procent i `r arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .[1,] %>% .$region `. Dalarnas län ligger något över riksgenomsnittet, men uppvisar inte
 extrema arbetslöshetssiffror åt något håll.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$Arbetslöshet_lan
-knitr::include_graphics(here("Diagram","Arbetslöshet_lan.png"))
+diagram_capt <- c("Källa: SCB:s öppna statistikdatabas, befolkningens arbetsmarknadsstatus (BAS).\nBearbetning: Samhällsanalys, Region Dalarna.")
+
+  diagramtitel <- paste0("Arbetslöshet i åldersgruppen 20-64 i ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$manad_long)," ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$ar))
+  diagramfilnamn <- paste0("arbetslöshet","_lan",".png")
+
+arb_lan_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_lan_df %>% 
+                                   filter(kön != "totalt",födelseregion != "totalt"), 
+                                 skickad_x_var = "region", 
+                                 skickad_y_var = "arbetslöshet", 
+                                 skickad_x_grupp = "kön",
+                                 manual_y_axis_title = "procent",
+                                 manual_x_axis_text_vjust=1,
+                                 manual_x_axis_text_hjust=1,
+                                 manual_color = diagramfarger("kon"),
+                                 diagram_titel = diagramtitel,
+                                 diagram_capt =  diagram_capt,
+                                 diagram_facet = TRUE,
+                                 facet_grp = "födelseregion",
+                                 facet_scale = "fixed",
+                                 facet_legend_bottom = TRUE,
+                                 x_axis_sort_value = TRUE,
+                                 x_axis_lutning = 45,
+                                 output_mapp = outputmapp,
+                                 filnamn_diagram = diagramfilnamn,
+                                 skriv_till_diagramfil = TRUE)  
+
 ```
 
-Precis som var fallet med sysselsättninggrad tidigare, så uppvisar
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+arb_lan_fig
+```
+
+Precis som var fallet med sysselsättningsgrad tidigare, så uppvisar
 Dalarnas kommuner ett liknande mönster som länen på nationell nivå.
 Bland inrikes födda är arbetslösheten låg och något fler män än kvinnor
-är arbetslösa. Högst arbetslöshet bland inrikes födda finns i Ludvika,
+är arbetslösa. Högst arbetslöshet bland inrikes födda (totalt) finns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "totalt",födelseregion == "inrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$region `,
 men skillnaden gentemot genomsnittet i länet är relativt liten. Lägst
-arbetslöshet återfinns i Malung-Sälens kommun.
+arbetslöshet återfinns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "totalt",födelseregion == "inrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .$region `.
 
 För utrikes födda är arbetslösheten avsevärt mycket högre för både
-kvinnor och män. Genomsnittet i Dalarnas län ligger på drygt 21 procent
-för utrikes födda kvinnor och drygt 18 procent för utrikes födda män. De
-högsta arbetslösheterna för utrikes födda kvinnor återfinns i Avesta och
-Ludvika där de ligger på över 30 procent. Avesta redovisar även den
-högsta arbetslöshetssiffran för utrikes födda män med drygt 24 procent.
-Lägst arbetslöshet återfinns även här i Malung-Sälens kommun.
+kvinnor och män. Genomsnittet i Dalarnas län ligger på ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna") %>% .$arbetslöshet,0)` procent
+för utrikes födda kvinnor och ca `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$arbetslöshet,0)` procent för utrikes födda män. Den
+högsta arbetslösheten för utrikes födda kvinnor återfinns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$region ` där den ligger på ca `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$arbetslöshet,0)` procent. `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$region ` redovisar den
+högsta arbetslöshetssiffran för utrikes födda män med ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$arbetslöshet,0) ` procent.
+Lägst arbetslöshet återfinns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .$region ` kommun.
 
 Det är återigen värt att notera att de skillnader i arbetslöshet som diskuterades i föregående stycke
 sannolikt delvis kan förklaras av skillnader i antalet personer som invandrade i olika kommuner, 
 se diskussionen under sysselsättningsgrad ovan.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$Arbetslöshet_kommun
-knitr::include_graphics(here("Diagram","Arbetslöshet_kommun.png"))
+diagram_capt <- c("Källa: SCB:s öppna statistikdatabas, befolkningens arbetsmarknadsstatus (BAS).\nBearbetning: Samhällsanalys, Region Dalarna.")
+
+diagramtitel <- paste0("Arbetslöshet i åldersgruppen 20-64 i ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$manad_long)," ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$ar))
+diagramfilnamn <- paste0("arbetslöshet","_kommun",".png")
+
+arb_kommun_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_kommun_df %>% 
+                                       filter(kön != "totalt",födelseregion != "totalt"), 
+                                     skickad_x_var = "region", 
+                                     skickad_y_var = "arbetslöshet", 
+                                     skickad_x_grupp = "kön",
+                                     manual_y_axis_title = "procent",
+                                     manual_x_axis_text_vjust=1,
+                                     manual_x_axis_text_hjust=1,
+                                     manual_color = diagramfarger("kon"),
+                                     diagram_titel = diagramtitel,
+                                     diagram_capt =  diagram_capt,
+                                     diagram_facet = TRUE,
+                                     facet_grp = "födelseregion",
+                                     facet_scale = "fixed",
+                                     facet_legend_bottom = TRUE,
+                                     x_axis_sort_value = TRUE,
+                                     x_axis_lutning = 45,
+                                     output_mapp = outputmapp,
+                                     filnamn_diagram = diagramfilnamn,
+                                     skriv_till_diagramfil = TRUE)  
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+arb_kommun_fig
 ```
 
 Arbetslösheten i Dalarna för inrikes och utrikes födda visar på skillnader över tid. För gruppen inrikes födda syns en nedgång i andelen arbetslösa från 2010 och framåt, med ett litet avbrott i trendlinjen under pandemiåren 2020-2021. Gruppen utrikes födda har två trendlinjer i diagrammet nedan. Från 2006 till 2017 ökade arbetslösheten bland utrikes födda till relativt höga nivåer jämfört med början på tidsperioden. Arbetslösheten bland utrikes födda män i Dalarna var också konsekvent högre än för utrikes födda kvinnor och betydligt högre under flyktingkrisen och åren som följde. Efter flyktingkrisen, från 2017 och framåt, har arbetslösheten bland gruppen utrikes födda minskat från toppnivåerna och utrikes födda kvinnor har idag en något högre arbetslöshet än utrikes födda män. 
@@ -698,7 +863,44 @@ Sverige är det ungefär 70 procent av såväl männen som kvinnorna som
 arbetar.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
+
+# Skapar en faktorvariabel för att få tid sedan etablering i "rätt" ordning i figuren
+etablering_df$bakgrundsvariabel <- factor(etablering_df$bakgrundsvariabel, levels = c("0-1 år","2-3 år",
+                                                                                "4-9 år","10- år"))
+
+diagramtitel <- paste0("Andel förvärvsarbetande 20-64 år bland utrikes födda i Dalarna"," ",max(etablering_df$år)," uppdelat på vistelsetid i Sverige")
+diagramtitel <- str_wrap(diagramtitel)
+diagramfilnamn <- paste0("etablering_lan.png")
+
+# Skapar diagram där etableringstiden jämförs mellan män och kvinnor, oavsett utbildning
+etablering_fig <- SkapaStapelDiagram(skickad_df =etablering_df %>%
+                                      filter(år==max(år),utbildningsnivå=="samtliga utbildningsnivåer"),
+                                    skickad_x_var = "bakgrundsvariabel",
+                                    skickad_y_var = "Andel.förvärvsarbetande.(ny.definition.från.och.med.2019)",
+                                    skickad_x_grupp = "kön",
+                                    # manual_x_axis_text_vjust=0.9,
+                                    manual_color = diagramfarger("kon"),
+                                    diagram_titel = diagramtitel,
+                                    diagram_capt =  diagram_capt,
+                                    manual_x_axis_title = "Vistelsetid",
+                                    diagram_facet = FALSE,
+                                    x_axis_sort_value = FALSE,
+                                    x_axis_lutning = 0,
+                                    diagram_liggande = FALSE,
+                                    geom_position_stack = FALSE,
+                                    manual_y_axis_title = "procent",
+                                    berakna_index = FALSE,
+                                    output_mapp = "",
+                                    filnamn_diagram = diagramfilnamn,
+                                    skriv_till_diagramfil = FALSE)
+
 knitr::include_graphics(here("Diagram","etablering_lan.png"))
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+etablering_fig
 ```
 
 Hur snabbt en nyanländ person etableras på arbetsmarknaden är nära

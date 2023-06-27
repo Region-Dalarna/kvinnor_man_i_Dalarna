@@ -25,3 +25,18 @@ data_utbniva_85(spara_data = TRUE,
 source(here("Skript","forvarvsarbetande_bransch.R"), encoding="UTF-8")
 data_forvarvsarbetande_bransch(spara_data = TRUE,
                                output_mapp = Output_mapp)
+
+# Yrke, uppdelat på kön
+source(here("Skript","yrke.R"), encoding="UTF-8")
+data_yrke(spara_data = TRUE,
+          output_mapp = Output_mapp)
+
+# Arbetsmarknadsstatus (senaste år)
+source(here("Skript","arbetsmarknadsstatus_senastear.R"), encoding="UTF-8")
+diag_arbetsmarknadsstatus(skapa_fil = TRUE,
+                          output_mapp = Output_mapp)
+
+# Etableringstid på arbetsmarknaden
+source(here("Skript","etablering.R"), encoding="UTF-8")
+diag_etablering(spara_data = TRUE,
+                output_mapp = Output_mapp)
