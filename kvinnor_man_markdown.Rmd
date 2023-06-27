@@ -26,6 +26,9 @@ p_load(here,
 source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_SkapaDiagram.R")
 source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
 
+# För att information från Tidyverse inte skall visas
+options(dplyr.summarise.inform = FALSE)
+
 # Här läggs figurerna
 outputmapp = here("Diagram","/")
 
@@ -61,6 +64,10 @@ etablering_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/etableringstid.xl
   rename(andel = `Andel.förvärvsarbetande.(ny.definition.från.och.med.2019)`)
 medianinkomst_df <-  read.xlsx("G:/skript/projekt/data/kvinnor_man/medianinkomst.xlsx") %>% 
   rename(medianinkomst = `Medianinkomst,.tkr`)
+disponibel_inkomst_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/disponibel_inkomst.xlsx")
+matchning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/matchning.xlsx")
+langsiktiga_skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx",sheet = 1)
+skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx", sheet = 2)
 ```
 # Kvinnor och män i Dalarna
 <p style = "font-size:12px">
@@ -825,30 +832,88 @@ knitr::include_graphics(here("Diagram","langtidsarbetsloshet_lan_utbildningsniva
 
 Nivån av matchning på arbetsmarknaden mäter i hur stor utsträckning
 människor jobbar med vad de är utbildade till. Generellt tenderar olika
-typer av specialicerade eftergymnasiala utbildningar, exempelvis läkare
+typer av specialiserade eftergymnasiala utbildningar, exempelvis läkare
 och psykologer, ha hög matchning. Utbildar man sig till läkare är det
 väldigt hög sannolikhet att man även har det som yrke (närmare 100
 procent). På andra sidan av spektrumet finns dels olika former av
-gymnasieutbildningar, dels eftergymansieala utbildningar inom exempelvis
+gymnasieutbildningar, dels eftergymnasiala utbildningar inom exempelvis
 humaniora och konst, där runt hälften jobbar med vad de är utbildade
-till. Rent generellt ligger matchninggraden på runt 70 procent i
+till. Rent generellt ligger matchninggraden på runt `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "totalt",region == "Sverige") %>% .$matchningsgrad,0)` procent i
 Sverige, där något fler kvinnor än män jobbar med vad de är utbildade
 till. Det finns vissa skillnader mellan länen, men dessa är relativt
-små. I Dalarna är matchningsgraden för såväl kvinnor som män strax under
-70 procent, vilket är något sämre än riket som helhet.
+små. I Dalarna är matchningsgraden ca
+`r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "totalt",region == "Dalarna") %>% .$matchningsgrad,0)` procent, vilket är något sämre än riket som helhet.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-knitr::include_graphics(here("Diagram","matchning_lan.png"))
+  diagram_capt <- "Källa: SCB:s öppna statistikdatabas, regionala matchningsindikatorer.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Med matchning avses matchad förvärvsgrad\ndvs. andelen anställda som har ett yrke som helt matchar deras utbildning (enligt SCB)."
+
+diagramtitel <- paste0("Matchning på arbetsmarknaden i Sveriges regioner ",max(matchning_df$år))
+diagramfilnamn <- paste0("matchning_lan.png")
+
+matchning_lan_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
+                                         filter(kön != "samtliga anställda",
+                                                fodelseland == "totalt",
+                                                år == max(år)),
+                                       skickad_x_var = "region",
+                                       skickad_y_var = "matchningsgrad",
+                                       skickad_x_grupp = "kön",
+                                       manual_x_axis_text_vjust=1,
+                                       manual_x_axis_text_hjust=1,
+                                       manual_color = diagramfarger("kon"),
+                                       diagram_titel = diagramtitel,
+                                       diagram_capt =  diagram_capt,
+                                       x_axis_sort_value = TRUE,
+                                       x_axis_lutning = 45,
+                                       manual_y_axis_title = "procent",
+                                       output_mapp = outputmapp,
+                                       filnamn_diagram = diagramfilnamn,
+                                       skriv_till_diagramfil = TRUE)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+matchning_lan_fig
 ```
 
 Matchningen på arbetsmarknaden tenderar att variera beroende på var man
-är född. I Dalarna har inrikes födda högst matchning med närmare 70
+är född. I Dalarna har inrikes födda högst matchning med ungefär `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "födda i Sverige",region == "Dalarna") %>% .$matchningsgrad,0)`
 procent för både kvinnor och män. Även personer födda inom EU har hög
-matchning (runt 65 procent). Lägst matchningsgrad har personer födda i
-Afrika (ca 60 procent).
+matchning (runt`r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "födda i Norden eller EU utom Sverige",region == "Dalarna") %>% .$matchningsgrad,0)` procent. Lägst matchningsgrad har personer `r matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` (ca `r round(matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)`  procent).
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-knitr::include_graphics(here("Diagram","matchning_bakgrund.png"))
+matchning_df <- matchning_df %>% 
+  mutate("fodelseland" = ifelse(fodelseland %in% c("födda i Europa utom Norden och EU samt Sydamerika, Nordamerika och Oceanien"),"övriga", fodelseland)) 
+
+diagramtitel <- paste0("Matchning på arbetsmarknaden i Dalarna år ",max(matchning_df$år)," per födelseregion")
+diagramfilnamn <- paste0("matchning_bakgrund.png")
+
+matchning_bakg_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
+                                           filter(kön != "samtliga anställda",
+                                                  år == max(år),
+                                                  region == "Dalarna",
+                                                  fodelseland != "totalt"),
+                                         skickad_x_var = "fodelseland",
+                                         skickad_y_var = "matchningsgrad",
+                                         skickad_x_grupp = "kön",
+                                         # manual_x_axis_text_vjust=1,
+                                         # manual_x_axis_text_hjust=1,
+                                         manual_color = diagramfarger("kon"),
+                                         diagram_titel = diagramtitel,
+                                         diagram_capt =  diagram_capt,
+                                         diagram_facet = FALSE,
+                                         x_axis_sort_value = TRUE,
+                                         x_axis_lutning =0,
+                                         diagram_liggande = TRUE,
+                                         geom_position_stack = FALSE,
+                                         manual_y_axis_title="procent",
+                                         berakna_index = FALSE,
+                                         output_mapp = outputmapp,
+                                         filnamn_diagram = diagramfilnamn,
+                                         skriv_till_diagramfil = TRUE)
+
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+matchning_bakg_fig
 ```
 
 ### Etablering
@@ -1014,11 +1079,11 @@ etablering_fig_tid
 
 En jämförelse av kvinnor och mäns löner i Dalarna visar på stora
 skillnader som har hållit i sig över tid. Medianinkomsten för en man i
-Dalarna var 2020 strax över 360 000 kr före skatt, medan en kvinna hade
-en medianinkomst på drygt 300 000 kr. I den andra figuren nedan syns
+Dalarna var `r max(medianinkomst_df$år)` ca `r round(medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "män") %>% .$medianinkomst,0)` tkr före skatt, medan en kvinna hade
+en medianinkomst på ungefär `r round(medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "kvinnor") %>% .$medianinkomst,0)` tkr. I den andra figuren nedan syns
 dock att den relativa skillnaden i inkomst mellan könen har minskat
 sedan millennieskiftet. Diagrammet visar att kvinnans medianinkomsten har
-fördubblats medan mannens har ökat med ungefär 80 procent. Det är dock
+fördubblats medan mannens har ökat med ungefär `r round((medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "män") %>% .$medianinkomst/medianinkomst_df %>% filter(region == "Dalarnas län", år == min(år),kön == "män") %>% .$medianinkomst-1)*100,0)` procent. Det är dock
 viktigt att notera att figurerna nedan inte tar hänsyn till andra
 faktorer än kön som kan tänkas förklara inkomstens storlek. Som vi sett
 i ett flertal tidigare figurer finns det stora skillnader mellan könen
@@ -1131,7 +1196,7 @@ inkomsten, dvs. summan av alla inkomster och transfereringar (exempelvis
 barnbidrag) minus slutgiltig skatt. I figuren nedan är det tydligt att
 den disponibla inkomsten varierar mellan olika grupper. En generell
 trend för alla grupper är att den disponibla inkomsten, utan att justera
-för inflation, har ökat mellan 2011-2020.
+för inflation, har ökat mellan `r paste0(min(disponibel_inkomst_df$år),"-",max(disponibel_inkomst_df$år))`.
 
 Det är tydligt att sammanboende, med eller utan barn, har en högre
 disponibel inkomst än ensamstående. Sammanboende med barn har också en
@@ -1142,8 +1207,36 @@ skillnader mellan könen. Bland ensamstående har män, med eller utan
 barn, högre disponibel inkomst än kvinnor i motsvarande grupp.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$`disponibel_inkomstDalarnas län`
-knitr::include_graphics(here("Diagram","disponibel_inkomstDalarnas län.png"))
+
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
+
+  # Filtrerar dataset på de grupper och år vi vill fokusera på
+  disponibel_inkomst_utvalda_df <- disponibel_inkomst_df %>%
+    filter(hushållstyp %in% c("ensamstående kvinnor utan barn","ensamstående kvinnor med barn 0-19 år","ensamstående män utan barn","ensamstående män med barn 0-19 år","sammanboende utan barn","sammanboende med barn 0-19 år")) %>%
+      filter(ålder=="18+ år",
+             år %in% c(min(år),max(år)))
+
+  diagramtitel <- paste0("Disponibel inkomst (18+ år) i Dalarna")
+  diagramfilnamn <- paste0("disponibel_inkomst.png")
+
+  # Skapar diagram för disponibel inkomst i Dalarna där män jämförs med kvinnor.
+  disp_ink_fig <- SkapaStapelDiagram(skickad_df = disponibel_inkomst_utvalda_df,
+                                     skickad_x_var = "hushållstyp",
+                                     skickad_y_var = "Medianvärde,.tkr",
+                                     skickad_x_grupp = "år",
+                                     # manual_x_axis_text_vjust=0.5,
+                                     x_axis_lutning = 0,
+                                     manual_color = diagramfarger("rus_sex"),
+                                     diagram_titel = diagramtitel,
+                                     diagram_capt =  diagram_capt,
+                                     diagram_liggande = TRUE,
+                                     output_mapp = outputmapp,
+                                     filnamn_diagram = diagramfilnamn,
+                                     skriv_till_diagramfil = TRUE)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+disp_ink_fig
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%", include = FALSE}
@@ -1168,13 +1261,77 @@ på tidsperioden för att sjunka tillbaka under de senare åren som är
 inkluderade i diagrammet.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$Antal_skuldsatta
-knitr::include_graphics(here("Diagram","antal_skuldsatta_Dalarna.png"))
+ diagram_capt <- c("Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Antal personer med skulder under indrivning hos Kronofogden",
+                    "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Skuldsatta personer som funnits i Kronofogdens register i mer än 20 år")
+
+# Vill enbart fokusera på Dalarna och struntar initialt i kommunnivå
+skulder_df_sum <- skulder_df %>%
+  filter(Län=="DALARNA") %>%
+    group_by(År,Län,Kön) %>%
+      summarize(Antal_skuldsatta=sum(Antal.skuldsatta),
+                Total_skuld=sum(Skuldbelopp),
+                Skuld_per_person=Total_skuld/Antal_skuldsatta)
+
+# Gör om skuldbelopp till miljarder
+# miljard <- 1000000000
+# skulder_df_sum$skuld_miljard <-skulder_df_sum$Total_skuld/miljard
+
+
+diagramtitel <- paste0("Antal skuldsatta i Dalarnas län")
+diagramfilnamn <- paste0("Antal_skuldsatta_Dalarna.png")
+
+# Skapar diagram för medianinkomsten i Dalarna där män jämförs med kvinnor.
+skuldsatta_fig <- SkapaStapelDiagram(skickad_df = skulder_df_sum,
+                                     skickad_x_var = "År",
+                                     skickad_y_var = "Antal_skuldsatta",
+                                     skickad_x_grupp = "Kön",
+                                     x_axis_lutning = 0,
+                                     manual_color = diagramfarger("kon"),
+                                     diagram_titel = diagramtitel,
+                                     diagram_capt =  diagram_capt[1],
+                                     diagram_facet = FALSE,
+                                     manual_y_axis_title = "Antal skuldsatta",
+                                     berakna_index = FALSE,
+                                     output_mapp = "",
+                                     filnamn_diagram = diagramfilnamn,
+                                     skriv_till_diagramfil = FALSE)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+skuldsatta_fig
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$Antal_langsiktigt_skuldsatta
-knitr::include_graphics(here("Diagram","Antal_langsiktigt_skuldsatta.png"))
+ diagram_capt <- c("Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Antal personer med skulder under indrivning hos Kronofogden",
+                    "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Skuldsatta personer som funnits i Kronofogdens register i mer än 20 år")
+
+# Vill enbart fokusera på Dalarna och struntar initialt i kommunnivå
+langsiktiga_skulder_df_sum <- langsiktiga_skulder_df %>%
+  filter(Län=="DALARNA") %>% 
+    group_by(År,Län,Kön)  %>% 
+      summarize(Antal_skuldsatta=sum(Antal.personer))
+
+diagramtitel <- paste0("Antal långsiktigt skuldsatta i Dalarnas län")
+diagramfilnamn <- paste0("Antal_langsiktigt_skuldsatta.png")
+
+skuldsatta_lang <- SkapaStapelDiagram(skickad_df = langsiktiga_skulder_df_sum,
+                                     skickad_x_var = "År",
+                                     skickad_y_var = "Antal_skuldsatta",
+                                     skickad_x_grupp = "Kön",
+                                     x_axis_lutning = 0,
+                                     manual_color = diagramfarger("kon"),
+                                     diagram_titel = diagramtitel,
+                                     diagram_capt =  diagram_capt[2],
+                                     diagram_facet = FALSE,
+                                     manual_y_axis_title = "Antal långsiktigt skuldsatta",
+                                     berakna_index = FALSE,
+                                     output_mapp = "",
+                                     filnamn_diagram = diagramfilnamn,
+                                     skriv_till_diagramfil = FALSE)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+skuldsatta_lang
 ```
 
 ## (O)hälsa

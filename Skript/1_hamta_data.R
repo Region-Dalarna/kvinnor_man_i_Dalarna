@@ -45,3 +45,19 @@ diag_etablering(spara_data = TRUE,
 source(here("Skript","medianinkomst.R"), encoding="UTF-8")
 diag_medianinkomst(spara_data = TRUE,
                    output_mapp = Output_mapp)
+
+# Disponibel inkomst
+source(here("Skript","disponibel_inkomst.R"), encoding="UTF-8")
+diag_disponibelinkomst(spara_data = TRUE,
+                       output_mapp = Output_mapp)
+
+# Matchning
+source(here("Skript","matchning.R"), encoding="UTF-8")
+diag_matchning(spara_data = TRUE,
+               output_mapp = Output_mapp)
+
+# Skuldsatta
+source(here("Skript","skuldsatta.R"), encoding="UTF-8")
+diag_kronofogden(spara_data = TRUE,
+                 output_mapp = Output_mapp)
+
