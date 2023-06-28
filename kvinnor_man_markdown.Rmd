@@ -68,6 +68,10 @@ disponibel_inkomst_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/disponibe
 matchning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/matchning.xlsx")
 langsiktiga_skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx",sheet = 1)
 skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx", sheet = 2)
+riksdagsval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 1)
+regionval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 2)
+kommunval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 3)
+
 ```
 # Kvinnor och män i Dalarna
 <p style = "font-size:12px">
@@ -1246,20 +1250,6 @@ knitr::include_graphics(here("Diagram","ekonomiskt_bistandDalarnas län.png"))
 
 ### Antal skuldsatta
 
-Ytterligare en aspekt av ekonomisk status är skuldsättningsgraden för
-olika grupper. I det första diagrammet nedan redovisas antalet personer
-i Dalarna som har skulder under indrivning hos Kronofogden. Två trender
-är tydliga. Under det senaste decenniet har antalet skuldsatta minskat
-från drygt 10 000 skuldsatta till drygt 8000 i Dalarnas län. Det är
-också en tydlig variation mellan kvinnor och män, där den senare gruppen
-har avsevärt fler skuldskatta i länet.
-
-I det andra diagrammet nedan redovisas antalet långsiktigt skuldsatta i
-Dalarna. Även här finns det betydligt fler män än kvinnor. Över tid
-skedde en svag ökning av antalet långsiktigt skuldsatta i åren i början
-på tidsperioden för att sjunka tillbaka under de senare åren som är
-inkluderade i diagrammet.
-
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
  diagram_capt <- c("Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Antal personer med skulder under indrivning hos Kronofogden",
                     "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Skuldsatta personer som funnits i Kronofogdens register i mer än 20 år")
@@ -1296,6 +1286,20 @@ skuldsatta_fig <- SkapaStapelDiagram(skickad_df = skulder_df_sum,
                                      filnamn_diagram = diagramfilnamn,
                                      skriv_till_diagramfil = FALSE)
 ```
+
+Ytterligare en aspekt av ekonomisk status är skuldsättningsgraden för
+olika grupper. I det första diagrammet nedan redovisas antalet personer
+i Dalarna som har skulder under indrivning hos Kronofogden. Två trender
+är tydliga. Under det senaste decenniet har antalet skuldsatta minskat
+från drygt 10 000 skuldsatta till `r format(skulder_df_sum %>% filter(Kön == "kvinnor",År == max(.$År)) %>% .$Antal_skuldsatta + skulder_df_sum %>% filter(Kön == "män",År == max(.$År)) %>% .$Antal_skuldsatta,big.mark=" ") ` i Dalarnas län. Det är
+också en tydlig variation mellan kvinnor och män, där den senare gruppen
+har avsevärt fler skuldsatta i länet.
+
+I det andra diagrammet nedan redovisas antalet långsiktigt skuldsatta i
+Dalarna. Även här finns det betydligt fler män än kvinnor. Över tid
+skedde en svag ökning av antalet långsiktigt skuldsatta i åren i början
+på tidsperioden för att sjunka tillbaka under de senare åren som är
+inkluderade i diagrammet.
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
 skuldsatta_fig
@@ -1541,18 +1545,93 @@ Falun, Gagnef och Ludvika kan nämnas bland kommunerna med stor övervikt
 av män.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$Riksdagsledamöter
-knitr::include_graphics(here("Diagram","Riksdagsledamöter.png"))
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\n Bearbetning: Samhällsanalys, Region Dalarna."
+
+riksdagsval_summering_df <- riksdagsval_df %>%
+      filter(region=="Totalt för riket") %>%
+        group_by(kön,valår) %>%
+          summarise("Antal" = sum(`Riksdagsledamöter`))
+
+diagramtitel <- paste0("Riksdagsledamöter per valår")
+diagramfilnamn <- paste0("Riksdagsledamöter",".png")
+
+riksdag_fig <- SkapaStapelDiagram(skickad_df = riksdagsval_summering_df,
+                                 skickad_x_var = "valår",
+                                 skickad_y_var = "Antal",
+                                 skickad_x_grupp = "kön",
+                                 x_axis_lutning = 0,
+                                 manual_color = diagramfarger("kon"),
+                                 diagram_titel = diagramtitel,
+                                 diagram_capt =  diagram_capt,
+                                 diagram_facet = FALSE,
+                                 berakna_index = FALSE,
+                                 output_mapp = "",
+                                 filnamn_diagram = diagramfilnamn,
+                                 skriv_till_diagramfil = FALSE)
+
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$`regionfullmaktige_Dalarnas län`
-knitr::include_graphics(here("Diagram","regionfullmaktige_Dalarnas län.png"))
+riksdag_fig
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$`kommunfullmäktige_Dalarnas län`
-knitr::include_graphics(here("Diagram","kommunfullmäktige_Dalarnas län.png"))
+regionval_summering_df <- regionval_df %>%
+      group_by(kön,valår) %>%
+        summarise("Antal" = sum(`Regionfullmäktigledamöter`))
+
+diagramtitel <- "Regionfullmäktigeledamöter per valår i Dalarna"
+diagramfilnamn <- "regionfullmaktige.png"
+
+regionval_fig <- SkapaStapelDiagram(skickad_df = regionval_summering_df,
+                                   skickad_x_var = "valår",
+                                   skickad_y_var = "Antal",
+                                   skickad_x_grupp = "kön",
+                                   x_axis_lutning = 0,
+                                   #skickad_filter_OR_var = "region",
+                                   manual_color = diagramfarger("kon"),
+                                   diagram_titel = diagramtitel,
+                                   diagram_capt =  diagram_capt,
+                                   diagram_facet = FALSE,
+                                   berakna_index = FALSE,
+                                   output_mapp = "",
+                                   filnamn_diagram = diagramfilnamn,
+                                   skriv_till_diagramfil = FALSE)
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+regionval_fig
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+# Summerar riksdagsledamöter på år
+kommunval_summering_df <- kommunval_df %>%
+ filter(valår==max(kommunval_df$valår))%>%
+ group_by(region,kön) %>%
+ summarise("Antal" = sum(`Kommunfullmäktigledamöter`))
+
+diagramtitel <- paste0("Kommunfullmäktigeledamöter i ", ValdGeografi," ",max(kommunval_df$valår))
+diagramfilnamn <- paste0("kommunfullmäktige_", ValdGeografi, ".png")
+#objektnamn <- c(objektnamn,paste0("kommunfullmäktige_", ValdGeografi))
+ifelse(j==1,objektnamn <- paste0("kommunfullmäktige_", ValdGeografi),objektnamn <- c(objektnamn,paste0("kommunfullmäktige_", ValdGeografi)))
+j=j+1
+# Linjediagram där utvecklingen för kvinnors och mäns löner jämförs
+gg_obj <- SkapaStapelDiagram(skickad_df = kommunval_summering_df,
+                            skickad_x_var = "region",
+                            skickad_y_var = "Antal",
+                            skickad_x_grupp = "kön",
+                            manual_x_axis_text_vjust = 1,
+                            manual_x_axis_text_hjust = 1,
+                            #skickad_filter_OR_var = "region",
+                            manual_color = diagramfarger("kon"),
+                            diagram_titel = diagramtitel,
+                            diagram_capt =  diagram_capt,
+                            diagram_facet = FALSE,
+                            berakna_index = FALSE,
+                            output_mapp = output_mapp,
+                            filnamn_diagram = diagramfilnamn,
+                            skriv_till_diagramfil = skapa_fil)
+
 ```
 
 ### Chefsskap
