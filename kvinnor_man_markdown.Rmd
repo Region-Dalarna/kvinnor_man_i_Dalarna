@@ -71,6 +71,7 @@ skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx", sh
 riksdagsval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 1)
 regionval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 2)
 kommunval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 3)
+chefer_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/chefer.xlsx")
 
 ```
 # Kvinnor och män i Dalarna
@@ -518,8 +519,6 @@ forvarvsarbetande_kon_fig
     filter(kön=='kvinnor',Yrke!="yrke okänt") %>%
       slice_max(Antal,n=10) %>% 
         mutate(Yrke = ifelse(Yrke == "Undersköterskor, hemtjänst, hemsjukvård och äldreboende","Undersköterskor m.fl.",Yrke))
-  
-  
     
     diagram_titel <- paste0("Yrken med högst antal förvärvsarbetande kvinnor i Dalarnas län ",unique(yrke_df$år))
     diagramfil="yrken_kvinnor.png"
@@ -1282,9 +1281,9 @@ skuldsatta_fig <- SkapaStapelDiagram(skickad_df = skulder_df_sum,
                                      diagram_facet = FALSE,
                                      manual_y_axis_title = "Antal skuldsatta",
                                      berakna_index = FALSE,
-                                     output_mapp = "",
+                                     output_mapp = outputmapp,
                                      filnamn_diagram = diagramfilnamn,
-                                     skriv_till_diagramfil = FALSE)
+                                     skriv_till_diagramfil = TRUE)
 ```
 
 Ytterligare en aspekt av ekonomisk status är skuldsättningsgraden för
@@ -1329,9 +1328,9 @@ skuldsatta_lang <- SkapaStapelDiagram(skickad_df = langsiktiga_skulder_df_sum,
                                      diagram_facet = FALSE,
                                      manual_y_axis_title = "Antal långsiktigt skuldsatta",
                                      berakna_index = FALSE,
-                                     output_mapp = "",
+                                     output_mapp = outputmapp,
                                      filnamn_diagram = diagramfilnamn,
-                                     skriv_till_diagramfil = FALSE)
+                                     skriv_till_diagramfil = TRUE)
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
@@ -1535,9 +1534,9 @@ riksdag_fig <- SkapaStapelDiagram(skickad_df = riksdagsval_summering_df,
                                  diagram_capt =  diagram_capt,
                                  diagram_facet = FALSE,
                                  berakna_index = FALSE,
-                                 output_mapp = "",
+                                 output_mapp = outputmapp,
                                  filnamn_diagram = diagramfilnamn,
-                                 skriv_till_diagramfil = FALSE)
+                                 skriv_till_diagramfil = TRUE)
 
 ```
 
@@ -1560,9 +1559,9 @@ regionval_fig <- SkapaStapelDiagram(skickad_df = regionval_summering_df,
                                    diagram_capt =  diagram_capt,
                                    diagram_facet = FALSE,
                                    berakna_index = FALSE,
-                                   output_mapp = "",
+                                   output_mapp = outputmapp,
                                    filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = FALSE)
+                                   skriv_till_diagramfil = TRUE)
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -1587,7 +1586,7 @@ kommunval_fig <- SkapaStapelDiagram(skickad_df = kommunval_summering_df,
                                     diagram_capt =  diagram_capt,
                                     diagram_facet = FALSE,
                                     berakna_index = FALSE,
-                                    output_mapp = "",
+                                    output_mapp = outputmapp,
                                     filnamn_diagram = diagramfilnamn,
                                     skriv_till_diagramfil = TRUE)
 
@@ -1640,9 +1639,9 @@ av männen sysselsatta i någon form av chefsposition jämfört med
 motsvarande grupp kvinnor. Andelen chefer är även tydligt kopplad till
 utbildningsnivå där högre utbildning är associerad med en högre andel
 individer i chefspositioner. Bland gruppen sysselsatta män i Dalarna med
-eftergymnasial utbildning innehar drygt 11 procent någon form av
+eftergymnasial utbildning innehar drygt `r round(chefer_df %>% filter(år == max(år),utbildningsnivå == "eftergymnasial utbildning", kön == "män") %>% .$Andel,0) ` procent någon form av
 chefsställning. Bland kvinnor med eftergymnasial utbildning är
-motsvarande siffra knappt 8 procent.
+motsvarande siffra ungefär `r round(chefer_df %>% filter(år == max(år),utbildningsnivå == "eftergymnasial utbildning", kön == "kvinnor") %>% .$Andel,0) ` procent.
 
 I det andra diagrammet ser vi utveckling över tid. Andelen kvinnor i
 chefsposition i Dalarna har nästintill fördubblats under en
@@ -1652,14 +1651,61 @@ jämställd riktning, även om situationen på arbetsmarknaden i nuläget är
 fortsatt ojämställd.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$andel_chefer
-knitr::include_graphics(here("Diagram","andel_chefer.png"))
+  diagram_capt <- c("Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Andel chefer av sysselsatta med ett klassificerat yrke (20-64 år) uppdelat på utbildningsnivå",
+                    "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Förändring i andelen chefer av sysselsatta med ett klassificerat yrke (20-64 år) för samtliga utbildningsnivåer")
+diagramtitel <- paste0("Andel chefer år ",max(chefer_df$år)," i Dalarna")
+diagramfilnamn <- paste0("andel_chefer.png")
+
+chefer_fig <- SkapaStapelDiagram(skickad_df =chefer_df %>% 
+                               filter(år == max(år),
+                                      utbildningsnivå != "utbildningsnivå: uppgift saknas"),
+                             skickad_x_var = "utbildningsnivå",
+                             skickad_y_var = "Andel",
+                             skickad_x_grupp = "kön",
+                             manual_x_axis_text_vjust=1,
+                             manual_x_axis_text_hjust=1,
+                             manual_color = diagramfarger("kon"),
+                             diagram_titel = diagramtitel,
+                             diagram_capt =  diagram_capt[1],
+                             diagram_facet = FALSE,
+                             x_axis_sort_value = TRUE,
+                             manual_y_axis_title="procent",
+                             output_mapp = "",
+                             filnamn_diagram = diagramfilnamn,
+                             skriv_till_diagramfil = FALSE)
+
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$andel_chefer_linje
-knitr::include_graphics(here("Diagram","andel_chefer_linje.png"))
+chefer_fig
+```
 
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+  diagramtitel <- paste0("Förändring i andel chefer i Dalarna")
+  diagramfilnamn <- paste0("andel_chefer_linje.png")
+
+  chefer_linje_fig <- SkapaLinjeDiagram(skickad_df =chefer_df %>% 
+                                filter(år >"2000",
+                                       utbildningsnivå == "samtliga utbildningsnivåer"),
+                              skickad_x_var = "år",
+                              skickad_y_var = "Andel",
+                              skickad_x_grupp = "kön",
+                              x_axis_lutning = 45,
+                              manual_color = diagramfarger("kon"),
+                              diagram_titel = diagramtitel,
+                              diagram_capt =  diagram_capt[2],
+                              diagram_facet = FALSE,
+                              #manual_y_axis_title="procent",
+                              berakna_index = TRUE,
+                              output_mapp = "",
+                              filnamn_diagram = diagramfilnamn,
+                              skriv_till_diagramfil = FALSE)
+
+
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+chefer_linje_fig
 ```
 
 ```{r, include = FALSE}

@@ -66,3 +66,8 @@ source(here("Skript","val.R"), encoding="UTF-8")
 diag_val(spara_data = TRUE,
          output_mapp = Output_mapp)
 
+# Chefer 
+source(here("Skript","Chefer.R"), encoding="UTF-8")
+diag_chefer(spara_data = TRUE,
+            output_mapp = Output_mapp)
+
