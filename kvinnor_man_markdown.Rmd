@@ -1581,11 +1581,12 @@ under pandemin), se den andra figuren nedan <br> <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
 diagramtitel <- "Vård av barn, antal uttagna nettodagar i Dalarna"
-diagramfilnamn <- "tillfallig_foraldrapenning_antal.png"
+diagramfilnamn <- "vab_antal.png"
 
 tfp_fig <- SkapaStapelDiagram(skickad_df = vab_df%>%
                                filter(Kommun == "Samtliga kommuner",
-                                      Kön != "Kvinnor och män") %>% 
+                                      Kön != "Kvinnor och män",
+                                      Delförmån == "Vård av barn") %>% 
                                 mutate(Kön = tolower(Kön),
                                        Antal_nettodagar = as.integer(Antal_nettodagar)), 
                              skickad_x_var = "År", 
@@ -1594,7 +1595,7 @@ tfp_fig <- SkapaStapelDiagram(skickad_df = vab_df%>%
                              x_axis_lutning = 45,
                              manual_x_axis_text_vjust=1,
                              manual_x_axis_text_hjust=1,
-                             manual_y_axis_title = "Antal mottagare",
+                             manual_y_axis_title = "",
                              manual_color = diagramfarger("kon"),
                              diagram_titel = diagramtitel,
                              diagram_capt =  diagram_capt,
@@ -1610,13 +1611,33 @@ tfp_fig
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$`Vab_antal_linjeDalarnas län`
-knitr::include_graphics(here("Diagram","Vab_antal_linjeDalarnas län.png"))
+
+diagramtitel <- "Vård av barn, förändring i antal uttagna nettodagar i Dalarna"
+diagramfilnamn <- "Vab_antal_linje.png"
+
+tfp_fig_linje <- SkapaLinjeDiagram(skickad_df = vab_df%>%
+                                     filter(Kommun == "Samtliga kommuner",
+                                            Kön != "Kvinnor och män",
+                                            Delförmån == "Vård av barn") %>% 
+                                      mutate(Kön = tolower(Kön),
+                                             Antal_nettodagar = as.integer(Antal_nettodagar),
+                                             "år" = År), 
+                                   skickad_x_var = "år", 
+                                   skickad_y_var = "Antal_nettodagar", 
+                                   skickad_x_grupp = "Kön",
+                                   manual_color = diagramfarger("kon"),
+                                   berakna_index = TRUE,
+                                   x_axis_lutning = 45,
+                                   diagram_titel = diagramtitel,
+                                   diagram_capt =  diagram_capt,
+                                   diagram_facet = FALSE,
+                                   output_mapp = "",
+                                   filnamn_diagram = diagramfilnamn,
+                                   skriv_till_diagramfil = FALSE)
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$`Vab_antal_linjeDalarnas län`
-#knitr::include_graphics(here("Diagram","Vab_antal_kommunDalarnas län.png"))
+tfp_fig_linje
 ```
 
 ## Makt och politik
