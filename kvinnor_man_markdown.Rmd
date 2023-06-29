@@ -1460,18 +1460,78 @@ tidigare, är Falun återigen bäst i klassen, denna gång för såväl kvinnor
 som män.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$`sjukpenningtalDalarnas län`
-knitr::include_graphics(here("Diagram","SjukpenningtalDalarnas län.png"))
+diagram_capt_sjukpenning<-"Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring:Sjukpenningtalet är antalet dagar med sjukpenning och rehabiliteringspenning\nsom har betalats ut under en 12-månaders period.Den summan delas med antalet försäkrade i\nSverige som är i åldrarna 16–64 år."
+
+sjukpenningtal_df_utskrift <-sjukpenningtal_df %>%
+  filter(Ålder == "Samtliga 16-64 år") %>%
+    mutate(Sjukpenningtal = as.numeric(Sjukpenningtal)) %>% 
+      group_by(År,Län,Kommun,Kön) %>% 
+        summarize(Sjukpenningtal_medel=mean(Sjukpenningtal))
+
+diagramtitel <- "Genomsnittligt sjukpenningtal (16-64 år) per år i Dalarna"
+diagramfilnamn <- "sjukpenningtal.png"
+
+sjukpenningtal_fig <- SkapaStapelDiagram(skickad_df = sjukpenningtal_df_utskrift %>%
+                                         filter(Kommun == "Samtliga kommuner",
+                                                Kön != "Kvinnor och män") %>% 
+                                          mutate(Kön = tolower(Kön)), 
+                                       skickad_x_var = "År", 
+                                       skickad_y_var = "Sjukpenningtal_medel", 
+                                       skickad_x_grupp = "Kön",
+                                       x_axis_lutning = 0,
+                                       manual_color = diagramfarger("kon"),
+                                       manual_y_axis_title = "",
+                                       diagram_titel = diagramtitel,
+                                       diagram_capt =  diagram_capt_sjukpenning,
+                                       diagram_facet = FALSE,
+                                       berakna_index = FALSE,
+                                       output_mapp = "",
+                                       filnamn_diagram = diagramfilnamn,
+                                       skriv_till_diagramfil = FALSE)
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$`sjukpenningtal_kommun_Dalarnas län`
-knitr::include_graphics(here("Diagram","Sjukpenningtal_kommunDalarnas län.png"))
+sjukpenningtal_fig
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+
+diagramtitel <- paste0("Genomsnittligt sjukpenningtal (16-64 år) i Dalarna år ",max(sjukpenningtal_df_utskrift$År))
+diagramfilnamn <- "sjukpenningtal_kommun.png"
+
+sjukpenningtal_kommun_fig <- SkapaStapelDiagram(skickad_df = sjukpenningtal_df_utskrift %>%
+                                     filter(Kommun != "Samtliga kommuner",
+                                            Kön != "Kvinnor och män",
+                                            År == max(.$År)) %>% 
+                                      mutate(Kön = tolower(Kön),
+                                             Kommun = stri_extract_last(Kommun, regex='\\S+')), 
+                                   skickad_x_var = "Kommun", 
+                                   skickad_y_var = "Sjukpenningtal_medel", 
+                                   skickad_x_grupp = "Kön",
+                                   manual_x_axis_text_vjust = 1,
+                                   manual_x_axis_text_hjust = 1,
+                                   x_axis_lutning = 45,
+                                   x_axis_sort_value = TRUE,
+                                   x_axis_sort_grp = 1,
+                                   vand_sortering = TRUE,
+                                   manual_color = diagramfarger("kon"),
+                                   manual_y_axis_title = "",
+                                   diagram_titel = diagramtitel,
+                                   diagram_capt =  diagram_capt_sjukpenning,
+                                   diagram_facet = FALSE,
+                                   berakna_index = FALSE,
+                                   output_mapp = "",
+                                   filnamn_diagram = diagramfilnamn,
+                                   skriv_till_diagramfil = FALSE)
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+sjukpenningtal_kommun_fig
 ```
 
 ### Stress
 
-En märkbar utveckling under de senaste årtiodena är ökningen i antalet
+En märkbar utveckling under de senaste årtiondena är ökningen i antalet
 stressrelaterade sjukskrivningar. Ett allt större antal sjukskrivningar,
 för både män och kvinnor, kan kopplas till stress i Dalarna. För kvinnor
 har antalet pågående sjukfall kopplade till stress mellan 2009 och 2016
