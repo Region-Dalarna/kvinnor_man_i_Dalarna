@@ -75,6 +75,9 @@ kommunval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet =
 chefer_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/chefer.xlsx")
 foraldrapenning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/foraldrapenning.xlsx",sheet = 1) 
 vab_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/foraldrapenning.xlsx",sheet = 2)
+ohalsotal_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/ohalsotal_sjukpenningtal.xlsx",sheet = 1)
+sjukpenningtal_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/ohalsotal_sjukpenningtal.xlsx",sheet = 2)
+
 ```
 # Kvinnor och män i Dalarna
 <p style = "font-size:12px">
@@ -1364,13 +1367,74 @@ dels branschstrukturen i olika kommuner och dels socioekonomiska
 variabler som skiljer mellan kommunerna i Dalarna.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$`ohalsotalDalarnas län`
-knitr::include_graphics(here("Diagram","ohalsotalDalarnas län.png"))
+diagram_capt_ohälsa <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Ohälsotalet: hur många dagar under en tolvmånadersperiod\nFörsäkringskassan betalar ut ersättning för nedsatt arbetsförmåga\ni förhållande till antalet försäkrade i åldrarna 16-64 år."
+
+ohalsotal_df_utskrift <- ohalsotal_df %>%
+  filter(Ålder == "Samtliga 16-64 år") %>%
+    mutate(Ohälsotalet = as.numeric(Ohälsotalet)) %>% 
+      group_by(År,Län,Kommun,Kön) %>% 
+        summarize(Ohälsotalet_medel=mean(Ohälsotalet))
+
+diagramtitel <- "Genomsnittligt ohälsotal (16-64 år) per år i Dalarna"
+diagramfilnamn <- "ohalsotal.png"
+
+ohalsotal_fig <- SkapaStapelDiagram(skickad_df = ohalsotal_df_utskrift %>%
+                                     filter(Kommun == "Samtliga kommuner",
+                                            Kön != "Kvinnor och män") %>% 
+                                      mutate(Kön = tolower(Kön)), 
+                                   skickad_x_var = "År", 
+                                   skickad_y_var = "Ohälsotalet_medel", 
+                                   skickad_x_grupp = "Kön",
+                                   x_axis_lutning = 0,
+                                   manual_color = diagramfarger("kon"),
+                                   manual_y_axis_title = "",
+                                   diagram_titel = diagramtitel,
+                                   diagram_capt =  diagram_capt_ohälsa,
+                                   diagram_facet = FALSE,
+                                   berakna_index = FALSE,
+                                   output_mapp = "",
+                                   filnamn_diagram = diagramfilnamn,
+                                   skriv_till_diagramfil = FALSE)
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$`ohalsotal_kommun_Dalarnas län`
-knitr::include_graphics(here("Diagram","ohalsotal_kommunDalarnas län.png"))
+ohalsotal_fig
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+diagram_capt_ohälsa <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Ohälsotalet: hur många dagar under en tolvmånadersperiod\nFörsäkringskassan betalar ut ersättning för nedsatt arbetsförmåga\ni förhållande till antalet försäkrade i åldrarna 16-64 år."
+
+diagramtitel <- paste0("Genomsnittligt ohälsotal (16-64 år) i Dalarna år ",max(ohalsotal_df_utskrift$År))
+diagramfilnamn <- "ohalsotal_kommun.png"
+
+ohalsotal_kommun_fig <- SkapaStapelDiagram(skickad_df = ohalsotal_df_utskrift %>%
+                                     filter(Kommun != "Samtliga kommuner",
+                                            Kön != "Kvinnor och män",
+                                            År == max(.$År)) %>% 
+                                      mutate(Kön = tolower(Kön),
+                                             Kommun = stri_extract_last(Kommun, regex='\\S+')), 
+                                   skickad_x_var = "Kommun", 
+                                   skickad_y_var = "Ohälsotalet_medel", 
+                                   skickad_x_grupp = "Kön",
+                                   manual_x_axis_text_vjust = 1,
+                                   manual_x_axis_text_hjust = 1,
+                                   x_axis_lutning = 45,
+                                   x_axis_sort_value = TRUE,
+                                   x_axis_sort_grp = 1,
+                                   vand_sortering = TRUE,
+                                   manual_color = diagramfarger("kon"),
+                                   manual_y_axis_title = "",
+                                   diagram_titel = diagramtitel,
+                                   diagram_capt =  diagram_capt_ohälsa,
+                                   diagram_facet = FALSE,
+                                   berakna_index = FALSE,
+                                   output_mapp = "",
+                                   filnamn_diagram = diagramfilnamn,
+                                   skriv_till_diagramfil = FALSE)
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+ohalsotal_kommun_fig
 ```
 
 ### Sjukpenningtalet
@@ -1451,19 +1515,19 @@ knitr::include_graphics(here("Diagram","Startade_sjukfall_branschDalarnas län.p
 
 Antalet mottagare av föräldrapenning (den första figuren nedan) ökade
 från ungefär 13 000 i slutet av 90-talet till över 22 000 2018. 
-En viss minskning syntes under pandemiåren, vilket sannolikt
+En minskning syntes under pandemiåren och åren därefter, vilket sannolikt
 beror på att uttaget av tillfällig föräldrapenning (VAB) då ökade
 kraftigt (se nedan). Antalet uttagna dagar har ökat för såväl kvinnor
 som män, men den relativa skillnaden i uttag mellan könen har minskat. I
 slutet av 90-talet togs runt 85-90 procent av föräldrapenning ut av
-mammorna, en andel som hade minskat till runt 70 procent 2021.
+mammorna, en andel som hade minskat till runt `r as.integer(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Kvinnor", År == max(År)) %>% .$Andel)` procent `r max(foraldrapenning_df$År)`.
 Utvecklingen går dock relativt trögt och Sverige är långt ifrån ett
 jämställt uttag av dagar.
 
 Antalet mottagare av föräldrapenning är olika jämnt fördelade beroende
-på vilken kommun i Dalarna vi tittar på. Leksand är relativt mest
-jämställt, där över 30% av föräldrapenningen togs ut av männen. Minst
-jämställt är Orsa, där motsvarande uttag är ungefär 20%.
+på vilken kommun i Dalarna vi tittar på. `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun, regex='\\S+')` är relativt mest
+jämställt, där över 30 procent av föräldrapenningen togs ut av männen. Minst
+jämställt är `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun, regex='\\S+')`, där motsvarande uttag är ca `r as.integer(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel)` procent.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 
@@ -1471,7 +1535,7 @@ diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Reg
 diagramtitel <- "Antal mottagare av föräldrapenning i Dalarna"
 diagramfilnamn <- "Foraldrapenning_antal.png"
 
-fp_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
+fp_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df %>%
                                filter(Kommun == "Samtliga kommuner",
                                       Kön != "Kvinnor och män") %>% 
                                 mutate(Kön = tolower(Kön),
@@ -1498,13 +1562,8 @@ fp_fig
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$`Foraldrapenning_antal_linjeDalarnas län`
-#knitr::include_graphics(here("Diagram","Foraldrapenning_antal_linjeDalarnas län.png"))
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
-diagramtitel <- "Andel som mottar föräldrapenning i Dalarna"
+diagramtitel <- "Andel nettodagar per kön i Dalarna"
 diagramfilnamn <- "Foraldrapenning_andel.png"
 
 fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
@@ -1519,7 +1578,7 @@ fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
                              manual_x_axis_text_vjust=1,
                              manual_x_axis_text_hjust=1,
                              manual_color = diagramfarger("kon"),
-                             manual_y_axis_title = "Andel nettodagar per kön",
+                             manual_y_axis_title = "",
                              diagram_titel = diagramtitel,
                              diagram_capt =  diagram_capt,
                              diagram_facet = FALSE,
@@ -1534,7 +1593,7 @@ fp_andel_fig
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
-diagramtitel <- paste0("Andel som mottar föräldrapenning i Dalarna år ",max(foraldrapenning_df$År))
+diagramtitel <- paste0("Andel nettodagar per kön i Dalarna år ",max(foraldrapenning_df$År))
 diagramfilnamn <- "Foraldrapenning_andel_kommun.png"
 
 fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
@@ -1549,7 +1608,7 @@ fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
                              skickad_x_grupp = "Kön",
                              x_axis_lutning = 45,
                              manual_color = diagramfarger("kon"),
-                             manual_y_axis_title = "Andel nettodagar per kön",
+                             manual_y_axis_title = "",
                              manual_x_axis_text_vjust=1,
                              manual_x_axis_text_hjust=1,
                              x_axis_sort_value = TRUE,
@@ -1572,8 +1631,8 @@ fp_andel_fig
 Vad gäller tillfällig föräldrapenning, det som i folkmun kallas Vab,
 minskade antalet uttagna nettodagar något mellan 2006 och 2009, för att
 därefter öka stadigt fram till idag (den första figuren nedan). En
-tydlig pandemieffekt går att skönja, då antalet dagar ökade avsevärt
-från 2019 till 2020/2021. Kvinnor tar ut betydligt fler dagar än männen,
+tydlig pandemieffekt går att skönja, då antalet dagar ökat avsevärt
+sedan 2019. Kvinnor tar ut betydligt fler dagar än männen,
 men till skillnad från föräldrapenning blir uttaget av Vab-dagar inte
 mer jämställt över tiden (det verkar dock föreligga en viss skillnad
 under pandemin), se den andra figuren nedan <br> <br>

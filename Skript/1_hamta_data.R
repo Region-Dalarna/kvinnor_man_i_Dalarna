@@ -76,3 +76,8 @@ source(here("Skript","foraldrapenning.R"), encoding="UTF-8")
 diag_foraldraforsakring(spara_data = TRUE,
                         output_mapp = Output_mapp)
 
+# Ohälsotal och sjukpenningtal
+source(here("Skript","ohalsotal_sjukpenningtal.R"), encoding="UTF-8")
+diag_ohalsa(spara_data = TRUE,
+            output_mapp = Output_mapp)
+
