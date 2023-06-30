@@ -91,3 +91,8 @@ source(here("Skript","startade_sjukfall_bransch.R"), encoding="UTF-8")
 diag_sjukfall_bransch(spara_data = TRUE,
                       output_mapp = Output_mapp)
 
+# Gymnasieantagning
+source(here("Skript","gymnasieantagning.R"), encoding="UTF-8")
+diag_gymnasieantagning(spara_data = TRUE,
+                       output_mapp = Output_mapp)
+

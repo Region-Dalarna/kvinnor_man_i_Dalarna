@@ -79,6 +79,7 @@ ohalsotal_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/ohalsotal_sjukpenn
 sjukpenningtal_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/ohalsotal_sjukpenningtal.xlsx",sheet = 2)
 stress_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/sjukfall_stress.xlsx")
 startade_sjukfall_bransch_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/startade_sjukfall_bransch_bearbetad.xlsx")
+gymnasieantagning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasieantagning.xlsx")
 ```
 # Kvinnor och män i Dalarna
 <p style = "font-size:12px">
@@ -434,8 +435,41 @@ där vård- och omsorgsprogrammet är det mest obalanserade programmet
 följt av hantverksprogrammet och det humanistiska programmet.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="150%"}
-#lista_figurer$Konsfordelning_gymnasiet.PNG
-knitr::include_graphics(here("Diagram","kon_andel_programtyp.png"))
+diagram_capt <- "Källa: Källan är Gymnasieantagningen, Dalarnas kommunförbund\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Antagna i början av september"
+
+gym_sum <- gymnasieantagning_df %>% 
+  group_by(ar,program) %>% 
+    mutate(andel = (Antagna/sum(Antagna))*100-0.001)
+
+diagram_titel <- paste0("Antagna gymnasieelever i Dalarna ", max(gymnasieantagning_df$ar)," per program")
+diagramfil <- "gymnasieantagning_alla.png"
+
+gymnasieantagning_fig <- SkapaStapelDiagram(skickad_df = gym_sum%>%
+                                             filter(ar == max(.$ar)),
+                                           skickad_x_var = "program",
+                                           skickad_y_var = "andel",
+                                           skickad_x_grupp = "Kon",
+                                           manual_color = diagramfarger("kon"),
+                                           diagram_titel = diagram_titel,
+                                           x_axis_sort_value = TRUE,
+                                           x_axis_sort_grp = 2,
+                                           fokusera_varden = list(list(geom = "rect", ymin=40, ymax=60, xmin=0, xmax=Inf, alpha=0.2, fill="grey20")),
+                                           diagram_capt = diagram_capt,
+                                           #procent_0_100_10intervaller = TRUE,
+                                           manual_y_axis_title = "procent",
+                                           x_axis_lutning = 0,
+                                           diagram_liggande = TRUE,
+                                           geom_position_stack = TRUE,
+                                           berakna_index = FALSE,
+                                           output_mapp = outputmapp,
+                                           filnamn_diagram = diagramfil,
+                                           skriv_till_diagramfil = TRUE)
+
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="150%"}
+gymnasieantagning_fig
+
 ```
 
 ### Bransch och yrke
