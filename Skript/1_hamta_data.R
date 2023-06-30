@@ -81,3 +81,8 @@ source(here("Skript","ohalsotal_sjukpenningtal.R"), encoding="UTF-8")
 diag_ohalsa(spara_data = TRUE,
             output_mapp = Output_mapp)
 
+# Startade sjukfall stress
+source(here("Skript","sjukfall_stress.R"), encoding="UTF-8")
+diag_stress(spara_data = TRUE,
+            output_mapp = Output_mapp)
+

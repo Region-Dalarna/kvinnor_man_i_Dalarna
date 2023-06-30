@@ -2,18 +2,12 @@
 # Skript som laddar hem data föräldrapenning och tillfällig föräldrapenning
 # Källa: https://www.dataportal.se/sv/datasets?p=1&q=&s=2&t=20&f=&rt=dataset%24esterms_IndependentDataService%24esterms_ServedByDataService&c=false
 # =================================================================================================================
-# Läser in nödvändiga bibliotek med pacman
+# # Läser in nödvändiga bibliotek med pacman
 if (!require("pacman")) install.packages("pacman")
-p_load(janitor,
-       keyring,
-       httr,
-       rKolada,
-       openxlsx,
-       rio,
-       tidyverse)
+p_load(openxlsx)
 
 # Funktioner som behövs
-source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
+source("https://raw.githubusercontent.com/JonFrank81/funktioner/main/hamta_data.R")
 
 #test_list <- diag_chefer(skapa_fil = FALSE)
 
@@ -24,62 +18,26 @@ diag_foraldraforsakring<-function(region_vekt = "20",
   
   # =============================================== Uttag ===============================================
   # Adresser till data
-  path = c("https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/ohm-ohalsotal/SJPohttal.xlsx","https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/ohm-sjptal/SJPsjptal.xlsx")
+  path = c("https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/fp-antal-mottagare-nettodagar-belopp/FPAntalDagarBeloppLanKommun.xlsx",
+           "https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/tfp-antal-mottagare-belopp/TfpAntalDagarBeloppLanKommun.xlsx")
   
-  flik_lista = lst()
-  i=1
+  # Anropar funktionen hamta_data_FK som hämtar data från öppna data på Försäkringskassan och returnerar en lista.
+  flik_lista <- hamta_data_FK(path, c("Föräldrapenning","VAB"),region_vekt)
   
-  # Uttag av data. Eftersom det är en väldigt stor datamängd delas den upp i två flikar (av Försäkringskassan), varför lapply används,
-  while(i <= length(path)){
-    
-    td = tempdir()              # skapa temporär mapp
-    varsel_fil <- tempfile(tmpdir=td, fileext = ".xlsx")
-    download.file(path[[i]], destfile = varsel_fil, mode = "wb")       # ladda hem hela filen, mode = "wb" viktigt, annars blir det fel
-    
-    lista = lapply(getSheetNames(varsel_fil), function(x) import(file=path[[i]],which = x) %>% 
-                     filter(!row_number() %in% c(0, 1)) %>% 
-                     row_to_names(1) %>% 
-                     filter(substr(Län,1,2) == region_vekt))
-    
-    # Binder ihop data från de olika flikarna i Excelfilen
-    j=1
-    df=c()
-    while(j<=length(lista)){
-      df <- rbind(df,lista[[j]])
-      j=j+1
-    }
-    
-    flik_lista[[i]] <- df
-    
-    i=i+1
-  }
+  # Döper om vissa variabler i dataset
+  flik_lista[[1]] <- flik_lista[[1]] %>% 
+    rename(Antal_mottagare = `Antal mottagare`,
+           Andel = `Andel nettodagar per kön`)
   
-  names(flik_lista) <- c("Ohälsotalet","Sjukpenningtalet")
+  flik_lista[[2]] <- flik_lista[[2]] %>% 
+    rename(Antal_mottagare = `Antal mottagare`,
+           Antal_nettodagar = `Antal nettodagar`,
+           Andel = `Andel nettodagar per kön`)
+    
   
   # Sparar data till Excel
   if (spara_data==TRUE){
     openxlsx::write.xlsx(flik_lista,paste0(output_mapp,filnamn))
   }
-  
-  
-  # foraldrapenning_df <- import(file="https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/fp-antal-mottagare-nettodagar-belopp/FPAntalDagarBeloppLanKommun.xlsx") %>%  
-  #   filter(!row_number() %in% c(0, 1)) %>% 
-  #     row_to_names(1) %>% 
-  #       filter(substr(Län,1,2) == region_vekt) %>% 
-  #         rename(Antal_mottagare = `Antal mottagare`,
-  #                Andel = `Andel nettodagar per kön`)
-  # 
-  # vab_df <- import(file="https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/tfp-antal-mottagare-belopp/TfpAntalDagarBeloppLanKommun.xlsx") %>% 
-  #   filter(!row_number() %in% c(0, 1)) %>% 
-  #     row_to_names(1) %>% 
-  #       filter(substr(Län,1,2) == region_vekt) %>% 
-  #         rename(Antal_mottagare = `Antal mottagare`,
-  #                Antal_nettodagar = `Antal nettodagar`,
-  #                Andel = `Andel nettodagar per kön`)
-  # 
-  # # Sparar data till Excel
-  # if (spara_data==TRUE){
-  #   flik_lista=lst("Föräldrapenning" = foraldrapenning_df,"VAB" = vab_df)
-  #   openxlsx::write.xlsx(flik_lista,paste0(output_mapp,filnamn))
-  # }
+
 }
