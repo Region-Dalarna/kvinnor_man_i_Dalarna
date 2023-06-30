@@ -177,10 +177,10 @@ bef_for <- SkapaLinjeDiagram(skickad_df = befolkning_df_for %>%
                             diagram_titel = diagram_titel,
                             stodlinjer_avrunda_fem = FALSE,
                             diagram_capt = diagram_capt,
-                            output_mapp = "",
+                            output_mapp = outputmapp,
                             visa_var_x_xlabel = 4,
                             filnamn_diagram = diagramfil,
-                            skriv_till_diagramfil = FALSE)
+                            skriv_till_diagramfil = TRUE)
 ```
 
 Dalarnas län hade `r as.character(format(befolkning_df_for %>% filter(region == "Dalarna",år == last(.$år)) %>% .$Folkmängd, big.mark=" ", scientific=FALSE, trim=TRUE))` invånare år `r last(befolkning_df_for$år)`, vilket är ungefär `r gsub("\\.",",",round(((befolkning_df_for %>% filter(region == "Dalarna",år == last(.$år)) %>% .$Folkmängd/befolkning_df_for %>% filter(region == "Dalarna",år == first(.$år)) %>% .$Folkmängd)-1)*100,1))` procent fler än 1968. Under samma tidsperiod ökade Sveriges
@@ -227,7 +227,7 @@ befolkning_df$region <- skapa_kortnamn_lan(befolkning_df$region,byt_ut_riket_mot
 
 # Skapar en variabel som bestämmer om personer är över 65 och summerar och beräknar andelar
 befolkning_sum <- befolkning_df %>% 
-  mutate(aldersgrupp = ifelse(as.integer(ålder)>65,"Över 65","Under 65")) %>% 
+  mutate(aldersgrupp = ifelse(as.numeric(ålder)>65,"Över 65","Under 65")) %>% 
     group_by(region,år,aldersgrupp) %>% 
       summarize(antal = sum(Folkmängd)) %>% 
         mutate(andel = round((antal/sum(antal))*100,2))
@@ -249,6 +249,7 @@ andel_aldre <- SkapaStapelDiagram(skickad_df = befolkning_sum %>%
                              manual_y_axis_title="procent",
                              manual_x_axis_text_vjust = 1,
                              manual_x_axis_text_hjust = 1,
+                             stodlinjer_avrunda_fem = TRUE,
                              x_axis_lutning = 45,
                              output_mapp = outputmapp,
                              filnamn_diagram = diagramfilnamn,
@@ -323,7 +324,7 @@ diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsan
                                        manual_y_axis_title = "procent",
                                        diagram_titel = diagramtitel,
                                        diagram_capt =  diagram_capt,
-                                       facet_legend_bottom = TRUE,
+                                       stodlinjer_avrunda_fem = TRUE,
                                        berakna_index = FALSE,
                                        output_mapp = outputmapp,
                                        filnamn_diagram = diagramfilnamn,
@@ -366,8 +367,7 @@ utbildning_lan_fig <- SkapaStapelDiagram(skickad_df <- utbildning_df %>%
                                          manual_y_axis_title="procent",
                                          diagram_titel = diagramtitel,
                                          diagram_capt =  diagram_capt,
-                                         facet_legend_bottom=TRUE,
-                                         berakna_index = FALSE,
+                                         stodlinjer_avrunda_fem = TRUE,
                                          output_mapp = outputmapp,
                                          filnamn_diagram = diagramfilnamn,
                                          skriv_till_diagramfil = TRUE)
@@ -402,6 +402,7 @@ utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
                              diagram_titel = diagramtitel,
                              diagram_capt =  diagram_capt,
                              x_axis_lutning = 0,
+                             stodlinjer_avrunda_fem = TRUE,
                              manual_y_axis_title="procent",
                              output_mapp = outputmapp,
                              filnamn_diagram = diagramfilnamn,
@@ -475,6 +476,7 @@ forvarvsarbetande_kon_fig <- SkapaStapelDiagram(skickad_df <- forvarvsarbetande_
                                                x_axis_lutning = 45,
                                                x_axis_sort_value=TRUE,
                                                manual_color = diagramfarger("kon"),
+                                               stodlinjer_avrunda_fem = TRUE,
                                                diagram_titel = diagramtitel,
                                                diagram_capt =  diagram_capt,
                                                facet_legend_bottom=TRUE,
@@ -505,6 +507,7 @@ forvarvsarbetande_kon_fig
                                  manual_y_axis_title = "Antal förvärvsarbetande",
                                  manual_color = diagramfarger("rus_sex")[1],
                                  x_axis_sort_value = TRUE,
+                                 stodlinjer_avrunda_fem = TRUE,
                                  diagram_titel = diagram_titel,
                                  diagram_capt = diagram_capt,
                                  x_axis_lutning = 0,
@@ -538,6 +541,7 @@ forvarvsarbetande_kon_fig
                                  diagram_titel = diagram_titel,
                                  diagram_capt = diagram_capt,
                                  x_axis_lutning = 0,
+                                 stodlinjer_avrunda_fem = TRUE,
                                  diagram_liggande = TRUE,
                                  output_mapp = outputmapp,
                                  filnamn_diagram = diagramfil,
@@ -602,6 +606,7 @@ syss_lan_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_lan_df %>%
                                  diagram_titel = diagramtitel,
                                  diagram_capt =  diagram_capt,
                                  diagram_facet = TRUE,
+                                  y_axis_100proc = TRUE,
                                  facet_grp = "födelseregion",
                                  facet_scale = "fixed",
                                  facet_legend_bottom = TRUE,
@@ -643,7 +648,7 @@ flyktingkrisen 2015. Exempelvis var Avesta, Ludvika och Hedemora de tre kommuner
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
   diagram_capt <- c("Källa: SCB:s öppna statistikdatabas, befolkningens arbetsmarknadsstatus (BAS).\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Andelen av befolkningen som är sysselsatt (sysselsättningsgrad).")
 
-  diagramtitel <- paste0("Sysselsättningsgrad i åldersgruppen 20-64 i ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$manad_long)," ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$ar))
+  diagramtitel <- paste0("Sysselsättningsgrad i åldersgruppen 20-64 i ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$manad_long)," ",unique(arbetsmarknadsstatus_lan_df %>%      filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$ar))
   diagramfilnamn <- paste0("sysselsättningsgrad","_kommun",".png")
 
 syss_kommun_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_kommun_df %>% 
@@ -658,6 +663,7 @@ syss_kommun_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_kommun_d
                                      diagram_titel = diagramtitel,
                                      diagram_capt =  diagram_capt,
                                      diagram_facet = TRUE,
+                                     y_axis_100proc = TRUE,
                                      facet_grp = "födelseregion",
                                      facet_scale = "fixed",
                                      facet_legend_bottom = TRUE,
@@ -719,6 +725,7 @@ arb_lan_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_lan_df %>%
                                  facet_scale = "fixed",
                                  facet_legend_bottom = TRUE,
                                  x_axis_sort_value = TRUE,
+                                 stodlinjer_avrunda_fem = TRUE,
                                  x_axis_lutning = 45,
                                  output_mapp = outputmapp,
                                  filnamn_diagram = diagramfilnamn,
@@ -771,6 +778,7 @@ arb_kommun_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_kommun_df
                                      facet_legend_bottom = TRUE,
                                      x_axis_sort_value = TRUE,
                                      x_axis_lutning = 45,
+                                     stodlinjer_avrunda_fem = TRUE,
                                      output_mapp = outputmapp,
                                      filnamn_diagram = diagramfilnamn,
                                      skriv_till_diagramfil = TRUE)  
@@ -873,6 +881,7 @@ matchning_lan_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
                                        diagram_capt =  diagram_capt,
                                        x_axis_sort_value = TRUE,
                                        x_axis_lutning = 45,
+                                       stodlinjer_avrunda_fem = TRUE,
                                        manual_y_axis_title = "procent",
                                        output_mapp = outputmapp,
                                        filnamn_diagram = diagramfilnamn,
@@ -912,7 +921,7 @@ matchning_bakg_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
                                          x_axis_sort_value = TRUE,
                                          x_axis_lutning =0,
                                          diagram_liggande = TRUE,
-                                         geom_position_stack = FALSE,
+                                         stodlinjer_avrunda_fem = TRUE,
                                          manual_y_axis_title="procent",
                                          berakna_index = FALSE,
                                          output_mapp = outputmapp,
@@ -963,6 +972,7 @@ etablering_fig <- SkapaStapelDiagram(skickad_df =etablering_df %>%
                                     diagram_titel = diagramtitel,
                                     diagram_capt =  diagram_capt,
                                     manual_x_axis_title = "Vistelsetid",
+                                    y_axis_100proc = TRUE,
                                     diagram_facet = FALSE,
                                     x_axis_sort_value = FALSE,
                                     x_axis_lutning = 0,
@@ -1017,6 +1027,7 @@ etablering_fig_utb <- SkapaStapelDiagram(skickad_df =etablering_df %>%
                                          facet_legend_bottom = TRUE,
                                          facet_scale = "fixed",
                                          x_axis_sort_value = FALSE,
+                                         y_axis_100proc = TRUE,
                                          x_axis_lutning = 0, 
                                          manual_y_axis_title="procent",
                                          output_mapp = outputmapp,
@@ -1127,8 +1138,9 @@ medianinkomst_tid_fig <- SkapaStapelDiagram(skickad_df =medianinkomst_df %>%
                                          manual_x_axis_text_hjust=1,
                                          diagram_facet = FALSE,
                                          facet_scale = "fixed",
+                                         stodlinjer_avrunda_fem = TRUE,
                                          vand_sortering = TRUE,
-                                         x_axis_lutning = 45, 
+                                         x_axis_lutning = 45,
                                          manual_y_axis_title = "",
                                          output_mapp = outputmapp,
                                          filnamn_diagram = diagramfilnamn,
@@ -1156,11 +1168,12 @@ medianinkomst_linje_fig <- SkapaLinjeDiagram(skickad_df = medianinkomst_df %>%
                                             manual_color = diagramfarger("kon"),
                                             diagram_titel = diagramtitel,
                                             diagram_capt =  diagram_capt,
+                                            stodlinjer_avrunda_fem = TRUE,
                                             diagram_facet = FALSE,
                                             berakna_index = TRUE,
-                                            output_mapp = "",
+                                            output_mapp = outputmapp,
                                             filnamn_diagram = diagramfilnamn,
-                                            skriv_till_diagramfil = FALSE)
+                                            skriv_till_diagramfil = TRUE)
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
@@ -1187,6 +1200,7 @@ medianinkomst_kommun_fig <- SkapaStapelDiagram(skickad_df =medianinkomst_df %>%
                                          facet_scale = "fixed",
                                          x_axis_sort_value = TRUE,
                                          x_axis_sort_grp = 1,
+                                         stodlinjer_avrunda_fem = TRUE,
                                          vand_sortering = TRUE,
                                          x_axis_lutning = 45, 
                                          manual_y_axis_title = "",
@@ -1238,6 +1252,7 @@ diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsa
                                      manual_color = diagramfarger("rus_sex"),
                                      diagram_titel = diagramtitel,
                                      diagram_capt =  diagram_capt,
+                                     stodlinjer_avrunda_fem = TRUE,
                                      diagram_liggande = TRUE,
                                      output_mapp = outputmapp,
                                      filnamn_diagram = diagramfilnamn,
@@ -1285,6 +1300,7 @@ skuldsatta_fig <- SkapaStapelDiagram(skickad_df = skulder_df_sum,
                                      diagram_titel = diagramtitel,
                                      diagram_capt =  diagram_capt[1],
                                      diagram_facet = FALSE,
+                                     stodlinjer_avrunda_fem = TRUE,
                                      manual_y_axis_title = "Antal skuldsatta",
                                      berakna_index = FALSE,
                                      output_mapp = outputmapp,
@@ -1331,6 +1347,7 @@ skuldsatta_lang <- SkapaStapelDiagram(skickad_df = langsiktiga_skulder_df_sum,
                                      manual_color = diagramfarger("kon"),
                                      diagram_titel = diagramtitel,
                                      diagram_capt =  diagram_capt[2],
+                                     stodlinjer_avrunda_fem = TRUE,
                                      diagram_facet = FALSE,
                                      manual_y_axis_title = "Antal långsiktigt skuldsatta",
                                      berakna_index = FALSE,
@@ -1371,11 +1388,12 @@ ohalsotal_fig <- SkapaStapelDiagram(skickad_df = ohalsotal_df_utskrift %>%
                                    manual_y_axis_title = "",
                                    diagram_titel = diagramtitel,
                                    diagram_capt =  diagram_capt_ohälsa,
+                                   stodlinjer_avrunda_fem = TRUE,
                                    diagram_facet = FALSE,
                                    berakna_index = FALSE,
-                                   output_mapp = "",
+                                   output_mapp = outputmapp,
                                    filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = FALSE)
+                                   skriv_till_diagramfil = TRUE)
 ```
 
 Det finns tydliga skillnader mellan kvinnor och män inom hälsa.
@@ -1425,11 +1443,12 @@ ohalsotal_kommun_fig <- SkapaStapelDiagram(skickad_df = ohalsotal_df_utskrift %>
                                    manual_y_axis_title = "",
                                    diagram_titel = diagramtitel,
                                    diagram_capt =  diagram_capt_ohälsa,
+                                   stodlinjer_avrunda_fem = TRUE,
                                    diagram_facet = FALSE,
                                    berakna_index = FALSE,
-                                   output_mapp = "",
+                                   output_mapp = outputmapp,
                                    filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = FALSE)
+                                   skriv_till_diagramfil = TRUE)
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -1462,11 +1481,12 @@ sjukpenningtal_fig <- SkapaStapelDiagram(skickad_df = sjukpenningtal_df_utskrift
                                        manual_y_axis_title = "",
                                        diagram_titel = diagramtitel,
                                        diagram_capt =  diagram_capt_sjukpenning,
+                                       stodlinjer_avrunda_fem = TRUE,
                                        diagram_facet = FALSE,
                                        berakna_index = FALSE,
-                                       output_mapp = "",
+                                       output_mapp = outputmapp,
                                        filnamn_diagram = diagramfilnamn,
-                                       skriv_till_diagramfil = FALSE)
+                                       skriv_till_diagramfil =TRUE)
 ```
 
 I likhet med ohälsotalet så tenderar sjukpenningtalet, som enbart
@@ -1513,14 +1533,15 @@ sjukpenningtal_kommun_fig <- SkapaStapelDiagram(skickad_df = sjukpenningtal_df_u
                                    x_axis_sort_grp = 1,
                                    vand_sortering = TRUE,
                                    manual_color = diagramfarger("kon"),
+                                   stodlinjer_avrunda_fem = TRUE,
                                    manual_y_axis_title = "",
                                    diagram_titel = diagramtitel,
                                    diagram_capt =  diagram_capt_sjukpenning,
                                    diagram_facet = FALSE,
                                    berakna_index = FALSE,
-                                   output_mapp = "",
+                                   output_mapp = outputmapp,
                                    filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = FALSE)
+                                   skriv_till_diagramfil = TRUE)
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -1566,13 +1587,14 @@ stress_fig <- SkapaStapelDiagram(skickad_df = stress_df_utskrift %>%
                              x_axis_lutning = 0,
                              manual_y_axis_title = "",
                              manual_color = diagramfarger("kon"),
+                             stodlinjer_avrunda_fem = TRUE,
                              diagram_titel = diagramtitel,
                              diagram_capt =  diagram_capt,
                              diagram_facet = FALSE,
                              berakna_index = FALSE,
-                             output_mapp = "",
+                             output_mapp = outputmapp,
                              filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = FALSE)
+                             skriv_till_diagramfil = TRUE)
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -1612,11 +1634,12 @@ sjukfall_bransch_fig <- SkapaStapelDiagram(skickad_df = startade_sjukfall_bransc
                                            diagram_liggande = FALSE,
                                            x_axis_sort_value = TRUE,
                                            x_axis_lutning = 45,
+                                           stodlinjer_avrunda_fem = TRUE,
                                            facet_scale = "fixed",
                                            berakna_index = FALSE,
-                                           output_mapp = "",
+                                           output_mapp = outputmapp,
                                            filnamn_diagram = diagramfilnamn,
-                                           skriv_till_diagramfil = FALSE)
+                                           skriv_till_diagramfil = TRUE)
 
 ```
 
@@ -1635,14 +1658,14 @@ beror på att uttaget av tillfällig föräldrapenning (VAB) då ökade
 kraftigt (se nedan). Antalet uttagna dagar har ökat för såväl kvinnor
 som män, men den relativa skillnaden i uttag mellan könen har minskat. I
 slutet av 90-talet togs runt 85-90 procent av föräldrapenning ut av
-mammorna, en andel som hade minskat till runt `r as.integer(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Kvinnor", År == max(År)) %>% .$Andel)` procent `r max(foraldrapenning_df$År)`.
+mammorna, en andel som hade minskat till runt `r as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Kvinnor", År == max(År)) %>% .$Andel)` procent `r max(foraldrapenning_df$År)`.
 Utvecklingen går dock relativt trögt och Sverige är långt ifrån ett
 jämställt uttag av dagar.
 
 Antalet mottagare av föräldrapenning är olika jämnt fördelade beroende
 på vilken kommun i Dalarna vi tittar på. `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun, regex='\\S+')` är relativt mest
 jämställt, där över 30 procent av föräldrapenningen togs ut av männen. Minst
-jämställt är `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun, regex='\\S+')`, där motsvarande uttag är ca `r as.integer(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel)` procent.
+jämställt är `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun, regex='\\S+')`, där motsvarande uttag är ca `r as.numeric(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel)` procent.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 
@@ -1654,7 +1677,7 @@ fp_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df %>%
                                filter(Kommun == "Samtliga kommuner",
                                       Kön != "Kvinnor och män") %>% 
                                 mutate(Kön = tolower(Kön),
-                                       Antal_mottagare = as.integer(Antal_mottagare)), 
+                                       Antal_mottagare = as.numeric(Antal_mottagare)), 
                              skickad_x_var = "År", 
                              skickad_y_var = "Antal_mottagare", 
                              skickad_x_grupp = "Kön",
@@ -1663,12 +1686,13 @@ fp_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df %>%
                              manual_x_axis_text_hjust=1,
                              manual_y_axis_title = "Antal mottagare",
                              manual_color = diagramfarger("kon"),
+                             stodlinjer_avrunda_fem = TRUE,
                              diagram_titel = diagramtitel,
                              diagram_capt =  diagram_capt,
                              diagram_facet = FALSE,
-                             output_mapp = "",
+                             output_mapp = outputmapp,
                              filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = FALSE)
+                             skriv_till_diagramfil = TRUE)
     
 ```
 
@@ -1685,7 +1709,7 @@ fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
                                filter(Kommun == "Samtliga kommuner",
                                       Kön != "Kvinnor och män") %>% 
                                 mutate(Kön = tolower(Kön),
-                                       Andel = as.integer(Andel)), 
+                                       Andel = as.numeric(Andel)), 
                              skickad_x_var = "År", 
                              skickad_y_var = "Andel", 
                              skickad_x_grupp = "Kön",
@@ -1693,13 +1717,14 @@ fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
                              manual_x_axis_text_vjust=1,
                              manual_x_axis_text_hjust=1,
                              manual_color = diagramfarger("kon"),
+                             stodlinjer_avrunda_fem = TRUE,
                              manual_y_axis_title = "",
                              diagram_titel = diagramtitel,
                              diagram_capt =  diagram_capt,
                              diagram_facet = FALSE,
-                             output_mapp = "",
+                             output_mapp = outputmapp,
                              filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = FALSE)
+                             skriv_till_diagramfil = TRUE)
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -1716,7 +1741,7 @@ fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
                                       Kön != "Kvinnor och män",
                                       År == max(År)) %>% 
                                 mutate(Kön = tolower(Kön),
-                                       Andel = as.integer(Andel),
+                                       Andel = as.numeric(Andel),
                                        Kommun = stri_extract_last(Kommun, regex='\\S+')), 
                              skickad_x_var = "Kommun", 
                              skickad_y_var = "Andel", 
@@ -1727,14 +1752,15 @@ fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
                              manual_x_axis_text_vjust=1,
                              manual_x_axis_text_hjust=1,
                              x_axis_sort_value = TRUE,
+                             stodlinjer_avrunda_fem = TRUE,
                              x_axis_sort_grp = 1,
                              vand_sortering = FALSE,
                              diagram_titel = diagramtitel,
                              diagram_capt =  diagram_capt,
                              diagram_facet = FALSE,
-                             output_mapp = "",
+                             output_mapp = outputmapp,
                              filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = FALSE)
+                             skriv_till_diagramfil = TRUE)
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -1762,7 +1788,7 @@ tfp_fig <- SkapaStapelDiagram(skickad_df = vab_df%>%
                                       Kön != "Kvinnor och män",
                                       Delförmån == "Vård av barn") %>% 
                                 mutate(Kön = tolower(Kön),
-                                       Antal_nettodagar = as.integer(Antal_nettodagar)), 
+                                       Antal_nettodagar = as.numeric(Antal_nettodagar)), 
                              skickad_x_var = "År", 
                              skickad_y_var = "Antal_nettodagar", 
                              skickad_x_grupp = "Kön",
@@ -1773,10 +1799,11 @@ tfp_fig <- SkapaStapelDiagram(skickad_df = vab_df%>%
                              manual_color = diagramfarger("kon"),
                              diagram_titel = diagramtitel,
                              diagram_capt =  diagram_capt,
+                             stodlinjer_avrunda_fem = TRUE,
                              diagram_facet = FALSE,
-                             output_mapp = "",
+                             output_mapp = outputmapp,
                              filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = FALSE)
+                             skriv_till_diagramfil = TRUE)
     
 ```
 
@@ -1794,7 +1821,7 @@ tfp_fig_linje <- SkapaLinjeDiagram(skickad_df = vab_df%>%
                                             Kön != "Kvinnor och män",
                                             Delförmån == "Vård av barn") %>% 
                                       mutate(Kön = tolower(Kön),
-                                             Antal_nettodagar = as.integer(Antal_nettodagar),
+                                             Antal_nettodagar = as.numeric(Antal_nettodagar),
                                              "år" = År), 
                                    skickad_x_var = "år", 
                                    skickad_y_var = "Antal_nettodagar", 
@@ -1804,10 +1831,11 @@ tfp_fig_linje <- SkapaLinjeDiagram(skickad_df = vab_df%>%
                                    x_axis_lutning = 45,
                                    diagram_titel = diagramtitel,
                                    diagram_capt =  diagram_capt,
+                                   stodlinjer_avrunda_fem = TRUE,
                                    diagram_facet = FALSE,
-                                   output_mapp = "",
+                                   output_mapp = outputmapp,
                                    filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = FALSE)
+                                   skriv_till_diagramfil = TRUE)
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -1837,6 +1865,7 @@ riksdag_fig <- SkapaStapelDiagram(skickad_df = riksdagsval_summering_df,
                                  manual_color = diagramfarger("kon"),
                                  diagram_titel = diagramtitel,
                                  diagram_capt =  diagram_capt,
+                                 stodlinjer_avrunda_fem = TRUE,
                                  diagram_facet = FALSE,
                                  berakna_index = FALSE,
                                  output_mapp = outputmapp,
@@ -1862,6 +1891,7 @@ regionval_fig <- SkapaStapelDiagram(skickad_df = regionval_summering_df,
                                    manual_color = diagramfarger("kon"),
                                    diagram_titel = diagramtitel,
                                    diagram_capt =  diagram_capt,
+                                   stodlinjer_avrunda_fem = TRUE,
                                    diagram_facet = FALSE,
                                    berakna_index = FALSE,
                                    output_mapp = outputmapp,
@@ -1889,6 +1919,7 @@ kommunval_fig <- SkapaStapelDiagram(skickad_df = kommunval_summering_df,
                                     manual_color = diagramfarger("kon"),
                                     diagram_titel = diagramtitel,
                                     diagram_capt =  diagram_capt,
+                                    stodlinjer_avrunda_fem = TRUE,
                                     diagram_facet = FALSE,
                                     berakna_index = FALSE,
                                     output_mapp = outputmapp,
@@ -1904,7 +1935,7 @@ här avsnittet visar könsfördelningen bland riksdagsledamöter från valet
 sett en stor förändring och utveckling. Vid riksdagsvalet 1973 var en
 övervägande majoritet av de folkvalda ledamöterna män. Endast drygt 70
 kvinnor återfanns på bänkarna i Riksdagen under den här mandatperioden.
-`r as.integer(max(riksdagsval_summering_df$valår)) -  as.integer(min(riksdagsval_summering_df$valår)) ` år senare är männen fortfarande fler än kvinnorna, men skillnaden
+`r as.numeric(max(riksdagsval_summering_df$valår)) -  as.numeric(min(riksdagsval_summering_df$valår)) ` år senare är männen fortfarande fler än kvinnorna, men skillnaden
 mellan könen är bara `r riksdagsval_summering_df %>% filter(valår == max(valår),kön =="män") %>% .$Antal - riksdagsval_summering_df %>% filter(valår == max(valår),kön =="kvinnor") %>% .$Antal ` stycken ledamöter. Den mest jämställda
 Riksdagen i Sverige var mandatperioden som tog sin början `r riksdagsval_summering_df %>% filter(kön == "kvinnor",Antal == max(Antal)) %>% .$valår ` då antalet kvinnor
 var `r riksdagsval_summering_df %>% filter(kön == "kvinnor",Antal == max(Antal)) %>% .$Antal`.
@@ -1972,12 +2003,13 @@ chefer_fig <- SkapaStapelDiagram(skickad_df =chefer_df %>%
                              manual_color = diagramfarger("kon"),
                              diagram_titel = diagramtitel,
                              diagram_capt =  diagram_capt[1],
+                             stodlinjer_avrunda_fem = TRUE,
                              diagram_facet = FALSE,
                              x_axis_sort_value = TRUE,
                              manual_y_axis_title="procent",
-                             output_mapp = "",
+                             output_mapp = outputmapp,
                              filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = FALSE)
+                             skriv_till_diagramfil = TRUE)
 
 ```
 
@@ -1999,12 +2031,12 @@ chefer_fig
                               manual_color = diagramfarger("kon"),
                               diagram_titel = diagramtitel,
                               diagram_capt =  diagram_capt[2],
+                              stodlinjer_avrunda_fem = TRUE,
                               diagram_facet = FALSE,
-                              #manual_y_axis_title="procent",
                               berakna_index = TRUE,
-                              output_mapp = "",
+                              output_mapp = outputmapp,
                               filnamn_diagram = diagramfilnamn,
-                              skriv_till_diagramfil = FALSE)
+                              skriv_till_diagramfil = TRUE)
 
 
 ```
