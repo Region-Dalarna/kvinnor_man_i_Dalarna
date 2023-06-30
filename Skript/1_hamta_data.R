@@ -86,3 +86,8 @@ source(here("Skript","sjukfall_stress.R"), encoding="UTF-8")
 diag_stress(spara_data = TRUE,
             output_mapp = Output_mapp)
 
+# Startade sjukfall bransch
+source(here("Skript","startade_sjukfall_bransch.R"), encoding="UTF-8")
+diag_sjukfall_bransch(spara_data = TRUE,
+                      output_mapp = Output_mapp)
+

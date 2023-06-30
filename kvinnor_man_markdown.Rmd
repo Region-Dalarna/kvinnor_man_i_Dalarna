@@ -78,7 +78,7 @@ vab_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/foraldrapenning.xlsx",sh
 ohalsotal_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/ohalsotal_sjukpenningtal.xlsx",sheet = 1)
 sjukpenningtal_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/ohalsotal_sjukpenningtal.xlsx",sheet = 2)
 stress_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/sjukfall_stress.xlsx")
-
+startade_sjukfall_bransch_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/startade_sjukfall_bransch_bearbetad.xlsx")
 ```
 # Kvinnor och män i Dalarna
 <p style = "font-size:12px">
@@ -1546,33 +1546,37 @@ psykosociala arbetsmiljön.[^4]
     <https://www.forsakringskassan.se/download/18.3a5418591814e228e4413b2/1661267958656/psykisk-ohalsa-korta-analyser-2016-2.pdf>
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-  diagram_capt<-"Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
+diagram_capt<-"Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
 
-  stress_df_utskrift <- stress_df %>%
-    filter(Kommun == "Samtliga kommuner") %>% 
-      mutate(Antal = as.numeric(Antal)) %>% 
-        group_by(År,Län,Kön) %>% 
-          summarize(Antal_medel=mean(Antal))
+stress_df_utskrift <- stress_df %>%
+  filter(Kommun == "Samtliga kommuner") %>% 
+    mutate(Antal = as.numeric(Antal)) %>% 
+      group_by(År,Län,Kön) %>% 
+        summarize(Antal_medel=mean(Antal))
 
-  diagramtitel <- paste0("Genomsnittligt antal pågående sjukfall kopplade till stress i Dalarna")
-  diagramfilnamn <- paste0("Antal_stress.png")
-  
-  gg_obj <- SkapaStapelDiagram(skickad_df = stress_df_utskrift %>% 
-                                 filter(Kön != "Kvinnor och män") %>% 
-                                  mutate(Kön = tolower(Kön)), 
-                               skickad_x_var = "År", 
-                               skickad_y_var ="Antal_medel", 
-                               skickad_x_grupp = "Kön",
-                               x_axis_lutning = 0,
-                               manual_y_axis_title = "",
-                               manual_color = diagramfarger("kon"),
-                               diagram_titel = diagramtitel,
-                               diagram_capt =  diagram_capt,
-                               diagram_facet = FALSE,
-                               berakna_index = FALSE,
-                               output_mapp = "",
-                               filnamn_diagram = diagramfilnamn,
-                               skriv_till_diagramfil = FALSE)
+diagramtitel <- paste0("Genomsnittligt antal pågående sjukfall kopplade till stress i Dalarna")
+diagramfilnamn <- paste0("Antal_stress.png")
+
+stress_fig <- SkapaStapelDiagram(skickad_df = stress_df_utskrift %>% 
+                               filter(Kön != "Kvinnor och män") %>% 
+                                mutate(Kön = tolower(Kön)), 
+                             skickad_x_var = "År", 
+                             skickad_y_var ="Antal_medel", 
+                             skickad_x_grupp = "Kön",
+                             x_axis_lutning = 0,
+                             manual_y_axis_title = "",
+                             manual_color = diagramfarger("kon"),
+                             diagram_titel = diagramtitel,
+                             diagram_capt =  diagram_capt,
+                             diagram_facet = FALSE,
+                             berakna_index = FALSE,
+                             output_mapp = "",
+                             filnamn_diagram = diagramfilnamn,
+                             skriv_till_diagramfil = FALSE)
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+stress_fig
 ```
 
 ### Är det skillnader på branscher?
@@ -1590,6 +1594,34 @@ och IT. Notera även att antalet startade sjukfall (per 1000 förvärvsarbetande
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="80%"}
 diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
 
+diagramtitel <- paste0("Antal startade sjukfall per 1000 förvärvsarbetande i Sverige år ",max(startade_sjukfall_bransch_df$År))
+diagramfilnamn <- paste0("Startade_sjukfall_bransch.png")
+
+sjukfall_bransch_fig <- SkapaStapelDiagram(skickad_df = startade_sjukfall_bransch_df,
+                                           skickad_x_var = "SNI2007",
+                                           skickad_y_var = "Antal_startade_sjukfall",
+                                           skickad_x_grupp = "Kon",
+                                           manual_color = diagramfarger("kon"),
+                                           diagram_titel = diagramtitel,
+                                           diagram_capt =  diagram_capt,
+                                           diagram_facet = FALSE,
+                                           manual_x_axis_text_vjust = 1,
+                                           manual_x_axis_text_hjust = 1,
+                                           facet_grp="Kon",
+                                           manual_y_axis_title = "",
+                                           diagram_liggande = FALSE,
+                                           x_axis_sort_value = TRUE,
+                                           x_axis_lutning = 45,
+                                           facet_scale = "fixed",
+                                           berakna_index = FALSE,
+                                           output_mapp = "",
+                                           filnamn_diagram = diagramfilnamn,
+                                           skriv_till_diagramfil = FALSE)
+
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="80%"}
+sjukfall_bransch_fig
 ```
 
 ## Obetalt arbete
