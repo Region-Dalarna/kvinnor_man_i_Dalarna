@@ -3,8 +3,27 @@ if (!require("pacman")) install.packages("pacman")
 p_load(here)
 
 Output_mapp="G:/skript/projekt/data/kvinnor_man/"
+Output_mapp_figur <- here("Diagram","/")
 
 # Befolkning:
+# Genererar en PNG-fil som läggs in i markdown-dokumentet. Året är "hårdkodat" och måste uppdateras för hand.
+source("G:/skript/diagram/diag_befpyramid.R", encoding = "utf-8", echo = FALSE)
+# 1968, 2022 generellt utan jämförelse
+diag_befpyramid(output_mapp = Output_mapp_figur,
+               delaupp_aldergrp = FALSE,
+               jmfr_ar = "1968",
+               jmfr_linje = "ar",
+               ar = "2022",
+               geo_vekt = "20")
+
+# Genererar en PNG-fil som läggs in i markdown-dokumentet. 
+# 1968, 2022 generellt utan jämförelse
+diag_befpyramid(output_mapp = Output_mapp_figur,
+                delaupp_aldergrp = FALSE,
+                jmfr_linje = "utr_inr",
+                ar = "2022",
+                geo_vekt = "20")
+
 # Alla län för senaste år (används för att beräkna andelar över 65)
 # Dalarna och riket för alla år (används för att skapa figur med förändring i befolkning över tid)
 source(here("Skript","befolkning.R"), encoding="UTF-8")
@@ -35,6 +54,11 @@ data_yrke(spara_data = TRUE,
 source(here("Skript","arbetsmarknadsstatus_senastear.R"), encoding="UTF-8")
 diag_arbetsmarknadsstatus(skapa_fil = TRUE,
                           output_mapp = Output_mapp)
+
+# Arbetslöshet, bakgrund. 2008 - senaste år. Arbetsförmedlingen, Excel från hemsida
+source(here("Skript","arbetsloshet_2008_senastear.R"), encoding="UTF-8")
+diag_arbetsloshet_2008_senastear(spara_data = TRUE,
+                                output_mapp = Output_mapp)
 
 # Etableringstid på arbetsmarknaden
 source(here("Skript","etablering.R"), encoding="UTF-8")
@@ -86,7 +110,7 @@ source(here("Skript","sjukfall_stress.R"), encoding="UTF-8")
 diag_stress(spara_data = TRUE,
             output_mapp = Output_mapp)
 
-# Startade sjukfall bransch
+# Startade sjukfall bransch. Försäkringskassan, Excel hemsida.
 source(here("Skript","startade_sjukfall_bransch.R"), encoding="UTF-8")
 diag_sjukfall_bransch(spara_data = TRUE,
                       output_mapp = Output_mapp)

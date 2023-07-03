@@ -61,6 +61,7 @@ forvarvsarbetande_bransch <- read.xlsx("G:/skript/projekt/data/kvinnor_man/forva
 yrke_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/yrke.xlsx")
 arbetsmarknadsstatus_lan_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/arbetsmarknadsstatus_senastear.xlsx",sheet = 1)
 arbetsmarknadsstatus_kommun_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/arbetsmarknadsstatus_senastear.xlsx",sheet = 2)
+arbetsloshet_tidsserie <- read.xlsx("G:/skript/projekt/data/kvinnor_man/arbetslöshet_08_senastear_bearbetad.xlsx",sheet = 1)
 etablering_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/etableringstid.xlsx") %>% 
   rename(andel = `Andel.förvärvsarbetande.(ny.definition.från.och.med.2019)`)
 medianinkomst_df <-  read.xlsx("G:/skript/projekt/data/kvinnor_man/medianinkomst.xlsx") %>% 
@@ -191,7 +192,7 @@ befolkning med `r gsub("\\.",",",round(((befolkning_df_for %>% filter(region == 
 bef_for
 ```
 
-Befolkningen i Dalarna var 2021 relativt jämnt fördelade mellan könen,
+Befolkningen i Dalarna är relativt jämnt fördelade mellan könen,
 men med något fler män än kvinnor. Åldersstrukturen har förändrats
 avsevärt sedan slutet av 60-talet, vilket en jämförelse av staplarna och de svarta linjerna i diagrammet nedanför visar. Den främsta förändringen
 i länet är en förskjutning mot en allt äldre befolkning: 1968 var
@@ -204,19 +205,9 @@ större andel kvinnor än män. För yngre åldersgrupper är fördelningen
 mellan män och kvinnor jämnare, men något fler män än kvinnor i
 åldersgrupperna 15-24 år och 25-34 år.
 
-```{r, echo=FALSE, fig.align='center', include = FALSE, out.width="90%"}
-#lista_figurer$`Befolkning i Dalarnas län år 1968`
-knitr::include_graphics(here("Diagram","Befpyramid Dalarnas län 1968.png"))
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', include = FALSE, out.width="90%"}
-#lista_figurer$`Befolkning i Dalarnas län år 2021`
-knitr::include_graphics(here("Diagram","Befpyramid Dalarnas län 2021.png"))
-```
-
 ```{r, echo=FALSE, fig.align='center', out.width="90%"}
 #lista_figurer$`Befolkning i Dalarnas län år 1968/2021`
-knitr::include_graphics(here("Diagram","Befpyramid Dalarnas län 2021_jmfr_ar_1968.png"))
+knitr::include_graphics(here("Diagram","Befpyramid Dalarnas län 2022_jmfr_ar_1968.png"))
 ```
 
 ```{r, echo=FALSE}
@@ -278,7 +269,7 @@ blir att en större andel än tidigare av befolkningen i arbetsför ålder
 ```{r, echo=FALSE, fig.width=8, fig.align='center', out.width="90%"}
 # lista_figurer$`Inrikes födda i Dalarnas län år 2021
 # jämfört med utrikes födda`
-knitr::include_graphics(here("Diagram","Befpyramid Dalarnas län 2021_jmfr_utr_inr.png"))
+knitr::include_graphics(here("Diagram","Befpyramid Dalarnas län 2022_jmfr_utr_inr.png"))
 ```
 
 ## Utbildning och arbetsmarknad
@@ -825,15 +816,47 @@ arb_kommun_fig
 Arbetslösheten i Dalarna för inrikes och utrikes födda visar på skillnader över tid. För gruppen inrikes födda syns en nedgång i andelen arbetslösa från 2010 och framåt, med ett litet avbrott i trendlinjen under pandemiåren 2020-2021. Gruppen utrikes födda har två trendlinjer i diagrammet nedan. Från 2006 till 2017 ökade arbetslösheten bland utrikes födda till relativt höga nivåer jämfört med början på tidsperioden. Arbetslösheten bland utrikes födda män i Dalarna var också konsekvent högre än för utrikes födda kvinnor och betydligt högre under flyktingkrisen och åren som följde. Efter flyktingkrisen, från 2017 och framåt, har arbetslösheten bland gruppen utrikes födda minskat från toppnivåerna och utrikes födda kvinnor har idag en något högre arbetslöshet än utrikes födda män. 
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$Arbetslöshet_kommun
-knitr::include_graphics(here("Diagram","arbetsloshet_Dalarna_tidsserie_bakgrund.png"))
+# Text till diagram
+  diagram_capt <- "Källa: Arbetsförmedlingen.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Månadsdata. Diagrammet visar medelvärdet för året"
+
+diagramtitel <- paste0("Arbetslöshet (16-64 år) i Dalarna")
+diagramfilnamn <- paste0("arbetsloshet_tidsserie_bakgrund.png")
+
+arbetsloshet_08_fig <- SkapaStapelDiagram(skickad_df = arbetsloshet_tidsserie, 
+                                         skickad_x_var = "Ar",
+                                         skickad_y_var = "Arbetslöshet",
+                                         skickad_x_grupp = "Kon",
+                                         manual_x_axis_text_vjust=1,
+                                         manual_x_axis_text_hjust=1,
+                                         manual_color = diagramfarger("kon"),
+                                         diagram_titel = diagramtitel,
+                                         diagram_capt =  diagram_capt,
+                                         diagram_facet = TRUE,
+                                         facet_legend_bottom = TRUE,
+                                         stodlinjer_avrunda_fem = TRUE,
+                                         facet_grp = "Grupp",
+                                         facet_scale = "fixed",
+                                         x_axis_lutning = 0,
+                                         diagram_liggande = FALSE,
+                                         legend_vand_ordning=FALSE,
+                                         manual_y_axis_title = "procent",
+                                         geom_position_stack = FALSE,
+                                         berakna_index = FALSE,
+                                         output_mapp = "",
+                                         filnamn_diagram = diagramfilnamn,
+                                         skriv_till_diagramfil = FALSE)
+
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+arbetsloshet_08_fig
 ```
 
 Hur långt ifrån arbetsmarknaden som en individ befinner sig beror delvis
 på hur länge personen har varit utan anställning. En person som har
 varit arbetslös länge har ofta svårare att ta sig tillbaka in på
 arbetsmarknaden. I diagrammet nedan har arbetslösa delats in i tre olika
-grupper efter arbetslöshetsstid (1-12 månader, 12-24 månader samt 24+
+grupper efter arbetslöshetstid (1-12 månader, 12-24 månader samt 24+
 månader). I Dalarnas län är den största gruppen arbetslösa de som inte
 haft en anställning under de senaste 12 månaderna. Ungefär 2 procent av
 arbetskraften har varit arbetslösa i över 24 månader och står därmed
