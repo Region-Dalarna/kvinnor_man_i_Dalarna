@@ -2,7 +2,7 @@ if (!require("pacman")) install.packages("pacman")
 p_load(pxweb,
        openxlsx)
 
-source("G:/skript/func/func_API.R", encoding = "utf-8", echo = FALSE)
+source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
 
 
 #test_list=data_befolkning_alder(output_mapp="G:/skript/projekt/data/kvinnor_man/")

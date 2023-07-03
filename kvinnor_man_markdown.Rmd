@@ -863,7 +863,31 @@ arbetskraften har varit arbetslösa i över 24 månader och står därmed
 långt från arbetsmarknaden.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#lista_figurer$langtidsarbetsloshet_lan_kon
+diagram_capt <- c("Källa: SCB.\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Arbetslöshet uppdelat på hur länge man varit arbetslös den 31 oktober 2020")
+
+diagramtitel <- "Arbetslöshet i Dalarnas län (20-64 år)"
+diagramfilnamn <- "langtidsarbetsloshet_lan_kon.png"
+
+gg_obj <- SkapaStapelDiagram(skickad_df =langtidsarbetsloshet_andel_df, 
+                             skickad_x_var = "Arb_status", 
+                             skickad_y_var = "Andel", 
+                             skickad_x_grupp = "Kon",
+                             x_axis_lutning = 0,
+                             x_axis_sort_value=FALSE,
+                             manual_color = diagramfarger("kon"),
+                             manual_y_axis_title="procent",
+                             diagram_titel = diagramtitel,
+                             diagram_capt =  diagram_capt,
+                             diagram_facet = TRUE,
+                             facet_grp = "Bakgrund",
+                             facet_legend_bottom=TRUE,
+                             facet_scale = "fixed",
+                             y_axis_100proc = TRUE,
+                             berakna_index = FALSE,
+                             output_mapp = "",
+                             filnamn_diagram = diagramfilnamn,
+                             skriv_till_diagramfil = FALSE)
+    
 knitr::include_graphics(here("Diagram","langtidsarbetsloshet_lan_kon.png"))
 ```
 
