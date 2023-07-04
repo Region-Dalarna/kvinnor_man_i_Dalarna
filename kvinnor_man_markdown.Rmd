@@ -1234,6 +1234,8 @@ medianinkomst_linje_fig <- SkapaLinjeDiagram(skickad_df = medianinkomst_df %>%
 medianinkomst_linje_fig
 ```
 
+I samtliga av Dalarnas kommuner har männen högre inkomst än kvinnorna. Skillnaderna mellan kommunerna är dock relativt små, där kvinnor har högst medianinkomst i `r medianinkomst_df %>% filter(kön == "kvinnor", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == max(medianinkomst)) %>%  .$region ` och män i `r medianinkomst_df %>% filter(kön == "män", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == max(medianinkomst)) %>%  .$region `. Lägst medianinkomst har såväl kvinnor som män i `r medianinkomst_df %>% filter(kön == "män", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == min(medianinkomst)) %>%  .$region `.
+
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 
 diagramtitel <- paste0("Medianinkomst (20-64 år) år ",max(medianinkomst_df$år))
@@ -1659,8 +1661,7 @@ stress_fig
 
 Rent generellt är det stora skillnader i antalet startade sjukfall (per
 1000 förvärvsarbetande) mellan olika branscher. För kvinnor är antalet
-störst i typiskt kvinnodominerade yrken som vård och omsorg och
-utbildning, vilket kan vara en förklaring till att kvinnor är
+störst i ett typiskt kvinnodominerat yrke som vård och omsorg, vilket kan vara en förklaring till att kvinnor är
 sjukskrivna i större utsträckning än män. För män är det istället inom
 transport som antalet startade sjukfall är högst. Oavsett kön, är antal
 startade sjukfall lägst inom klassiska kontorsjobb som ekonomi, juridik
@@ -1708,18 +1709,18 @@ sjukfall_bransch_fig
 Antalet mottagare av föräldrapenning (den första figuren nedan) ökade
 från ungefär 13 000 i slutet av 90-talet till över 22 000 2018. 
 En minskning syntes under pandemiåren och åren därefter, vilket sannolikt
-beror på att uttaget av tillfällig föräldrapenning (VAB) då ökade
+beror på att uttaget av tillfällig föräldrapenning (Vab) då ökade
 kraftigt (se nedan). Antalet uttagna dagar har ökat för såväl kvinnor
 som män, men den relativa skillnaden i uttag mellan könen har minskat. I
 slutet av 90-talet togs runt 85-90 procent av föräldrapenning ut av
-mammorna, en andel som hade minskat till runt `r as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Kvinnor", År == max(År)) %>% .$Andel)` procent `r max(foraldrapenning_df$År)`.
+mammorna, en andel som hade minskat till runt `r round(as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Kvinnor", År == max(År)) %>% .$Andel),0)` procent `r max(foraldrapenning_df$År)`.
 Utvecklingen går dock relativt trögt och Sverige är långt ifrån ett
 jämställt uttag av dagar.
 
 Antalet mottagare av föräldrapenning är olika jämnt fördelade beroende
 på vilken kommun i Dalarna vi tittar på. `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun, regex='\\S+')` är relativt mest
 jämställt, där över 30 procent av föräldrapenningen togs ut av männen. Minst
-jämställt är `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun, regex='\\S+')`, där motsvarande uttag är ca `r as.numeric(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel)` procent.
+jämställt är `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun, regex='\\S+')`, där motsvarande uttag är ca `r round(as.numeric(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel),0)` procent.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 
@@ -2000,7 +2001,7 @@ var antalet manliga ledamöter i regionfullmäktige övervägande män. Vid
 regionvalet 2014 var fördelning i princip helt jämställd med nästan
 samma antal män och kvinnor bland folkvalda i regionens fullmäktige.
 Efter valet 2018 syns däremot återigen en ökning av antalet män i
-Regionfullmäktige och i det senaste valet (`r max(regionval_summering_df$valår)`) sitter `r regionval_summering_df %>% filter(valår == max(valår),kön =="män") %>% .$Antal - regionval_summering_df %>% filter(valår == max(valår),kön =="kvinnor") %>% .$Antal ` fler män än kvinnor i regionfullmäktige.
+Regionfullmäktige och sedan det senaste valet (`r max(regionval_summering_df$valår)`) sitter `r regionval_summering_df %>% filter(valår == max(valår),kön =="män") %>% .$Antal - regionval_summering_df %>% filter(valår == max(valår),kön =="kvinnor") %>% .$Antal ` fler män än kvinnor i regionfullmäktige.
 
 På lokal nivå i Dalarna finns det stora skillnader mellan kommunerna.
 Efter valet 2022 var Avesta och Smedjebacken de enda kommuner i länet där kvinnorna i
