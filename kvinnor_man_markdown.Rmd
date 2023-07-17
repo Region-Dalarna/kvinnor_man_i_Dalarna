@@ -90,19 +90,18 @@ gymnasieantagning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasiean
 Senast uppdaterad: `r Sys.Date()`</i>
 </p>
 
-Världsläget idag synliggör fundamentala utmaningar för demokratiska samhällen. Målet om jämställdhet verkar vara underordnad i debatten och har på flera sätt kommit i skymundan. Men, att sträva efter jämställdhet är en av de centrala insatserna för att säkerställa mänskliga rättigheter, upprätthålla demokrati och uppnå de 17 målen i Agenda 2030 och Sveriges nationella miljö- och demokratimål. 
+Världsläget idag synliggör fundamentala utmaningar för demokratiska samhällen. Målet om jämställdhet verkar på många sätt ha kommit i skymundan i den allmänna debatten. Men, att sträva efter jämställdhet är en av de centrala insatserna för att säkerställa mänskliga rättigheter, upprätthålla demokrati och uppnå de 17 målen i Agenda 2030 och Sveriges nationella miljö- och demokratimål. 
 
-För Dalarna är de regionala målen manifesterade i “Dalastrategin 2030 - Tillsammans för ett hållbart Dalarna” (länk till strategin), med övergripande målsättning om ett sammanhållet Dalarna med goda livsmiljöer där människor upplever delaktighet, engagemang och där alla tillsammans bidrar till en hållbar utveckling. 
+För Dalarna är de regionala målen manifesterade i “Dalastrategin 2030 - Tillsammans för ett hållbart Dalarna” (https://www.regiondalarna.se/contentassets/699fddaa79da4978bfe14dd4bead1134/dalastrategin-2030-tillsammans-for-ett-hallbart-dalarna-dec.pdf), med övergripande målsättning om ett sammanhållet Dalarna med goda livsmiljöer där människor upplever delaktighet, engagemang och där alla tillsammans bidrar till en hållbar utveckling. 
 
-All offentlig verksamhet i Dalarna så som Region Dalarna, Länsstyrelsen, kommuner och lärosäte, arbetar på olika sätt aktivt för att verkställa den nationella jämställdhetpolitiken och respektive organisations särskildt uppsatta mål för ett jämställt Dalarna.
+All offentlig verksamhet i Dalarna så som Region Dalarna, Länsstyrelsen Dalarna, kommuner och lärosäte arbetar på olika sätt aktivt för att verkställa den nationella jämställdhetpolitiken och respektive organisations särskilt uppsatta mål för ett jämställt Dalarna. Följande rapport är tänkt att ge en bild av hur jämställdheten utvecklas i Dalarna utifrån den statistik som finns på regional och kommunal nivå.
 
-Statistiska uppföljningar av hur jämställdhetspolitiken når sina mål görs nationellt av Statistiska centralbyrån (SCB) vart annat år sedan 1984 i skriften ”På tal om kvinnor och män” (På tal om kvinnor och män - lathund om jämställdhet 2022 (scb.se)). År 2021 genomförde SCB även en tidsanvändningsstudie  ((le0103_2021a01_br_lebr2202.pdf (scb.se)), något som gjorts vart tionde år sedan 1990/91. Vidare redovisas årligen hur den ekonomiska jämställdheten utvecklas i en bilaga till budgetpropositionen som år 2022/23 var bilaga nummer 3 (Ekonomisk jämställdhet - Regeringen.se). 
+Det görs även nationella uppföljningar av hur jämställdhetspolitiken når sina mål, både genom statistik och policy-analyser. Statistiska centralbyrån (SCB) gör vart annat år (sedan 1984) skriften ”På tal om kvinnor och män” (På tal om kvinnor och män - lathund om jämställdhet 2022 (scb.se)). Vart tionde år (sedan 1990) gör SCB även en tidsanvändningsstudie, senast 2021 (<https://www.scb.se/contentassets/4e98132b0b784a01b6e4762e909a6fa2/le0103_2021a01_br_lebr2202.pdf>). Vidare analyseras årligen hur den ekonomiska jämställdheten utvecklas i en bilaga till budgetpropositionen som år 2022/23 var bilaga nummer 3 (<https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf>). 
 
-Policy-uppföljningar av jämställdhetspolitiken görs av Jämställdhetsmyndigheten, bland annat i rapporten 2022:16 bilaga 1 ”Regionalpolitik, könsmönster och jämställdhetsambitioner - Bilaga till rapporten Bättre styrning för bättre resultat”. I rapporten efterfrågas bland annat en bättre styrning jämställdhetsmålen genom relevanta indikatorer som systematiskt kan belysa regionala och lokala könsmönster och intersektionella perspektiv.
+Policy-uppföljningar av jämställdhetspolitiken görs av Jämställdhetsmyndigheten, bland annat i rapporten 2022:16 bilaga 1 ”Regionalpolitik, könsmönster och jämställdhetsambitioner - Bilaga till rapporten Bättre styrning för bättre resultat”. I rapporten efterfrågas bland annat en bättre styrning mot jämställdhetsmålen genom relevanta indikatorer. Mer konkret handlar det bland annat om att följa upp ojämställda arbetsvillkor, ojämställda inkomster, kvinnors och mäns psykiska ohälsa och långtidssjukskrivningar, och synliggöra regionala och lokala könsmönster samt intersektionella perspektiv.
 
-”Avseende jämställd utbildning, ekonomisk jämställdhet och jämställd hälsa har vissa regioner mer än andra såväl strukturella problem som akuta jämställdhetsproblem att komma till rätta med. Mer konkret gäller det ojämställda arbetsvillkor, ojämställda inkomster, kvinnors psykiska ohälsa och långtidssjukskrivningar.”
+I den här rapporten diskuteras även läget i Dalarna i relation till nationella utmaningar och vilka tänkbara framtida jämställdhetsinsatser som kan stärka det regionala utvecklingsarbetet och främja ett jämställt Dalarna.
 
-Följande rapport är tänkt att ge en bild av hur jämställdheten utvecklas i Dalarna utifrån den statistik som finns på regional och kommunal nivå. Rapporten diskuterar även möjliga framtida jämställdhetsinsatser som kan stärka det regionala utvecklingsarbetet och främja ett jämställt Dalarna.
 
 Region Dalarna har tidigare publicerat rapporter 2019 (länk) samt 2021 (webbrapporten?).
 
@@ -110,19 +109,19 @@ Region Dalarna har tidigare publicerat rapporter 2019 (länk) samt 2021 (webbrap
     jämställdhetsperspektiv:
     <https://www.regiondalarna.se/contentassets/78c014a2f54a405a9467906f995f29d4/jamstalldhetsrapport.pdf>
 
-## Sammanfattning av nuläget
+## Sammanfattning av nuläget i Dalarna
 
 jämställd utbildning, ekonomisk jämställdhet och jämställd hälsa har vissa regioner mer än andra såväl strukturella problem som akuta jämställdhetsproblem att komma till rätta med. Mer konkret gäller det ojämställda arbetsvillkor, ojämställda inkomster, kvinnors psykiska ohälsa och långtidssjukskrivningar
 
-1.  Obalansen består mellan tjejers och killars val till gymnasieprogrammen. Enligt antagningsstatistiken år 2022 hade fyra program (föregående år tre program) en jämn (inom spannet 40/60) representation av tjejer och killar. Dessa program är hotell- och turismprogrammet, introduktionsprogrammet, ekonomiprogrammet samt restaurang- och livsmedelsprogrammet.
+1.  Obalansen mellan tjejers och killars val till gymnasieprogrammen består. Antagningsstatistiken år 2022 visade att fyra program av tjugo (tre föregående år) har en jämn representation av tjejer och killar (dvs. inom spannet 40/60). Dessa program är hotell- och turismprogrammet, introduktionsprogrammet, ekonomiprogrammet samt restaurang- och livsmedelsprogrammet. Fyra program har en övervikt av killar och nio program har en övervikt av tjejer.
 
 
-2.  Andelen kvinnor mellan 25 och 64 år med minst 3 års eftergymnasial utbildning i Dalarna fortsätter att öka och uppgår idag till knappt en tredjedel. Andelen män med eftergymnasial utbildning har också ökat men i en mycket långsammare takt och klyftan mellan könen ökar över tid.
+2.  Andelen högutbildade, med minst 3 års eftergymnasial utbildning, i befolkningen mellan 25 och 64 år ökar bland både kvinnor och män. Men, andelen högutbildade kvinnor ökar i snabbare takt än andelen män. Klyftan mellan könen ökar därför över tid. Nationellt har 37 procent av kvinnorna högre utbildning, i Dalarna har 28 procent av kvinnorna högre utbildning, medan andelen män nationellt är 24 procent är andelen män i Dalarna cirka 15 procent. 
     
-4.  Inrikes födda kvinnor och män har fortsatt en lägre arbetslöshet jämfört med utrikes födda kvinnor och män. Utrikes födda kvinnor har idag en högre arbetslöshet än utrikes födda män, vilket är en förändring jämfört med tidigare år då förhållandet var det omvända.
+4.  Arbetslösheten är fortsatt lägre bland inrikes födda kvinnor och män jämfört    med utrikes födda kvinnor och män. En förändring som skett sedan år 2020 är att arbetslösheten bland utrikes födda kvinnor är högre än bland utrikes födda män, tidigare år har förhållandet varit det omvända.
 
-5.  I likhet med riket som helhet har kvinnor i Dalarna har fortsatt en
-    lägre medianinkomst än män trots att kvinnornas inkomster har ökat i
+5.  I likhet med riket som helhet har kvinnor i Dalarna fortfarande en avsevärt
+    lägre medianinkomst än män,  trots att kvinnornas inkomster har ökat i
     något högre takt.
 
 6.  I Dalarna skiljer sig kvinnors hälsa dramatiskt från männens dito
@@ -144,15 +143,13 @@ jämställd utbildning, ekonomisk jämställdhet och jämställd hälsa har viss
 
 <br>
 <br>
-
-
 <br>
 
 ## Utbildning och arbetsmarknad
 <br>
-Det jämställdhetspolitiska målet för utbildningsområdet säger att kvinnor och män, flickor och pojkar ska ha samma möjligheter och villkor när det gäller utbildning, studieval och personlig utveckling.
+Det jämställdhetspolitiska målet för utbildningsområdet innebär att kvinnor och män, flickor och pojkar ska ha samma möjligheter och villkor när det gäller utbildning, studieval och personlig utveckling.
 
-Bland den vuxna befolkningen ser vi att det är fler kvinnor än män på universitet och högskolor och att skillnaderna ökar. Eftergymnasial utbildning ger större chans att få ett arbete och en högre inkomst, både för tjejer och killar.
+Bland den vuxna befolkningen ser vi att även om både kvinnor och män vidareutbildar sig i högre utsträckning idag än tidigare generationer så är det idag fler kvinnor än män som studerar på universitet och högskolor. Eftergymnasial utbildning ger större chans att få ett arbete och en högre inkomst både för tjejer och killar, vilket är ett viktigt argument för att förmå den enskilde att söka till högre utbildning. Men att skillnaderna mellan könen ökar riskerar att upprätthålla olika former av könssegregerade miljöer, vilket i sig är negativt för samhällsutvecklingen. 
 
 <br>
 ### Utbildningsnivå
@@ -163,7 +160,6 @@ och visar på stora skillnader mellan könen. En betydligt större andel kvinnor
 Bland män i Dalarna är den vanligast förekommande utbildningskategorin
 "`r utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$utbildningsnivå`". Drygt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$andel,0)` procent av männen i Dalarna återfinns inom denna kategori. Ytterligare drygt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av männen har en gymnasieutbildning om högst 2 år. Sammantaget innebär detta att drygt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män", utbildningsnivå == "gymnasial utbildning, 3 år") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av alla män i Dalarna har en gymnasieutbildning som högsta utbildning. Motsvarande siffra för kvinnor i Dalarna är `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor", utbildningsnivå == "gymnasial utbildning, 3 år") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent.
 
-Utbildningsnivån påverkar bland annat medellivslängden. För personer som uppnått 65 års ålder skiljer det sig nästan tre år i medellivslängd mellan dem som har förgymnasial utbildning och dem med eftergymnasial utbildning. Skillnaden mellan könen är cirka två år, vilket innebär att kvinnor i respektive utbildningsgrupp lever i genomsnitt två år längre än män i samma utbildningsgrupp. Samtidigt visar det sig att boenderelationer påverkar medellivslängden, och särskilt för män. Män med förgymnasial utbildning som är sammanboende lever i genomsnitt längre än ensamstående män med eftergymnasial utbildning. Sämst utsikter genomsnittligt har således ensamstående män med låg utbildningsnivå. (https://www.scb.se/hitta-statistik/statistik-efter-amne/befolkning/befolkningsframskrivningar/demografisk-analys/pong/statistiknyhet/demografisk-analys-livslangdstabeller-efter-utbildningsniva/)
 <br>
 <br>
 ```{r, echo=FALSE}
@@ -201,18 +197,27 @@ diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsan
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
 utbildning_fig
 ```
+<br>
+Över tid har andelen av befolkningen i Dalarna med högre utbildning ökat de senaste decennierna. Bara drygt sju procent av befolkningen hade en högre utbildning i mitten av 1980-talet. `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` hade den andelen ökat till ca `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "kvinnor") %>% .$andel,0)` procent
+för kvinnor och ungefär `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "män") %>% .$andel,0)` procent för män. Anmärkningsvärt är också att
+skillnaden i utbildningsnivå mellan könen har ökat avsevärt genom åren.
+I mitten av 1980-talet var andelen högutbildade ungefär lika stor bland
+kvinnor och män. `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` var nästan dubbelt så många kvinnor som män högutbildade i Dalarna.
 
-I jämförelse med andra län har Dalarna relativt få personer med hög
-utbildning. Andelen kvinnor med en högre utbildning om minst 3 år var `r unique(utbildning_df$år)` ungefär `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Dalarna",kön == "kvinnor") %>% .$andel,0) `
-procent och motsvarande siffra för män i länet är cirka `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Dalarna",kön == "män") %>% .$andel,0) ` procent.
-Detta utfall placerar Dalarna som sämst i klassen, tillsammans med
-Gävleborg, Kalmar och Södermanlands län som har liknande låga siffror.
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+utb_85_fig
+```
+<br>
+I en nationell jämförelse har Dalarna en relativt liten andel personer med hög
+utbildning. Riksgenomsnittet för åldersgruppen 25-64 år med minst en treårig eftergymnasial utbildning är 37 procent bland kvinnorna och 24 procent bland männen.
 
-Generellt tenderar regioner med större urbana center att både ha en
-yngre och en mer välutbildad befolkning jämfört med mer glest befolkade
-län som Dalarna. Skillnaden är störst bland män, där andelen
-högutbildade män i Stockholms län är mer än dubbelt så hög som
-motsvarande andel i Dalarnas län.
+I Dalarna var andelen kvinnor med en högre utbildning om minst 3 år `r unique(utbildning_df$år)` ungefär `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Dalarna",kön == "kvinnor") %>% .$andel,0) `
+procent och motsvarande siffra för män i länet är cirka `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Dalarna",kön == "män") %>% .$andel,0) ` procent. Detta utfall placerar Dalarna sämst i klassen tillsammans med Gävleborg, Kalmar och Södermanlands län som har liknande låga siffror.
+
+Generellt tenderar regioner med större urbana center att både ha en yngre och en mer välutbildad befolkning jämfört med mer glest befolkade län som Dalarna. Skillnaden är störst bland män, där andelen högutbildade män i Stockholms län är mer än dubbelt så hög som motsvarande andel i Dalarnas län.
+
+Utbildningsnivån påverkar bland annat medellivslängden. För personer som uppnått 65 års ålder skiljer det sig nästan tre år i medellivslängd mellan dem som har förgymnasial utbildning och dem med eftergymnasial utbildning. Skillnaden mellan könen är genomgående cirka två år, vilket innebär att kvinnor i respektive utbildningsgrupp lever i genomsnitt två år längre än män i samma utbildningsgrupp. Samtidigt visar det sig att boenderelationer påverkar medellivslängden, och särskilt för män. Män med förgymnasial utbildning som är sammanboende lever i genomsnitt längre än ensamstående män med eftergymnasial utbildning. Sämst utsikter genomsnittligt har således ensamstående män med låg utbildningsnivå. (<https://www.scb.se/hitta-statistik/statistik-efter-amne/befolkning/befolkningsframskrivningar/demografisk-analys/pong/statistiknyhet/demografisk-analys-livslangdstabeller-efter-utbildningsniva/>)
+
 
 ```{r, echo=FALSE}
   
@@ -276,28 +281,8 @@ utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
 
 ```
 
-Andelen av befolkningen i Dalarna med högre utbildning har ökat de senaste
-decennierna. Bara drygt sju procent av befolkningen hade en högre utbildning
-i mitten av 80-talet. `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` hade den andelen ökat till ca `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "kvinnor") %>% .$andel,0)` procent
-för kvinnor och ungefär `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "män") %>% .$andel,0)` procent för män. Anmärkningsvärt är också att
-skillnaden i utbildningsnivå mellan könen har ökat avsevärt genom åren.
-I mitten av 80-talet var andelen högutbildade ungefär lika stor bland
-kvinnor och män. `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` var nästan dubbelt så många kvinnor som män
-högutbildade i Dalarna.
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
-utb_85_fig
-```
-En utmaning för länet är den obalans som råder för antalet antagna till
-gymnasieprogrammen i Dalarna. Av totalt 20 gymnasieprogram i länet kan
-endast fyra sägas vara jämställda, dvs. de har en könsfördelning där
-andelen antagna är mellan 40 och 60 procent för både pojkar och flickor.
-De jämställda programmen är hotell- och turismprogrammet,
-introduktionsprogram, restaurang- och livsmedelsprogrammet samt ekonomiprogrammet. Sju program har en
-övervikt av killar, där el- och energiprogrammet har den största
-obalansen följt av VVS- och fastighetsprogrammet samt industritekniska programmet. Resterande nio program har en övervikt av tjejer,
-där vård- och omsorgsprogrammet är det mest obalanserade programmet
-följt av hantverksprogrammet och det humanistiska programmet.
+### Val till gymnasieprogrammen 
+En utmaning för länet är den obalans som råder i antalet antagna killar och tjejer till gymnasieprogrammen i Dalarna. Av totalt 20 gymnasieprogram i länet kan endast fyra sägas vara jämställda, dvs. de har en könsfördelning där andelen antagna är mellan 40 och 60 procent för både pojkar och flickor. De jämställda programmen är hotell- och turismprogrammet, introduktionsprogram, restaurang- och livsmedelsprogrammet samt ekonomiprogrammet. Sju program har en övervikt av killar, där el- och energiprogrammet har den största obalansen följt av VVS- och fastighetsprogrammet samt industritekniska programmet. Resterande nio program har en övervikt av tjejer, där vård- och omsorgsprogrammet är det mest obalanserade programmet följt av hantverksprogrammet och det humanistiska programmet.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="150%"}
 diagram_capt <- "Källa: Källan är Gymnasieantagningen, Dalarnas kommunförbund\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Antagna i början av september"
@@ -342,17 +327,11 @@ gymnasieantagning_fig
 De skillnader som råder i gymnasieantagningen återspeglas i skillnader
 mellan kvinnor och män senare i arbetslivet (se figuren nedan). Det
 finns branscher i länet som har en tydlig övervikt av det ena eller det
-andra könet, exempelvis bygg, som inrymmer yrken inom bland
+andra könet, exempelvis byggbranschen som inrymmer yrken inom bland
 annat el och VVS, där kvinnor bara utgjorde ungefär `r round((forvarvsarbetande_bransch %>% filter(kön=="kvinnor",naringsgren=="Bygg",region == "Dalarna") %>% .$antal/sum(forvarvsarbetande_bransch %>% filter(naringsgren=="Bygg",region == "Dalarna") %>% .$antal))*100,0)` procent av de
-förvärvsarbetande `r unique(forvarvsarbetande_bransch$år)`. Även om det har skett en ökning av andelen
-kvinnor inom byggbranschen, är denna ökning försumbar. Inom vård och
-omsorg är bilden den motsatta. Här utgjorde kvinnor ca `r round((forvarvsarbetande_bransch %>% filter(kön=="kvinnor",naringsgren=="Vård och omsorg",region == "Dalarna") %>% .$antal/sum(forvarvsarbetande_bransch %>% filter(naringsgren=="Vård och omsorg",region == "Dalarna") %>% .$antal))*100,0)` procent av
-andelen förvärvsarbetande `r unique(forvarvsarbetande_bransch$år)`.
-Bygg samt vård och omsorg är även de branscher som har störst övervikt
-för pojkar/flickor i gymnasieantagningen, vilket innebär att en framtida
-förändring i balansen mellan män och kvinnor inom olika branscher till
-stor del beror på, eller kan påverkas av, en förändring i ungdomars
-studieval.
+förvärvsarbetande `r unique(forvarvsarbetande_bransch$år)`. Även om det har skett en ökning av andelen kvinnor inom byggbranschen, är denna ökning försumbar. Inom vård och omsorg är bilden den motsatta. Här utgjorde kvinnor ca `r round((forvarvsarbetande_bransch %>% filter(kön=="kvinnor",naringsgren=="Vård och omsorg",region == "Dalarna") %>% .$antal/sum(forvarvsarbetande_bransch %>% filter(naringsgren=="Vård och omsorg",region == "Dalarna") %>% .$antal))*100,0)` procent av andelen förvärvsarbetande `r unique(forvarvsarbetande_bransch$år)`.
+Bygg samt vård och omsorg är även de gymnasieprogram som har störst övervikt
+av pojkar respektive flickor. Det innebär att en framtida förändring i balansen mellan män och kvinnor inom dessa branscher inte verkar vara inom räckhåll i nuläget. Att få till en förändring av ungdomars studieval kräver troligtvis olika insatser.
 
 ```{r, echo=FALSE,fig.width=10, fig.align='center', out.width="90%"}
 
@@ -449,7 +428,7 @@ forvarvsarbetande_kon_fig
 
 
 ```
-
+<br>
 Skillnader mellan kvinnor och män föreligger även på yrkesnivå. Den
 största yrkesgruppen för män i Dalarnas län är kategorin som inkluderar
 `r tolower(first(yrke_man$Yrke))`, följd av `r tolower(first(yrke_man[yrke_man$Yrke != first(yrke_man$Yrke),])$Yrke)`. 
@@ -465,6 +444,253 @@ yrken_man_fig
 yrken_kvinnor_fig
 ```
 
+
+### Matchning på arbetsmarknaden
+
+Nivån av matchning på arbetsmarknaden mäter i hur stor utsträckning
+människor jobbar med vad de är utbildade till. Generellt tenderar olika
+typer av specialiserade eftergymnasiala utbildningar, exempelvis läkare
+och psykologer, ha hög matchning. Utbildar man sig till läkare är det
+väldigt hög sannolikhet att man även har det som yrke (närmare 100
+procent). På andra sidan av spektrumet finns dels olika former av
+gymnasieutbildningar, dels eftergymnasiala utbildningar inom exempelvis
+humaniora och konst, där runt hälften jobbar med vad de är utbildade
+till. Rent generellt ligger matchninggraden på runt `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "totalt",region == "Sverige") %>% .$matchningsgrad,0)` procent i
+Sverige, där något fler kvinnor än män jobbar med vad de är utbildade
+till. Det finns vissa skillnader mellan länen, men dessa är relativt
+små. I Dalarna är matchningsgraden ca
+`r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "totalt",region == "Dalarna") %>% .$matchningsgrad,0)` procent, vilket är något sämre än riket som helhet.
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+  diagram_capt <- "Källa: SCB:s öppna statistikdatabas, regionala matchningsindikatorer.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Med matchning avses matchad förvärvsgrad\ndvs. andelen anställda som har ett yrke som helt matchar deras utbildning (enligt SCB)."
+
+diagramtitel <- paste0("Matchning på arbetsmarknaden i Sveriges regioner ",max(matchning_df$år))
+diagramfilnamn <- paste0("matchning_lan.png")
+
+matchning_lan_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
+                                         filter(kön != "samtliga anställda",
+                                                fodelseland == "totalt",
+                                                år == max(år)),
+                                       skickad_x_var = "region",
+                                       skickad_y_var = "matchningsgrad",
+                                       skickad_x_grupp = "kön",
+                                       manual_x_axis_text_vjust=1,
+                                       manual_x_axis_text_hjust=1,
+                                       manual_color = diagramfarger("kon"),
+                                       diagram_titel = diagramtitel,
+                                       diagram_capt =  diagram_capt,
+                                       x_axis_sort_value = TRUE,
+                                       x_axis_lutning = 45,
+                                       stodlinjer_avrunda_fem = TRUE,
+                                       manual_y_axis_title = "procent",
+                                       output_mapp = outputmapp,
+                                       filnamn_diagram = diagramfilnamn,
+                                       skriv_till_diagramfil = TRUE)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+matchning_lan_fig
+```
+
+Matchningen på arbetsmarknaden tenderar att variera beroende på var man
+är född. I Dalarna har inrikes födda högst matchning med ungefär `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "födda i Sverige",region == "Dalarna") %>% .$matchningsgrad,0)`
+procent för både kvinnor och män. Även personer födda inom EU har hög
+matchning (runt `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "födda i Norden eller EU utom Sverige",region == "Dalarna") %>% .$matchningsgrad,0)` procent). Lägst matchningsgrad har personer `r matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` (ca `r round(matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)`  procent).
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+matchning_df <- matchning_df %>% 
+  mutate("fodelseland" = ifelse(fodelseland %in% c("födda i Europa utom Norden och EU samt Sydamerika, Nordamerika och Oceanien"),"övriga", fodelseland)) 
+
+diagramtitel <- paste0("Matchning på arbetsmarknaden i Dalarna år ",max(matchning_df$år)," per födelseregion")
+diagramfilnamn <- paste0("matchning_bakgrund.png")
+
+matchning_bakg_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
+                                           filter(kön != "samtliga anställda",
+                                                  år == max(år),
+                                                  region == "Dalarna",
+                                                  fodelseland != "totalt"),
+                                         skickad_x_var = "fodelseland",
+                                         skickad_y_var = "matchningsgrad",
+                                         skickad_x_grupp = "kön",
+                                         # manual_x_axis_text_vjust=1,
+                                         # manual_x_axis_text_hjust=1,
+                                         manual_color = diagramfarger("kon"),
+                                         diagram_titel = diagramtitel,
+                                         diagram_capt =  diagram_capt,
+                                         diagram_facet = FALSE,
+                                         x_axis_sort_value = TRUE,
+                                         x_axis_lutning =0,
+                                         diagram_liggande = TRUE,
+                                         stodlinjer_avrunda_fem = TRUE,
+                                         manual_y_axis_title="procent",
+                                         berakna_index = FALSE,
+                                         output_mapp = outputmapp,
+                                         filnamn_diagram = diagramfilnamn,
+                                         skriv_till_diagramfil = TRUE)
+
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+matchning_bakg_fig
+```
+
+### Etablering
+
+Som diskuterats tidigare är sysselsättningsgraden låg bland utrikes
+födda generellt, och framförallt bland kvinnor. En bidragande orsak till
+det är att det tar relativt lång tid för, i första hand, nyanlända
+kvinnor att etablera sig på arbetsmarknaden. För utrikesfödda kvinnor
+som befunnit sig i Sverige i upp till 2 år (0-1 år i grafen nedan) är de
+bara ungefär `r round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "samtliga utbildningsnivåer") %>% .$andel,0)` procent i arbetsför ålder (20-64 år) som arbetar. För
+motsvarande grupp bland männen arbetar ungefär `r round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "samtliga utbildningsnivåer") %>% .$andel,0)` procent inom 2 år. Över
+tid tenderar etableringsgraden att öka avsevärt och efter minst tio år i
+Sverige är det över 70 procent av såväl männen som kvinnorna som
+arbetar.
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
+
+# Skapar en faktorvariabel för att få tid sedan etablering i "rätt" ordning i figuren
+etablering_df$bakgrundsvariabel <- factor(etablering_df$bakgrundsvariabel, levels = c("0-1 år","2-3 år",
+                                                                                "4-9 år","10- år"))
+
+diagramtitel <- paste0("Andel förvärvsarbetande 20-64 år bland utrikes födda i Dalarna"," ",max(etablering_df$år)," uppdelat på vistelsetid i Sverige")
+diagramtitel <- str_wrap(diagramtitel)
+diagramfilnamn <- paste0("etablering_lan.png")
+
+# Skapar diagram där etableringstiden jämförs mellan män och kvinnor, oavsett utbildning
+etablering_fig <- SkapaStapelDiagram(skickad_df =etablering_df %>%
+                                      filter(år==max(år),
+                                             utbildningsnivå=="samtliga utbildningsnivåer",
+                                             kön != "män och kvinnor"),
+                                    skickad_x_var = "bakgrundsvariabel",
+                                    skickad_y_var = "andel",
+                                    skickad_x_grupp = "kön",
+                                    # manual_x_axis_text_vjust=0.9,
+                                    manual_color = diagramfarger("kon"),
+                                    diagram_titel = diagramtitel,
+                                    diagram_capt =  diagram_capt,
+                                    manual_x_axis_title = "Vistelsetid",
+                                    y_axis_100proc = TRUE,
+                                    diagram_facet = FALSE,
+                                    x_axis_sort_value = FALSE,
+                                    x_axis_lutning = 0,
+                                    manual_y_axis_title = "procent",
+                                    output_mapp = outputmapp,
+                                    filnamn_diagram = diagramfilnamn,
+                                    skriv_till_diagramfil = TRUE)
+
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+etablering_fig
+```
+
+Hur snabbt en nyanländ person etableras på arbetsmarknaden är nära
+kopplat till vilken utbildningsnivå personen har. För de med högst
+utbildning tenderar processen att gå relativt snabbt och ca `r round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: eftergymnasial utbildning") %>% .$andel,0)` procent
+av kvinnorna och `r round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: eftergymnasial utbildning") %>% .$andel,0)` procent av männen arbetar innan man varit i Sverige
+i 2 år (0-1 år i figuren nedan). Sedan ökar etableringsgraden över tid
+och efter 10 år eller längre har fler än 80 procent av kvinnorna mellan
+20 år och 64 år jobb, vilket är i linje med sysselsättningsgraden för
+inrikes födda kvinnor i samma åldersgrupp. För de med exempelvis gymnasial utbildning
+är situationen delvis annorlunda. I den
+gruppen jobbar ungefär `r round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: gymnasial utbildning") %>% .$andel,0)` procent av de utrikesfödd kvinnor, och ca `r round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: gymnasial utbildning") %>% .$andel,0)` procent av de
+utrikesfödda männen, inom 2 år efter att man kommit till Sverige. Över tid
+ökar etableringen snabbt på arbetsmarknaden för gymnasialt utbildade och exempelvis män som varit i Sverige mellan 3 och 4 år (2-3 år i figuren nedan) har högre etableringsgrad än motsvarande män med en eftergymnasial utbildning.
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
+
+# Skapar en faktorvariabel för att få tid sedan etablering i "rätt" ordning i figuren
+etablering_df$bakgrundsvariabel <- factor(etablering_df$bakgrundsvariabel, levels = c("0-1 år","2-3 år",
+                                                                                "4-9 år","10- år"))
+
+diagramtitel <- paste0("Andel förvärvsarbetande 20-64 år bland utrikes födda i Dalarna"," ",max(etablering_df$år)," uppdelat på vistelsetid i Sverige")
+diagramtitel <- str_wrap(diagramtitel)
+diagramfilnamn <- paste0("etablering_lan_utb.png")
+    
+etablering_fig_utb <- SkapaStapelDiagram(skickad_df =etablering_df %>%
+                                           filter(år == max(år),
+                                                  kön != "män och kvinnor",
+                                                  utbildningsnivå %in% c("utbildningsnivå: gymnasial utbildning" ,"utbildningsnivå: eftergymnasial utbildning")),
+                                         skickad_x_var = "bakgrundsvariabel", 
+                                         skickad_y_var = "andel", 
+                                         skickad_x_grupp = "kön",
+                                         manual_x_axis_title = "Vistelsetid",
+                                         manual_color = diagramfarger("kon"),
+                                         diagram_titel = diagramtitel,
+                                         diagram_capt =  diagram_capt,
+                                         diagram_facet = TRUE,
+                                         facet_grp = "utbildningsnivå",
+                                         facet_legend_bottom = TRUE,
+                                         facet_scale = "fixed",
+                                         x_axis_sort_value = FALSE,
+                                         y_axis_100proc = TRUE,
+                                         x_axis_lutning = 0, 
+                                         manual_y_axis_title="procent",
+                                         output_mapp = outputmapp,
+                                         filnamn_diagram = diagramfilnamn,
+                                         skriv_till_diagramfil = TRUE)
+
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+etablering_fig_utb
+```
+
+Hur snabbt en nyanländ person etableras på arbetsmarknaden har förändrats 
+avsevärt över tid, vilket åskådliggörs i diagrammet nedan. Från början av
+00-talet fram till mitten av 10-talet låg etableringstiden relativt stabil, där 
+ungefär 20 procent av de 20-64 åringar som varit i Sverige i upp till 2 år (0-1 år i figuren nedan)
+förvärvsarbetade och ungefär 50-60 procent av de 20-64 åringar som varit i Sverige mellan 4 och 10 år (4-9 år i figuren nedan)
+förvärvsarbetade. Efter flyktingkrisen i mitten av 10-talet verkar dock någonting ha hänt och framförallt
+personer med kort vistelsetid (upp till 2 år) kommer i arbete betydligt snabbare. Mellan 2015 och `r max(etablering_df$år)` ökade andelen förvärvsarbetande av de 20-64 åringar som varit i Sverige i upp till 2 år (0-1 år i figuren nedan)
+från ungefär 15 procent till ca `r round(etablering_df %>% filter(bakgrundsvariabel == "0-1 år",utbildningsnivå == "samtliga utbildningsnivåer",kön == "män och kvinnor",år == max(år)) %>% .$andel,0)`  procent, en remarkabel förbättring. Under samma tidsperiod
+har även arbetslösheten för gruppen utrikes födda minskat betydligt, vilket illustrerades i ett
+tidigare diagram.
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
+
+etablering_df_tid <- etablering_df %>% 
+  filter(bakgrundsvariabel != "10- år",
+         utbildningsnivå == "samtliga utbildningsnivåer",
+         kön == "män och kvinnor")
+
+# Skapar en faktorvariabel för att få tid sedan etablering i "rätt" ordning i figuren
+etablering_df_tid$bakgrundsvariabel <- factor(etablering_df_tid$bakgrundsvariabel, levels = c("0-1 år","2-3 år",
+                                                                                              "4-9 år"))
+
+diagramtitel <- paste0("Andel förvärvsarbetande 20-64 år bland utrikes födda i Dalarna uppdelat på vistelsetid i Sverige")
+diagramtitel <- str_wrap(diagramtitel)
+diagramfilnamn <- paste0("etablering_tid.png")
+    
+etablering_fig_tid <- SkapaStapelDiagram(skickad_df =etablering_df_tid,
+                                         skickad_x_var = "år", 
+                                         skickad_y_var = "andel", 
+                                         skickad_x_grupp = "bakgrundsvariabel",
+                                         manual_color = diagramfarger("rus_sex"),
+                                         diagram_titel = diagramtitel,
+                                         diagram_capt =  diagram_capt,
+                                         diagram_facet = TRUE,
+                                         facet_grp = "utbildningsnivå",
+                                         facet_legend_bottom = TRUE,
+                                         facet_scale = "fixed",
+                                         x_axis_sort_value = FALSE,
+                                         x_axis_lutning = 0, 
+                                         y_axis_100proc = TRUE,
+                                         manual_y_axis_title="procent",
+                                         output_mapp = outputmapp,
+                                         filnamn_diagram = diagramfilnamn,
+                                         skriv_till_diagramfil = TRUE)
+
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+etablering_fig_tid
+```
 ### Arbetsmarknadsstatus
 
 Sysselsättningsgraden, det vill säga utsträckningen i vilken människor i
@@ -764,253 +990,6 @@ langtidsarbetsloshet <- SkapaStapelDiagram(skickad_df =langtidsarbetsloshet_df,
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 langtidsarbetsloshet
-```
-
-### Matchning på arbetsmarknaden
-
-Nivån av matchning på arbetsmarknaden mäter i hur stor utsträckning
-människor jobbar med vad de är utbildade till. Generellt tenderar olika
-typer av specialiserade eftergymnasiala utbildningar, exempelvis läkare
-och psykologer, ha hög matchning. Utbildar man sig till läkare är det
-väldigt hög sannolikhet att man även har det som yrke (närmare 100
-procent). På andra sidan av spektrumet finns dels olika former av
-gymnasieutbildningar, dels eftergymnasiala utbildningar inom exempelvis
-humaniora och konst, där runt hälften jobbar med vad de är utbildade
-till. Rent generellt ligger matchninggraden på runt `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "totalt",region == "Sverige") %>% .$matchningsgrad,0)` procent i
-Sverige, där något fler kvinnor än män jobbar med vad de är utbildade
-till. Det finns vissa skillnader mellan länen, men dessa är relativt
-små. I Dalarna är matchningsgraden ca
-`r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "totalt",region == "Dalarna") %>% .$matchningsgrad,0)` procent, vilket är något sämre än riket som helhet.
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-  diagram_capt <- "Källa: SCB:s öppna statistikdatabas, regionala matchningsindikatorer.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Med matchning avses matchad förvärvsgrad\ndvs. andelen anställda som har ett yrke som helt matchar deras utbildning (enligt SCB)."
-
-diagramtitel <- paste0("Matchning på arbetsmarknaden i Sveriges regioner ",max(matchning_df$år))
-diagramfilnamn <- paste0("matchning_lan.png")
-
-matchning_lan_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
-                                         filter(kön != "samtliga anställda",
-                                                fodelseland == "totalt",
-                                                år == max(år)),
-                                       skickad_x_var = "region",
-                                       skickad_y_var = "matchningsgrad",
-                                       skickad_x_grupp = "kön",
-                                       manual_x_axis_text_vjust=1,
-                                       manual_x_axis_text_hjust=1,
-                                       manual_color = diagramfarger("kon"),
-                                       diagram_titel = diagramtitel,
-                                       diagram_capt =  diagram_capt,
-                                       x_axis_sort_value = TRUE,
-                                       x_axis_lutning = 45,
-                                       stodlinjer_avrunda_fem = TRUE,
-                                       manual_y_axis_title = "procent",
-                                       output_mapp = outputmapp,
-                                       filnamn_diagram = diagramfilnamn,
-                                       skriv_till_diagramfil = TRUE)
-```
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
-matchning_lan_fig
-```
-
-Matchningen på arbetsmarknaden tenderar att variera beroende på var man
-är född. I Dalarna har inrikes födda högst matchning med ungefär `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "födda i Sverige",region == "Dalarna") %>% .$matchningsgrad,0)`
-procent för både kvinnor och män. Även personer födda inom EU har hög
-matchning (runt `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "födda i Norden eller EU utom Sverige",region == "Dalarna") %>% .$matchningsgrad,0)` procent). Lägst matchningsgrad har personer `r matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` (ca `r round(matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)`  procent).
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-matchning_df <- matchning_df %>% 
-  mutate("fodelseland" = ifelse(fodelseland %in% c("födda i Europa utom Norden och EU samt Sydamerika, Nordamerika och Oceanien"),"övriga", fodelseland)) 
-
-diagramtitel <- paste0("Matchning på arbetsmarknaden i Dalarna år ",max(matchning_df$år)," per födelseregion")
-diagramfilnamn <- paste0("matchning_bakgrund.png")
-
-matchning_bakg_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
-                                           filter(kön != "samtliga anställda",
-                                                  år == max(år),
-                                                  region == "Dalarna",
-                                                  fodelseland != "totalt"),
-                                         skickad_x_var = "fodelseland",
-                                         skickad_y_var = "matchningsgrad",
-                                         skickad_x_grupp = "kön",
-                                         # manual_x_axis_text_vjust=1,
-                                         # manual_x_axis_text_hjust=1,
-                                         manual_color = diagramfarger("kon"),
-                                         diagram_titel = diagramtitel,
-                                         diagram_capt =  diagram_capt,
-                                         diagram_facet = FALSE,
-                                         x_axis_sort_value = TRUE,
-                                         x_axis_lutning =0,
-                                         diagram_liggande = TRUE,
-                                         stodlinjer_avrunda_fem = TRUE,
-                                         manual_y_axis_title="procent",
-                                         berakna_index = FALSE,
-                                         output_mapp = outputmapp,
-                                         filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = TRUE)
-
-```
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
-matchning_bakg_fig
-```
-
-### Etablering
-
-Som diskuterats tidigare är sysselsättningsgraden låg bland utrikes
-födda generellt, och framförallt bland kvinnor. En bidragande orsak till
-det är att det tar relativt lång tid för, i första hand, nyanlända
-kvinnor att etablera sig på arbetsmarknaden. För utrikesfödda kvinnor
-som befunnit sig i Sverige i upp till 2 år (0-1 år i grafen nedan) är de
-bara ungefär `r round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "samtliga utbildningsnivåer") %>% .$andel,0)` procent i arbetsför ålder (20-64 år) som arbetar. För
-motsvarande grupp bland männen arbetar ungefär `r round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "samtliga utbildningsnivåer") %>% .$andel,0)` procent inom 2 år. Över
-tid tenderar etableringsgraden att öka avsevärt och efter minst tio år i
-Sverige är det över 70 procent av såväl männen som kvinnorna som
-arbetar.
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
-
-# Skapar en faktorvariabel för att få tid sedan etablering i "rätt" ordning i figuren
-etablering_df$bakgrundsvariabel <- factor(etablering_df$bakgrundsvariabel, levels = c("0-1 år","2-3 år",
-                                                                                "4-9 år","10- år"))
-
-diagramtitel <- paste0("Andel förvärvsarbetande 20-64 år bland utrikes födda i Dalarna"," ",max(etablering_df$år)," uppdelat på vistelsetid i Sverige")
-diagramtitel <- str_wrap(diagramtitel)
-diagramfilnamn <- paste0("etablering_lan.png")
-
-# Skapar diagram där etableringstiden jämförs mellan män och kvinnor, oavsett utbildning
-etablering_fig <- SkapaStapelDiagram(skickad_df =etablering_df %>%
-                                      filter(år==max(år),
-                                             utbildningsnivå=="samtliga utbildningsnivåer",
-                                             kön != "män och kvinnor"),
-                                    skickad_x_var = "bakgrundsvariabel",
-                                    skickad_y_var = "andel",
-                                    skickad_x_grupp = "kön",
-                                    # manual_x_axis_text_vjust=0.9,
-                                    manual_color = diagramfarger("kon"),
-                                    diagram_titel = diagramtitel,
-                                    diagram_capt =  diagram_capt,
-                                    manual_x_axis_title = "Vistelsetid",
-                                    y_axis_100proc = TRUE,
-                                    diagram_facet = FALSE,
-                                    x_axis_sort_value = FALSE,
-                                    x_axis_lutning = 0,
-                                    manual_y_axis_title = "procent",
-                                    output_mapp = outputmapp,
-                                    filnamn_diagram = diagramfilnamn,
-                                    skriv_till_diagramfil = TRUE)
-
-```
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
-etablering_fig
-```
-
-Hur snabbt en nyanländ person etableras på arbetsmarknaden är nära
-kopplat till vilken utbildningsnivå personen har. För de med högst
-utbildning tenderar processen att gå relativt snabbt och ca `r round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: eftergymnasial utbildning") %>% .$andel,0)` procent
-av kvinnorna och `r round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: eftergymnasial utbildning") %>% .$andel,0)` procent av männen arbetar innan man varit i Sverige
-i 2 år (0-1 år i figuren nedan). Sedan ökar etableringsgraden över tid
-och efter 10 år eller längre har fler än 80 procent av kvinnorna mellan
-20 år och 64 år jobb, vilket är i linje med sysselsättningsgraden för
-inrikes födda kvinnor i samma åldersgrupp. För de med exempelvis gymnasial utbildning
-är situationen delvis annorlunda. I den
-gruppen jobbar ungefär `r round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: gymnasial utbildning") %>% .$andel,0)` procent av de utrikesfödd kvinnor, och ca `r round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: gymnasial utbildning") %>% .$andel,0)` procent av de
-utrikesfödda männen, inom 2 år efter att man kommit till Sverige. Över tid
-ökar etableringen snabbt på arbetsmarknaden för gymnasialt utbildade och exempelvis män som varit i Sverige mellan 3 och 4 år (2-3 år i figuren nedan) har högre etableringsgrad än motsvarande män med en eftergymnasial utbildning.
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
-
-# Skapar en faktorvariabel för att få tid sedan etablering i "rätt" ordning i figuren
-etablering_df$bakgrundsvariabel <- factor(etablering_df$bakgrundsvariabel, levels = c("0-1 år","2-3 år",
-                                                                                "4-9 år","10- år"))
-
-diagramtitel <- paste0("Andel förvärvsarbetande 20-64 år bland utrikes födda i Dalarna"," ",max(etablering_df$år)," uppdelat på vistelsetid i Sverige")
-diagramtitel <- str_wrap(diagramtitel)
-diagramfilnamn <- paste0("etablering_lan_utb.png")
-    
-etablering_fig_utb <- SkapaStapelDiagram(skickad_df =etablering_df %>%
-                                           filter(år == max(år),
-                                                  kön != "män och kvinnor",
-                                                  utbildningsnivå %in% c("utbildningsnivå: gymnasial utbildning" ,"utbildningsnivå: eftergymnasial utbildning")),
-                                         skickad_x_var = "bakgrundsvariabel", 
-                                         skickad_y_var = "andel", 
-                                         skickad_x_grupp = "kön",
-                                         manual_x_axis_title = "Vistelsetid",
-                                         manual_color = diagramfarger("kon"),
-                                         diagram_titel = diagramtitel,
-                                         diagram_capt =  diagram_capt,
-                                         diagram_facet = TRUE,
-                                         facet_grp = "utbildningsnivå",
-                                         facet_legend_bottom = TRUE,
-                                         facet_scale = "fixed",
-                                         x_axis_sort_value = FALSE,
-                                         y_axis_100proc = TRUE,
-                                         x_axis_lutning = 0, 
-                                         manual_y_axis_title="procent",
-                                         output_mapp = outputmapp,
-                                         filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = TRUE)
-
-```
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
-etablering_fig_utb
-```
-
-Hur snabbt en nyanländ person etableras på arbetsmarknaden har förändrats 
-avsevärt över tid, vilket åskådliggörs i diagrammet nedan. Från början av
-00-talet fram till mitten av 10-talet låg etableringstiden relativt stabil, där 
-ungefär 20 procent av de 20-64 åringar som varit i Sverige i upp till 2 år (0-1 år i figuren nedan)
-förvärvsarbetade och ungefär 50-60 procent av de 20-64 åringar som varit i Sverige mellan 4 och 10 år (4-9 år i figuren nedan)
-förvärvsarbetade. Efter flyktingkrisen i mitten av 10-talet verkar dock någonting ha hänt och framförallt
-personer med kort vistelsetid (upp till 2 år) kommer i arbete betydligt snabbare. Mellan 2015 och `r max(etablering_df$år)` ökade andelen förvärvsarbetande av de 20-64 åringar som varit i Sverige i upp till 2 år (0-1 år i figuren nedan)
-från ungefär 15 procent till ca `r round(etablering_df %>% filter(bakgrundsvariabel == "0-1 år",utbildningsnivå == "samtliga utbildningsnivåer",kön == "män och kvinnor",år == max(år)) %>% .$andel,0)`  procent, en remarkabel förbättring. Under samma tidsperiod
-har även arbetslösheten för gruppen utrikes födda minskat betydligt, vilket illustrerades i ett
-tidigare diagram.
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
-
-etablering_df_tid <- etablering_df %>% 
-  filter(bakgrundsvariabel != "10- år",
-         utbildningsnivå == "samtliga utbildningsnivåer",
-         kön == "män och kvinnor")
-
-# Skapar en faktorvariabel för att få tid sedan etablering i "rätt" ordning i figuren
-etablering_df_tid$bakgrundsvariabel <- factor(etablering_df_tid$bakgrundsvariabel, levels = c("0-1 år","2-3 år",
-                                                                                              "4-9 år"))
-
-diagramtitel <- paste0("Andel förvärvsarbetande 20-64 år bland utrikes födda i Dalarna uppdelat på vistelsetid i Sverige")
-diagramtitel <- str_wrap(diagramtitel)
-diagramfilnamn <- paste0("etablering_tid.png")
-    
-etablering_fig_tid <- SkapaStapelDiagram(skickad_df =etablering_df_tid,
-                                         skickad_x_var = "år", 
-                                         skickad_y_var = "andel", 
-                                         skickad_x_grupp = "bakgrundsvariabel",
-                                         manual_color = diagramfarger("rus_sex"),
-                                         diagram_titel = diagramtitel,
-                                         diagram_capt =  diagram_capt,
-                                         diagram_facet = TRUE,
-                                         facet_grp = "utbildningsnivå",
-                                         facet_legend_bottom = TRUE,
-                                         facet_scale = "fixed",
-                                         x_axis_sort_value = FALSE,
-                                         x_axis_lutning = 0, 
-                                         y_axis_100proc = TRUE,
-                                         manual_y_axis_title="procent",
-                                         output_mapp = outputmapp,
-                                         filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = TRUE)
-
-```
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
-etablering_fig_tid
 ```
 <br>
 <br>
