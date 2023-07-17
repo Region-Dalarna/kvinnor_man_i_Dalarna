@@ -90,50 +90,34 @@ gymnasieantagning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasiean
 Senast uppdaterad: `r Sys.Date()`</i>
 </p>
 
-I juni 2021 antog Region Dalarna en ny regional utvecklingsstrategi,
-"Dalastrategin 2030 - Tillsammans för ett hållbart Dalarna", som pekar
-ut länets riktning och prioriteringar fram till 2030. För att nå
-ambitionerna finns tre målområden som är nära sammanlänkade med varandra
-och som kopplar an till de olika dimensionerna av hållbarhet --
-miljömässig, ekonomisk och social hållbarhet.
+Världsläget idag synliggör fundamentala utmaningar för demokratiska samhällen. Målet om jämställdhet verkar vara underordnad i debatten och har på flera sätt kommit i skymundan. Men, att sträva efter jämställdhet är en av de centrala insatserna för att säkerställa mänskliga rättigheter, upprätthålla demokrati och uppnå de 17 målen i Agenda 2030 och Sveriges nationella miljö- och demokratimål. 
 
-I ett sammanhållet Dalarna finns goda livsmiljöer där människor upplever
-delaktighet, engagemang och där alla tillsammans bidrar till en hållbar
-utveckling. En förutsättning för detta är ett inkluderande, jämställt
-och jämlikt län. Syftet med denna rapport är att ge en bild av
-jämställdheten i länet inom alla tre målområden som beskrivs i
-Dalastrategin. Rapporten ska bidra med ett statistikunderlag som kan
-informera framtida jämställdhetsinsatser som stärker det regionala
-utvecklingsarbetet och Dalarna.
+För Dalarna är de regionala målen manifesterade i “Dalastrategin 2030 - Tillsammans för ett hållbart Dalarna” (länk till strategin), med övergripande målsättning om ett sammanhållet Dalarna med goda livsmiljöer där människor upplever delaktighet, engagemang och där alla tillsammans bidrar till en hållbar utveckling. 
 
-Rapporten bygger till stor del på upplägget i en tidigare rapport[^1]
-som togs fram av Region Dalarna och Länsstyrelsen i Dalarna inom ramen
-för projektet "Jämställd Regional Tillväxt". Den som är intresserad av
-en teoretisk översikt av relationen mellan jämställdhet, regional
-utveckling och tillväxt hänvisas till den äldre rapporten. Syftet med 
-denna rapport är att ge en översiktsbild över jämställdheten 
-i Dalarna. Rapporten kan också ge uppslag till ämnen och områden där det
-finns behov av framtida fördjupningar.
+All offentlig verksamhet i Dalarna så som Region Dalarna, Länsstyrelsen, kommuner och lärosäte, arbetar på olika sätt aktivt för att verkställa den nationella jämställdhetpolitiken och respektive organisations särskildt uppsatta mål för ett jämställt Dalarna.
+
+Statistiska uppföljningar av hur jämställdhetspolitiken når sina mål görs nationellt av Statistiska centralbyrån (SCB) vart annat år sedan 1984 i skriften ”På tal om kvinnor och män” (På tal om kvinnor och män - lathund om jämställdhet 2022 (scb.se)). År 2021 genomförde SCB även en tidsanvändningsstudie  ((le0103_2021a01_br_lebr2202.pdf (scb.se)), något som gjorts vart tionde år sedan 1990/91. Vidare redovisas årligen hur den ekonomiska jämställdheten utvecklas i en bilaga till budgetpropositionen som år 2022/23 var bilaga nummer 3 (Ekonomisk jämställdhet - Regeringen.se). 
+
+Policy-uppföljningar av jämställdhetspolitiken görs av Jämställdhetsmyndigheten, bland annat i rapporten 2022:16 bilaga 1 ”Regionalpolitik, könsmönster och jämställdhetsambitioner - Bilaga till rapporten Bättre styrning för bättre resultat”. I rapporten efterfrågas bland annat en bättre styrning jämställdhetsmålen genom relevanta indikatorer som systematiskt kan belysa regionala och lokala könsmönster och intersektionella perspektiv.
+
+”Avseende jämställd utbildning, ekonomisk jämställdhet och jämställd hälsa har vissa regioner mer än andra såväl strukturella problem som akuta jämställdhetsproblem att komma till rätta med. Mer konkret gäller det ojämställda arbetsvillkor, ojämställda inkomster, kvinnors psykiska ohälsa och långtidssjukskrivningar.”
+
+Följande rapport är tänkt att ge en bild av hur jämställdheten utvecklas i Dalarna utifrån den statistik som finns på regional och kommunal nivå. Rapporten diskuterar även möjliga framtida jämställdhetsinsatser som kan stärka det regionala utvecklingsarbetet och främja ett jämställt Dalarna.
+
+Region Dalarna har tidigare publicerat rapporter 2019 (länk) samt 2021 (webbrapporten?).
 
 [^1]: Region Dalarna, Kvinnor och män i Dalarna ur ett
     jämställdhetsperspektiv:
     <https://www.regiondalarna.se/contentassets/78c014a2f54a405a9467906f995f29d4/jamstalldhetsrapport.pdf>
 
-## Sammanfattning av trender
+## Sammanfattning av nuläget
 
-1. Den demografiska utmaningen för Dalarna syns tydligt i befolkningsstrukturen för länet. Befolkningen är idag äldre och andelen äldre kommer fortsätta växa under kommande år. Denna trend existerar för både kvinnor och män med  tillägget att kvinnor utgör något större andelar av de äldsta befolkningsgrupperna i länet.
+jämställd utbildning, ekonomisk jämställdhet och jämställd hälsa har vissa regioner mer än andra såväl strukturella problem som akuta jämställdhetsproblem att komma till rätta med. Mer konkret gäller det ojämställda arbetsvillkor, ojämställda inkomster, kvinnors psykiska ohälsa och långtidssjukskrivningar
 
-2.  Det råder fortsatt stor obalans i antagningen till
-    gymnasieprogrammen i Dalarna. Endast tre gymnasieprogram (hotell-
-    och turismprogrammet, introduktionsprogrammet och ekonomiprogrammet)
-    har en fördelning av tjejer och killar som kan beskrivas som
-    jämställd.
+1.  Obalansen består mellan tjejers och killars val till gymnasieprogrammen. Enligt antagningsstatistiken år 2022 hade fyra program (föregående år tre program) en jämn (inom spannet 40/60) representation av tjejer och killar. Dessa program är hotell- och turismprogrammet, introduktionsprogrammet, ekonomiprogrammet samt restaurang- och livsmedelsprogrammet.
 
-3.  Andelen kvinnor mellan 25 och 64 år med minst 3 års eftergymnasial
-    utbildning i Dalarna fortsätter att öka och uppgår idag till knappt
-    en tredjedel. Andelen män med eftergymnasial utbildning har också
-    ökat men i en mycket långsammare takt och klyftan mellan dessa två
-    grupper ökar över tid.
+
+2.  Andelen kvinnor mellan 25 och 64 år med minst 3 års eftergymnasial utbildning i Dalarna fortsätter att öka och uppgår idag till knappt en tredjedel. Andelen män med eftergymnasial utbildning har också ökat men i en mycket långsammare takt och klyftan mellan könen ökar över tid.
     
 4.  Inrikes födda kvinnor och män har fortsatt en lägre arbetslöshet jämfört med utrikes födda kvinnor och män. Utrikes födda kvinnor har idag en högre arbetslöshet än utrikes födda män, vilket är en förändring jämfört med tidigare år då förhållandet var det omvända.
 
@@ -155,149 +139,33 @@ finns behov av framtida fördjupningar.
     regional nivå. På lokal nivå i Dalarna finns det enstaka kommuner
     där andelen folkvalda kvinnor överstiger andelen folkvalda män men
     skillnaderna mellan kommunerna i länet är stora.
+    
+1. Den demografiska utmaningen för Dalarna syns tydligt i befolkningsstrukturen för länet. Befolkningen är idag äldre och andelen äldre kommer fortsätta växa under kommande år. Denna trend existerar för både kvinnor och män med  tillägget att kvinnor utgör något större andelar av de äldsta befolkningsgrupperna i länet.
+
 <br>
 <br>
 
-## Dalarnas befolkning
 
-```{r, echo=FALSE, fig.align='center', include = TRUE, out.width="90%"}
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna"
-
-befolkning_df_for <- befolkning_df_for %>%
-  group_by(år,region) %>% 
-    summarize(`Folkmängd`= sum(`Folkmängd`)) %>% 
-      mutate(region = skapa_kortnamn_lan(region,byt_ut_riket_mot_sverige = TRUE))
-
-diagram_titel <- paste0("Befolkningsförändring ",min(befolkning_df_for$år)," - ",max(befolkning_df_for$år), " (basår 1968)")
-diagram_typ <- "befolkning_forandring"
-diagramfil <- paste0(diagram_typ, ".png")
-
-bef_for <- SkapaLinjeDiagram(skickad_df = befolkning_df_for %>% 
-                              filter(region %in% c("Sverige","Dalarna")), 
-                            skickad_x_var = "år", 
-                            skickad_y_var = "Folkmängd",
-                            skickad_x_grupp = "region",
-                            manual_color = diagramfarger("rus_sex"),
-                            x_axis_lutning = 45,
-                            berakna_index = TRUE,
-                            diagram_titel = diagram_titel,
-                            stodlinjer_avrunda_fem = FALSE,
-                            diagram_capt = diagram_capt,
-                            output_mapp = outputmapp,
-                            visa_var_x_xlabel = 4,
-                            filnamn_diagram = diagramfil,
-                            skriv_till_diagramfil = TRUE)
-```
-
-Dalarnas län hade `r as.character(format(befolkning_df_for %>% filter(region == "Dalarna",år == last(.$år)) %>% .$Folkmängd, big.mark=" ", scientific=FALSE, trim=TRUE))` invånare år `r last(befolkning_df_for$år)`, vilket är ungefär `r gsub("\\.",",",round(((befolkning_df_for %>% filter(region == "Dalarna",år == last(.$år)) %>% .$Folkmängd/befolkning_df_for %>% filter(region == "Dalarna",år == first(.$år)) %>% .$Folkmängd)-1)*100,1))` procent fler än 1968. Under samma tidsperiod ökade Sveriges
-befolkning med `r gsub("\\.",",",round(((befolkning_df_for %>% filter(region == "Sverige",år == last(.$år)) %>% .$Folkmängd/befolkning_df_for %>% filter(region == "Sverige",år == first(.$år)) %>% .$Folkmängd)-1)*100,1))` procent (se diagram nedan).
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
-bef_for
-```
-
-Befolkningen i Dalarna är relativt jämnt fördelade mellan könen,
-men med något fler män än kvinnor. Åldersstrukturen har förändrats
-avsevärt sedan slutet av 60-talet, vilket en jämförelse av staplarna och de svarta linjerna i diagrammet nedanför visar. Den främsta förändringen
-i länet är en förskjutning mot en allt äldre befolkning: 1968 var
-relativt få personer i Dalarna 65 år eller äldre, medan åldersgrupperna
-15-24 år (födda efter andra världskriget) och 45-54 (primärt födda under
-mellankrigsåren) var större än idag.
-
-Inom den äldsta ålderskategorin (85 år och äldre) finns en betydligt
-större andel kvinnor än män. För yngre åldersgrupper är fördelningen
-mellan män och kvinnor jämnare, men något fler män än kvinnor i
-åldersgrupperna 15-24 år och 25-34 år.
-
-```{r, echo=FALSE, fig.align='center', out.width="90%"}
-#lista_figurer$`Befolkning i Dalarnas län år 1968/2021`
-knitr::include_graphics(here("Diagram","Befpyramid Dalarnas län 2022_jmfr_ar_1968.png"))
-```
-
-```{r, echo=FALSE}
-
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
-
-# Tar bort län och byter riket mot Sverige
-befolkning_df$region <- skapa_kortnamn_lan(befolkning_df$region,byt_ut_riket_mot_sverige = TRUE)
-
-# Skapar en variabel som bestämmer om personer är över 65 och summerar och beräknar andelar
-befolkning_sum <- befolkning_df %>% 
-  mutate(aldersgrupp = ifelse(as.numeric(ålder)>65,"Över 65","Under 65")) %>% 
-    group_by(region,år,aldersgrupp) %>% 
-      summarize(antal = sum(Folkmängd)) %>% 
-        mutate(andel = round((antal/sum(antal))*100,2))
-
-diagramtitel <- paste0("Andel av befolkningen över 65 år i Dalarna ",unique(befolkning_sum$år))
-diagramfilnamn <- paste0("andel_over_65_Sverige.png")
-
-andel_aldre <- SkapaStapelDiagram(skickad_df = befolkning_sum %>% 
-                               filter(aldersgrupp == "Över 65") %>% 
-                                mutate(fokus = ifelse(region == "Dalarna",1,
-                                                  ifelse(region == "Sverige",2,0))),
-                             skickad_x_var = "region",
-                             skickad_y_var = "andel",
-                             manual_color = diagramfarger("rus_tre_fokus"),
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             x_axis_sort_value = TRUE,
-                             x_var_fokus = "fokus",
-                             manual_y_axis_title="procent",
-                             manual_x_axis_text_vjust = 1,
-                             manual_x_axis_text_hjust = 1,
-                             stodlinjer_avrunda_fem = TRUE,
-                             x_axis_lutning = 45,
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = TRUE)
-
-```
-
-Dalarnas befolkning är äldre än befolkningen i de flesta andra svenska
-län. I Dalarna var ungefär `r round(befolkning_sum %>% filter(region=="Dalarna",aldersgrupp=="Över 65") %>% .$andel,0)` procent av befolkningen äldre än 65 år `r befolkning_sum %>% filter(region=="Dalarna",aldersgrupp=="Över 65") %>% .$år`,
-vilket är tredje högst i Sverige efter Gotland och Kalmar. Den
-lägsta andelen äldre återfinns i Stockholm där drygt `r round(befolkning_sum %>% filter(region=="Stockholm",aldersgrupp=="Över 65") %>% .$andel,0)` procent av befolkningen är äldre än 65 år. Generellt tenderar befolkningen att vara äldre i regioner med glesare och mindre befolkning där det inte finns större urbana center jämfört med län där det finns större städer.
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
-andel_aldre
-```
-
-Åldersstrukturen för inrikes och utrikes födda invånare i Dalarna
-skiljer sig åt (se figuren nedan). Jämförelsevis få utrikes födda är unga
-eller äldre i Dalarna, medan en betydligt större andel är i arbetsför
-ålder (20-64 år) bland utrikes födda än bland inrikes födda. En
-konsekvens av att inrikes födda i högre utsträckning når pensionsålder
-blir att en större andel än tidigare av befolkningen i arbetsför ålder
-(20-64 år) kommer att utgöras av utrikes födda.
-
-```{r, echo=FALSE, fig.width=8, fig.align='center', out.width="90%"}
-# lista_figurer$`Inrikes födda i Dalarnas län år 2021
-# jämfört med utrikes födda`
-knitr::include_graphics(here("Diagram","Befpyramid Dalarnas län 2022_jmfr_utr_inr.png"))
-```
-<br>
 <br>
 
 ## Utbildning och arbetsmarknad
+<br>
+Det jämställdhetspolitiska målet för utbildningsområdet säger att kvinnor och män, flickor och pojkar ska ha samma möjligheter och villkor när det gäller utbildning, studieval och personlig utveckling.
 
-### Utbildning
+Bland den vuxna befolkningen ser vi att det är fler kvinnor än män på universitet och högskolor och att skillnaderna ökar. Eftergymnasial utbildning ger större chans att få ett arbete och en högre inkomst, både för tjejer och killar.
 
-Utbildningsnivån för åldersgruppen 25-64 år redovisas i figuren nedan
-och visar på skillnader mellan könen. Kvinnor har generellt en högre
-utbildningsnivå än män i länet. Bland kvinnor i Dalarna är den
-vanligaste, med `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel,0)` procent, utbildningsnivån "`r utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$utbildningsnivå`". Inom den här utbildningskategorin är
-motsvarande siffra för män i Dalarna knappt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer")  %>% .$andel,0)` procent. I kombination
-med "kortare eftergymnasiala studier (högst 2 år)" är det totalt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "eftergymnasial utbildning, mindre än 3 år")  %>% .$andel,0)` procent av kvinnorna i Dalarna som har någon form av eftergymnasial
-utbildning. För män i länet är motsvarande siffra cirka `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män", utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, mindre än 3 år")  %>% .$andel,0)` procent.
+<br>
+### Utbildningsnivå
+
+Utbildningsnivån för åldersgruppen 25-64 år i Dalarna redovisas i figuren nedan
+och visar på stora skillnader mellan könen. En betydligt större andel kvinnor i länet har en högre utbildning i jämförelse med andelen män med högre utbildning. Bland kvinnor i Dalarna är den vanligaste, med `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel,0)` procent, utbildningsnivån "`r utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$utbildningsnivå`". Inom den här utbildningskategorin är motsvarande siffra för män i Dalarna knappt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer")  %>% .$andel,0)` procent. I kombination med "kortare eftergymnasiala studier (högst 2 år)" är det totalt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "eftergymnasial utbildning, mindre än 3 år")  %>% .$andel,0)` procent av kvinnorna i Dalarna som har någon form av eftergymnasial utbildning. För män i länet är motsvarande siffra cirka `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män", utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, mindre än 3 år")  %>% .$andel,0)` procent.
 
 Bland män i Dalarna är den vanligast förekommande utbildningskategorin
-"`r utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$utbildningsnivå`". Drygt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$andel,0)` procent av männen i
-Dalarna återfinns inom denna kategori. Ytterligare drygt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av
-männen har en gymnasieutbildning om högst 2 år. Sammantaget innebär
-detta att drygt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män", utbildningsnivå == "gymnasial utbildning, 3 år") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av alla män i Dalarna har en
-gymnasieutbildning som högsta utbildning. Motsvarande siffra för kvinnor
-i Dalarna är `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor", utbildningsnivå == "gymnasial utbildning, 3 år") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent.
+"`r utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$utbildningsnivå`". Drygt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$andel,0)` procent av männen i Dalarna återfinns inom denna kategori. Ytterligare drygt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av männen har en gymnasieutbildning om högst 2 år. Sammantaget innebär detta att drygt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män", utbildningsnivå == "gymnasial utbildning, 3 år") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av alla män i Dalarna har en gymnasieutbildning som högsta utbildning. Motsvarande siffra för kvinnor i Dalarna är `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor", utbildningsnivå == "gymnasial utbildning, 3 år") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent.
 
+Utbildningsnivån påverkar bland annat medellivslängden. För personer som uppnått 65 års ålder skiljer det sig nästan tre år i medellivslängd mellan dem som har förgymnasial utbildning och dem med eftergymnasial utbildning. Skillnaden mellan könen är cirka två år, vilket innebär att kvinnor i respektive utbildningsgrupp lever i genomsnitt två år längre än män i samma utbildningsgrupp. Samtidigt visar det sig att boenderelationer påverkar medellivslängden, och särskilt för män. Män med förgymnasial utbildning som är sammanboende lever i genomsnitt längre än ensamstående män med eftergymnasial utbildning. Sämst utsikter genomsnittligt har således ensamstående män med låg utbildningsnivå. (https://www.scb.se/hitta-statistik/statistik-efter-amne/befolkning/befolkningsframskrivningar/demografisk-analys/pong/statistiknyhet/demografisk-analys-livslangdstabeller-efter-utbildningsniva/)
+<br>
+<br>
 ```{r, echo=FALSE}
 diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna"
 
@@ -2099,7 +1967,124 @@ chefer_fig
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 chefer_linje_fig
 ```
+## Dalarnas befolkning
 
+```{r, echo=FALSE, fig.align='center', include = TRUE, out.width="90%"}
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna"
+
+befolkning_df_for <- befolkning_df_for %>%
+  group_by(år,region) %>% 
+    summarize(`Folkmängd`= sum(`Folkmängd`)) %>% 
+      mutate(region = skapa_kortnamn_lan(region,byt_ut_riket_mot_sverige = TRUE))
+
+diagram_titel <- paste0("Befolkningsförändring ",min(befolkning_df_for$år)," - ",max(befolkning_df_for$år), " (basår 1968)")
+diagram_typ <- "befolkning_forandring"
+diagramfil <- paste0(diagram_typ, ".png")
+
+bef_for <- SkapaLinjeDiagram(skickad_df = befolkning_df_for %>% 
+                              filter(region %in% c("Sverige","Dalarna")), 
+                            skickad_x_var = "år", 
+                            skickad_y_var = "Folkmängd",
+                            skickad_x_grupp = "region",
+                            manual_color = diagramfarger("rus_sex"),
+                            x_axis_lutning = 45,
+                            berakna_index = TRUE,
+                            diagram_titel = diagram_titel,
+                            stodlinjer_avrunda_fem = FALSE,
+                            diagram_capt = diagram_capt,
+                            output_mapp = outputmapp,
+                            visa_var_x_xlabel = 4,
+                            filnamn_diagram = diagramfil,
+                            skriv_till_diagramfil = TRUE)
+```
+
+Dalarnas län hade `r as.character(format(befolkning_df_for %>% filter(region == "Dalarna",år == last(.$år)) %>% .$Folkmängd, big.mark=" ", scientific=FALSE, trim=TRUE))` invånare år `r last(befolkning_df_for$år)`, vilket är ungefär `r gsub("\\.",",",round(((befolkning_df_for %>% filter(region == "Dalarna",år == last(.$år)) %>% .$Folkmängd/befolkning_df_for %>% filter(region == "Dalarna",år == first(.$år)) %>% .$Folkmängd)-1)*100,1))` procent fler än 1968. Under samma tidsperiod ökade Sveriges
+befolkning med `r gsub("\\.",",",round(((befolkning_df_for %>% filter(region == "Sverige",år == last(.$år)) %>% .$Folkmängd/befolkning_df_for %>% filter(region == "Sverige",år == first(.$år)) %>% .$Folkmängd)-1)*100,1))` procent (se diagram nedan).
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+bef_for
+```
+
+Befolkningen i Dalarna är relativt jämnt fördelade mellan könen,
+men med något fler män än kvinnor. Åldersstrukturen har förändrats
+avsevärt sedan slutet av 60-talet, vilket en jämförelse av staplarna och de svarta linjerna i diagrammet nedanför visar. Den främsta förändringen
+i länet är en förskjutning mot en allt äldre befolkning: 1968 var
+relativt få personer i Dalarna 65 år eller äldre, medan åldersgrupperna
+15-24 år (födda efter andra världskriget) och 45-54 (primärt födda under
+mellankrigsåren) var större än idag.
+
+Inom den äldsta ålderskategorin (85 år och äldre) finns en betydligt
+större andel kvinnor än män. För yngre åldersgrupper är fördelningen
+mellan män och kvinnor jämnare, men något fler män än kvinnor i
+åldersgrupperna 15-24 år och 25-34 år.
+
+```{r, echo=FALSE, fig.align='center', out.width="90%"}
+#lista_figurer$`Befolkning i Dalarnas län år 1968/2021`
+knitr::include_graphics(here("Diagram","Befpyramid Dalarnas län 2022_jmfr_ar_1968.png"))
+```
+
+```{r, echo=FALSE}
+
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
+
+# Tar bort län och byter riket mot Sverige
+befolkning_df$region <- skapa_kortnamn_lan(befolkning_df$region,byt_ut_riket_mot_sverige = TRUE)
+
+# Skapar en variabel som bestämmer om personer är över 65 och summerar och beräknar andelar
+befolkning_sum <- befolkning_df %>% 
+  mutate(aldersgrupp = ifelse(as.numeric(ålder)>65,"Över 65","Under 65")) %>% 
+    group_by(region,år,aldersgrupp) %>% 
+      summarize(antal = sum(Folkmängd)) %>% 
+        mutate(andel = round((antal/sum(antal))*100,2))
+
+diagramtitel <- paste0("Andel av befolkningen över 65 år i Dalarna ",unique(befolkning_sum$år))
+diagramfilnamn <- paste0("andel_over_65_Sverige.png")
+
+andel_aldre <- SkapaStapelDiagram(skickad_df = befolkning_sum %>% 
+                               filter(aldersgrupp == "Över 65") %>% 
+                                mutate(fokus = ifelse(region == "Dalarna",1,
+                                                  ifelse(region == "Sverige",2,0))),
+                             skickad_x_var = "region",
+                             skickad_y_var = "andel",
+                             manual_color = diagramfarger("rus_tre_fokus"),
+                             diagram_titel = diagramtitel,
+                             diagram_capt =  diagram_capt,
+                             x_axis_sort_value = TRUE,
+                             x_var_fokus = "fokus",
+                             manual_y_axis_title="procent",
+                             manual_x_axis_text_vjust = 1,
+                             manual_x_axis_text_hjust = 1,
+                             stodlinjer_avrunda_fem = TRUE,
+                             x_axis_lutning = 45,
+                             output_mapp = outputmapp,
+                             filnamn_diagram = diagramfilnamn,
+                             skriv_till_diagramfil = TRUE)
+
+```
+
+Dalarnas befolkning är äldre än befolkningen i de flesta andra svenska
+län. I Dalarna var ungefär `r round(befolkning_sum %>% filter(region=="Dalarna",aldersgrupp=="Över 65") %>% .$andel,0)` procent av befolkningen äldre än 65 år `r befolkning_sum %>% filter(region=="Dalarna",aldersgrupp=="Över 65") %>% .$år`,
+vilket är tredje högst i Sverige efter Gotland och Kalmar. Den
+lägsta andelen äldre återfinns i Stockholm där drygt `r round(befolkning_sum %>% filter(region=="Stockholm",aldersgrupp=="Över 65") %>% .$andel,0)` procent av befolkningen är äldre än 65 år. Generellt tenderar befolkningen att vara äldre i regioner med glesare och mindre befolkning där det inte finns större urbana center jämfört med län där det finns större städer.
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+andel_aldre
+```
+
+Åldersstrukturen för inrikes och utrikes födda invånare i Dalarna
+skiljer sig åt (se figuren nedan). Jämförelsevis få utrikes födda är unga
+eller äldre i Dalarna, medan en betydligt större andel är i arbetsför
+ålder (20-64 år) bland utrikes födda än bland inrikes födda. En
+konsekvens av att inrikes födda i högre utsträckning når pensionsålder
+blir att en större andel än tidigare av befolkningen i arbetsför ålder
+(20-64 år) kommer att utgöras av utrikes födda.
+
+```{r, echo=FALSE, fig.width=8, fig.align='center', out.width="90%"}
+# lista_figurer$`Inrikes födda i Dalarnas län år 2021
+# jämfört med utrikes födda`
+knitr::include_graphics(here("Diagram","Befpyramid Dalarnas län 2022_jmfr_utr_inr.png"))
+```
+<br>
 ```{r, include = FALSE}
 
 if(uppdatera_hemsida==TRUE){
