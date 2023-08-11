@@ -90,17 +90,17 @@ gymnasieantagning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasiean
 Senast uppdaterad: `r Sys.Date()`</i>
 </p>
 
-Dagens världsläge avslöjar fundamentala utmaningar för demokratiska samhällen, samtidigt som en konstruktiv diskussion om jämställdhet på många sätt verkar ha kommit i skymundan i den allmänna debatten. Men, att sträva efter jämställdhet bör ses som en av de centrala insatserna för att säkerställa mänskliga rättigheter och att uppnå de 17 målen i Agenda 2030 och Sveriges nationella miljö- och demokratimål. 
+Världsläget av idag synliggör fundamentala utmaningar för demokratiska samhällen, samtidigt som en konstruktiv diskussion om jämställdhet verkar ha kommit i skymundan i den allmänna debatten. Att sträva efter jämställdhet är trots det en av de centrala insatserna för att säkerställa mänskliga rättigheter, att uppnå de 17 målen i Agenda 2030 och Sveriges nationella miljö- och demokratimål.
 
 För Dalarna är de regionala målen manifesterade i “Dalastrategin 2030 - Tillsammans för ett hållbart Dalarna” (https://www.regiondalarna.se/contentassets/699fddaa79da4978bfe14dd4bead1134/dalastrategin-2030-tillsammans-for-ett-hallbart-dalarna-dec.pdf), med övergripande målsättning om ett sammanhållet Dalarna med goda livsmiljöer där människor upplever delaktighet, engagemang och där alla tillsammans bidrar till en hållbar utveckling. 
 
-All offentlig verksamhet i Dalarna så som Region Dalarna, Länsstyrelsen Dalarna, kommuner och lärosäte arbetar på olika sätt aktivt för att verkställa den nationella jämställdhetpolitiken och respektive organisations särskilt uppsatta mål för jämställdhet. Följande rapport är tänkt att ge en bild av hur jämställdheten utvecklas i Dalarna utifrån den statistik som finns på regional och kommunal nivå. I rapporten diskuteras även läget i Dalarna i relation till nationell statistik och utmaningar.
+All offentlig verksamhet i Dalarna så som Region Dalarna, Länsstyrelsen Dalarna, kommuner och lärosäte arbetar på olika sätt aktivt för att verkställa den regionala och nationella jämställdhetpolitiken och respektive organisations särskilt uppsatta mål för jämställdhet. Följande rapport är tänkt att ge en bild av hur jämställdheten utvecklas i Dalarna utifrån den statistik som finns på regional och kommunal nivå. I rapporten diskuteras även läget i Dalarna i relation till nationell statistik och nationella utmaningar.
 
-Nationella uppföljningar av hur jämställdhetspolitiken når sina mål görs både genom statistik och policy-analyser. Statistiska uppföljningar görs av bland andra Statistiska centralbyrån (SCB) som vart annat år (sedan 1984) publicerar skriften ”På tal om kvinnor och män” (<https://www.scb.se/hitta-statistik/statistik-efter-amne/levnadsforhallanden/jamstalldhet/jamstalldhetsstatistik/pong/publikationer/pa-tal-om-kvinnor-och-man---lathund-om-jamstalldhet-2022/>) och vart tionde år (sedan 1990) gör tidsanvändningsstudier, nu senast 2021 (<https://www.scb.se/contentassets/4e98132b0b784a01b6e4762e909a6fa2/le0103_2021a01_br_lebr2202.pdf>). Vidare analyseras årligen hur den ekonomiska jämställdheten utvecklas i en bilaga till budgetpropositionen som år 2022/23 var bilaga nummer 3 (<https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf>). 
+Nationella uppföljningar av hur jämställdhetspolitiken når sina mål görs både genom statistik och policy-analyser. Statistiska uppföljningar görs av bland andra Statistiska centralbyrån (SCB) som vart annat år (sedan 1984) publicerar skriften ”På tal om kvinnor och män” (<https://www.scb.se/hitta-statistik/statistik-efter-amne/levnadsforhallanden/jamstalldhet/jamstalldhetsstatistik/pong/publikationer/pa-tal-om-kvinnor-och-man---lathund-om-jamstalldhet-2022/>) och vart tionde år (sedan 1990) gör tidsanvändningsstudier, senast 2021 (<https://www.scb.se/contentassets/4e98132b0b784a01b6e4762e909a6fa2/le0103_2021a01_br_lebr2202.pdf>). Vidare analyseras årligen hur den ekonomiska jämställdheten utvecklas i en bilaga till budgetpropositionen som år 2022/23 var bilaga nummer 3 (<https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf>). 
 
-Policy-uppföljningar av jämställdhetspolitiken görs av bland andra Jämställdhetsmyndigheten. I deras rapport 2022:16 bilaga 1 ”Regionalpolitik, könsmönster och jämställdhetsambitioner - Bilaga till rapporten Bättre styrning för bättre resultat” finns en fördjupning om läget i regionerna. I rapporten efterfrågas bland annat en bättre styrning mot jämställdhetsmålen genom relevanta indikatorer. Mer konkret handlar det bland annat om att följa upp ojämställda arbetsvillkor, ojämställda inkomster, kvinnors och mäns psykiska ohälsa och långtidssjukskrivningar, och synliggöra regionala och lokala könsmönster samt intersektionella perspektiv.
+Policy-uppföljningar av jämställdhetspolitiken görs av bland andra Jämställdhetsmyndigheten. De har även granskat den regionala politiken ur ett jämställdhetsperspektiv. I rapporten ”Regionalpolitik, könsmönster och jämställdhetsambitioner - Bilaga till rapporten Bättre styrning för bättre resultat” (2022:16 bilaga 1) finns en fördjupning om läget i regionerna. Här efterfrågas bland annat en bättre styrning mot jämställdhetsmålen genom relevanta indikatorer. Mer konkret handlar det bland annat om att följa upp ojämställda arbetsvillkor, ojämställda inkomster, kvinnors och mäns psykiska ohälsa och långtidssjukskrivningar, och synliggöra regionala och lokala könsmönster samt intersektionella perspektiv.
 
-Region Dalarna har tidigare publicerat en fördjupande uppföljning av jämställdhet i regionen inom projektet Jämställd regional tillväxt, år 2019.[^1]
+Region Dalarna har tidigare publicerat uppföljningar av läget i Dalarna, här på webben år 2022, och en fördjupande uppföljning av jämställdhet i regionen inom projektet Jämställd regional tillväxt, år 2019.[^1]
 
 [^1]: Region Dalarna, Kvinnor och män i Dalarna ur ett
     jämställdhetsperspektiv:
@@ -109,38 +109,29 @@ Region Dalarna har tidigare publicerat en fördjupande uppföljning av jämstäl
 <br>
 <br>    
 
-## Sammanfattning av nuläget i Dalarna
+## Sammanfattning av läget i Dalarna
 
 Jämställdhetspolitiken består av sex delmål inom områdena utbildning, ekonomi, hälsa, makt och inflytande, obetalt hem- och omsorgsarbete, samt att mäns våld mot kvinnor ska upphöra. I Dalarna ser vi följande mönster och trender utifrån ett jämställdhetsperpektiv.
 
-1.  Obalansen mellan tjejers och killars val till gymnasieprogrammen består. Antagningsstatistiken år 2022 visade att fyra program av tjugo (tre föregående år) har en jämn representation av tjejer och killar (dvs. inom spannet 40/60). Fyra program har en övervikt av killar och nio program har en övervikt av tjejer. Många branscher och yrken väntas därför också fortsättningsvis vara dominerade av ettdera könet om inga åtgärder vidtas.
+1.  Obalansen mellan tjejers och killars val till gymnasieprogrammen består. Antagningsstatistiken år 2022 visade att fyra program av tjugo (tre föregående år) har en jämn representation av tjejer och killar (dvs. inom spannet 40/60). Fyra program har en övervikt av killar och nio program en övervikt av tjejer. Många branscher och yrken väntas därför också fortsättningsvis vara dominerade av ettdera könet, om inga åtgärder vidtas.
 
-2.  Andelen högutbildade i befolkningen mellan 25 och 64 år, med minst 3 års eftergymnasial utbildning, ökar bland både kvinnor och män. Men, andelen högutbildade kvinnor ökar i snabbare takt än andelen män. Klyftan mellan könen ökar därför över tid. Nationellt har 37 procent av kvinnorna högre utbildning medan 28 procent av kvinnorna i Dalarna har högre utbildning. Andelen män nationellt med högre utbildning är 24 procent medan andelen män i Dalarna utgör 15 procent. 
+2.  Andelen högutbildade i gruppen 25-64 år i Dalarna med minst 3 års eftergymnasial utbildning, ökar bland både kvinnor och män. Men, andelen kvinnor med högre utbildning ökar i snabbare takt än andelen män med högre utbildning, så att klyftan mellan könen ökar över tid. Utbildningsnivån är tydligt lägre i Dalarna än riksgenomsnittet. I Dalarna har 28 procent av kvinnorna högre utbildning och 15 procent av männen, medan motsvarande andel nationellt är 37 procent av kvinnorna och 24 procent av männen.
     
-3.  Sysselsättningsgraden är över 80 procent för inrikes födda kvinnor och män, lika som den nationella sysselsättningsgraden och högt i internationell jämförelse. Arbetslösheten är fortsatt låg, cirka 3 procent. Bland utrikes födda är däremot sysselsättningsgraden lägre, 70 procent bland män och 62 procent bland kvinnor. Arbetslösheten bland utrikes födda är också betydligt högre, bland kvinnor 16 procent och bland män 14 procent. En förändring som skett sedan år 2020 är att arbetslösheten bland utrikes födda kvinnor är högre än bland utrikes födda män, tidigare år har förhållandet varit det omvända.
+3.  Sysselsättningsgraden är över 80 procent för inrikes födda kvinnor och män i Dalarna, lika som den nationella sysselsättningsgraden och högt i internationell jämförelse. Arbetslösheten är fortsatt låg, cirka 3 procent. Bland utrikes födda är däremot sysselsättningsgraden lägre, 70 procent bland män och 62 procent bland kvinnor. Arbetslösheten bland utrikes födda är också betydligt högre, bland kvinnor 16 procent och bland män 14 procent. En förändring som skett sedan år 2020 är att arbetslösheten bland utrikes födda kvinnor är högre än bland utrikes födda män, tidigare år har förhållandet varit det omvända. Föregående och nuvarande regering har satt fokus på insatser för att snabbare få utrikes födda kvinnor i arbete.
 
-4.  I likhet med riket som helhet har kvinnor i Dalarna fortfarande en avsevärt
-    lägre medianinkomst än män,  trots att kvinnornas inkomster har ökat i
-    något högre takt.
+4.  I likhet med riket som helhet har kvinnor i Dalarna fortfarande en avsevärt lägre medianinkomst än män. Kvinnornas inkomster har ökat i något högre takt än männens de senaste decennierna, men i Dalarna utgör kvinnors medianinkomst fortfarande endast 83 procent av mäns medianinkomst. 
 
-5.  Regeringen har satt fokus på insatser för att snabbare få utrikes födda kvinnor i arbete. 
+5.  Fördelningen av omsorgsansvar för barn är den viktigaste faktorn till ojämställda livsinkomster. I Dalarna fördelades föräldrapenningdagarna ojämställt. I Dalarna 2022 tog kvinnor ut totalt 69 procent av dagarna medan män tog ut 31 procent av dagarna. Det finns dock skillnader mellan kommunerna i länet, där män i Falun tog ut den största andelen av dagarna, närmare 34 procent, medan män i Älvdalen tog ut den minsta andelen, drygt 26 procent.
 
-6.  I Dalarna skiljer sig kvinnors hälsa dramatiskt från männens dito
-    inom ett antal olika områden. Antalet pågående sjukfall kopplat till
-    stress för kvinnor i Dalarna har sett en stark ökning från 2010 fram
-    till 2015 och ligger idag kvar på en mycket hög nivå jämfört med
-    motsvarande siffra för männen i länet.
+6.  I Dalarna skiljer sig kvinnors hälsa dramatiskt från männens dito utifrån försäkringskassans statistik. Ohälsotalet (utbetalning av sjukpenning, rehabiliteringspenning, sjukersättning och aktivitetsersättning) har halverats för både kvinnor och män de senaste 20 åren, men skillnaden mellan könen är bestående. För kvinnor var antalet utbetalda dagar 30 dagar per år medan det för män var 20 dagar per år. Antalet sjukfall kopplade till stress har ungefär sjufaldigats för både kvinnor och män sedan lägstanivån 2010, en dramatisk ökning, samtidigt ska det förtydligas att kvinnors andel av dessa sjukfall uppgår till ca 80 procent.
     
-7.  Fördelningen av föräldrapenning mellan könen är ojämnt fördelad med övervikt för kvinnorna i länet. Skillnader existerar även mellan kommunerna i länet där Falun är relativt mest jämställd jämfört med andra Dalakommuner.
 
-8.  Inom politiken har det blivit en jämnare fördelning av
-    förtroendeposter mellan kvinnor och män under de senaste årtiondena.
-    Kvinnor är fortfarande något underrepresenterade på nationell och
-    regional nivå. På lokal nivå i Dalarna finns det enstaka kommuner
-    där andelen folkvalda kvinnor överstiger andelen folkvalda män men
-    skillnaderna mellan kommunerna i länet är stora.
+7.  Inom politiken har fördelningen av förtroendeposter mellan kvinnor och män under de senaste årtiondena jämnats ut. På både nationell och regional nivå ligger den inom spannet för jämställdhet, även om andelen män på regional nivå har ökat 2018 och 2022 från tidigare trend. På lokal nivå i Dalarna däremot har endast två kommuner fler kvinnor än män som ledamöter (i båda fallen endast en kvinna mer), övriga kommuner har tydligt fler män än kvinnor som ledamöter och fyra av Dalarnas kommuner har en överrepresentation av män (fler än 60 %) som ledamöter.
     
-9. Den demografiska utmaningen för Dalarna syns tydligt i befolkningsstrukturen för länet. Befolkningen är idag äldre och andelen äldre kommer fortsätta växa under kommande år. Denna trend existerar för både kvinnor och män med  tillägget att kvinnor utgör något större andelar av de äldsta befolkningsgrupperna i länet.
+8. På chefspositioner i Dalarna finns det fler män än kvinnor. Relativt utbildningsnivå så är fördelningen jämnare ju högre utbildningsnivån är, dvs. män med lägre utbildning är i betydligt högre grad chefer än kvinnor med lägre utbildning. Trenden visar att en utjämning av andelen kvinnor och män på chefspositioner pågår. Fram till idag kan utjämningen främst förklaras med att antalet chefspositioner verkar ha ökat, och att kvinnor fått utrymme varefter antalet ökat.
+
+
+9. Den demografiska utmaningen för Dalarna syns tydligt i befolkningsstrukturen för länet. Befolkningen är idag äldre och andelen äldre kommer fortsätta växa under kommande år. Denna trend existerar för både kvinnor och män med tillägget att kvinnor utgör något större andelar av de äldsta åldersgrupperna i länet.
 
 <br>
 <br>
@@ -222,18 +213,18 @@ utbildning_85_utskrift<-utbildning_85_df %>%
 utbildning_fig
 ```
 <br>
-Över tid har andelen av befolkningen i Dalarna med högre utbildning ökat de senaste decennierna. Bara drygt sju procent av befolkningen hade en högre utbildning i mitten av 1980-talet. `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` hade den andelen ökat till ca `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "kvinnor") %>% .$andel,0)` procent
+De senaste decennierna har andelen av befolkningen i Dalarna med högre utbildning ökat. I mitten av 1980-talet hade bara drygt sju procent av befolkningen hade en högre utbildning. År `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` hade den andelen ökat till ca `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "kvinnor") %>% .$andel,0)` procent
 för kvinnor och ungefär `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "män") %>% .$andel,0)` procent för män. Anmärkningsvärt är också att
 skillnaden i utbildningsnivå mellan könen har ökat avsevärt genom åren.
 I mitten av 1980-talet var andelen högutbildade ungefär lika stor bland
-kvinnor och män. `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` var nästan dubbelt så många kvinnor som män högutbildade i Dalarna.
+kvinnor och män. År `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` var nästan dubbelt så många kvinnor som män högutbildade i Dalarna.
 <br>
-
+<br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
 utb_85_fig
 ```
 <br>
-I nationell jämförelse har Dalarna en relativt låg andel personer med hög
+I nationell jämförelse har Dalarna en relativt låg andel personer med högre
 utbildning. Riksgenomsnittet för åldersgruppen 25-64 år med minst 3 års eftergymnasial utbildning är 37 procent bland kvinnorna och 24 procent bland männen.
 
 I Dalarna är andelen kvinnor med en högre utbildning om minst 3 år `r unique(utbildning_df$år)` ungefär `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Dalarna",kön == "kvinnor") %>% .$andel,0) `
@@ -308,7 +299,8 @@ utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
 <br>
 
 ### Antagna till gymnasieprogrammen 
-En utmaning för länet är den obalans som råder i antalet antagna killar och tjejer till gymnasieprogrammen i Dalarna. Av totalt 20 gymnasieprogram i länet kan endast fyra sägas vara jämställda, dvs. de har en könsfördelning där andelen antagna är mellan 40 och 60 procent för både pojkar och flickor. De jämställda programmen är hotell- och turismprogrammet, introduktionsprogram, restaurang- och livsmedelsprogrammet samt ekonomiprogrammet. Sju program har en övervikt av killar, där el- och energiprogrammet har den största obalansen, följt av VVS- och fastighetsprogrammet samt industritekniska programmet. Resterande nio program har en övervikt av tjejer, där vård- och omsorgsprogrammet är det mest obalanserade programmet följt av hantverksprogrammet och det humanistiska programmet.
+En utmaning för länet är den obalans som råder i antalet antagna killar och tjejer till gymnasieprogrammen i Dalarna. Av totalt 20 gymnasieprogram i länet kan endast fyra sägas vara jämställda, dvs. de har en könsfördelning där andelen antagna är mellan 40 och 60 procent för både pojkar och flickor. De program med en jämställd representation är hotell- och turismprogrammet, introduktionsprogram, restaurang- och livsmedelsprogrammet samt ekonomiprogrammet. Sju program har en övervikt av killar, där el- och energiprogrammet har den största obalansen, följt av VVS- och fastighetsprogrammet samt industritekniska programmet. Resterande nio program har en övervikt av tjejer, där vård- och omsorgsprogrammet är det mest obalanserade programmet följt av hantverksprogrammet och det humanistiska programmet.
+<br>
 <br>
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="150%"}
@@ -352,7 +344,7 @@ gymnasieantagning_fig
 
 ### Bransch och yrke
 
-Arbeten och yrken har historiskt varit könsuppdelade av många skäl. Några centrala anledningar har varit att det finns olika förväntningar i vår kultur om förmågor hos kvinnor och män, som exempelvis att män uppfattas som fysiskt starkare och teknikinriktade medan kvinnor uppfattas som fysiskt svagare och inriktade på relationer och omsorg. Vidare återspeglas i denna uppdelning också att endast det män gjort har värderats som formellt arbete. Innan reformerna som etablerade exempelvis barn- och äldreomsorg på den reguljära marknaden utförde kvinnor omsorgsarbetet obetalt eller utanför ordinarie arbetsmarknad. När dessa arbetsuppgfiter övergick till regulära yrken var det naturligt att det var kvinnor som befolkade tjänsterna.
+Arbeten och yrken har historiskt varit könsuppdelade av många skäl. Några centrala anledningar har varit att det finns olika förväntningar i vår kultur om förmågor hos kvinnor och män, som exempelvis att män uppfattas som fysiskt starkare och teknikinriktade medan kvinnor uppfattas som fysiskt svagare och inriktade på relationer och omsorg. Vidare återspeglas i denna uppdelning också att endast det män gjort har värderats som formellt arbete. Innan reformerna som etablerade exempelvis barn- och äldreomsorg på den reguljära arbetsmarknaden utförde kvinnor omsorgsarbetet obetalt eller utanför ordinarie arbetsmarknad. När dessa arbetsuppgfiter övergick till regulära yrken var det på många sätt naturligt att det var kvinnor som befolkade tjänsterna.
 
 Det bekymmersamma i nuläget är att trots många år av likvärdig tillgång till utbildning och möjlighet att fritt välja yrke så består skillnaderna i arbetslivet (se figuren nedan) och även i antagningen till gymnasiet. Det
 finns branscher i länet som har en tydlig övervikt av det ena eller det
@@ -465,6 +457,11 @@ största yrkesgruppen för män i Dalarnas län är kategorin som inkluderar
 `r tolower(first(yrke_man$Yrke))`, följd av `r tolower(first(yrke_man[yrke_man$Yrke != first(yrke_man$Yrke),])$Yrke)`. 
 Bland kvinnor är det istället vård- och utbildningsyrken som är
 vanligast. Här finns exempelvis `r tolower(first(yrke_kvinnor$Yrke))` och `r tolower(first(yrke_kvinnor[yrke_kvinnor$Yrke != first(yrke_kvinnor$Yrke),])$Yrke)`. Diagrammen nedan visar de yrken i länet som flest kvinnor respektive män utövar.
+
+Två yrken av tio återkommer bland både kvinnor och män, vårdbiträden och butikssäljare i fackhandel. Det som diagrammen visar är också att största antalet bland män är cirka 2 000 medan största yrket bland kvinnor är 4 200, 
+vårdbiträden cirka 2 300 kvinnor och 1 100 män.
+
+<br>
 <br>
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
