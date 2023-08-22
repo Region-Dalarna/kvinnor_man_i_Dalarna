@@ -125,3 +125,9 @@ source(here("Skript","gymnasieantagning.R"), encoding="UTF-8")
 diag_gymnasieantagning(spara_data = TRUE,
                        output_mapp = Output_mapp)
 
+# Genomströmning gymnasiet
+source(here("Skript","gymnasiet_genomströmning.R"), encoding="UTF-8")
+diag_genomstromning(spara_data = TRUE,
+                    output_mapp = Output_mapp)
+
+
