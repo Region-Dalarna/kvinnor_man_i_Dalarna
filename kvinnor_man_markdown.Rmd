@@ -123,12 +123,11 @@ Jämställdhetspolitiken består av sex delmål inom områdena utbildning, ekono
 
 5.  Fördelningen av omsorgsansvar för barn är den viktigaste faktorn till ojämställda livsinkomster. I Dalarna fördelades föräldrapenningdagarna ojämställt. I Dalarna `r max(foraldrapenning_df$År) ` tog kvinnor ut totalt  `r round(as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Kvinnor", År == max(År)) %>% .$Andel),0)` procent av dagarna medan män tog ut `r round(as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Män", År == max(År)) %>% .$Andel),0)` procent av dagarna. Det finns dock skillnader mellan kommunerna i länet, där män i `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun, regex='\\S+')` tog ut den största andelen av dagarna, ca `r round(as.integer(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel),0)` procent, medan män i `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun, regex='\\S+')` tog ut den minsta andelen, drygt `r round(as.integer(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel),0)` procent.
 
-6.  I Dalarna är kvinnors ohälsa betydligt mer omfattande än mäns sett genom försäkringskassans statistik. Ohälsotalet (utbetalning av sjukpenning, rehabiliteringspenning, sjukersättning och aktivitetsersättning) har förvisso halverats för både kvinnor och män de senaste 20 åren, bland annat på grund restriktivare bedömningar, men skillnaden mellan könen kvarstår. För kvinnor var det genomsnittliga antalet utbetalda dagar år `r max(ohalsotal_df$År)` `r round(as.numeric(ohalsotal_df %>% filter(Län == "20 Dalarnas län",År==max(År),Ålder== "Samtliga 16-64 år",Kön=="Kvinnor",Kommun=="Samtliga kommuner") %>% filter(Månad==max(Månad)) %>% .$Ohälsotalet),0)` dagar per år medan det för män var `r round(as.numeric(ohalsotal_df %>% filter(Län == "20 Dalarnas län",År==max(År),Ålder== "Samtliga 16-64 år",Kön=="Män",Kommun=="Samtliga kommuner") %>% filter(Månad==max(Månad)) %>% .$Ohälsotalet),0)` dagar per år. Trots minskningen i antal totala dagar har antalet sjukfall kopplade till stress ökat dramatiskt sedan 2010, de har ungefär sjufaldigats för både kvinnor och män. Kvinnor står för cirka 80 procent av sjukfallen.
+6.  I Dalarna är kvinnors ohälsa betydligt mer omfattande än mäns sett genom försäkringskassans statistik. Ohälsotalet (utbetalning av sjukpenning, rehabiliteringspenning, sjukersättning och aktivitetsersättning) har förvisso halverats för både kvinnor och män de senaste 20 åren, bland annat på grund restriktivare bedömningar, men skillnaden mellan könen kvarstår. För kvinnor var det genomsnittliga antalet utbetalda dagar år `r max(ohalsotal_df$År)` `r round(as.numeric(ohalsotal_df %>% filter(Län == "20 Dalarnas län",År==max(År),Ålder== "Samtliga 16-64 år",Kön=="Kvinnor",Kommun=="Samtliga kommuner") %>% filter(Månad==max(Månad)) %>% .$Ohälsotalet),0)` dagar per år medan det för män var `r round(as.numeric(ohalsotal_df %>% filter(Län == "20 Dalarnas län",År==max(År),Ålder== "Samtliga 16-64 år",Kön=="Män",Kommun=="Samtliga kommuner") %>% filter(Månad==max(Månad)) %>% .$Ohälsotalet),0)` dagar per år. Trots minskningen i antal totala dagar har antalet sjukfall kopplade till stress ökat dramatiskt sedan 2010, de har ungefär sexfaldigats för både kvinnor och män.
 
 7.  Inom politiken har fördelningen av förtroendeposter mellan kvinnor och män under de senaste årtiondena jämnats ut. På både nationell och regional nivå ligger den inom spannet för jämställdhet, även om andelen män på regional nivå har ökat 2018 och 2022 från tidigare trend. På lokal nivå i Dalarna däremot har endast två kommuner fler kvinnor än män som ledamöter (i båda fallen endast en kvinna mer), övriga kommuner har tydligt fler män än kvinnor som ledamöter och fyra av Dalarnas kommuner har en överrepresentation av män (fler än 60 %) som ledamöter.
     
 8. På chefspositioner i Dalarna finns det fler män än kvinnor. Relativt utbildningsnivå så är fördelningen jämnare ju högre utbildningsnivån är, dvs. män med lägre utbildning är i betydligt högre grad chefer än kvinnor med lägre utbildning. Trenden visar att en utjämning av andelen kvinnor och män på chefspositioner pågår. Fram till idag kan utjämningen främst förklaras med att antalet chefspositioner verkar ha ökat, och att kvinnor fått utrymme vartefter antalet ökat.
-
 
 9. Den demografiska utmaningen för Dalarna syns tydligt i befolkningsstrukturen för länet. Befolkningen är idag äldre och andelen äldre kommer fortsätta växa under kommande år. Denna trend existerar för både kvinnor och män med tillägget att kvinnor utgör något större andelar av de äldsta åldersgrupperna i länet.
 
@@ -1453,15 +1452,6 @@ sjukpenningtal_kommun_fig
 ```
 
 ### Stress
-Går diagrammet att göra i antal fall per 1000 förvärvsarbetande istället? Det gör siffrorna lättare att jämföra.
-
-Trots minskningen i antalet totala frånvarodagar (ohälsotalet och sjukpenningtalet) har antalet sjukfall kopplade till stressrelaterade symptom ökat dramatiskt sedan 2010. Även för dessa sjukfall ses en trend där antalet minskade markant under perioden 2007-2010, för att sedan öka. Kvinnor står för cirka 80 procent av dessa sjukskrivningar. Trots den stora skillnaden i antal mellan kvinnor och män, så är ökningen relativt likvärdig. Antalet pågående sjukfall kopplade till stress mellan 2010 och 2016 har ungefär sjufaldigats för respektive grupp och från 2016 till idag har utvecklingen stabiliserats, men ligger kvar på en mycket högre nivå än innan 2006.
-Att utröna vad det ökade antalet sjukfall beror på är svårt, men det finns ett väl belagt samband mellan psykiatriska diagnoser (såsom svår stress) och den
-psykosociala arbetsmiljön.[^8]
-
-[^8]: Försäkringskassan, Korta analyser 2016:2, ''Sjukskrivning för
-    reaktioner på svår stress ökar mest.'':
-    <https://www.forsakringskassan.se/download/18.3a5418591814e228e4413b2/1661267958656/psykisk-ohalsa-korta-analyser-2016-2.pdf>
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 diagram_capt<-"Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
@@ -1493,6 +1483,14 @@ stress_fig <- SkapaStapelDiagram(skickad_df = stress_df_utskrift %>%
                              filnamn_diagram = diagramfilnamn,
                              skriv_till_diagramfil = TRUE)
 ```
+
+Trots minskningen i antalet totala frånvarodagar (ohälsotalet och sjukpenningtalet) har antalet sjukfall kopplade till stressrelaterade symptom ökat dramatiskt sedan 2010. Även för dessa sjukfall ses en trend där antalet minskade markant under perioden 2007-2010, för att sedan öka. Kvinnor står för cirka `r round(stress_df_utskrift %>% filter(Kön=="Kvinnor",År==max(.$År)) %>% .$Antal_medel/stress_df_utskrift %>% filter(Kön=="Kvinnor och män",År==max(.$År)) %>% .$Antal_medel,2)*100` procent av dessa sjukskrivningar. Trots den stora skillnaden i antal mellan kvinnor och män, så är ökningen relativt likvärdig. Antalet pågående sjukfall kopplade till stress mellan 2010 och 2016 har ungefär sexfaldigats för respektive grupp och från 2016 till idag har utvecklingen stabiliserats något, men ligger kvar på en mycket högre nivå än innan 2010.
+Att utröna vad det ökade antalet sjukfall beror på är svårt, men det finns ett väl belagt samband mellan psykiatriska diagnoser (såsom svår stress) och den
+psykosociala arbetsmiljön.[^8]
+
+[^8]: Försäkringskassan, Korta analyser 2016:2, ''Sjukskrivning för
+    reaktioner på svår stress ökar mest.'':
+    <https://www.forsakringskassan.se/download/18.3a5418591814e228e4413b2/1661267958656/psykisk-ohalsa-korta-analyser-2016-2.pdf>
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 stress_fig
