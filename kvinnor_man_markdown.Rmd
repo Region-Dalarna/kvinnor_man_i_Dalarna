@@ -300,8 +300,39 @@ utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
 <br>
 
 ### Andelen behöriga till gymnasieskola
-Kan vi lägga till diagram om detta? Vi har ju siffror i Dalastrategi-uppföljningen..
 
+```{r, echo=FALSE}
+
+diagram_capt = "Källa: Skolverket\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Antal folkbokförda elever i regionen som började på gymnasium för fyra år sedan\nsom fått examen eller studiebevis inom fyra år,inkl. IM dividerat med antal folkbokförda elever i länet\nsom började på gymnasium för fyra år sedan, inkl. IM."
+
+diagramtitel <- "Andel gymnasieelever med examen eller studiebevis inom 4 år i Dalarna"
+diagramfilnamn <- paste0("utbildningsniva_85_21_kon.png")
+
+gym_genom <- SkapaStapelDiagram(skickad_df = gymnasiet_genomstromning_df %>% 
+                                  mutate(Ar =as.character(year)) %>% 
+                                    filter(kon!="Totalt"),
+                                skickad_x_var = "Ar",
+                                skickad_y_var = "value",
+                                skickad_x_grupp = "kon",
+                                diagram_titel = diagramtitel,
+                                diagram_capt = diagram_capt,
+                                x_axis_lutning = 0,
+                                manual_color = diagramfarger("kon"),
+                                manual_y_axis_title = "procent",
+                                manual_x_axis_title = "",
+                                procent_0_100_10intervaller = TRUE,
+                                stodlinjer_avrunda_fem = TRUE,
+                                output_mapp = outputmapp,
+                                filnamn_diagram = diagramfilnamn,
+                                skriv_till_diagramfil = TRUE)
+
+```
+<br>
+<br>
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+gym_genom
+```
+<br>
 
 ### Antagna till gymnasieprogrammen 
 En utmaning för länet är den obalans som råder i antalet antagna killar och tjejer till gymnasieprogrammen i Dalarna. Av totalt 20 gymnasieprogram i länet kan endast fyra sägas vara jämställda, dvs. de har en könsfördelning där andelen antagna är mellan 40 och 60 procent för både pojkar och flickor. De program som har en jämställd representation vid antagningen är hotell- och turismprogrammet, introduktionsprogram, restaurang- och livsmedelsprogrammet samt ekonomiprogrammet. Sju program har en övervikt av killar, där el- och energiprogrammet har den största obalansen, följt av VVS- och fastighetsprogrammet samt industritekniska programmet. Resterande nio program har en övervikt av tjejer, där vård- och omsorgsprogrammet är det mest obalanserade programmet följt av hantverksprogrammet och det humanistiska programmet.
