@@ -72,6 +72,7 @@ disponibel_inkomst_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/disponibe
 matchning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/matchning.xlsx")
 langsiktiga_skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx",sheet = 1)
 skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx", sheet = 2)
+skulder_andel_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta_andel.xlsx")
 riksdagsval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 1)
 regionval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 2)
 kommunval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 3)
@@ -303,7 +304,7 @@ utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
 
 ```{r, echo=FALSE}
 
-diagram_capt = "Källa: Skolverket\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Antal folkbokförda elever i regionen som började på gymnasium för fyra år sedan\nsom fått examen eller studiebevis inom fyra år,inkl. IM dividerat med antal folkbokförda elever i länet\nsom började på gymnasium för fyra år sedan, inkl. IM."
+diagram_capt = "Källa: Skolverket (via Kolada)\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Antal folkbokförda elever i regionen som började på gymnasium för fyra år sedan\nsom fått examen eller studiebevis inom fyra år,inkl. IM dividerat med antal folkbokförda elever i länet\nsom började på gymnasium för fyra år sedan, inkl. IM."
 
 diagramtitel <- "Andel gymnasieelever med examen eller studiebevis inom 4 år i Dalarna"
 diagramfilnamn <- paste0("utbildningsniva_85_21_kon.png")
@@ -1046,7 +1047,7 @@ Ekonomisk jämställdhet analyseras genom flera olika inkomstflöden och variabl
 
 Det finns många faktorer som bidrar till ojämställdhet på arbetsmarknaden och för livsinkomsten, men familjebildningen är den faktor som i högst grad bidrar till ojämställda livsinkomster. Gapet i disponibel inkomst mellan sammanboende kvinnor och män är som störst, 35 procent, när det yngsta barnet är 0–3 år. [^4]
 
-Vid pensionering finns det numera många som fortsätter arbeta hel- eller deltid, så kallade jobbonärer, dessa har relativt god ekonomi. De som har det sämst ställt efter pensionering är kvinnor som inte fortsätter att arbeta. 
+Vid pensionering finns det numera många som fortsätter att arbeta hel- eller deltid, så kallade jobbonärer, dessa har relativt god ekonomi. De som har det sämst ställt efter pensionering är kvinnor som inte fortsätter att arbeta. 
 
 [^4]: <https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf>
 
@@ -1217,7 +1218,48 @@ knitr::include_graphics(here("Diagram","ekonomiskt_bistandDalarnas län.png"))
 
 ### Skuldsatta på kort och längre sikt
 
-överväga andel skuldsatta av befolkning i åldersgruppe x-x?
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+ diagram_capt <- c("Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Antal personer med skulder under indrivning hos Kronofogden",
+                    "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Skuldsatta personer som funnits i Kronofogdens register i mer än 20 år")
+
+# Vill enbart fokusera på Dalarna och struntar initialt i kommunnivå
+skulder_df_sum <- skulder_df %>%
+  filter(Län=="DALARNA") %>%
+    group_by(År,Län,Kön) %>%
+      summarize(Antal_skuldsatta=sum(Antal.skuldsatta),
+                Total_skuld=sum(Skuldbelopp),
+                Skuld_per_person=Total_skuld/Antal_skuldsatta)
+
+# Gör om skuldbelopp till miljarder
+# miljard <- 1000000000
+# skulder_df_sum$skuld_miljard <-skulder_df_sum$Total_skuld/miljard
+
+
+diagramtitel <- paste0("Antal skuldsatta i Dalarnas län")
+diagramfilnamn <- paste0("Antal_skuldsatta_Dalarna.png")
+
+# Skapar diagram för medianinkomsten i Dalarna där män jämförs med kvinnor.
+skuldsatta_andel_fig <- SkapaStapelDiagram(skickad_df = skulder_df_sum,
+                                     skickad_x_var = "År",
+                                     skickad_y_var = "Antal_skuldsatta",
+                                     skickad_x_grupp = "Kön",
+                                     x_axis_lutning = 0,
+                                     manual_color = diagramfarger("kon"),
+                                     diagram_titel = diagramtitel,
+                                     diagram_capt =  diagram_capt[1],
+                                     diagram_facet = FALSE,
+                                     stodlinjer_avrunda_fem = TRUE,
+                                     manual_y_axis_title = "Antal skuldsatta",
+                                     berakna_index = FALSE,
+                                     output_mapp = outputmapp,
+                                     filnamn_diagram = diagramfilnamn,
+                                     skriv_till_diagramfil = TRUE)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+skuldsatta_andel_fig
+```
+
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
  diagram_capt <- c("Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Antal personer med skulder under indrivning hos Kronofogden",

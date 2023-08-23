@@ -85,10 +85,15 @@ source(here("Skript","matchning.R"), encoding="UTF-8")
 diag_matchning(spara_data = TRUE,
                output_mapp = Output_mapp)
 
-# Skuldsatta
+# Skuldsatta (Kronofogden)
 source(here("Skript","skuldsatta.R"), encoding="UTF-8")
 diag_kronofogden(spara_data = TRUE,
                  output_mapp = Output_mapp)
+
+# Skuldsatta andel (Kronofogden)
+source(here("Skript","skuldsatta_andel.R"), encoding="UTF-8")
+diag_kronofogden_andel(spara_data = TRUE,
+                       output_mapp = Output_mapp)
 
 # Val (riksdag, region och kommun)
 source(here("Skript","val.R"), encoding="UTF-8")
