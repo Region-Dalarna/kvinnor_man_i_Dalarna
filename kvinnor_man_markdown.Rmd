@@ -1219,51 +1219,36 @@ knitr::include_graphics(here("Diagram","ekonomiskt_bistandDalarnas län.png"))
 ### Skuldsatta på kort och längre sikt
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
- diagram_capt <- c("Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Antal personer med skulder under indrivning hos Kronofogden",
-                    "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Skuldsatta personer som funnits i Kronofogdens register i mer än 20 år")
+ diagram_capt <- "Källa: Kronofogden.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Andel av befolkningen i en viss åldersgrupp med skulder under indrivning hos Kronofogden."
 
-# Vill enbart fokusera på Dalarna och struntar initialt i kommunnivå
-skulder_df_sum <- skulder_df %>%
-  filter(Län=="DALARNA") %>%
-    group_by(År,Län,Kön) %>%
-      summarize(Antal_skuldsatta=sum(Antal.skuldsatta),
-                Total_skuld=sum(Skuldbelopp),
-                Skuld_per_person=Total_skuld/Antal_skuldsatta)
-
-# Gör om skuldbelopp till miljarder
-# miljard <- 1000000000
-# skulder_df_sum$skuld_miljard <-skulder_df_sum$Total_skuld/miljard
-
-
-diagramtitel <- paste0("Antal skuldsatta i Dalarnas län")
-diagramfilnamn <- paste0("Antal_skuldsatta_Dalarna.png")
+diagramtitel <- paste0("Andel skuldsatta i Dalarnas län år ",unique(skulder_andel_df$År))
+diagramfilnamn <- paste0("Andel_skuldsatta_Dalarna.png")
 
 # Skapar diagram för medianinkomsten i Dalarna där män jämförs med kvinnor.
-skuldsatta_andel_fig <- SkapaStapelDiagram(skickad_df = skulder_df_sum,
-                                     skickad_x_var = "År",
-                                     skickad_y_var = "Antal_skuldsatta",
-                                     skickad_x_grupp = "Kön",
-                                     x_axis_lutning = 0,
-                                     manual_color = diagramfarger("kon"),
-                                     diagram_titel = diagramtitel,
-                                     diagram_capt =  diagram_capt[1],
-                                     diagram_facet = FALSE,
-                                     stodlinjer_avrunda_fem = TRUE,
-                                     manual_y_axis_title = "Antal skuldsatta",
-                                     berakna_index = FALSE,
-                                     output_mapp = outputmapp,
-                                     filnamn_diagram = diagramfilnamn,
-                                     skriv_till_diagramfil = TRUE)
+skuldsatta_andel_fig <- SkapaStapelDiagram(skickad_df = skulder_andel_df,
+                                           skickad_x_var = "Ålder",
+                                           skickad_y_var = "skulder_andel_proc",
+                                           skickad_x_grupp = "kön",
+                                           x_axis_lutning = 0,
+                                           manual_color = diagramfarger("kon"),
+                                           diagram_titel = diagramtitel,
+                                           diagram_capt =  diagram_capt[1],
+                                           diagram_facet = FALSE,
+                                           stodlinjer_avrunda_fem = TRUE,
+                                           manual_y_axis_title = "procent",
+                                           berakna_index = FALSE,
+                                           output_mapp = outputmapp,
+                                           filnamn_diagram = diagramfilnamn,
+                                           skriv_till_diagramfil = TRUE)
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
 skuldsatta_andel_fig
 ```
 
-
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
- diagram_capt <- c("Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Antal personer med skulder under indrivning hos Kronofogden",
-                    "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Skuldsatta personer som funnits i Kronofogdens register i mer än 20 år")
+ diagram_capt <- c("Källa: Kronofogden.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Antal personer med skulder under indrivning hos Kronofogden",
+                    "Källa: Kronofogden.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Skuldsatta personer som funnits i Kronofogdens register i mer än 20 år")
 
 # Vill enbart fokusera på Dalarna och struntar initialt i kommunnivå
 skulder_df_sum <- skulder_df %>%
@@ -1316,8 +1301,8 @@ skuldsatta_fig
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
- diagram_capt <- c("Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Antal personer med skulder under indrivning hos Kronofogden",
-                    "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Skuldsatta personer som funnits i Kronofogdens register i mer än 20 år")
+ diagram_capt <- c("Källa: Kronofogden.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Antal personer med skulder under indrivning hos Kronofogden",
+                    "Källa: Kronofogden.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Skuldsatta personer som funnits i Kronofogdens register i mer än 20 år")
 
 # Vill enbart fokusera på Dalarna och struntar initialt i kommunnivå
 langsiktiga_skulder_df_sum <- langsiktiga_skulder_df %>%
