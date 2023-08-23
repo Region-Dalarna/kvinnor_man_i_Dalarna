@@ -1292,9 +1292,7 @@ från drygt 10 000 skuldsatta till `r format(skulder_df_sum %>% filter(Kön == "
 
 [^6]: Kronofogden:
     <https://kronofogden.se/om-kronofogden/statistik/statistik-om-antal-skuldsatta> 
-    
-I det andra diagrammet nedan redovisas antalet långsiktigt skuldsatta i
-Dalarna, med långsiktigt skuldsatt menas att personen varit i Kronofogdens register under minst 20 års tid. Även här finns det betydligt fler män än kvinnor till antalet. Åren 2013 - 2016 var en period med ett större antal skuldsatta i båda grupperna, men därefter har antalet minskat bland både kvinnor och män. Mätt över tidsperioden 2010 - 2022 har antalet män minskat med 11 procent medan antalet kvinnor istället har ökat med 11 procent.
+
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
 skuldsatta_fig
@@ -1329,6 +1327,9 @@ skuldsatta_lang <- SkapaStapelDiagram(skickad_df = langsiktiga_skulder_df_sum,
                                      filnamn_diagram = diagramfilnamn,
                                      skriv_till_diagramfil = TRUE)
 ```
+
+I det andra diagrammet nedan redovisas antalet långsiktigt skuldsatta i
+Dalarna, med långsiktigt skuldsatt menas att personen varit i Kronofogdens register under minst 20 års tid. Även här finns det betydligt fler män än kvinnor till antalet. Åren 2013 - 2016 var en period med ett större antal skuldsatta i båda grupperna, men därefter har antalet minskat bland både kvinnor och män. Mätt över tidsperioden `r min(langsiktiga_skulder_df_sum$År)` - `r max(langsiktiga_skulder_df_sum$År)` har antalet män minskat med `r round((1-(langsiktiga_skulder_df_sum %>% filter(År==max(.$År),Kön=="män") %>% .$Antal_skuldsatta/langsiktiga_skulder_df_sum %>% filter(År==min(.$År),Kön=="män") %>% .$Antal_skuldsatta))*100,0)` procent medan antalet kvinnor istället har ökat med `r round(((langsiktiga_skulder_df_sum %>% filter(År==max(.$År),Kön=="kvinnor") %>% .$Antal_skuldsatta/langsiktiga_skulder_df_sum %>% filter(År==min(.$År),Kön=="kvinnor") %>% .$Antal_skuldsatta)-1)*100,0)` procent.
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
 skuldsatta_lang
