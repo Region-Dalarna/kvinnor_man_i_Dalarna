@@ -72,6 +72,7 @@ disponibel_inkomst_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/disponibe
 matchning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/matchning.xlsx")
 langsiktiga_skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx",sheet = 1)
 skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx", sheet = 2)
+skulder_andel_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta_andel.xlsx")
 riksdagsval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 1)
 regionval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 2)
 kommunval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 3)
@@ -83,6 +84,7 @@ sjukpenningtal_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/ohalsotal_sju
 stress_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/sjukfall_stress.xlsx")
 startade_sjukfall_bransch_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/startade_sjukfall_bransch_bearbetad.xlsx")
 gymnasieantagning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasieantagning.xlsx")
+gymnasiet_genomstromning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasie_genomströmning.xlsx")
 ```
 # Kvinnor och män i Dalarna
 <p style = "font-size:12px">
@@ -92,13 +94,13 @@ Senast uppdaterad: `r Sys.Date()`</i>
 
 Världsläget av idag synliggör fundamentala utmaningar för demokratiska samhällen, samtidigt som en konstruktiv diskussion om jämställdhet verkar ha kommit i skymundan i den allmänna debatten. Att sträva efter jämställdhet är trots det en av de centrala insatserna för att säkerställa mänskliga rättigheter, att uppnå de 17 målen i Agenda 2030 och Sveriges nationella miljö- och demokratimål.
 
-För Dalarna är de regionala målen manifesterade i “Dalastrategin 2030 - Tillsammans för ett hållbart Dalarna” (https://www.regiondalarna.se/contentassets/699fddaa79da4978bfe14dd4bead1134/dalastrategin-2030-tillsammans-for-ett-hallbart-dalarna-dec.pdf), med övergripande målsättning om ett sammanhållet Dalarna med goda livsmiljöer där människor upplever delaktighet, engagemang och där alla tillsammans bidrar till en hållbar utveckling. 
+För Dalarna är de regionala målen manifesterade i [Dalastrategin 2030 - Tillsammans för ett hållbart Dalarna](https://www.regiondalarna.se/contentassets/699fddaa79da4978bfe14dd4bead1134/dalastrategin-2030-tillsammans-for-ett-hallbart-dalarna-dec.pdf), med övergripande målsättning om ett sammanhållet Dalarna med goda livsmiljöer där människor upplever delaktighet, engagemang och där alla tillsammans bidrar till en hållbar utveckling. 
 
 All offentlig verksamhet i Dalarna så som Region Dalarna, Länsstyrelsen Dalarna, kommuner och lärosäte arbetar på olika sätt aktivt för att verkställa den regionala och nationella jämställdhetpolitiken och respektive organisations särskilt uppsatta mål för jämställdhet. Följande rapport är tänkt att ge en bild av hur jämställdheten utvecklas i Dalarna utifrån den statistik som finns på regional och kommunal nivå. I rapporten diskuteras även läget i Dalarna i relation till nationell statistik och nationella utmaningar.
 
-Nationella uppföljningar av hur jämställdhetspolitiken når sina mål görs både genom statistik och policy-analyser. Statistiska uppföljningar görs av bland andra Statistiska centralbyrån (SCB) som vart annat år (sedan 1984) publicerar skriften ”På tal om kvinnor och män” (<https://www.scb.se/hitta-statistik/statistik-efter-amne/levnadsforhallanden/jamstalldhet/jamstalldhetsstatistik/pong/publikationer/pa-tal-om-kvinnor-och-man---lathund-om-jamstalldhet-2022/>) och vart tionde år (sedan 1990) gör tidsanvändningsstudier, senast 2021 (<https://www.scb.se/contentassets/4e98132b0b784a01b6e4762e909a6fa2/le0103_2021a01_br_lebr2202.pdf>). Vidare analyseras årligen hur den ekonomiska jämställdheten utvecklas i en bilaga till budgetpropositionen som år 2022/23 var bilaga nummer 3 (<https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf>). 
+Nationella uppföljningar av hur jämställdhetspolitiken når sina mål görs både genom statistik och policy-analyser. Statistiska uppföljningar görs av bland andra Statistiska centralbyrån (SCB) som vart annat år (sedan 1984) publicerar skriften [På tal om kvinnor och män](https://www.scb.se/hitta-statistik/statistik-efter-amne/levnadsforhallanden/jamstalldhet/jamstalldhetsstatistik/pong/publikationer/pa-tal-om-kvinnor-och-man---lathund-om-jamstalldhet-2022/) och vart tionde år (sedan 1990) gör [tidsanvändningsstudier](https://www.scb.se/contentassets/4e98132b0b784a01b6e4762e909a6fa2/le0103_2021a01_br_lebr2202.pdf), senast 2021. Vidare analyseras årligen hur den ekonomiska jämställdheten utvecklas i en bilaga till budgetpropositionen som år 2022/23 var [bilaga nummer 3](https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf). 
 
-Policy-uppföljningar av jämställdhetspolitiken görs av bland andra Jämställdhetsmyndigheten. Myndigheten har även granskat den regionala politiken ur ett jämställdhetsperspektiv. I rapporten ”Regionalpolitik, könsmönster och jämställdhetsambitioner - Bilaga till rapporten Bättre styrning för bättre resultat” (2022:16 bilaga 1) finns en fördjupning om läget i regionerna. Här efterfrågas bland annat en bättre styrning mot jämställdhetsmålen genom relevanta indikatorer. Mer konkret handlar det bland annat om att följa upp ojämställda arbetsvillkor, ojämställda inkomster, kvinnors och mäns psykiska ohälsa och långtidssjukskrivningar, och synliggöra regionala och lokala könsmönster samt intersektionella perspektiv.
+Policy-uppföljningar av jämställdhetspolitiken görs av bland andra Jämställdhetsmyndigheten. Myndigheten har även granskat den regionala politiken ur ett jämställdhetsperspektiv. I rapporten [Regionalpolitik, könsmönster och jämställdhetsambitioner - Bilaga till rapporten Bättre styrning för bättre resultat](https://jamstalldhetsmyndigheten.se/media/xkfccjgj/rapport-2022-16-bilaga-1-regionalpolitik-ko-nsmo-nster-och-ja-msta-lldhetsambitioner.pdf) (2022:16 bilaga 1) finns en fördjupning om läget i regionerna. Här efterfrågas bland annat en bättre styrning mot jämställdhetsmålen genom relevanta indikatorer. Mer konkret handlar det bland annat om att följa upp ojämställda arbetsvillkor, ojämställda inkomster, kvinnors och mäns psykiska ohälsa och långtidssjukskrivningar, och synliggöra regionala och lokala könsmönster samt intersektionella perspektiv.
 
 Region Dalarna har tidigare publicerat uppföljningar av läget i Dalarna, här på webben år 2022, och en fördjupande uppföljning av jämställdhet i regionen inom projektet Jämställd regional tillväxt, år 2019.[^1]
 
@@ -106,35 +108,34 @@ Region Dalarna har tidigare publicerat uppföljningar av läget i Dalarna, här 
     jämställdhetsperspektiv:
     <https://www.regiondalarna.se/contentassets/78c014a2f54a405a9467906f995f29d4/jamstalldhetsrapport.pdf>
 
-<br>
 <br>    
 
 ## Sammanfattning av läget i Dalarna
 
 Jämställdhetspolitiken består av sex delmål inom områdena utbildning, ekonomi, hälsa, makt och inflytande, obetalt hem- och omsorgsarbete, samt att mäns våld mot kvinnor ska upphöra. I Dalarna ser vi följande mönster och trender utifrån ett jämställdhetsperpektiv.
-
-1.  Obalansen mellan tjejers och killars val till gymnasieprogrammen består. Antagningsstatistiken år 2022 visade att fyra program av tjugo (tre föregående år) har en jämn representation av tjejer och killar (dvs. inom spannet 40/60). Fyra program har en övervikt av killar och nio program en övervikt av tjejer. Många branscher och yrken väntas därför också fortsättningsvis vara dominerade av ettdera könet, om inga åtgärder vidtas.
-
-2.  Andelen högutbildade i gruppen 25-64 år i Dalarna med minst 3 års eftergymnasial utbildning, ökar bland både kvinnor och män. Men, andelen kvinnor med högre utbildning ökar i snabbare takt än andelen män med högre utbildning, så att klyftan mellan könen ökar över tid. Utbildningsnivån är tydligt lägre i Dalarna än riksgenomsnittet. I Dalarna har 28 procent av kvinnorna högre utbildning och 15 procent av männen, medan motsvarande andel nationellt är 37 procent av kvinnorna och 24 procent av männen.
-    
-3.  Sysselsättningsgraden är över 80 procent för inrikes födda kvinnor och män i Dalarna, samma som den nationella sysselsättningsgraden och högt i internationell jämförelse. Arbetslösheten är fortsatt låg, cirka 3 procent. Bland utrikes födda är däremot sysselsättningsgraden lägre, 70 procent bland män och 62 procent bland kvinnor. Arbetslösheten bland utrikes födda är också betydligt högre, bland kvinnor 16 procent och bland män 14 procent. En förändring som skett sedan år 2020 är att arbetslösheten bland utrikes födda kvinnor är högre än bland utrikes födda män, tidigare år har förhållandet varit det omvända. Föregående och nuvarande regering har satt fokus på insatser för att snabbare få utrikes födda kvinnor i arbete.
-
-4.  I likhet med riket som helhet har kvinnor i Dalarna fortfarande en avsevärt lägre medianinkomst än män. Kvinnornas inkomster har ökat i något högre takt än männens de senaste decennierna, men i Dalarna utgör kvinnors medianinkomst fortfarande endast 83 procent av mäns medianinkomst. 
-
-5.  Fördelningen av omsorgsansvar för barn är den viktigaste faktorn till ojämställda livsinkomster. I Dalarna fördelades föräldrapenningdagarna ojämställt. I Dalarna 2022 tog kvinnor ut totalt 69 procent av dagarna medan män tog ut 31 procent av dagarna. Det finns dock skillnader mellan kommunerna i länet, där män i Falun tog ut den största andelen av dagarna, närmare 34 procent, medan män i Älvdalen tog ut den minsta andelen, drygt 26 procent.
-
-6.  I Dalarna är kvinnors ohälsa betydligt mer omfattande än mäns sett genom försäkringskassans statistik. Ohälsotalet (utbetalning av sjukpenning, rehabiliteringspenning, sjukersättning och aktivitetsersättning) har förvisso halverats för både kvinnor och män de senaste 20 åren, bland annat på grund restriktivare bedömningar, men skillnaden mellan könen kvarstår. För kvinnor var det genomsnittliga antalet utbetalda dagar 30 dagar per år medan det för män var 20 dagar per år. Trots minskningen i antal totala dagar har antalet sjukfall kopplade till stress ökat dramatiskt sedan 2010, de har ungefär sjufaldigats för både kvinnor och män. Kvinnor står för cirka 80 procent av sjukfallen.
-    
-
-7.  Inom politiken har fördelningen av förtroendeposter mellan kvinnor och män under de senaste årtiondena jämnats ut. På både nationell och regional nivå ligger den inom spannet för jämställdhet, även om andelen män på regional nivå har ökat 2018 och 2022 från tidigare trend. På lokal nivå i Dalarna däremot har endast två kommuner fler kvinnor än män som ledamöter (i båda fallen endast en kvinna mer), övriga kommuner har tydligt fler män än kvinnor som ledamöter och fyra av Dalarnas kommuner har en överrepresentation av män (fler än 60 %) som ledamöter.
-    
-8. På chefspositioner i Dalarna finns det fler män än kvinnor. Relativt utbildningsnivå så är fördelningen jämnare ju högre utbildningsnivån är, dvs. män med lägre utbildning är i betydligt högre grad chefer än kvinnor med lägre utbildning. Trenden visar att en utjämning av andelen kvinnor och män på chefspositioner pågår. Fram till idag kan utjämningen främst förklaras med att antalet chefspositioner verkar ha ökat, och att kvinnor fått utrymme vartefter antalet ökat.
-
-
-9. Den demografiska utmaningen för Dalarna syns tydligt i befolkningsstrukturen för länet. Befolkningen är idag äldre och andelen äldre kommer fortsätta växa under kommande år. Denna trend existerar för både kvinnor och män med tillägget att kvinnor utgör något större andelar av de äldsta åldersgrupperna i länet.
-
 <br>
-<br>
+
+<ul>
+
+<li>Andelen högutbildade i gruppen 25-64 år i Dalarna med minst 3 års eftergymnasial utbildning, ökar bland både kvinnor och män. Men, andelen kvinnor med högre utbildning ökar i snabbare takt än andelen män med högre utbildning, så att klyftan mellan könen ökar över tid. Utbildningsnivån är tydligt lägre i Dalarna än riksgenomsnittet. I Dalarna har `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel,0)` procent av kvinnorna högre utbildning och `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel,0)` procent av männen, medan motsvarande andel nationellt är `r round(utbildning_df %>% filter(region == "Sverige",kön == "kvinnor",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel,0)` procent av kvinnorna och `r round(utbildning_df %>% filter(region == "Sverige",kön == "män",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel,0)` procent av männen.</li>
+
+<li>Obalansen mellan tjejers och killars val till gymnasieprogrammen består. Antagningsstatistiken år 2022 visade att fyra program av tjugo (tre föregående år) har en jämn representation av tjejer och killar (dvs. inom spannet 40/60). Fyra program har en övervikt av killar och nio program en övervikt av tjejer. Många branscher och yrken väntas därför också fortsättningsvis vara dominerade av endera könet, om inga åtgärder vidtas.</li>
+    
+<li>Sysselsättningsgraden är `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "inrikes född",region == "Dalarna") %>% .$sysselsättningsgrad,0)` procent för inrikes födda kvinnor och män i Dalarna, vilket är i linje den nationella sysselsättningsgraden och högt i internationell jämförelse. Arbetslösheten är fortsatt låg, cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "inrikes född",region == "Dalarna") %>% .$arbetslöshet,0)` procent. Bland utrikes födda är däremot sysselsättningsgraden lägre, `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad,0)` procent bland män och `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad,0)` procent bland kvinnor. Arbetslösheten bland utrikes födda är också betydligt högre, bland kvinnor `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna") %>% .$arbetslöshet,0)` procent och bland män `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$arbetslöshet,0)` procent. En förändring som skett sedan år 2020 är att arbetslösheten bland utrikes födda kvinnor är högre än bland utrikes födda män, tidigare år har förhållandet varit det omvända. Föregående och nuvarande regering har satt fokus på insatser för att snabbare få utrikes födda kvinnor i arbete.</li>
+
+<li>I likhet med riket som helhet har kvinnor i Dalarna fortfarande en avsevärt lägre medianinkomst än män. Kvinnornas inkomster har ökat i något högre takt än männens de senaste decennierna, men i Dalarna utgör kvinnors medianinkomst fortfarande endast `r round(round(medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "kvinnor") %>% .$medianinkomst,0)/round(medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "män") %>% .$medianinkomst,0)*100,0)` procent av mäns medianinkomst.</li>
+
+<li>I Dalarna är kvinnors ohälsa betydligt mer omfattande än mäns sett genom försäkringskassans statistik. Ohälsotalet (utbetalning av sjukpenning, rehabiliteringspenning, sjukersättning och aktivitetsersättning) har förvisso halverats för både kvinnor och män de senaste 20 åren, bland annat på grund restriktivare bedömningar, men skillnaden mellan könen kvarstår. För kvinnor var det genomsnittliga antalet utbetalda dagar år `r max(ohalsotal_df$År)` `r round(as.numeric(ohalsotal_df %>% filter(Län == "20 Dalarnas län",År==max(År),Ålder== "Samtliga 16-64 år",Kön=="Kvinnor",Kommun=="Samtliga kommuner") %>% filter(Månad==max(Månad)) %>% .$Ohälsotalet),0)` dagar per år medan det för män var `r round(as.numeric(ohalsotal_df %>% filter(Län == "20 Dalarnas län",År==max(År),Ålder== "Samtliga 16-64 år",Kön=="Män",Kommun=="Samtliga kommuner") %>% filter(Månad==max(Månad)) %>% .$Ohälsotalet),0)` dagar per år. Trots minskningen i antal totala dagar har antalet sjukfall kopplade till stress ökat dramatiskt sedan 2010, de har ungefär sexfaldigats för både kvinnor och män.</li>
+
+<li>Fördelningen av omsorgsansvar för barn är den viktigaste faktorn till ojämställda livsinkomster. I Dalarna fördelades föräldrapenningdagarna ojämställt. I Dalarna tog kvinnor ut totalt  `r round(as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Kvinnor", År == max(År)) %>% .$Andel),0)` procent av dagarna år `r max(foraldrapenning_df$År) ` medan män tog ut `r round(as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Män", År == max(År)) %>% .$Andel),0)` procent av dagarna. Det finns dock skillnader mellan kommunerna i länet, där män i `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun, regex='\\S+')` tog ut den största andelen av dagarna, ca `r round(as.integer(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel),0)` procent, medan män i `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun, regex='\\S+')` tog ut den minsta andelen, drygt `r round(as.integer(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel),0)` procent.</li>
+
+<li>Inom politiken har fördelningen av förtroendeposter mellan kvinnor och män under de senaste årtiondena jämnats ut. På både nationell och regional nivå ligger den inom spannet för jämställdhet, även om andelen män på regional nivå har ökat 2018 och 2022 från tidigare trend. På lokal nivå i Dalarna däremot har endast två kommuner fler kvinnor än män som ledamöter (i båda fallen endast en kvinna mer), övriga kommuner har tydligt fler män än kvinnor som ledamöter och fyra av Dalarnas kommuner har en överrepresentation av män (fler än 60 %) som ledamöter.</li>
+    
+<li>På chefspositioner i Dalarna finns det fler män än kvinnor. Relativt utbildningsnivå så är fördelningen jämnare ju högre utbildningsnivån är, dvs. män med lägre utbildning är i betydligt högre grad chefer än kvinnor med lägre utbildning. Trenden visar att en utjämning av andelen kvinnor och män på chefspositioner pågår. Fram till idag kan utjämningen främst förklaras med att antalet chefspositioner verkar ha ökat, och att kvinnor fått utrymme vartefter antalet ökat.</li>
+
+<li>Den demografiska utmaningen för Dalarna syns tydligt i befolkningsstrukturen för länet. Befolkningen är idag äldre och andelen äldre kommer fortsätta växa under kommande år. Denna trend existerar för både kvinnor och män med tillägget att kvinnor utgör något större andelar av de äldsta åldersgrupperna i länet.</li>
+</ul>
+
 <br>
 
 ## Utbildning och arbetsmarknad
@@ -213,7 +214,7 @@ utbildning_85_utskrift<-utbildning_85_df %>%
 utbildning_fig
 ```
 <br>
-De senaste decennierna har andelen av befolkningen i Dalarna med högre utbildning ökat. I mitten av 1980-talet hade bara drygt sju procent av befolkningen hade en högre utbildning. År `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` hade den andelen ökat till ca `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "kvinnor") %>% .$andel,0)` procent
+De senaste decennierna har andelen av befolkningen i Dalarna med högre utbildning ökat. I mitten av 1980-talet hade bara drygt sju procent av befolkningen en högre utbildning. År `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` hade den andelen ökat till ca `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "kvinnor") %>% .$andel,0)` procent
 för kvinnor och ungefär `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "män") %>% .$andel,0)` procent för män. Anmärkningsvärt är också att
 skillnaden i utbildningsnivå mellan könen har ökat avsevärt genom åren.
 I mitten av 1980-talet var andelen högutbildade ungefär lika stor bland
@@ -232,7 +233,7 @@ procent och motsvarande siffra för män i länet är cirka `r round(utbildning_
 
 Generellt tenderar regioner med större urbana center att både ha en yngre och en mer välutbildad befolkning jämfört med mer glest befolkade län som Dalarna. Skillnaden är störst bland män, där andelen högutbildade män i Stockholms län är mer än dubbelt så hög som motsvarande andel i Dalarnas län.
 
-Utbildningsnivån påverkar inte bara livsinkomsten utan även medellivslängden. För personer som uppnått 65 års ålder skiljer det sig nästan tre år i medellivslängd mellan dem som har förgymnasial utbildning och dem med eftergymnasial utbildning. Skillnaden mellan könen är genomgående cirka två år, vilket innebär att kvinnor i respektive utbildningsgrupp lever i genomsnitt två år längre än män i samma utbildningsgrupp. Samtidigt visar det sig att boenderelationer också påverkar medellivslängden, och särskilt för män. Män med förgymnasial utbildning som är sammanboende lever i genomsnitt längre än ensamstående män med eftergymnasial utbildning. Sämst utsikter, genomsnittligt, för ett långt liv har således ensamstående män med låg utbildningsnivå.[^2]
+Utbildningsnivån påverkar inte bara livsinkomsten utan även medellivslängden. För personer som uppnått 65 års ålder skiljer det nästan tre år i medellivslängd mellan dem som har förgymnasial utbildning och dem med eftergymnasial utbildning. Skillnaden mellan könen är genomgående cirka två år, vilket innebär att kvinnor i respektive utbildningsgrupp lever i genomsnitt två år längre än män i samma utbildningsgrupp. Samtidigt visar det sig att boenderelationer också påverkar medellivslängden, och särskilt för män. Män med förgymnasial utbildning som är sammanboende lever i genomsnitt längre än ensamstående män med eftergymnasial utbildning. Sämst utsikter, genomsnittligt, för ett långt liv har således ensamstående män med låg utbildningsnivå.[^2]
 
 [^2]: <https://www.scb.se/hitta-statistik/statistik-efter-amne/befolkning/befolkningsframskrivningar/demografisk-analys/pong/statistiknyhet/demografisk-analys-livslangdstabeller-efter-utbildningsniva/>
 
@@ -301,8 +302,39 @@ utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
 <br>
 
 ### Andelen behöriga till gymnasieskola
-Kan vi lägga till diagram om detta? Vi har ju siffror i Dalastrategi-uppföljningen..
 
+```{r, echo=FALSE}
+
+diagram_capt = "Källa: Skolverket (via Kolada)\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Antal folkbokförda elever i regionen som började på gymnasium för fyra år sedan\nsom fått examen eller studiebevis inom fyra år,inkl. IM dividerat med antal folkbokförda elever i länet\nsom började på gymnasium för fyra år sedan, inkl. IM."
+
+diagramtitel <- "Andel gymnasieelever med examen eller studiebevis inom 4 år i Dalarna"
+diagramfilnamn <- paste0("utbildningsniva_85_21_kon.png")
+
+gym_genom <- SkapaStapelDiagram(skickad_df = gymnasiet_genomstromning_df %>% 
+                                  mutate(Ar =as.character(year)) %>% 
+                                    filter(kon!="Totalt"),
+                                skickad_x_var = "Ar",
+                                skickad_y_var = "value",
+                                skickad_x_grupp = "kon",
+                                diagram_titel = diagramtitel,
+                                diagram_capt = diagram_capt,
+                                x_axis_lutning = 0,
+                                manual_color = diagramfarger("kon"),
+                                manual_y_axis_title = "procent",
+                                manual_x_axis_title = "",
+                                procent_0_100_10intervaller = TRUE,
+                                stodlinjer_avrunda_fem = TRUE,
+                                output_mapp = outputmapp,
+                                filnamn_diagram = diagramfilnamn,
+                                skriv_till_diagramfil = TRUE)
+
+```
+<br>
+<br>
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+gym_genom
+```
+<br>
 
 ### Antagna till gymnasieprogrammen 
 En utmaning för länet är den obalans som råder i antalet antagna killar och tjejer till gymnasieprogrammen i Dalarna. Av totalt 20 gymnasieprogram i länet kan endast fyra sägas vara jämställda, dvs. de har en könsfördelning där andelen antagna är mellan 40 och 60 procent för både pojkar och flickor. De program som har en jämställd representation vid antagningen är hotell- och turismprogrammet, introduktionsprogram, restaurang- och livsmedelsprogrammet samt ekonomiprogrammet. Sju program har en övervikt av killar, där el- och energiprogrammet har den största obalansen, följt av VVS- och fastighetsprogrammet samt industritekniska programmet. Resterande nio program har en övervikt av tjejer, där vård- och omsorgsprogrammet är det mest obalanserade programmet följt av hantverksprogrammet och det humanistiska programmet.
@@ -348,13 +380,10 @@ gymnasieantagning_fig
 ```
 <br>
 
-### Andel behöriga till universitet/högskola av Dalarnas gymnasieungdomar
-Kan vi lägga till detta?
-
 
 ### Bransch och yrke
 
-Arbeten och yrken har historiskt varit könsuppdelade. Med könsuppdelningen har även värderingar som räknats som formellt arbete och hur det värderats. Politiska beslut har förändrat detta. Innan exempelvis reformerna som etablerade barn- och äldreomsorg på den reguljära arbetsmarknaden utförde kvinnor sådant omsorgsarbete obetalt eller utanför ordinarie arbetsmarknad. När dessa arbetsuppgifter övergick till formellt arbete var det på många sätt naturligt att kvinnor befolkade tjänsterna och både könsuppdelning och värdering har på många sätt bestått.
+Arbeten och yrken har historiskt varit könsuppdelade. Med könsuppdelningen har även värderingar synliggjorts om som räknats som formellt arbete och hur det värderats. Politiska beslut har förändrat detta. Innan exempelvis reformerna som etablerade barn- och äldreomsorg på den reguljära arbetsmarknaden utförde kvinnor sådant omsorgsarbete obetalt eller utanför ordinarie arbetsmarknad. När dessa arbetsuppgifter övergick till formellt arbete var det på många sätt naturligt att kvinnor befolkade tjänsterna och både könsuppdelning och värdering har på många sätt bestått.
 
 Sedan många år har kvinnor och män haft likvärdig tillgång till utbildning och möjlighet att fritt välja yrke. Trots detta består många av könsskillnaderna i arbetslivet (se figuren nedan) och även i antagningen till gymnasiet. Det
 finns branscher i länet som har en tydlig övervikt av det ena eller det
@@ -577,7 +606,7 @@ matchning_bakg_fig
 
 ### Arbetsmarknadsstatus
 
-Sysselsättningsgraden, det vill säga utsträckningen i vilken människor i arbetsför ålder (20-64 år) arbetar, skiljer sig inte märkbart åt mellan könen bland inrikes födda, det vänstra diagrammet nedan. Sverige ligger långt fram i en internationell jämförelse när det gäller att ge kvinnor och män likvärdiga möjligheter att yrkesarbeta, och det återspeglas i sysselsättningsgraden som för båda könen är ungefär lika hög, strax över 80 procent. Variationen i sysselsättningsgrad mellan länen är därför också relativt liten.
+Sysselsättningsgraden, det vill säga utsträckningen i vilken människor i arbetsför ålder (20-64 år) arbetar, skiljer sig inte märkbart åt mellan könen bland inrikes födda, det vänstra diagrammet nedan. Sverige ligger långt fram i en internationell jämförelse när det gäller att ge kvinnor och män likvärdiga möjligheter att yrkesarbeta, och det återspeglas i sysselsättningsgraden som för båda könen är ungefär lika hög, ungefär`r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "inrikes född",region == "Dalarna") %>% .$sysselsättningsgrad,0)` procent. Variationen i sysselsättningsgrad mellan länen är därför också relativt liten.
 
 Däremot skiljer sig sysselsättningsgraden åt mellan inrikes och utrikes födda. För utrikes födda (det högra diagrammet nedan) är sysselsättningsgraden lägre än sysselsättningsgraden för inrikes födda, i samtliga svenska län. Det finns även skillnader mellan kvinnor och män. 
 
@@ -667,9 +696,9 @@ syss_kommun_fig
 ```
 <br>
 
-Bilden av arbetsmarknaden kompletteras genom att titta på arbetslösheten som visar hur många av de aktivt arbetssökande som inte har ett arbete. En jämförelse av arbetslösheten bland utrikes födda och inrikes födda åskådligör ett antal viktiga skillnader.
+Bilden av arbetsmarknaden kompletteras genom att titta på arbetslösheten som visar hur många av de aktivt arbetssökande som inte har ett arbete. En jämförelse av arbetslösheten bland utrikes födda och inrikes födda åskådliggör ett antal viktiga skillnader.
 
-Arbetslösheten är generellt högre för utrikes födda än för inrikes födda. Arbetslösheten för inrikes födda i Dalarna ligger i paritet med rikets, cirka 2 procent bland kvinnor och drygt 3 procent bland män (se diagrammet nedan). 
+Arbetslösheten är generellt högre för utrikes födda än för inrikes födda. Arbetslösheten för inrikes födda i Dalarna ligger i paritet med rikets, cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "kvinnor",födelseregion == "inrikes född") %>% .$arbetslöshet,0)` procent bland kvinnor och drygt `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "män",födelseregion == "inrikes född") %>% .$arbetslöshet,0)` procent bland män (se diagrammet nedan). 
 
 Arbetslösheten bland utrikes födda är däremot betydligt högre i samtliga av Sveriges län. I Dalarna är skillnaden i arbetslöshet mellan utrikes och inrikes födda ca `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "kvinnor",födelseregion == "utrikes född") %>% .$arbetslöshet - arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "kvinnor",födelseregion == "inrikes född") %>% .$arbetslöshet,0)` procentenheter för kvinnor och ca `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "män",födelseregion == "utrikes född") %>% .$arbetslöshet - arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "män",födelseregion == "inrikes född") %>% .$arbetslöshet,0)` procentenheter för män.
 
@@ -851,29 +880,26 @@ Som diskuterats tidigare är sysselsättningsgraden lägre bland utrikes
 födda generellt, och framförallt bland kvinnor. Statistiken visar att det tar relativt längre tid för nyanlända kvinnor, i jämförelse med män, att etablera sig på arbetsmarknaden. För utrikesfödda kvinnor som befunnit sig i Sverige i upp till 2 år (0-1 år i grafen nedan) är det bara ungefär `r round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "samtliga utbildningsnivåer") %>% .$andel,0)` procent i arbetsför ålder (20-64 år) som arbetar. För
 motsvarande grupp bland männen är ungefär `r round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "samtliga utbildningsnivåer") %>% .$andel,0)` procent i arbete inom 2 år. Över tid tenderar ändå etableringsgraden att öka avsevärt och efter mer än tio år i Sverige är det över 70 procent av såväl männen som kvinnorna som arbetar.
 
-Skillnaden mellan utrikes födda kvinnor och utrikes födda män kan bland annat förklaras med att kvinnor som invandrat från ett utomeuropeiskt land i majoriteten av fallen har gjort det som anhörig, antingen till en person med svenskt medborgarskap eller till en person med permanent uppehållstillstånd. Att vara anhörig till arbetskraftsinvandrare är även vanligt förekommande. Givet dessa skäl för invandring är det vanligt att kvinnor invandrar med små barn eller har ett högt barnafödande de första åren i landet. Då de vanligtvis kommer från länder med en mer ojämställd syn på fördelning av omsorgsansvar så bidrar deras större ansvar för barn till att deras inträde på arbetsmarknaden sker betydligt senare än för män i motsvarande situation. Exempelvis är användningen av föräldrapenning mycket ojämställd bland nyanlända föräldrar.[^3]
+Skillnaden mellan utrikes födda kvinnor och utrikes födda män kan bland annat förklaras med att kvinnor som invandrat från ett utomeuropeiskt land i majoriteten av fallen har gjort det som anhörig, antingen till en person med svenskt medborgarskap eller till en person med permanent uppehållstillstånd. Att vara anhörig till arbetskraftsinvandrare är även vanligt förekommande. Givet dessa skäl för invandring är det vanligt att kvinnor invandrar med små barn eller har ett högt barnafödande de första åren i landet. Kvinnorna tar sedan ett betydligt större omsorgsansvar för barn än deras respektive, vilket bidrar till att deras inträde på arbetsmarknaden sker betydligt senare än för män i motsvarande situation. Exempelvis är användningen av föräldrapenning mycket ojämställd bland nyanlända föräldrar.[^3]
 
-[^3]: ESO
+[^3]: Expertgruppen för studier i offentlig ekonomi (ESO)
     <https://eso.expertgrupp.se/wp-content/uploads/2020/03/ESO-2021_7_forsorjning-med-fordrojning_webb.pdf>
-    Jämställdhetsmyndigheten:
+Jämställdhetsmyndigheten
     <https://jamstalldhetsmyndigheten.se/media/s5wdbimq/rapport-sta-rkta-mo-jligheter-genom-samverkan.pdf>
 
 Att vara anhöriginvandrare sätter också kvinnan i fråga i en särskild beroendeställning till sin respektive anhörige i jämförelse med om hon invandrat/flytt på egna premisser. Detta i kombination med ofta låg utbildning och brist på arbetslivserfarenhet från hemlandet blir också hinder för att delta i integrationsinsatser, utbildning och arbetssökande.[^3]
 
 Regeringen har under år 2023 satt ett fokus på insatser som ska få utrikes födda kvinnor i arbete snabbare. Bland annat har länsstyrelserna ett regionalt uppdrag med detta mål. För att fördjupa sig i kunskap på området rekommenderas följande rapporter:
 
-ESO-rapport:
-<p style = "font-size:14px"> <i>Försörjning med fördröjning</i> </p> – om utrikes födda kvinnors etablering på arbetsmarknaden
-<i>Försörjning med fördröjning – en ESO-rapport om utrikes födda kvinnors etablering på arbetsmarknaden</i>
-<https://eso.expertgrupp.se/wp-content/uploads/2020/03/ESO-2021_7_forsorjning-med-fordrojning_webb.pdf>
+Rapport från Expertgruppen för studier i offentlig ekonomi (ESO)
+<p style = "font-size:14px"> <i>[Försörjning med fördröjning – om utrikes födda kvinnors etablering på arbetsmarknaden](https://eso.expertgrupp.se/wp-content/uploads/2020/03/ESO-2021_7_forsorjning-med-fordrojning_webb.pdf) 
+</i></p>
 
-Jämställdhetsmyndighetens rapport:
-<p style = "font-size:14px"> <i> STÄRKTA MÖJLIGHETER GENOM SAMVERKAN </i> </p> Insatser för att underlätta utrikes födda kvinnors inträde på arbetsmarknaden
-<https://jamstalldhetsmyndigheten.se/media/s5wdbimq/rapport-sta-rkta-mo-jligheter-genom-samverkan.pdf>
+Rapport från Jämställdhetsmyndigheten
+<p style = "font-size:14px"> <i> [STÄRKTA MÖJLIGHETER GENOM SAMVERKAN - Insatser för att underlätta utrikes födda kvinnors inträde på arbetsmarknaden](https://jamstalldhetsmyndigheten.se/media/s5wdbimq/rapport-sta-rkta-mo-jligheter-genom-samverkan.pdf)</i></p>
 
-Statlig utredning:
-Etablering för fler – jämställda möjligheter till integration (SOU 2023:24)
-<https://www.regeringen.se/contentassets/aaae962745b74fa4abc01f7926bb5adc/sou-2023_24_pdf-a_webb.pdf>
+En statlig utredning SOU 2023:24
+<p style = "font-size:14px"> <i> [Etablering för fler – jämställda möjligheter till integration</i></p> (SOU 2023:24)](https://www.regeringen.se/contentassets/aaae962745b74fa4abc01f7926bb5adc/sou-2023_24_pdf-a_webb.pdf)
 
 <br>
 
@@ -1014,11 +1040,11 @@ I föregående avsnitt har vi redogjort för befolkningens anknytning till och f
 
 Ekonomisk jämställdhet analyseras genom flera olika inkomstflöden och variabler. Inkomst av arbete utgör merparten av en individs försörjning, men både lönenivå och huruvida personen arbetar hel- eller deltid påverkar inkomsten och pensionen. Därtill finns kapitalinkomster och offentliga bidrag så som sjukpenning, föräldrapenning och bostadsbidrag m. fl., som gör att ett viktigt mått på ekonomisk standard är disponibel inkomst. Disponibel inkomst innebär den summa pengar som ett hushåll eller en person har efter att alla ekonomiska inkomster är sammanräknade (lön, avkastning, bidrag etc.) och skatter och avgifter är betalda.
 
-Det finns många faktorer som bidrar till ojämställdhet på arbetsmarknaden och för livsinkomsten, men familjebildningen är den faktor som i högst grad bidrar till ojämställda livsinkomster. Gapet i disponibel inkomst mellan sammanboende kvinnor och män är som störst, 35 procent, när det yngsta barnet är 0–3 år. [^4]
+Det finns många faktorer som bidrar till ojämställdhet på arbetsmarknaden och för livsinkomsten, men familjebildningen är den faktor som i högst grad bidrar till ojämställda livsinkomster. Gapet i disponibel inkomst mellan sammanboende kvinnor och män är som störst, 35 procent, när det yngsta barnet är 0–3 år. [^5]
 
-Vid pensionering finns det numera många som fortsätter arbeta hel- eller deltid, så kallade jobbonärer, dessa har relativt god ekonomi. De som har det sämst ställt efter pensionering är kvinnor som inte fortsätter att arbeta. 
+Vid pensionering finns det numera många som fortsätter att arbeta hel- eller deltid, så kallade jobbonärer, dessa har relativt god ekonomi. De som har det sämst ställt efter pensionering är kvinnor som inte fortsätter att arbeta. 
 
-[^4]: <https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf>
+[^5]: <https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf>
 
 ### Inkomst
 
@@ -1026,9 +1052,9 @@ En egen inkomst är en av förutsättningarna för ett ekonomiskt självständig
 
 En jämförelse mellan kvinnors och mäns löner i Dalarna visar på stora skillnader och dessa har hållit i sig över tid. Medianinkomsten för en man i Dalarna var `r max(medianinkomst_df$år)` ca `r round(medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "män") %>% .$medianinkomst,0)` tusen kronor före skatt, medan en kvinna hade en medianinkomst på ungefär `r round(medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "kvinnor") %>% .$medianinkomst,0)` tusen kronor. I den andra figuren nedan syns även en positiv utveckling i form av att den relativa skillnaden i inkomst mellan könen har minskat sedan millennieskiftet. Diagrammet visar att kvinnors medianinkomst har fördubblats medan mäns har ökat med ungefär `r round((medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "män") %>% .$medianinkomst/medianinkomst_df %>% filter(region == "Dalarnas län", år == min(år),kön == "män") %>% .$medianinkomst-1)*100,0)` procent. Det är dock viktigt att notera att figurerna nedan endast redovisar kvinnors och mäns skilda ekonomiska förutsättningar, medan det kan finnas flera förklaringar till skillnaden. En faktor är att kvinnor i högre grad arbetar deltid, och därför kan ha en lägre årsinkomst. Som vi också sett i ett flertal tidigare figurer finns det stora skillnader mellan könen kopplat till bland annat yrke och utbildning, vilket ytterligare kan förklara en del av skillnaden. 
 
-På nationell nivå har SCB jämfört den standardvägda lönen, dvs. lönen när hänsyn tas till bland annat ålder och utbildningsnivå, för att synliggöra om det kan finnas en diskrimineringsaspekt i lönenivån. Slutsatsen blev att kvinnors standardvägda lön är ungefär 95 procent av männens standardvägda lön, det vill säga det finns en oförklarad löneskillnad mellan kvinnor och män.[^5]
+På nationell nivå har SCB jämfört den standardvägda lönen, dvs. lönen när hänsyn tas till bland annat ålder och utbildningsnivå, för att synliggöra om det kan finnas en diskrimineringsaspekt i lönenivån. Slutsatsen blev att kvinnors standardvägda lön är ungefär 95 procent av männens standardvägda lön, det vill säga det finns en oförklarad löneskillnad mellan kvinnor och män.[^6]
 
-[^5]: SCB:
+[^6] : SCB:
     <https://www.scb.se/hitta-statistik/statistik-efter-amne/arbetsmarknad/loner-och-arbetskostnader/lonestrukturstatistik-hela-ekonomin/pong/tabell-och-diagram/kvinnors-lon-i-procent-av-mans-lon-efter-sektor>
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -1187,11 +1213,37 @@ knitr::include_graphics(here("Diagram","ekonomiskt_bistandDalarnas län.png"))
 
 ### Skuldsatta på kort och längre sikt
 
-överväga andel skuldsatta av befolkning i åldersgruppe x-x?
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+ diagram_capt <- "Källa: Kronofogden.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Andel av befolkningen i en viss åldersgrupp med skulder under indrivning hos Kronofogden."
+
+diagramtitel <- paste0("Andel skuldsatta i Dalarnas län år ",unique(skulder_andel_df$År))
+diagramfilnamn <- paste0("Andel_skuldsatta_Dalarna.png")
+
+# Skapar diagram för medianinkomsten i Dalarna där män jämförs med kvinnor.
+skuldsatta_andel_fig <- SkapaStapelDiagram(skickad_df = skulder_andel_df,
+                                           skickad_x_var = "Ålder",
+                                           skickad_y_var = "skulder_andel_proc",
+                                           skickad_x_grupp = "kön",
+                                           x_axis_lutning = 0,
+                                           manual_color = diagramfarger("kon"),
+                                           diagram_titel = diagramtitel,
+                                           diagram_capt =  diagram_capt[1],
+                                           diagram_facet = FALSE,
+                                           stodlinjer_avrunda_fem = TRUE,
+                                           manual_y_axis_title = "procent",
+                                           berakna_index = FALSE,
+                                           output_mapp = outputmapp,
+                                           filnamn_diagram = diagramfilnamn,
+                                           skriv_till_diagramfil = TRUE)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+skuldsatta_andel_fig
+```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
- diagram_capt <- c("Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Antal personer med skulder under indrivning hos Kronofogden",
-                    "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Skuldsatta personer som funnits i Kronofogdens register i mer än 20 år")
+ diagram_capt <- c("Källa: Kronofogden.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Antal personer med skulder under indrivning hos Kronofogden",
+                    "Källa: Kronofogden.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Skuldsatta personer som funnits i Kronofogdens register i mer än 20 år")
 
 # Vill enbart fokusera på Dalarna och struntar initialt i kommunnivå
 skulder_df_sum <- skulder_df %>%
@@ -1231,21 +1283,19 @@ Ytterligare en aspekt av ekonomisk status är skuldsättningsgraden för
 olika grupper. I det första diagrammet nedan redovisas antalet personer
 i Dalarna som har skulder under indrivning hos Kronofogden. Två trender
 är tydliga. Under det senaste decenniet har antalet skuldsatta minskat
-från drygt 10 000 skuldsatta till `r format(skulder_df_sum %>% filter(Kön == "kvinnor",År == max(.$År)) %>% .$Antal_skuldsatta + skulder_df_sum %>% filter(Kön == "män",År == max(.$År)) %>% .$Antal_skuldsatta,big.mark=" ") ` i Dalarnas län. Av dessa är ungefär 60 procent män och 40 procent kvinnor. Fördelningen har inte förändrats över tid. Det är således avsevärt fler män än kvinnor i länet som är skuldsatta. Som andel av befolkningen i Dalarna år 2022 utgör skuldsatta kvinnor ca 3 procent och skuldsatta män ca 4,5 procent. Medianskulden var för kvinnor 53 000 kr och för män 65 500 kr.[^6]
+från drygt 10 000 skuldsatta till `r format(skulder_df_sum %>% filter(Kön == "kvinnor",År == max(.$År)) %>% .$Antal_skuldsatta + skulder_df_sum %>% filter(Kön == "män",År == max(.$År)) %>% .$Antal_skuldsatta,big.mark=" ") ` i Dalarnas län. Av dessa är ungefär 60 procent män och 40 procent kvinnor. Fördelningen har inte förändrats över tid. Det är således avsevärt fler män än kvinnor i länet som är skuldsatta. Som andel av befolkningen i Dalarna år 2022 utgör skuldsatta kvinnor ca 3 procent och skuldsatta män ca 4,5 procent. Medianskulden var för kvinnor 53 000 kr och för män 65 500 kr.[^7]
 
-[^6]: Kronofogden:
+[^7] : Kronofogden:
     <https://kronofogden.se/om-kronofogden/statistik/statistik-om-antal-skuldsatta> 
-    
-I det andra diagrammet nedan redovisas antalet långsiktigt skuldsatta i
-Dalarna, med långsiktigt skuldsatt menas att personen varit i Kronofogdens register under minst 20 års tid. Även här finns det betydligt fler män än kvinnor till antalet. Åren 2013 - 2016 var en period med ett större antal skuldsatta i båda grupperna, men därefter har antalet minskat bland både kvinnor och män. Mätt över tidsperioden 2010 - 2022 har antalet män minskat med 11 procent medan antalet kvinnor istället har ökat med 11 procent.
+
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
 skuldsatta_fig
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
- diagram_capt <- c("Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Antal personer med skulder under indrivning hos Kronofogden",
-                    "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Skuldsatta personer som funnits i Kronofogdens register i mer än 20 år")
+ diagram_capt <- c("Källa: Kronofogden.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Antal personer med skulder under indrivning hos Kronofogden",
+                    "Källa: Kronofogden.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Skuldsatta personer som funnits i Kronofogdens register i mer än 20 år")
 
 # Vill enbart fokusera på Dalarna och struntar initialt i kommunnivå
 langsiktiga_skulder_df_sum <- langsiktiga_skulder_df %>%
@@ -1272,6 +1322,9 @@ skuldsatta_lang <- SkapaStapelDiagram(skickad_df = langsiktiga_skulder_df_sum,
                                      filnamn_diagram = diagramfilnamn,
                                      skriv_till_diagramfil = TRUE)
 ```
+
+I det andra diagrammet nedan redovisas antalet långsiktigt skuldsatta i
+Dalarna, med långsiktigt skuldsatt menas att personen varit i Kronofogdens register under minst 20 års tid. Även här finns det betydligt fler män än kvinnor till antalet. Åren 2013 - 2016 var en period med ett större antal skuldsatta i båda grupperna, men därefter har antalet minskat bland både kvinnor och män. Mätt över tidsperioden `r min(langsiktiga_skulder_df_sum$År)` - `r max(langsiktiga_skulder_df_sum$År)` har antalet män minskat med `r round((1-(langsiktiga_skulder_df_sum %>% filter(År==max(.$År),Kön=="män") %>% .$Antal_skuldsatta/langsiktiga_skulder_df_sum %>% filter(År==min(.$År),Kön=="män") %>% .$Antal_skuldsatta))*100,0)` procent medan antalet kvinnor istället har ökat med `r round(((langsiktiga_skulder_df_sum %>% filter(År==max(.$År),Kön=="kvinnor") %>% .$Antal_skuldsatta/langsiktiga_skulder_df_sum %>% filter(År==min(.$År),Kön=="kvinnor") %>% .$Antal_skuldsatta)-1)*100,0)` procent.
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
 skuldsatta_lang
@@ -1314,9 +1367,9 @@ ohalsotal_fig <- SkapaStapelDiagram(skickad_df = ohalsotal_df_utskrift %>%
                                    skriv_till_diagramfil = TRUE)
 ```
 
-Ohälsotalet[^7] mäter i vilken utsträckning personer är borta från arbetet på grund av nedsatt arbetsförmåga, mätt under ett års tid. Ohälsotalet varierar över tid och var relativt högt under början av 2000-talet. Därefter syns en klart nedåtgående trend. Under hela tidsperioden har ohälsotalet varit högre för kvinnor än för män även om skillnaden mellan könen har minskat något över tid.
+Ohälsotalet[^8] mäter i vilken utsträckning personer är borta från arbetet på grund av nedsatt arbetsförmåga, mätt under ett års tid. Ohälsotalet varierar över tid och var relativt högt under början av 2000-talet. Därefter syns en klart nedåtgående trend. Under hela tidsperioden har ohälsotalet varit högre för kvinnor än för män även om skillnaden mellan könen har minskat något över tid.
 
-[^7]: Ohälsotalet: hur många dagar under en tolvmånadersperiod
+[^8]: Ohälsotalet: hur många dagar under en tolvmånadersperiod
     Försäkringskassan betalar ut ersättning för nedsatt arbetsförmåga i
     förhållande till antalet försäkrade i åldersgruppen 16-64 år.
 
@@ -1411,7 +1464,7 @@ att bedömningen av vad som berättigar en sjukskrivning var hårdare.
 
 Även när det kommer till sjukpenningtalet finns det skillnader mellan
 Dalarnas kommuner. För män är talet högst i `r stri_extract_last(sjukpenningtal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Sjukpenningtal_medel == max(.$Sjukpenningtal_medel)) %>% .$Kommun, regex='\\S+')`, medan det för
-kvinnor är högst i `r stri_extract_last(sjukpenningtal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Sjukpenningtal_medel == max(.$Sjukpenningtal_medel)) %>% .$Kommun, regex='\\S+')`. Sjukpenningtalet är en delmängd av ohälsotalet och därför samvarierar resultaten mellan kommunerna i stort. Leksand och Falun är de kommuner som har lägst värden för både kvinnor och män för båda talen.
+kvinnor är högst i `r stri_extract_last(sjukpenningtal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Sjukpenningtal_medel == max(.$Sjukpenningtal_medel)) %>% .$Kommun, regex='\\S+')`. Sjukpenningtalet är en delmängd av ohälsotalet och därför samvarierar resultaten mellan kommunerna i stort. Talet är lägst för både kvinnor och män i `r stri_extract_last(sjukpenningtal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Sjukpenningtal_medel == min(.$Sjukpenningtal_medel)) %>% .$Kommun, regex='\\S+')`
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 sjukpenningtal_fig
@@ -1454,15 +1507,6 @@ sjukpenningtal_kommun_fig
 ```
 
 ### Stress
-Går diagrammet att göra i antal fall per 1000 förvärvsarbetande istället? Det gör siffrorna lättare att jämföra.
-
-Trots minskningen i antalet totala frånvarodagar (ohälsotalet och sjukpenningtalet) har antalet sjukfall kopplade till stressrelaterade symptom ökat dramatiskt sedan 2010. Även för dessa sjukfall ses en trend där antalet minskade markant under perioden 2007-2010, för att sedan öka. Kvinnor står för cirka 80 procent av dessa sjukskrivningar. Trots den stora skillnaden i antal mellan kvinnor och män, så är ökningen relativt likvärdig. Antalet pågående sjukfall kopplade till stress mellan 2010 och 2016 har ungefär sjufaldigats för respektive grupp och från 2016 till idag har utvecklingen stabiliserats, men ligger kvar på en mycket högre nivå än innan 2006.
-Att utröna vad det ökade antalet sjukfall beror på är svårt, men det finns ett väl belagt samband mellan psykiatriska diagnoser (såsom svår stress) och den
-psykosociala arbetsmiljön.[^8]
-
-[^8]: Försäkringskassan, Korta analyser 2016:2, ''Sjukskrivning för
-    reaktioner på svår stress ökar mest.'':
-    <https://www.forsakringskassan.se/download/18.3a5418591814e228e4413b2/1661267958656/psykisk-ohalsa-korta-analyser-2016-2.pdf>
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 diagram_capt<-"Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
@@ -1494,6 +1538,14 @@ stress_fig <- SkapaStapelDiagram(skickad_df = stress_df_utskrift %>%
                              filnamn_diagram = diagramfilnamn,
                              skriv_till_diagramfil = TRUE)
 ```
+
+Trots minskningen i antalet totala frånvarodagar (ohälsotalet och sjukpenningtalet) har antalet sjukfall kopplade till stressrelaterade symptom ökat dramatiskt sedan 2010. Även för dessa sjukfall ses en trend där antalet minskade markant under perioden 2007-2010, för att sedan öka. Kvinnor står för cirka `r round(stress_df_utskrift %>% filter(Kön=="Kvinnor",År==max(.$År)) %>% .$Antal_medel/stress_df_utskrift %>% filter(Kön=="Kvinnor och män",År==max(.$År)) %>% .$Antal_medel,2)*100` procent av dessa sjukskrivningar. Trots den stora skillnaden i antal mellan kvinnor och män, så är ökningen relativt likvärdig. Antalet pågående sjukfall kopplade till stress mellan 2010 och 2016 har ungefär sexfaldigats för respektive grupp och från 2016 till idag har utvecklingen stabiliserats något, men ligger kvar på en mycket högre nivå än innan 2010.
+Att utröna vad det ökade antalet sjukfall beror på är svårt, men det finns ett väl belagt samband mellan psykiatriska diagnoser (såsom svår stress) och den
+psykosociala arbetsmiljön.[^9]
+
+[^9]: Försäkringskassan, Korta analyser 2016:2, ''Sjukskrivning för
+    reaktioner på svår stress ökar mest.'':
+    <https://www.forsakringskassan.se/download/18.3a5418591814e228e4413b2/1661267958656/psykisk-ohalsa-korta-analyser-2016-2.pdf>
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 stress_fig
@@ -1538,16 +1590,14 @@ sjukfall_bransch_fig <- SkapaStapelDiagram(skickad_df = startade_sjukfall_bransc
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="80%"}
 sjukfall_bransch_fig
 ```
-### Ohälsa hos ungdomar
-Kan vi lägga till något från LUPP om ungdomars ohälsa?
 
 
 ## Obetalt arbete
 En jämn ansvarsfördelning för obetalt hem- och omsorgsarbete är det fjärde delmålet. Jämställdhetsmyndigheten har sammanfattat nuläget för delmålet nationellt. De skriver på sin hemsida:
 
-"Kvinnor tar fortfarande i hög grad ansvar för det obetalda hem- och omsorgsarbetet. De tar ut mer av föräldraförsäkringen och lägger mer tid på att ta hand om barn. Kvinnor och män ger omsorg, men på olika sätt. Kvinnors omsorgsarbete tycks dock påverka dem mer negativt än män. I hemmet är det främst kvinnor som städar, lagar mat och tvättar medan män klipper gräset, tar hand om bilen och sköter ekonomin." [^9]
+<blockquote>Kvinnor tar fortfarande i hög grad ansvar för det obetalda hem- och omsorgsarbetet. De tar ut mer av föräldraförsäkringen och lägger mer tid på att ta hand om barn. Kvinnor och män ger omsorg, men på olika sätt. Kvinnors omsorgsarbete tycks dock påverka dem mer negativt än män. I hemmet är det främst kvinnor som städar, lagar mat och tvättar medan män klipper gräset, tar hand om bilen och sköter ekonomin. [^10]</blockquote>
 
-[^9]: <https://jamstalldhetsmyndigheten.se/jamstalldhet-i-sverige/delmal-4-jamn-fordelning-av-det-obetalda-hem-och-omsorgsarbetet/>
+[^10] : <https://jamstalldhetsmyndigheten.se/jamstalldhet-i-sverige/delmal-4-jamn-fordelning-av-det-obetalda-hem-och-omsorgsarbetet/>
 
 Ett större ansvar för det obetalda arbetet minskar ofta utrymmet för inkomstbringande arbete och påverkar på så sätt individernas livsinkomster. Det kan också skapa ett beroende till en partner med en högre inkomst.  
 
@@ -1556,9 +1606,9 @@ Ett större ansvar för det obetalda arbetet minskar ofta utrymmet för inkomstb
 Antalet mottagare av föräldrapenning (den första figuren nedan) ökade
 från ungefär 13 000 i slutet av 1990-talet till över 22 000 år 2018. Givet att den absoluta majoriteten av dessa barn har två vårdnadshavare är det värt att notera att det varje år är cirka 10 procent av fäderna som inte tar ut några föräldrapenningdagar alls.
 
-Vi saknar diagram som visar antalet dagar per barn: Lägga till diagram om det? Eller stryka detta?: En minskning i antalet föräldrapenningdagar syntes under pandemiåren och åren därefter, vilket sannolikt beror på att uttaget av tillfällig föräldrapenning (Vab) då ökade kraftigt (se nedan). Antalet uttagna dagar har ökat för såväl kvinnor som män, men den relativa skillnaden i uttag mellan könen har minskat.
+En minskning i antalet föräldrapenningdagar syntes under pandemiåren och åren därefter, vilket sannolikt beror på att uttaget av tillfällig föräldrapenning (Vab) då ökade kraftigt (se nedan). Antalet uttagna dagar har ökat för såväl kvinnor som män, men den relativa skillnaden i uttag mellan könen har minskat.
 
-Fördelningen av dagar mellan vårdnadshavarna har jämnats ut något sedan slutet av 1990-talet då runt 85-90 procent av föräldrapenningdagarna togs ut av mammorna. Sedan dess har först en (1995), sedan två (2002) och till slut tre månader (2016) reserverats åt respektive vårdnadshavare (också kallade "pappamånader"). Detta har bidragit till ett jämnare uttag men utvecklingen får ändå sägas gå relativt trögt, då andelen har minskat till runt `r round(as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Kvinnor", År == max(År)) %>% .$Andel),0)` procent `r max(foraldrapenning_df$År)`. Svenska vårdnadshavare är således långt ifrån att ge sina barn en jämställd tillgång till sina föräldrar. Skillnaden i uttag påverkar också den disponibla inkomsten, som beskrivits under rubriken Ekonomisk jämställdhet. Skillnaden är som störst mellan sammanboende kvinnor och män när det yngsta barnet är 0–3 år. [^4]
+Fördelningen av dagar mellan vårdnadshavarna har jämnats ut något sedan slutet av 1990-talet då runt 85-90 procent av föräldrapenningdagarna togs ut av mammorna. Sedan dess har först en (1995), sedan två (2002) och till slut tre månader (2016) reserverats åt respektive vårdnadshavare (också kallade "pappamånader"). Detta har bidragit till ett jämnare uttag men utvecklingen får ändå sägas gå relativt trögt, då andelen har minskat till runt `r round(as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Kvinnor", År == max(År)) %>% .$Andel),0)` procent `r max(foraldrapenning_df$År)`. Svenska vårdnadshavare är således långt ifrån att ge sina barn en jämställd tillgång till sina föräldrar. Skillnaden i uttag påverkar också den disponibla inkomsten, som beskrivits under rubriken Ekonomisk jämställdhet. Skillnaden är som störst mellan sammanboende kvinnor och män när det yngsta barnet är 0–3 år. [^2]
 
 Hur vårdnadshavare fördelar föräldrapenningen mellan sig är relativt olika i Dalarnas kommuner. I `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun, regex='\\S+')` är uttaget relativt mest jämställt, där drygt 30 procent av föräldrapenningdagarna togs ut av männen. Minst jämställt är fördelningen i `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun, regex='\\S+')`, där motsvarande uttag är ca `r round(as.numeric(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel),0)` procent.
 
@@ -1734,9 +1784,13 @@ tfp_fig_linje
 ```
 
 ## Makt och politik
-Det första av de jämställdhetspolitiska delmålen lyder "en jämn fördelning av makt och inflytande". Detta mäts bland annat genom kvinnors och mäns representation på maktpositioner i både politik och näringsliv. Historiskt har, av förklarliga skäl, män befolkat dessa positioner och kvinnor i undantagsfall, men dessvärre visar nuläget också att många traditionella mönster består. Ju högre upp i hierarkin, desto fler män på positionerna. Jämställdhetsmyndigheten skriver att "Näringsliv, högre utbildningar och organisationer med mindre insyn har få kvinnor på höga positioner".[^10] Samtidigt har bilden förbättrats inom offentlig sektor och inom politiken generellt de senaste decennierna.
+Det första av de jämställdhetspolitiska delmålen lyder "en jämn fördelning av makt och inflytande". Detta mäts bland annat genom kvinnors och mäns representation på maktpositioner i både politik och näringsliv. Historiskt har, av förklarliga skäl, män befolkat dessa positioner och kvinnor i undantagsfall, men dessvärre visar nuläget också att många traditionella mönster består. Ju högre upp i hierarkin, desto fler män på positionerna. Jämställdhetsmyndigheten skriver att: 
 
-[^10]: <https://jamstalldhetsmyndigheten.se/jamstalldhet-i-sverige/delmal-1-jamn-fordelning-av-makt-och-inflytande/>
+<blockquote>Näringsliv, högre utbildningar och organisationer med mindre insyn har få kvinnor på höga positioner.[^10]</blockquote> 
+
+Samtidigt har bilden förbättrats inom offentlig sektor och inom politiken generellt de senaste decennierna.
+
+[^10] : <https://jamstalldhetsmyndigheten.se/jamstalldhet-i-sverige/delmal-1-jamn-fordelning-av-makt-och-inflytande/>
 
 ### Politiskt valda
 
