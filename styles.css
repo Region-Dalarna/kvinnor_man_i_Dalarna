@@ -92,3 +92,23 @@ details{
      color: #fff
      border-color: #000000;
      }
+     
+blockquote {
+  background: #f9f9f9;
+  border-left: 6px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  font-size: 1rem;
+  font-family: 'Montserrat';
+  font-style: italic;
+}
+
+ul{
+   font-family: 'Montserrat';
+   font-size: 1rem;
+   list-style: disc;
+}
+li{
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
