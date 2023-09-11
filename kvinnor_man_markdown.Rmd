@@ -8,6 +8,7 @@ output:
     toc_float: yes
     toc_depth: 6
     css: "styles.css"
+    number_sections: true
 ---
 :::{#header}
 <img src="logo_liggande_platta_farg.png" height="50" width="100" margin="0 auto"/>
@@ -112,12 +113,12 @@ Region Dalarna har tidigare publicerat uppföljningar av läget i Dalarna, här 
 
 ## Sammanfattning av läget i Dalarna
 
-Jämställdhetspolitiken består av sex delmål inom områdena utbildning, ekonomi, hälsa, makt och inflytande, obetalt hem- och omsorgsarbete, samt att mäns våld mot kvinnor ska upphöra. I Dalarna ser vi följande mönster och trender utifrån ett jämställdhetsperpektiv.
+Jämställdhetspolitiken omfattar sex delmål bestående av områdena makt och inflytande, ekonomi, utbildning, obetalt hem- och omsorgsarbete, hälsa samt ett delmål med specifikt syfte att mäns våld mot kvinnor ska upphöra. I Dalarna ser vi bland annat följande mönster och trender utifrån ett jämställdhetsperpektiv.
 <br>
 
 <ul>
 
-<li>Andelen högutbildade i gruppen 25-64 år i Dalarna med minst 3 års eftergymnasial utbildning, ökar bland både kvinnor och män. Men, andelen kvinnor med högre utbildning ökar i snabbare takt än andelen män med högre utbildning, så att klyftan mellan könen ökar över tid. Utbildningsnivån är tydligt lägre i Dalarna än riksgenomsnittet. I Dalarna har `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel,0)` procent av kvinnorna högre utbildning och `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel,0)` procent av männen, medan motsvarande andel nationellt är `r round(utbildning_df %>% filter(region == "Sverige",kön == "kvinnor",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel,0)` procent av kvinnorna och `r round(utbildning_df %>% filter(region == "Sverige",kön == "män",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel,0)` procent av männen.</li>
+<li>Andelen högutbildade i gruppen 25-64 år i Dalarna med minst 3 års eftergymnasial utbildning, ökar bland både kvinnor och män. Men, andelen kvinnor med högre utbildning ökar i snabbare takt än andelen män med högre utbildning, klyftan mellan könen ökar därför över tid. Utbildningsnivån är tydligt lägre i Dalarna än riksgenomsnittet. I Dalarna har `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel,0)` procent av kvinnorna högre utbildning och `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel,0)` procent av männen, medan motsvarande andel nationellt är `r round(utbildning_df %>% filter(region == "Sverige",kön == "kvinnor",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel,0)` procent av kvinnorna och `r round(utbildning_df %>% filter(region == "Sverige",kön == "män",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel,0)` procent av männen.</li>
 
 <li>Obalansen mellan tjejers och killars val till gymnasieprogrammen består. Antagningsstatistiken år 2022 visade att fyra program av tjugo (tre föregående år) har en jämn representation av tjejer och killar (dvs. inom spannet 40/60). Fyra program har en övervikt av killar och nio program en övervikt av tjejer. Många branscher och yrken väntas därför också fortsättningsvis vara dominerade av endera könet, om inga åtgärder vidtas.</li>
     
@@ -125,16 +126,13 @@ Jämställdhetspolitiken består av sex delmål inom områdena utbildning, ekono
 
 <li>I likhet med riket som helhet har kvinnor i Dalarna fortfarande en avsevärt lägre medianinkomst än män. Kvinnornas inkomster har ökat i något högre takt än männens de senaste decennierna, men i Dalarna utgör kvinnors medianinkomst fortfarande endast `r round(round(medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "kvinnor") %>% .$medianinkomst,0)/round(medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "män") %>% .$medianinkomst,0)*100,0)` procent av mäns medianinkomst.</li>
 
-<li>I Dalarna är kvinnors ohälsa betydligt mer omfattande än mäns sett genom försäkringskassans statistik. Ohälsotalet (utbetalning av sjukpenning, rehabiliteringspenning, sjukersättning och aktivitetsersättning) har förvisso halverats för både kvinnor och män de senaste 20 åren, bland annat på grund restriktivare bedömningar, men skillnaden mellan könen kvarstår. För kvinnor var det genomsnittliga antalet utbetalda dagar år `r max(ohalsotal_df$År)` `r round(as.numeric(ohalsotal_df %>% filter(Län == "20 Dalarnas län",År==max(År),Ålder== "Samtliga 16-64 år",Kön=="Kvinnor",Kommun=="Samtliga kommuner") %>% filter(Månad==max(Månad)) %>% .$Ohälsotalet),0)` dagar per år medan det för män var `r round(as.numeric(ohalsotal_df %>% filter(Län == "20 Dalarnas län",År==max(År),Ålder== "Samtliga 16-64 år",Kön=="Män",Kommun=="Samtliga kommuner") %>% filter(Månad==max(Månad)) %>% .$Ohälsotalet),0)` dagar per år. Trots minskningen i antal totala dagar har antalet sjukfall kopplade till stress ökat dramatiskt sedan 2010, de har ungefär sexfaldigats för både kvinnor och män.</li>
+<li>En ojämställd fördelning av omsorgsansvar för barn är den viktigaste faktorn till ojämställda livsinkomster. I Dalarna fördelas fortfarande föräldrapenningdagarna ojämställt. I Dalarna tog kvinnor ut totalt  `r round(as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Kvinnor", År == max(År)) %>% .$Andel),0)` procent av dagarna år `r max(foraldrapenning_df$År) ` medan män tog ut `r round(as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Män", År == max(År)) %>% .$Andel),0)` procent av dagarna. Det finns dock skillnader mellan kommunerna i länet, där män i `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun, regex='\\S+')` tog ut den största andelen av dagarna, ca `r round(as.integer(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel),0)` procent, medan män i `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun, regex='\\S+')` tog ut den minsta andelen, drygt `r round(as.integer(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel),0)` procent.</li>
 
-<li>Fördelningen av omsorgsansvar för barn är den viktigaste faktorn till ojämställda livsinkomster. I Dalarna fördelades föräldrapenningdagarna ojämställt. I Dalarna tog kvinnor ut totalt  `r round(as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Kvinnor", År == max(År)) %>% .$Andel),0)` procent av dagarna år `r max(foraldrapenning_df$År) ` medan män tog ut `r round(as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Män", År == max(År)) %>% .$Andel),0)` procent av dagarna. Det finns dock skillnader mellan kommunerna i länet, där män i `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun, regex='\\S+')` tog ut den största andelen av dagarna, ca `r round(as.integer(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel),0)` procent, medan män i `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun, regex='\\S+')` tog ut den minsta andelen, drygt `r round(as.integer(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel),0)` procent.</li>
+<li>I Dalarna är kvinnors ohälsa betydligt mer omfattande än mäns sett genom försäkringskassans statistik. Ohälsotalet (utbetalning av sjukpenning, rehabiliteringspenning, sjukersättning och aktivitetsersättning) har förvisso halverats för både kvinnor och män de senaste 20 åren, bland annat på grund av restriktivare bedömningar, men skillnaden mellan könen kvarstår. För kvinnor var det genomsnittliga antalet utbetalda dagar år `r max(ohalsotal_df$År)` `r round(as.numeric(ohalsotal_df %>% filter(Län == "20 Dalarnas län",År==max(År),Ålder== "Samtliga 16-64 år",Kön=="Kvinnor",Kommun=="Samtliga kommuner") %>% filter(Månad==max(Månad)) %>% .$Ohälsotalet),0)` dagar per år medan det för män var `r round(as.numeric(ohalsotal_df %>% filter(Län == "20 Dalarnas län",År==max(År),Ålder== "Samtliga 16-64 år",Kön=="Män",Kommun=="Samtliga kommuner") %>% filter(Månad==max(Månad)) %>% .$Ohälsotalet),0)` dagar per år. Karaktären på sjukskrivningarna har ändrats de senaste decennierna, sedan 2010 har antalet sjukfall kopplade till stress ungefär sexfaldigats för både kvinnor och män.</li>
 
 <li>Inom politiken har fördelningen av förtroendeposter mellan kvinnor och män under de senaste årtiondena jämnats ut. På både nationell och regional nivå ligger den inom spannet för jämställdhet, även om andelen män på regional nivå har ökat 2018 och 2022 från tidigare trend. På lokal nivå i Dalarna däremot har endast två kommuner fler kvinnor än män som ledamöter (i båda fallen endast en kvinna mer), övriga kommuner har tydligt fler män än kvinnor som ledamöter och fyra av Dalarnas kommuner har en överrepresentation av män (fler än 60 %) som ledamöter.</li>
     
-<li>På chefspositioner i Dalarna finns det fler män än kvinnor. Relativt utbildningsnivå så är fördelningen jämnare ju högre utbildningsnivån är, dvs. män med lägre utbildning är i betydligt högre grad chefer än kvinnor med lägre utbildning. Trenden visar att en utjämning av andelen kvinnor och män på chefspositioner pågår. Fram till idag kan utjämningen främst förklaras med att antalet chefspositioner verkar ha ökat, och att kvinnor fått utrymme vartefter antalet ökat.</li>
-
-<li>Den demografiska utmaningen för Dalarna syns tydligt i befolkningsstrukturen för länet. Befolkningen är idag äldre och andelen äldre kommer fortsätta växa under kommande år. Denna trend existerar för både kvinnor och män med tillägget att kvinnor utgör något större andelar av de äldsta åldersgrupperna i länet.</li>
-</ul>
+<li>På chefspositioner i Dalarna finns det fler män än kvinnor. Relativt utbildningsnivån så är fördelningen jämnare ju högre utbildningsnivån är, dvs. män med lägre utbildning är i betydligt högre grad chefer än kvinnor med lägre utbildning. Trenden visar att en utjämning av andelen kvinnor och män på chefspositioner pågår. Fram till idag kan utjämningen främst förklaras med att antalet chefspositioner verkar ha ökat, och att kvinnor fått utrymme vartefter antalet ökat.</li>
 
 <br>
 
@@ -142,7 +140,7 @@ Jämställdhetspolitiken består av sex delmål inom områdena utbildning, ekono
 <br>
 Det jämställdhetspolitiska målet för utbildningsområdet innebär att kvinnor och män, flickor och pojkar ska ha samma möjligheter och villkor när det gäller utbildning, studieval och personlig utveckling.
 
-Bland den vuxna befolkningen ser vi att även om både kvinnor och män vidareutbildar sig i högre utsträckning idag än tidigare generationer så är det fler kvinnor än män som studerar på universitet och högskola. Eftergymnasial utbildning ger större chans att få ett arbete och en högre inkomst både för tjejer och killar, vilket är ett viktigt argument för att förmå den enskilde att söka till högre utbildning. Att skillnaderna mellan könen ökar riskerar också att upprätthålla olika former av könssegregerade miljöer, vilket i sig är negativt för samhällsutvecklingen. 
+Bland den vuxna befolkningen ser vi att även om både kvinnor och män vidareutbildar sig i högre utsträckning idag än i tidigare generationer så är det fler kvinnor än män som studerar på universitet och högskola. Eftergymnasial utbildning ger större chans att få ett arbete och en högre inkomst både för tjejer och killar, vilket är ett viktigt argument för att förmå den enskilde att söka till högre utbildning. Att skillnaderna mellan könen ökar riskerar också att upprätthålla olika former av könssegregerade miljöer, vilket i sig är negativt för samhällsutvecklingen. 
 
 <br>
 
@@ -383,13 +381,13 @@ gymnasieantagning_fig
 
 ### Bransch och yrke
 
-Arbeten och yrken har historiskt varit könsuppdelade. Med könsuppdelningen har även värderingar synliggjorts om som räknats som formellt arbete och hur det värderats. Politiska beslut har förändrat detta. Innan exempelvis reformerna som etablerade barn- och äldreomsorg på den reguljära arbetsmarknaden utförde kvinnor sådant omsorgsarbete obetalt eller utanför ordinarie arbetsmarknad. När dessa arbetsuppgifter övergick till formellt arbete var det på många sätt naturligt att kvinnor befolkade tjänsterna och både könsuppdelning och värdering har på många sätt bestått.
+Arbeten och yrken har historiskt varit könsuppdelade. Med könsuppdelningen har även värderingar synliggjorts om vad som räknats som formellt arbete och hur det värderats. Politiska beslut har delvis förändrat detta. Innan exempelvis reformerna som etablerade barn- och äldreomsorg på den reguljära arbetsmarknaden utförde kvinnor sådant omsorgsarbete obetalt eller utanför ordinarie arbetsmarknad. När dessa arbetsuppgifter övergick till formellt arbete var det på många sätt naturligt att kvinnor befolkade tjänsterna och könsuppdelning och värdering har på många sätt bestått.
 
 Sedan många år har kvinnor och män haft likvärdig tillgång till utbildning och möjlighet att fritt välja yrke. Trots detta består många av könsskillnaderna i arbetslivet (se figuren nedan) och även i antagningen till gymnasiet. Det
 finns branscher i länet som har en tydlig övervikt av det ena eller det
 andra könet, exempelvis byggbranschen som omfattar yrken inom bland
 annat el och VVS, och där kvinnor bara utgjorde ungefär `r round((forvarvsarbetande_bransch %>% filter(kön=="kvinnor",naringsgren=="Bygg",region == "Dalarna") %>% .$antal/sum(forvarvsarbetande_bransch %>% filter(naringsgren=="Bygg",region == "Dalarna") %>% .$antal))*100,0)` procent av de
-förvärvsarbetande `r unique(forvarvsarbetande_bransch$år)`. Även om det har skett en ökning av andelen kvinnor inom byggbranschen är denna ökning ännu försumbar. Inom vård och omsorg är bilden den samma med motsatt könsfördelning. Här utgjorde kvinnor ca `r round((forvarvsarbetande_bransch %>% filter(kön=="kvinnor",naringsgren=="Vård och omsorg",region == "Dalarna") %>% .$antal/sum(forvarvsarbetande_bransch %>% filter(naringsgren=="Vård och omsorg",region == "Dalarna") %>% .$antal))*100,0)` procent av andelen förvärvsarbetande `r unique(forvarvsarbetande_bransch$år)`.
+förvärvsarbetande `r unique(forvarvsarbetande_bransch$år)`. Även om det har skett en ökning av andelen kvinnor inom byggbranschen är denna ökning ännu försumbar. Inom vård och omsorg är bilden densamma med motsatt könsfördelning. Här utgjorde kvinnor ca `r round((forvarvsarbetande_bransch %>% filter(kön=="kvinnor",naringsgren=="Vård och omsorg",region == "Dalarna") %>% .$antal/sum(forvarvsarbetande_bransch %>% filter(naringsgren=="Vård och omsorg",region == "Dalarna") %>% .$antal))*100,0)` procent av andelen förvärvsarbetande `r unique(forvarvsarbetande_bransch$år)`.
 
 Att åstadkomma en förändring i närtid av balansen mellan män och kvinnor inom de könssegregerade branscherna verkar inte vara inom räckhåll då ungdomars studieval är så pass könsstereotypa.
 <br>
@@ -561,7 +559,7 @@ matchning_lan_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
 matchning_lan_fig
 ```
 <br>
-Matchningen på arbetsmarknaden tenderar att variera beroende på utbildningsnivå men också på var man är född. I Dalarna har inrikes födda högst matchning med ungefär `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "födda i Sverige",region == "Dalarna") %>% .$matchningsgrad,0)`
+Matchningen på arbetsmarknaden tenderar att vara högre med högre utbildningsnivå, vilket kan förklaras med att varje högre utbildning är tydligare kopplad till ett visst yrke, men det finns också skillnader i matchningen beroende på födelseland. I Dalarna har inrikes födda högst matchning med ungefär `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "födda i Sverige",region == "Dalarna") %>% .$matchningsgrad,0)`
 procent för både kvinnor och män. Även personer födda inom EU har hög
 matchning (runt `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "födda i Norden eller EU utom Sverige",region == "Dalarna") %>% .$matchningsgrad,0)` procent). Lägst matchningsgrad har personer `r matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` (ca `r round(matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)`  procent).
 <br>
@@ -1330,6 +1328,197 @@ Dalarna, med långsiktigt skuldsatt menas att personen varit i Kronofogdens regi
 skuldsatta_lang
 ```
 
+## Obetalt arbete
+En jämn ansvarsfördelning för obetalt hem- och omsorgsarbete är det fjärde delmålet. Jämställdhetsmyndigheten har sammanfattat nuläget för delmålet nationellt. De skriver på sin hemsida:
+
+<blockquote>Kvinnor tar fortfarande i hög grad ansvar för det obetalda hem- och omsorgsarbetet. De tar ut mer av föräldraförsäkringen och lägger mer tid på att ta hand om barn. Kvinnor och män ger omsorg, men på olika sätt. Kvinnors omsorgsarbete tycks dock påverka dem mer negativt än män. I hemmet är det främst kvinnor som städar, lagar mat och tvättar medan män klipper gräset, tar hand om bilen och sköter ekonomin. [^10]</blockquote>
+
+[^10] : <https://jamstalldhetsmyndigheten.se/jamstalldhet-i-sverige/delmal-4-jamn-fordelning-av-det-obetalda-hem-och-omsorgsarbetet/>
+
+Ett större ansvar för det obetalda arbetet minskar ofta utrymmet för inkomstbringande arbete och påverkar på så sätt individernas livsinkomster. Det kan också skapa ett beroende till en partner med en högre inkomst.  
+
+### Föräldrapenning
+
+Antalet mottagare av föräldrapenning (den första figuren nedan) ökade
+från ungefär 13 000 i slutet av 1990-talet till över 22 000 år 2018. Givet att den absoluta majoriteten av dessa barn har två vårdnadshavare är det värt att notera att det varje år är cirka 10 procent av fäderna som inte tar ut några föräldrapenningdagar alls.
+
+En minskning i antalet föräldrapenningdagar syntes under pandemiåren och åren därefter, vilket sannolikt beror på att uttaget av tillfällig föräldrapenning (Vab) då ökade kraftigt (se nedan). Antalet uttagna dagar har ökat för såväl kvinnor som män, men den relativa skillnaden i uttag mellan könen har minskat.
+
+Fördelningen av dagar mellan vårdnadshavarna har jämnats ut något sedan slutet av 1990-talet då runt 85-90 procent av föräldrapenningdagarna togs ut av mammorna. Sedan dess har först en (1995), sedan två (2002) och till slut tre månader (2016) reserverats åt respektive vårdnadshavare (också kallade "pappamånader"). Detta har bidragit till ett jämnare uttag men utvecklingen får ändå sägas gå relativt trögt, då andelen har minskat till runt `r round(as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Kvinnor", År == max(År)) %>% .$Andel),0)` procent `r max(foraldrapenning_df$År)`. Svenska vårdnadshavare är således långt ifrån att ge sina barn en jämställd tillgång till sina föräldrar. Skillnaden i uttag påverkar också den disponibla inkomsten, som beskrivits under rubriken Ekonomisk jämställdhet. Skillnaden är som störst mellan sammanboende kvinnor och män när det yngsta barnet är 0–3 år. [^2]
+
+Hur vårdnadshavare fördelar föräldrapenningen mellan sig är relativt olika i Dalarnas kommuner. I `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun, regex='\\S+')` är uttaget relativt mest jämställt, där drygt 30 procent av föräldrapenningdagarna togs ut av männen. Minst jämställt är fördelningen i `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun, regex='\\S+')`, där motsvarande uttag är ca `r round(as.numeric(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel),0)` procent.
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+
+diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
+diagramtitel <- "Antal mottagare av föräldrapenning i Dalarna"
+diagramfilnamn <- "Foraldrapenning_antal.png"
+
+fp_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df %>%
+                               filter(Kommun == "Samtliga kommuner",
+                                      Kön != "Kvinnor och män") %>% 
+                                mutate(Kön = tolower(Kön),
+                                       Antal_mottagare = as.numeric(Antal_mottagare)), 
+                             skickad_x_var = "År", 
+                             skickad_y_var = "Antal_mottagare", 
+                             skickad_x_grupp = "Kön",
+                             x_axis_lutning = 45,
+                             manual_x_axis_text_vjust=1,
+                             manual_x_axis_text_hjust=1,
+                             manual_y_axis_title = "Antal mottagare",
+                             manual_color = diagramfarger("kon"),
+                             stodlinjer_avrunda_fem = TRUE,
+                             diagram_titel = diagramtitel,
+                             diagram_capt =  diagram_capt,
+                             diagram_facet = FALSE,
+                             output_mapp = outputmapp,
+                             filnamn_diagram = diagramfilnamn,
+                             skriv_till_diagramfil = TRUE)
+    
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+fp_fig
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
+diagramtitel <- "Andel nettodagar per kön i Dalarna"
+diagramfilnamn <- "Foraldrapenning_andel.png"
+
+fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
+                               filter(Kommun == "Samtliga kommuner",
+                                      Kön != "Kvinnor och män") %>% 
+                                mutate(Kön = tolower(Kön),
+                                       Andel = as.numeric(Andel)), 
+                             skickad_x_var = "År", 
+                             skickad_y_var = "Andel", 
+                             skickad_x_grupp = "Kön",
+                             x_axis_lutning = 45,
+                             manual_x_axis_text_vjust=1,
+                             manual_x_axis_text_hjust=1,
+                             manual_color = diagramfarger("kon"),
+                             stodlinjer_avrunda_fem = TRUE,
+                             manual_y_axis_title = "",
+                             diagram_titel = diagramtitel,
+                             diagram_capt =  diagram_capt,
+                             diagram_facet = FALSE,
+                             output_mapp = outputmapp,
+                             filnamn_diagram = diagramfilnamn,
+                             skriv_till_diagramfil = TRUE)
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+fp_andel_fig
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
+diagramtitel <- paste0("Andel nettodagar per kön i Dalarna år ",max(foraldrapenning_df$År))
+diagramfilnamn <- "Foraldrapenning_andel_kommun.png"
+
+fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
+                               filter(Kommun != "Samtliga kommuner",
+                                      Kön != "Kvinnor och män",
+                                      År == max(År)) %>% 
+                                mutate(Kön = tolower(Kön),
+                                       Andel = as.numeric(Andel),
+                                       Kommun = stri_extract_last(Kommun, regex='\\S+')), 
+                             skickad_x_var = "Kommun", 
+                             skickad_y_var = "Andel", 
+                             skickad_x_grupp = "Kön",
+                             x_axis_lutning = 45,
+                             manual_color = diagramfarger("kon"),
+                             manual_y_axis_title = "",
+                             manual_x_axis_text_vjust=1,
+                             manual_x_axis_text_hjust=1,
+                             x_axis_sort_value = TRUE,
+                             stodlinjer_avrunda_fem = TRUE,
+                             x_axis_sort_grp = 1,
+                             vand_sortering = FALSE,
+                             diagram_titel = diagramtitel,
+                             diagram_capt =  diagram_capt,
+                             diagram_facet = FALSE,
+                             output_mapp = outputmapp,
+                             filnamn_diagram = diagramfilnamn,
+                             skriv_till_diagramfil = TRUE)
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+fp_andel_fig
+```
+
+### Tillfällig föräldrapenning
+
+Tillfällig föräldrapenning är det som i folkmun kallas Vab. Sett över tidsperioden minskade antalet uttagna nettodagar något mellan 2006 och 2009, för att
+därefter öka stadigt fram till idag (den första figuren nedan). En tydlig pandemieffekt går att skönja, då antalet dagar ökat avsevärt sedan 2019. Även för vård av sjukt barn tar kvinnor ut betydligt fler dagar än män, men fördelningen ligger precis runt spannet för vad som antas som statistisk jämställdhet, kvinnor tar ut cirka 60 procent av dagarna och män tar ut cirka 40 procent. Till skillnad från trenden för föräldrapenning har fördelningen av Vab-dagar varit mer jämnt de senaste decennierna (under pandemin verkar män ha ökat sitt uttag något jämfört med kvinnor), se den andra figuren nedan.
+<br> 
+<br>
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
+diagramtitel <- "Vård av barn, antal uttagna nettodagar i Dalarna"
+diagramfilnamn <- "vab_antal.png"
+
+tfp_fig <- SkapaStapelDiagram(skickad_df = vab_df%>%
+                               filter(Kommun == "Samtliga kommuner",
+                                      Kön != "Kvinnor och män",
+                                      Delförmån == "Vård av barn") %>% 
+                                mutate(Kön = tolower(Kön),
+                                       Antal_nettodagar = as.numeric(Antal_nettodagar)), 
+                             skickad_x_var = "År", 
+                             skickad_y_var = "Antal_nettodagar", 
+                             skickad_x_grupp = "Kön",
+                             x_axis_lutning = 45,
+                             manual_x_axis_text_vjust=1,
+                             manual_x_axis_text_hjust=1,
+                             manual_y_axis_title = "",
+                             manual_color = diagramfarger("kon"),
+                             diagram_titel = diagramtitel,
+                             diagram_capt =  diagram_capt,
+                             stodlinjer_avrunda_fem = TRUE,
+                             diagram_facet = FALSE,
+                             output_mapp = outputmapp,
+                             filnamn_diagram = diagramfilnamn,
+                             skriv_till_diagramfil = TRUE)
+    
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+tfp_fig
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+
+diagramtitel <- "Vård av barn, förändring i antal uttagna nettodagar i Dalarna"
+diagramfilnamn <- "Vab_antal_linje.png"
+
+tfp_fig_linje <- SkapaLinjeDiagram(skickad_df = vab_df%>%
+                                     filter(Kommun == "Samtliga kommuner",
+                                            Kön != "Kvinnor och män",
+                                            Delförmån == "Vård av barn") %>% 
+                                      mutate(Kön = tolower(Kön),
+                                             Antal_nettodagar = as.numeric(Antal_nettodagar),
+                                             "år" = År), 
+                                   skickad_x_var = "år", 
+                                   skickad_y_var = "Antal_nettodagar", 
+                                   skickad_x_grupp = "Kön",
+                                   manual_color = diagramfarger("kon"),
+                                   berakna_index = TRUE,
+                                   x_axis_lutning = 45,
+                                   diagram_titel = diagramtitel,
+                                   diagram_capt =  diagram_capt,
+                                   stodlinjer_avrunda_fem = TRUE,
+                                   diagram_facet = FALSE,
+                                   output_mapp = outputmapp,
+                                   filnamn_diagram = diagramfilnamn,
+                                   skriv_till_diagramfil = TRUE)
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+tfp_fig_linje
+```
+
 ## Jämställd hälsa
 Jämställd hälsa är det femte delmålet. Kvinnor och män, flickor och pojkar ska ha samma förutsättningar för en god hälsa och erbjudas vård och omsorg på lika villkor. Idag finns det stora skillnader i hälsa och ohälsa mellan kvinnor och män. Flickor och kvinnor är sjukskriva för symptom som är kopplade till psykisk ohälsa i betydligt högre utsträckning än män, samtidigt dör fler män än kvinnor av självmord, i arbetsplatsolyckor, i hjärt- och kärlsjukdomar och cancer. Förklaringar kan bland annat kopplas till brister i arbetsmiljön, att inte söka vård i tid och skillnader i vårdens bemötande.
 
@@ -1592,197 +1781,6 @@ sjukfall_bransch_fig
 ```
 
 
-## Obetalt arbete
-En jämn ansvarsfördelning för obetalt hem- och omsorgsarbete är det fjärde delmålet. Jämställdhetsmyndigheten har sammanfattat nuläget för delmålet nationellt. De skriver på sin hemsida:
-
-<blockquote>Kvinnor tar fortfarande i hög grad ansvar för det obetalda hem- och omsorgsarbetet. De tar ut mer av föräldraförsäkringen och lägger mer tid på att ta hand om barn. Kvinnor och män ger omsorg, men på olika sätt. Kvinnors omsorgsarbete tycks dock påverka dem mer negativt än män. I hemmet är det främst kvinnor som städar, lagar mat och tvättar medan män klipper gräset, tar hand om bilen och sköter ekonomin. [^10]</blockquote>
-
-[^10] : <https://jamstalldhetsmyndigheten.se/jamstalldhet-i-sverige/delmal-4-jamn-fordelning-av-det-obetalda-hem-och-omsorgsarbetet/>
-
-Ett större ansvar för det obetalda arbetet minskar ofta utrymmet för inkomstbringande arbete och påverkar på så sätt individernas livsinkomster. Det kan också skapa ett beroende till en partner med en högre inkomst.  
-
-### Föräldrapenning
-
-Antalet mottagare av föräldrapenning (den första figuren nedan) ökade
-från ungefär 13 000 i slutet av 1990-talet till över 22 000 år 2018. Givet att den absoluta majoriteten av dessa barn har två vårdnadshavare är det värt att notera att det varje år är cirka 10 procent av fäderna som inte tar ut några föräldrapenningdagar alls.
-
-En minskning i antalet föräldrapenningdagar syntes under pandemiåren och åren därefter, vilket sannolikt beror på att uttaget av tillfällig föräldrapenning (Vab) då ökade kraftigt (se nedan). Antalet uttagna dagar har ökat för såväl kvinnor som män, men den relativa skillnaden i uttag mellan könen har minskat.
-
-Fördelningen av dagar mellan vårdnadshavarna har jämnats ut något sedan slutet av 1990-talet då runt 85-90 procent av föräldrapenningdagarna togs ut av mammorna. Sedan dess har först en (1995), sedan två (2002) och till slut tre månader (2016) reserverats åt respektive vårdnadshavare (också kallade "pappamånader"). Detta har bidragit till ett jämnare uttag men utvecklingen får ändå sägas gå relativt trögt, då andelen har minskat till runt `r round(as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Kvinnor", År == max(År)) %>% .$Andel),0)` procent `r max(foraldrapenning_df$År)`. Svenska vårdnadshavare är således långt ifrån att ge sina barn en jämställd tillgång till sina föräldrar. Skillnaden i uttag påverkar också den disponibla inkomsten, som beskrivits under rubriken Ekonomisk jämställdhet. Skillnaden är som störst mellan sammanboende kvinnor och män när det yngsta barnet är 0–3 år. [^2]
-
-Hur vårdnadshavare fördelar föräldrapenningen mellan sig är relativt olika i Dalarnas kommuner. I `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun, regex='\\S+')` är uttaget relativt mest jämställt, där drygt 30 procent av föräldrapenningdagarna togs ut av männen. Minst jämställt är fördelningen i `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun, regex='\\S+')`, där motsvarande uttag är ca `r round(as.numeric(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel),0)` procent.
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
-diagramtitel <- "Antal mottagare av föräldrapenning i Dalarna"
-diagramfilnamn <- "Foraldrapenning_antal.png"
-
-fp_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df %>%
-                               filter(Kommun == "Samtliga kommuner",
-                                      Kön != "Kvinnor och män") %>% 
-                                mutate(Kön = tolower(Kön),
-                                       Antal_mottagare = as.numeric(Antal_mottagare)), 
-                             skickad_x_var = "År", 
-                             skickad_y_var = "Antal_mottagare", 
-                             skickad_x_grupp = "Kön",
-                             x_axis_lutning = 45,
-                             manual_x_axis_text_vjust=1,
-                             manual_x_axis_text_hjust=1,
-                             manual_y_axis_title = "Antal mottagare",
-                             manual_color = diagramfarger("kon"),
-                             stodlinjer_avrunda_fem = TRUE,
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             diagram_facet = FALSE,
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = TRUE)
-    
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-fp_fig
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
-diagramtitel <- "Andel nettodagar per kön i Dalarna"
-diagramfilnamn <- "Foraldrapenning_andel.png"
-
-fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
-                               filter(Kommun == "Samtliga kommuner",
-                                      Kön != "Kvinnor och män") %>% 
-                                mutate(Kön = tolower(Kön),
-                                       Andel = as.numeric(Andel)), 
-                             skickad_x_var = "År", 
-                             skickad_y_var = "Andel", 
-                             skickad_x_grupp = "Kön",
-                             x_axis_lutning = 45,
-                             manual_x_axis_text_vjust=1,
-                             manual_x_axis_text_hjust=1,
-                             manual_color = diagramfarger("kon"),
-                             stodlinjer_avrunda_fem = TRUE,
-                             manual_y_axis_title = "",
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             diagram_facet = FALSE,
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = TRUE)
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-fp_andel_fig
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
-diagramtitel <- paste0("Andel nettodagar per kön i Dalarna år ",max(foraldrapenning_df$År))
-diagramfilnamn <- "Foraldrapenning_andel_kommun.png"
-
-fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
-                               filter(Kommun != "Samtliga kommuner",
-                                      Kön != "Kvinnor och män",
-                                      År == max(År)) %>% 
-                                mutate(Kön = tolower(Kön),
-                                       Andel = as.numeric(Andel),
-                                       Kommun = stri_extract_last(Kommun, regex='\\S+')), 
-                             skickad_x_var = "Kommun", 
-                             skickad_y_var = "Andel", 
-                             skickad_x_grupp = "Kön",
-                             x_axis_lutning = 45,
-                             manual_color = diagramfarger("kon"),
-                             manual_y_axis_title = "",
-                             manual_x_axis_text_vjust=1,
-                             manual_x_axis_text_hjust=1,
-                             x_axis_sort_value = TRUE,
-                             stodlinjer_avrunda_fem = TRUE,
-                             x_axis_sort_grp = 1,
-                             vand_sortering = FALSE,
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             diagram_facet = FALSE,
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = TRUE)
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-fp_andel_fig
-```
-
-### Tillfällig föräldrapenning
-
-Tillfällig föräldrapenning är det som i folkmun kallas Vab. Sett över tidsperioden minskade antalet uttagna nettodagar något mellan 2006 och 2009, för att
-därefter öka stadigt fram till idag (den första figuren nedan). En tydlig pandemieffekt går att skönja, då antalet dagar ökat avsevärt sedan 2019. Även för vård av sjukt barn tar kvinnor ut betydligt fler dagar än män, men fördelningen ligger precis runt spannet för vad som antas som statistisk jämställdhet, kvinnor tar ut cirka 60 procent av dagarna och män tar ut cirka 40 procent. Till skillnad från trenden för föräldrapenning har fördelningen av Vab-dagar varit mer jämnt de senaste decennierna (under pandemin verkar män ha ökat sitt uttag något jämfört med kvinnor), se den andra figuren nedan.
-<br> 
-<br>
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
-diagramtitel <- "Vård av barn, antal uttagna nettodagar i Dalarna"
-diagramfilnamn <- "vab_antal.png"
-
-tfp_fig <- SkapaStapelDiagram(skickad_df = vab_df%>%
-                               filter(Kommun == "Samtliga kommuner",
-                                      Kön != "Kvinnor och män",
-                                      Delförmån == "Vård av barn") %>% 
-                                mutate(Kön = tolower(Kön),
-                                       Antal_nettodagar = as.numeric(Antal_nettodagar)), 
-                             skickad_x_var = "År", 
-                             skickad_y_var = "Antal_nettodagar", 
-                             skickad_x_grupp = "Kön",
-                             x_axis_lutning = 45,
-                             manual_x_axis_text_vjust=1,
-                             manual_x_axis_text_hjust=1,
-                             manual_y_axis_title = "",
-                             manual_color = diagramfarger("kon"),
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             stodlinjer_avrunda_fem = TRUE,
-                             diagram_facet = FALSE,
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = TRUE)
-    
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-tfp_fig
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-diagramtitel <- "Vård av barn, förändring i antal uttagna nettodagar i Dalarna"
-diagramfilnamn <- "Vab_antal_linje.png"
-
-tfp_fig_linje <- SkapaLinjeDiagram(skickad_df = vab_df%>%
-                                     filter(Kommun == "Samtliga kommuner",
-                                            Kön != "Kvinnor och män",
-                                            Delförmån == "Vård av barn") %>% 
-                                      mutate(Kön = tolower(Kön),
-                                             Antal_nettodagar = as.numeric(Antal_nettodagar),
-                                             "år" = År), 
-                                   skickad_x_var = "år", 
-                                   skickad_y_var = "Antal_nettodagar", 
-                                   skickad_x_grupp = "Kön",
-                                   manual_color = diagramfarger("kon"),
-                                   berakna_index = TRUE,
-                                   x_axis_lutning = 45,
-                                   diagram_titel = diagramtitel,
-                                   diagram_capt =  diagram_capt,
-                                   stodlinjer_avrunda_fem = TRUE,
-                                   diagram_facet = FALSE,
-                                   output_mapp = outputmapp,
-                                   filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = TRUE)
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-tfp_fig_linje
-```
-
 ## Makt och politik
 Det första av de jämställdhetspolitiska delmålen lyder "en jämn fördelning av makt och inflytande". Detta mäts bland annat genom kvinnors och mäns representation på maktpositioner i både politik och näringsliv. Historiskt har, av förklarliga skäl, män befolkat dessa positioner och kvinnor i undantagsfall, men dessvärre visar nuläget också att många traditionella mönster består. Ju högre upp i hierarkin, desto fler män på positionerna. Jämställdhetsmyndigheten skriver att: 
 
@@ -1978,116 +1976,7 @@ chefer_linje_fig
 ```
 <br>
 
-## Dalarnas befolkning
-
-```{r, echo=FALSE, fig.align='center', include = TRUE, out.width="90%"}
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna"
-
-befolkning_df_for <- befolkning_df_for %>%
-  group_by(år,region) %>% 
-    summarize(`Folkmängd`= sum(`Folkmängd`)) %>% 
-      mutate(region = skapa_kortnamn_lan(region,byt_ut_riket_mot_sverige = TRUE))
-
-diagram_titel <- paste0("Befolkningsförändring ",min(befolkning_df_for$år)," - ",max(befolkning_df_for$år), " (basår 1968)")
-diagram_typ <- "befolkning_forandring"
-diagramfil <- paste0(diagram_typ, ".png")
-
-bef_for <- SkapaLinjeDiagram(skickad_df = befolkning_df_for %>% 
-                              filter(region %in% c("Sverige","Dalarna")), 
-                            skickad_x_var = "år", 
-                            skickad_y_var = "Folkmängd",
-                            skickad_x_grupp = "region",
-                            manual_color = diagramfarger("rus_sex"),
-                            x_axis_lutning = 45,
-                            berakna_index = TRUE,
-                            diagram_titel = diagram_titel,
-                            stodlinjer_avrunda_fem = FALSE,
-                            diagram_capt = diagram_capt,
-                            output_mapp = outputmapp,
-                            visa_var_x_xlabel = 4,
-                            filnamn_diagram = diagramfil,
-                            skriv_till_diagramfil = TRUE)
-```
-
-Dalarnas län hade `r as.character(format(befolkning_df_for %>% filter(region == "Dalarna",år == last(.$år)) %>% .$Folkmängd, big.mark=" ", scientific=FALSE, trim=TRUE))` invånare år `r last(befolkning_df_for$år)`, vilket är ungefär `r gsub("\\.",",",round(((befolkning_df_for %>% filter(region == "Dalarna",år == last(.$år)) %>% .$Folkmängd/befolkning_df_for %>% filter(region == "Dalarna",år == first(.$år)) %>% .$Folkmängd)-1)*100,1))` procent fler än 1968. Under samma tidsperiod ökade Sveriges befolkning med `r gsub("\\.",",",round(((befolkning_df_for %>% filter(region == "Sverige",år == last(.$år)) %>% .$Folkmängd/befolkning_df_for %>% filter(region == "Sverige",år == first(.$år)) %>% .$Folkmängd)-1)*100,1))` procent (se diagram nedan).
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
-bef_for
-```
-
-Befolkningen i Dalarna är relativt jämnt fördelad mellan könen,
-men med något fler män än kvinnor. Åldersstrukturen har förändrats
-avsevärt sedan slutet av 1960-talet, vilket en jämförelse av staplarna och de svarta linjerna i diagrammet nedanför visar. Den främsta förändringen
-i länet är en förskjutning mot en allt äldre befolkning: 1968 var
-relativt få personer i Dalarna 65 år eller äldre, medan åldersgrupperna
-15-24 år (födda efter andra världskriget) och 45-54 (primärt födda under
-mellankrigsåren) var större än idag.
-
-Inom den äldsta ålderskategorin (85 år och äldre) finns en betydligt
-större andel kvinnor än män. För yngre åldersgrupper är fördelningen
-mellan män och kvinnor jämnare, men det finns något fler män än kvinnor i
-åldersgrupperna 15-24 år och 25-34 år.
-
-```{r, echo=FALSE, fig.align='center', out.width="90%"}
-#lista_figurer$`Befolkning i Dalarnas län år 1968/2021`
-knitr::include_graphics(here("Diagram","Befpyramid Dalarnas län 2022_jmfr_ar_1968.png"))
-```
-
-```{r, echo=FALSE}
-
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
-
-# Tar bort län och byter riket mot Sverige
-befolkning_df$region <- skapa_kortnamn_lan(befolkning_df$region,byt_ut_riket_mot_sverige = TRUE)
-
-# Skapar en variabel som bestämmer om personer är över 65 och summerar och beräknar andelar
-befolkning_sum <- befolkning_df %>% 
-  mutate(aldersgrupp = ifelse(as.numeric(ålder)>65,"Över 65","Under 65")) %>% 
-    group_by(region,år,aldersgrupp) %>% 
-      summarize(antal = sum(Folkmängd)) %>% 
-        mutate(andel = round((antal/sum(antal))*100,2))
-
-diagramtitel <- paste0("Andel av befolkningen över 65 år i Dalarna ",unique(befolkning_sum$år))
-diagramfilnamn <- paste0("andel_over_65_Sverige.png")
-
-andel_aldre <- SkapaStapelDiagram(skickad_df = befolkning_sum %>% 
-                               filter(aldersgrupp == "Över 65") %>% 
-                                mutate(fokus = ifelse(region == "Dalarna",1,
-                                                  ifelse(region == "Sverige",2,0))),
-                             skickad_x_var = "region",
-                             skickad_y_var = "andel",
-                             manual_color = diagramfarger("rus_tre_fokus"),
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             x_axis_sort_value = TRUE,
-                             x_var_fokus = "fokus",
-                             manual_y_axis_title="procent",
-                             manual_x_axis_text_vjust = 1,
-                             manual_x_axis_text_hjust = 1,
-                             stodlinjer_avrunda_fem = TRUE,
-                             x_axis_lutning = 45,
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = TRUE)
-
-```
-
-Dalarnas befolkning har en äldre befolkning i de flesta andra svenska
-län. I Dalarna var ungefär `r round(befolkning_sum %>% filter(region=="Dalarna",aldersgrupp=="Över 65") %>% .$andel,0)` procent av befolkningen äldre än 65 år `r befolkning_sum %>% filter(region=="Dalarna",aldersgrupp=="Över 65") %>% .$år`,
-vilket är den tredje högsta andelen i Sverige näst efter Gotland och Kalmar. Den
-lägsta andelen äldre återfinns i Stockholm där drygt `r round(befolkning_sum %>% filter(region=="Stockholm",aldersgrupp=="Över 65") %>% .$andel,0)` procent av befolkningen är äldre än 65 år. Generellt tenderar befolkningen att vara äldre i glesbefolkade områden och regioner och den yngre befolkningen tenderar att flytta till urbana center och större städer, åtminstone under en viss period i livet.
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
-andel_aldre
-```
-
-Åldersstrukturen skiljer sig åt för inrikes och utrikes födda invånare i Dalarna
-(se figuren nedan). Jämförelsevis få utrikes födda är unga respektive äldre i Dalarna, medan en betydligt större andel är i arbetsför ålder (20-64 år) i jämförelse med inrikes födda. Detta är ett behövligt tillskott till arbetsmarknaden då dessa personer kompenserar för bristen på inrikes födda i framförallt åldersintervallet 20-54 år, men kan skapa obalans framöver om inte återväxten säkras.
-
-```{r, echo=FALSE, fig.width=8, fig.align='center', out.width="90%"}
-# lista_figurer$`Inrikes födda i Dalarnas län år 2021
-# jämfört med utrikes födda`
-knitr::include_graphics(here("Diagram","Befpyramid Dalarnas län 2022_jmfr_utr_inr.png"))
+fr_utr_inr.png"))
 ```
 <br>
 ```{r, include = FALSE}
