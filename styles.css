@@ -38,12 +38,12 @@ h1,h2,h3{
 
 h1 { /* Header 1 */
   font-weight: bold;
-  font-size: 2.4rem;
+  font-size: 1.6rem;
   color: #000000;
 }
 h2 { /* Header 2 */
   font-weight: bold;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   color: #000000;
 }
 h3 { /* Header 3 */
