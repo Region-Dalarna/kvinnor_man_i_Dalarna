@@ -89,10 +89,14 @@ gymnasieantagning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasiean
 gymnasiet_genomstromning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasie_genomströmning.xlsx")
 ```
 
+<br>
+
 <p style = "font-size:12px">
 <i>Skapad av: Samhällsanalys, Region Dalarna<br>
 Senast uppdaterad: `r Sys.Date()`</i>
 </p>
+
+<br>
 
 # Kvinnor och män i Dalarna {-}
 Världsläget av idag synliggör fundamentala utmaningar för demokratiska samhällen, samtidigt som en konstruktiv diskussion om jämställdhet verkar ha kommit i skymundan i den allmänna debatten. Att sträva efter jämställdhet är trots det en av de centrala insatserna för att säkerställa mänskliga rättigheter, att uppnå de 17 målen i Agenda 2030 tillsammans med Sveriges nationella miljö- och demokratimål.
