@@ -70,7 +70,12 @@ details{
 
 .tocify-header {
     font-size: 0.9rem;
-    font-weight: 1000;
+    font-weight: 400;
+}
+
+#tocify-header0{
+  font-size: 1rem;
+  font-weight: 1000;
 }
 
 .tocify-subheader {

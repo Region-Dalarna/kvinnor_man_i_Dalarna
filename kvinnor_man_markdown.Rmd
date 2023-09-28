@@ -40,7 +40,7 @@ lista_figurer=list()
 skapa_lista=FALSE
 
 # Om man vill uppdatera den externa hemsidan sätts denna variabel till TRUE
-uppdatera_hemsida = TRUE
+uppdatera_hemsida = FALSE
 
 # Om man vill uppdatera data sätts denna variabel till TRUE
 uppdatera_data = FALSE
