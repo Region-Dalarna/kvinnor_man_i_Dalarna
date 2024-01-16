@@ -7,6 +7,10 @@ html {
 
 }
 
+href{
+word-break: break-all;
+}
+
 /* Det som gäller för dokumentet generellt, typografi m.m.*/
 body {
   border-top: 5px solid #158daf;
@@ -246,7 +250,7 @@ blockquote {
 @media (max-width: 970px){
  
  .top-text {
-    font-size: 2.5em;
+    font-size: 2em;
 }
 
 .toc-content.col-xs-12.col-sm-8.col-md-9{
