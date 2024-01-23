@@ -1563,7 +1563,7 @@ ohalsotal_kommun_fig
 ## Sjukpenningtalet
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt_sjukpenning<-"Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring:Sjukpenningtalet är antalet dagar med sjukpenning och rehabiliteringspenning\nsom har betalats ut under en 12-månaders period.Den summan delas med antalet försäkrade i\nSverige som är i åldrarna 16–64 år."
+diagram_capt_sjukpenning<-"Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring:Sjukpenningtalet är antalet dagar med sjukpenning och rehabiliteringspenning\nsom har betalats ut under en 12-månaders period. Den summan delas med antalet försäkrade i\nSverige som är i åldrarna 16–64 år."
 
 sjukpenningtal_df_utskrift <-sjukpenningtal_df %>%
   filter(Ålder == "Samtliga 16-64 år") %>%
