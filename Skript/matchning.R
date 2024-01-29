@@ -15,6 +15,8 @@ diag_matchning <- function(output_mapp = "G:/Samhällsanalys/Statistik/Näringsl
   
   url = "https://api.scb.se/OV0104/v1/doris/sv/ssd/AM/AM9906/AM9906A/RegionInd19M2N"
   
+  pxvardelist(url, "contentscode")  
+  
   pxweb_query_list <- 
     list("Region"=hamtaAllaLan(tamedriket = TRUE),
          "Kon"=c("1","2","SAMANST"),
