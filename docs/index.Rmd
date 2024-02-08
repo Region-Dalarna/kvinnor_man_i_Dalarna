@@ -420,7 +420,7 @@ forvarvsarbetande_kon_fig
       slice_max(Antal,n=10)
     
     diagram_titel <- paste0("Yrken med högst antal förvärvsarbetande män i Dalarnas län ",unique(yrke_df$år))
-    diagram_titel <- str_wrap(diagramtitel,60)
+    diagram_titel <- str_wrap(diagram_titel,60)
     diagramfil="yrken_man.png"
     
     yrken_man_fig <- SkapaStapelDiagram(skickad_df = yrke_man, 
@@ -452,7 +452,7 @@ forvarvsarbetande_kon_fig
         mutate(Yrke = ifelse(Yrke == "Undersköterskor, hemtjänst, hemsjukvård och äldreboende","Undersköterskor m.fl.",Yrke))
     
     diagram_titel <- paste0("Yrken med högst antal förvärvsarbetande kvinnor i Dalarnas län ",unique(yrke_df$år))
-    diagram_titel <- str_wrap(diagramtitel,60)
+    diagram_titel <- str_wrap(diagram_titel,60)
     diagramfil="yrken_kvinnor.png"
     
     yrken_kvinnor_fig <- SkapaStapelDiagram(skickad_df = yrke_kvinnor, 
