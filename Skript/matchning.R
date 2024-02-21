@@ -1,4 +1,6 @@
 # Matchning på arbetsmarknaden. Från reginonala matchningsindikatorer (val 24 under arbetsmarknad)
+# https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__AM__AM9906__AM9906A/RegionInd19M2N/
+# Senast uppdaterad 2023-06-28 (på SCBs hemsida)
 
 # Läser in nödvändiga bibliotek med pacman
 if (!require("pacman")) install.packages("pacman")

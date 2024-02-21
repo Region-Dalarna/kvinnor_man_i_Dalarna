@@ -2,6 +2,7 @@
 ### Etableringstid för nyanlända ###
 ####################################
 # Källa: https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__AA__AA0003__AA0003B/IntGr1LanKonUtb/
+# Senast uppdaterad 2023-04-12 (på SCBs hemsida)
 
 # Läser in nödvändiga bibliotek med pacman
 if (!require("pacman")) install.packages("pacman")

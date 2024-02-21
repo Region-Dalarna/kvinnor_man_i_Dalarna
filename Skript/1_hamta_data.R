@@ -40,7 +40,7 @@ source(here("Skript","utbildningsniva_85.R"), encoding="UTF-8")
 data_utbniva_85(spara_data = TRUE,
                 output_mapp = Output_mapp)
 
-# Förvärvsarbetande, uppdelat på kön
+# Förvärvsarbetande, uppdelat på kön  OBS!! UPPDATERA TILL BAS
 source(here("Skript","forvarvsarbetande_bransch.R"), encoding="UTF-8")
 data_forvarvsarbetande_bransch(spara_data = TRUE,
                                output_mapp = Output_mapp)
@@ -60,7 +60,7 @@ source(here("Skript","arbetsloshet_2008_senastear.R"), encoding="UTF-8")
 diag_arbetsloshet_2008_senastear(spara_data = TRUE,
                                 output_mapp = Output_mapp)
 
-# Långtidsarbetslöshet - Från Supercross (Excel)
+# Långtidsarbetslöshet - Från Supercross (Excel) OBS!! ANVÄND KOLADA ISTÄLLET
 source(here("Skript","långtidsarbetslöshet.R"), encoding="UTF-8")
 diag_langtidsarbetsloshet(spara_data = TRUE,
                           output_mapp = Output_mapp)
