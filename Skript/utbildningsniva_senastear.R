@@ -4,7 +4,7 @@
 if (!require("pacman")) install.packages("pacman")
 p_load(pxweb,openxlsx)
 
-source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
+source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R")
 
 #test_list <- data_utbildningsniva(skapa_fil = TRUE)
 

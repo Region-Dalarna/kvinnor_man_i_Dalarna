@@ -6,7 +6,7 @@ pacman::p_load(pxweb,
                openxlsx)
 
 # Laddar in de funktioner som används för att skapa diagram
-source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
+source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R")
 
 #test_list <- diag_medianinkomst(skapa_fil = FALSE)
 

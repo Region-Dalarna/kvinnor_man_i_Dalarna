@@ -27,7 +27,7 @@ p_load(here,
 
 # Funktioner som behövs (hämtas från Git-Hub)
 source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_SkapaDiagram.R")
-source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
+source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R")
 
 # För att information från Tidyverse inte skall visas
 options(dplyr.summarise.inform = FALSE)

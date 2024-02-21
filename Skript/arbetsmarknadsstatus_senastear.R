@@ -6,7 +6,7 @@ if (!require("pacman")) install.packages("pacman")
 pacman::p_load(pxweb,tidyverse,openxlsx)
 
 # Laddar in de funktioner som används för att skapa diagram
-source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
+source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R")
 
 #test_list <- diag_arbetsmarknadsstatus(skapa_fil = FALSE)
 

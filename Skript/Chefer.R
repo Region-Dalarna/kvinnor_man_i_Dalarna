@@ -8,7 +8,7 @@ p_load(pxweb,
        openxlsx)
 
 # Funktioner som behövs
-source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
+source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R")
 
 #test_list <- diag_chefer(skapa_fil = FALSE)
 
