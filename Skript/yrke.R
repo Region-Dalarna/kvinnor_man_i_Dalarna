@@ -1,6 +1,7 @@
 ## =================================================================================================================
 # Skript som laddar hem data för förvärvsarbetande, bransch från SCB
 # https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__AM__AM0208__AM0208M/YREG60N/
+# Uppdaterades senaste (SCBs tabell): 2023-03-08
 # =================================================================================================================
 if (!require("pacman")) install.packages("pacman")
 p_load(pxweb,

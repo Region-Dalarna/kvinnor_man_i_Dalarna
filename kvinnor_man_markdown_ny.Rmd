@@ -38,10 +38,13 @@ lista_figurer=list()
 skapa_lista=FALSE
 
 # Om man vill uppdatera den externa hemsidan sätts denna variabel till TRUE
-uppdatera_hemsida = TRUE
+uppdatera_hemsida = FALSE
 
 # Om man vill uppdatera data sätts denna variabel till TRUE
 uppdatera_data = FALSE
+
+# Om man vill spara figurer sätts denna variabel till TRUE
+spara_figur = FALSE
 
 if(skapa_lista == TRUE){
 source(here("master_kvinnor_man.R"), encoding = "utf-8", echo = FALSE)
@@ -175,7 +178,7 @@ utbildning_85_utskrift<-utbildning_85_df %>%
                                        berakna_index = FALSE,
                                        output_mapp = outputmapp,
                                        filnamn_diagram = diagramfilnamn,
-                                       skriv_till_diagramfil = FALSE)
+                                       skriv_till_diagramfil = spara_figur)
 
   utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
                               filter(år%in%c("1985","1990","1995","2000","2005","2010","2015",max(utbildning_85_utskrift$år))) %>%
@@ -191,7 +194,7 @@ utbildning_85_utskrift<-utbildning_85_df %>%
                              manual_y_axis_title="procent",
                              output_mapp = outputmapp,
                              filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = TRUE)
+                             skriv_till_diagramfil = spara_figur)
 
 ```
 
@@ -247,7 +250,7 @@ utbildning_lan_fig <- SkapaStapelDiagram(skickad_df <- utbildning_df %>%
                                          stodlinjer_avrunda_fem = TRUE,
                                          output_mapp = outputmapp,
                                          filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = TRUE)
+                                         skriv_till_diagramfil = spara_figur)
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -283,7 +286,7 @@ utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
                              manual_y_axis_title="procent",
                              output_mapp = outputmapp,
                              filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = TRUE)
+                             skriv_till_diagramfil = spara_figur)
 
 ```
 
@@ -320,7 +323,7 @@ gymnasieantagning_fig <- SkapaStapelDiagram(skickad_df = gym_sum%>%
                                            berakna_index = FALSE,
                                            output_mapp = outputmapp,
                                            filnamn_diagram = diagramfil,
-                                           skriv_till_diagramfil = TRUE)
+                                           skriv_till_diagramfil = spara_figur)
 
 ```
 
@@ -355,7 +358,7 @@ gym_genom <- SkapaStapelDiagram(skickad_df = gymnasiet_genomstromning_df %>%
                                 stodlinjer_avrunda_fem = TRUE,
                                 output_mapp = outputmapp,
                                 filnamn_diagram = diagramfilnamn,
-                                skriv_till_diagramfil = TRUE)
+                                skriv_till_diagramfil = spara_figur)
 
 ```
 
@@ -404,7 +407,7 @@ forvarvsarbetande_kon_fig <- SkapaStapelDiagram(skickad_df <- forvarvsarbetande_
                                                berakna_index = FALSE,
                                                output_mapp = outputmapp,
                                                filnamn_diagram = diagramfilnamn,
-                                               skriv_till_diagramfil = TRUE)
+                                               skriv_till_diagramfil = spara_figur)
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -436,7 +439,7 @@ forvarvsarbetande_kon_fig
                                  diagram_liggande = TRUE,
                                  output_mapp = outputmapp,
                                  filnamn_diagram = diagramfil,
-                                 skriv_till_diagramfil = TRUE)
+                                 skriv_till_diagramfil = spara_figur)
   
 
 
@@ -468,7 +471,7 @@ forvarvsarbetande_kon_fig
                                  diagram_liggande = TRUE,
                                  output_mapp = outputmapp,
                                  filnamn_diagram = diagramfil,
-                                 skriv_till_diagramfil = TRUE)
+                                 skriv_till_diagramfil = spara_figur)
   
 
 
@@ -531,7 +534,7 @@ matchning_lan_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
                                        manual_y_axis_title = "procent",
                                        output_mapp = outputmapp,
                                        filnamn_diagram = diagramfilnamn,
-                                       skriv_till_diagramfil = TRUE)
+                                       skriv_till_diagramfil = spara_figur)
 ```
 
 <br>
@@ -573,7 +576,7 @@ matchning_bakg_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
                                          berakna_index = FALSE,
                                          output_mapp = outputmapp,
                                          filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = TRUE)
+                                         skriv_till_diagramfil = spara_figur)
 
 ```
 
@@ -622,7 +625,7 @@ syss_lan_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_lan_df %>%
                                  x_axis_lutning = 45,
                                  output_mapp = outputmapp,
                                  filnamn_diagram = diagramfilnamn,
-                                 skriv_till_diagramfil = TRUE)  
+                                 skriv_till_diagramfil = spara_figur)  
 
 ```
 
@@ -663,7 +666,7 @@ syss_kommun_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_kommun_d
                                      x_axis_lutning = 45,
                                      output_mapp = outputmapp,
                                      filnamn_diagram = diagramfilnamn,
-                                     skriv_till_diagramfil = TRUE)  
+                                     skriv_till_diagramfil = spara_figur)  
 
 ```
 
@@ -711,7 +714,7 @@ arb_lan_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_lan_df %>%
                                  x_axis_lutning = 45,
                                  output_mapp = outputmapp,
                                  filnamn_diagram = diagramfilnamn,
-                                 skriv_till_diagramfil = TRUE)  
+                                 skriv_till_diagramfil = spara_figur)  
 
 ```
 
@@ -757,7 +760,7 @@ arb_kommun_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_kommun_df
                                      stodlinjer_avrunda_fem = TRUE,
                                      output_mapp = outputmapp,
                                      filnamn_diagram = diagramfilnamn,
-                                     skriv_till_diagramfil = TRUE)  
+                                     skriv_till_diagramfil = spara_figur)  
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -796,7 +799,7 @@ arbetsloshet_08_fig <- SkapaStapelDiagram(skickad_df = arbetsloshet_tidsserie,
                                          berakna_index = FALSE,
                                          output_mapp = "",
                                          filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = FALSE)
+                                         skriv_till_diagramfil = spara_figur)
 
 ```
 
@@ -836,7 +839,7 @@ langtidsarbetsloshet <- SkapaStapelDiagram(skickad_df =langtidsarbetsloshet_df,
                              berakna_index = FALSE,
                              output_mapp = "",
                              filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = FALSE)
+                             skriv_till_diagramfil = spara_figur)
 
 ```
 
@@ -888,7 +891,7 @@ etablering_fig <- SkapaStapelDiagram(skickad_df =etablering_df %>%
                                     manual_y_axis_title = "procent",
                                     output_mapp = outputmapp,
                                     filnamn_diagram = diagramfilnamn,
-                                    skriv_till_diagramfil = TRUE)
+                                    skriv_till_diagramfil = spara_figur)
 
 ```
 
@@ -931,7 +934,7 @@ etablering_fig_utb <- SkapaStapelDiagram(skickad_df =etablering_df %>%
                                          manual_y_axis_title="procent",
                                          output_mapp = outputmapp,
                                          filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = TRUE)
+                                         skriv_till_diagramfil = spara_figur)
 
 ```
 
@@ -977,7 +980,7 @@ etablering_fig_tid <- SkapaStapelDiagram(skickad_df =etablering_df_tid,
                                          manual_y_axis_title="procent",
                                          output_mapp = outputmapp,
                                          filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = TRUE)
+                                         skriv_till_diagramfil = spara_figur)
 
 ```
 
@@ -1033,7 +1036,7 @@ medianinkomst_tid_fig <- SkapaStapelDiagram(skickad_df =medianinkomst_df %>%
                                          manual_y_axis_title = "",
                                          output_mapp = outputmapp,
                                          filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = TRUE)
+                                         skriv_till_diagramfil = spara_figur)
 
 ```
 
@@ -1063,7 +1066,7 @@ medianinkomst_linje_fig <- SkapaLinjeDiagram(skickad_df = medianinkomst_df %>%
                                             berakna_index = TRUE,
                                             output_mapp = outputmapp,
                                             filnamn_diagram = diagramfilnamn,
-                                            skriv_till_diagramfil = TRUE)
+                                            skriv_till_diagramfil = spara_figur)
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
@@ -1099,7 +1102,7 @@ medianinkomst_kommun_fig <- SkapaStapelDiagram(skickad_df =medianinkomst_df %>%
                                          manual_y_axis_title = "",
                                          output_mapp = outputmapp,
                                          filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = TRUE)
+                                         skriv_till_diagramfil = spara_figur)
 
 ```
 
@@ -1150,7 +1153,7 @@ diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsa
                                      diagram_liggande = TRUE,
                                      output_mapp = outputmapp,
                                      filnamn_diagram = diagramfilnamn,
-                                     skriv_till_diagramfil = TRUE)
+                                     skriv_till_diagramfil = spara_figur)
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -1203,7 +1206,7 @@ skuldsatta_fig <- SkapaStapelDiagram(skickad_df = skulder_df_sum,
                                      berakna_index = FALSE,
                                      output_mapp = outputmapp,
                                      filnamn_diagram = diagramfilnamn,
-                                     skriv_till_diagramfil = TRUE)
+                                     skriv_till_diagramfil = spara_figur)
 ```
 Under det senaste decenniet har antalet skuldsatta minskat
 från drygt 10 000 skuldsatta till `r format(skulder_df_sum %>% filter(Kön == "kvinnor",År == max(.$År)) %>% .$Antal_skuldsatta + skulder_df_sum %>% filter(Kön == "män",År == max(.$År)) %>% .$Antal_skuldsatta,big.mark=" ") ` i Dalarnas län. Av dessa är ungefär 60 procent män och 40 procent kvinnor. Fördelningen har inte förändrats över tid. Det är således avsevärt fler män än kvinnor i länet som är skuldsatta.
@@ -1237,7 +1240,7 @@ skuldsatta_andel_fig <- SkapaStapelDiagram(skickad_df = skulder_andel_df,
                                            berakna_index = FALSE,
                                            output_mapp = outputmapp,
                                            filnamn_diagram = diagramfilnamn,
-                                           skriv_till_diagramfil = TRUE)
+                                           skriv_till_diagramfil = spara_figur)
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -1271,7 +1274,7 @@ skuldsatta_lang <- SkapaStapelDiagram(skickad_df = langsiktiga_skulder_df_sum,
                                      berakna_index = FALSE,
                                      output_mapp = outputmapp,
                                      filnamn_diagram = diagramfilnamn,
-                                     skriv_till_diagramfil = TRUE)
+                                     skriv_till_diagramfil = spara_figur)
 ```
 
 I det andra diagrammet nedan redovisas antalet långsiktigt skuldsatta i
@@ -1325,7 +1328,7 @@ fp_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df %>%
                              diagram_facet = FALSE,
                              output_mapp = outputmapp,
                              filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = TRUE)
+                             skriv_till_diagramfil = spara_figur)
     
 ```
 
@@ -1358,7 +1361,7 @@ fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
                              diagram_facet = FALSE,
                              output_mapp = outputmapp,
                              filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = TRUE)
+                             skriv_till_diagramfil = spara_figur)
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -1395,7 +1398,7 @@ fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
                              diagram_facet = FALSE,
                              output_mapp = outputmapp,
                              filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = TRUE)
+                             skriv_till_diagramfil = spara_figur)
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -1432,7 +1435,7 @@ tfp_fig <- SkapaStapelDiagram(skickad_df = vab_df%>%
                              diagram_facet = FALSE,
                              output_mapp = outputmapp,
                              filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = TRUE)
+                             skriv_till_diagramfil = spara_figur)
     
 ```
 
@@ -1465,7 +1468,7 @@ tfp_fig_linje <- SkapaLinjeDiagram(skickad_df = vab_df%>%
                                    diagram_facet = FALSE,
                                    output_mapp = outputmapp,
                                    filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = TRUE)
+                                   skriv_till_diagramfil = spara_figur)
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -1506,7 +1509,7 @@ ohalsotal_fig <- SkapaStapelDiagram(skickad_df = ohalsotal_df_utskrift %>%
                                    berakna_index = FALSE,
                                    output_mapp = outputmapp,
                                    filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = TRUE)
+                                   skriv_till_diagramfil = spara_figur)
 ```
 
 Ohälsotalet^[Ohälsotalet: hur många dagar under en tolvmånadersperiod
@@ -1552,7 +1555,7 @@ ohalsotal_kommun_fig <- SkapaStapelDiagram(skickad_df = ohalsotal_df_utskrift %>
                                    berakna_index = FALSE,
                                    output_mapp = outputmapp,
                                    filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = TRUE)
+                                   skriv_till_diagramfil = spara_figur)
 ```
 
 <br>
@@ -1591,7 +1594,7 @@ sjukpenningtal_fig <- SkapaStapelDiagram(skickad_df = sjukpenningtal_df_utskrift
                                        berakna_index = FALSE,
                                        output_mapp = outputmapp,
                                        filnamn_diagram = diagramfilnamn,
-                                       skriv_till_diagramfil =TRUE)
+                                       skriv_till_diagramfil =spara_figur)
 ```
 
 I likhet med ohälsotalet tenderar sjukpenningtalet, som enbart
@@ -1643,7 +1646,7 @@ sjukpenningtal_kommun_fig <- SkapaStapelDiagram(skickad_df = sjukpenningtal_df_u
                                    berakna_index = FALSE,
                                    output_mapp = outputmapp,
                                    filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = TRUE)
+                                   skriv_till_diagramfil = spara_figur)
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -1681,7 +1684,7 @@ stress_fig <- SkapaStapelDiagram(skickad_df = stress_df_utskrift %>%
                              berakna_index = FALSE,
                              output_mapp = outputmapp,
                              filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = TRUE)
+                             skriv_till_diagramfil = spara_figur)
 ```
 
 Trots minskningen i antalet totala frånvarodagar (ohälsotalet och sjukpenningtalet) har antalet sjukfall kopplade till stressrelaterade symptom ökat dramatiskt sedan 2010. Även för dessa sjukfall ses en trend där antalet minskade markant under perioden 2007-2010, för att sedan öka. Kvinnor står för cirka `r round(stress_df_utskrift %>% filter(Kön=="Kvinnor",År==max(.$År)) %>% .$Antal_medel/stress_df_utskrift %>% filter(Kön=="Kvinnor och män",År==max(.$År)) %>% .$Antal_medel,2)*100` procent av dessa sjukskrivningar. Trots den stora skillnaden i antal mellan kvinnor och män, så är ökningen relativt likvärdig. Antalet pågående sjukfall kopplade till stress mellan 2010 och 2016 har ungefär sexfaldigats för respektive grupp och från 2016 till idag har utvecklingen stabiliserats något, men ligger kvar på en mycket högre nivå än innan 2010.
@@ -1727,7 +1730,7 @@ sjukfall_bransch_fig <- SkapaStapelDiagram(skickad_df = startade_sjukfall_bransc
                                            berakna_index = FALSE,
                                            output_mapp = outputmapp,
                                            filnamn_diagram = diagramfilnamn,
-                                           skriv_till_diagramfil = TRUE)
+                                           skriv_till_diagramfil = spara_figur)
 
 ```
 
@@ -1768,7 +1771,7 @@ riksdag_fig <- SkapaStapelDiagram(skickad_df = riksdagsval_summering_df,
                                  berakna_index = FALSE,
                                  output_mapp = outputmapp,
                                  filnamn_diagram = diagramfilnamn,
-                                 skriv_till_diagramfil = TRUE)
+                                 skriv_till_diagramfil = spara_figur)
 
 ```
 
@@ -1794,7 +1797,7 @@ regionval_fig <- SkapaStapelDiagram(skickad_df = regionval_summering_df,
                                    berakna_index = FALSE,
                                    output_mapp = outputmapp,
                                    filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = TRUE)
+                                   skriv_till_diagramfil = spara_figur)
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -1822,7 +1825,7 @@ kommunval_fig <- SkapaStapelDiagram(skickad_df = kommunval_summering_df,
                                     berakna_index = FALSE,
                                     output_mapp = outputmapp,
                                     filnamn_diagram = diagramfilnamn,
-                                    skriv_till_diagramfil = TRUE)
+                                    skriv_till_diagramfil = spara_figur)
 
 ```
 
@@ -1893,7 +1896,7 @@ chefer_fig <- SkapaStapelDiagram(skickad_df =chefer_df %>%
                              manual_y_axis_title="procent",
                              output_mapp = outputmapp,
                              filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = TRUE)
+                             skriv_till_diagramfil = spara_figur)
 
 ```
 
@@ -1921,7 +1924,7 @@ chefer_fig
                               berakna_index = TRUE,
                               output_mapp = outputmapp,
                               filnamn_diagram = diagramfilnamn,
-                              skriv_till_diagramfil = TRUE)
+                              skriv_till_diagramfil = spara_figur)
 
 
 ```
