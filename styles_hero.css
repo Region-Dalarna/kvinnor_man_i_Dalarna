@@ -125,10 +125,9 @@ top: 5px;
   content: "";
   display: block;
   height: 40px;
-  padding: 5px 5px 5px 5px;
-  background: rgba(239,41,60);
+  background: rgba(22,141,175);
   /*background: #db3747;*/
-  background-image: url(logo_liggande_platta_farg.png);
+  background-image: url(logga_korrekt.png);
   background-size: contain;
   background-position: center center;
   background-repeat: no-repeat;

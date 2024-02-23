@@ -56,8 +56,8 @@ source(here("Skript","1_hamta_data.R"), encoding="UTF-8")
 }
 
 # Läser in data
-befolkning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/befolkning.xlsx",sheet = 1)
-befolkning_df_for <- read.xlsx("G:/skript/projekt/data/kvinnor_man/befolkning.xlsx",sheet = 2)
+# befolkning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/befolkning.xlsx",sheet = 1)
+# befolkning_df_for <- read.xlsx("G:/skript/projekt/data/kvinnor_man/befolkning.xlsx",sheet = 2)
 utbildning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/utbildningsniva.xlsx")
 utbildning_85_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/utbildningsniva_85.xlsx")
 forvarvsarbetande_bransch <- read.xlsx("G:/skript/projekt/data/kvinnor_man/forvarvsarbetande_bransch.xlsx")
@@ -80,11 +80,18 @@ riksdagsval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet
 regionval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 2)
 kommunval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 3)
 chefer_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/chefer.xlsx")
-foraldrapenning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/foraldrapenning.xlsx",sheet = 1) 
-vab_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/foraldrapenning.xlsx",sheet = 2)
-ohalsotal_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/ohalsotal_sjukpenningtal.xlsx",sheet = 1)
-sjukpenningtal_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/ohalsotal_sjukpenningtal.xlsx",sheet = 2)
+foraldrapenning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/foraldrapenning.xlsx",sheet = 1) %>% 
+  mutate(Kommun = ifelse(Kommun == "20 Dalarnas län", "Samtliga kommuner",  Kommun))
+vab_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/foraldrapenning.xlsx",sheet = 2) %>% 
+  mutate(Kommun = ifelse(Kommun == "20 Dalarnas län", "Samtliga kommuner",  Kommun))
+ohalsotal_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/ohalsotal_sjukpenningtal.xlsx",sheet = 1) %>% 
+  mutate(Kommun = ifelse(Kommun == "20 Dalarnas län", "Samtliga kommuner",  Kommun)) %>% 
+    filter(Ålder == "Samtliga 16-64 år")
+sjukpenningtal_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/ohalsotal_sjukpenningtal.xlsx",sheet = 2)%>% 
+  mutate(Kommun = ifelse(Kommun == "20 Dalarnas län", "Samtliga kommuner",  Kommun)) %>% 
+    filter(Ålder == "Samtliga 16-64 år")
 stress_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/sjukfall_stress.xlsx")
+# OBS! UPPDATERAS MANUELLT
 startade_sjukfall_bransch_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/startade_sjukfall_bransch_bearbetad.xlsx")
 gymnasieantagning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasieantagning.xlsx")
 gymnasiet_genomstromning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasie_genomströmning.xlsx")
@@ -125,7 +132,7 @@ Jämställdhetspolitiken omfattar sex delmål bestående av områdena makt och i
 
 <li>En ojämställd fördelning av omsorgsansvar för barn är den viktigaste faktorn till ojämställda livsinkomster. I Dalarna fördelas fortfarande föräldrapenningdagarna ojämställt. I Dalarna tog kvinnor ut totalt  `r round(as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Kvinnor", År == max(År)) %>% .$Andel),0)` procent av dagarna år `r max(foraldrapenning_df$År) ` medan män tog ut `r round(as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Män", År == max(År)) %>% .$Andel),0)` procent av dagarna. Det finns dock skillnader mellan kommunerna i länet, där män i `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun, regex='\\S+')` tog ut den största andelen av dagarna, ca `r round(as.integer(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel),0)` procent, medan män i `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun, regex='\\S+')` tog ut den minsta andelen, drygt `r round(as.integer(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel),0)` procent.</li>
 
-<li>I Dalarna är kvinnors ohälsa betydligt mer omfattande än mäns sett genom försäkringskassans statistik. Ohälsotalet (utbetalning av sjukpenning, rehabiliteringspenning, sjukersättning och aktivitetsersättning) har förvisso halverats för både kvinnor och män de senaste 20 åren, bland annat på grund av restriktivare bedömningar, men skillnaden mellan könen kvarstår. För kvinnor var det genomsnittliga antalet utbetalda dagar år `r max(ohalsotal_df$År)` `r round(as.numeric(ohalsotal_df %>% filter(Län == "20 Dalarnas län",År==max(År),Ålder== "Samtliga 16-64 år",Kön=="Kvinnor",Kommun=="Samtliga kommuner") %>% filter(Månad==max(Månad)) %>% .$Ohälsotalet),0)` dagar per år medan det för män var `r round(as.numeric(ohalsotal_df %>% filter(Län == "20 Dalarnas län",År==max(År),Ålder== "Samtliga 16-64 år",Kön=="Män",Kommun=="Samtliga kommuner") %>% filter(Månad==max(Månad)) %>% .$Ohälsotalet),0)` dagar per år. Karaktären på sjukskrivningarna har ändrats de senaste decennierna, sedan 2010 har antalet sjukfall kopplade till stress ungefär sexfaldigats för både kvinnor och män.</li>
+<li>I Dalarna är kvinnors ohälsa betydligt mer omfattande än mäns sett genom försäkringskassans statistik. Ohälsotalet (utbetalning av sjukpenning, rehabiliteringspenning, sjukersättning och aktivitetsersättning) har förvisso halverats för både kvinnor och män de senaste 20 åren, bland annat på grund av restriktivare bedömningar, men skillnaden mellan könen kvarstår. För kvinnor var det genomsnittliga antalet utbetalda dagar år `r max(ohalsotal_df$År)` `r round(as.numeric(ohalsotal_df %>% filter(År==max(År),Ålder== "Samtliga 16-64 år",Kön=="Kvinnor",Kommun=="Samtliga kommuner") %>% filter(Månad==max(Månad)) %>% .$Ohälsotalet),0)` dagar per år medan det för män var `r round(as.numeric(ohalsotal_df %>% filter(År==max(År),Ålder== "Samtliga 16-64 år",Kön=="Män",Kommun=="Samtliga kommuner") %>% filter(Månad==max(Månad)) %>% .$Ohälsotalet),0)` dagar per år. Karaktären på sjukskrivningarna har ändrats de senaste decennierna, sedan 2010 har antalet sjukfall kopplade till stress ungefär sexfaldigats för både kvinnor och män.</li>
 
 <li>Inom politiken har fördelningen av förtroendeposter mellan kvinnor och män under de senaste årtiondena jämnats ut. På både nationell och regional nivå ligger den inom spannet för jämställdhet, även om andelen män på regional nivå har ökat 2018 och 2022 från tidigare trend. På lokal nivå i Dalarna däremot har endast två kommuner fler kvinnor än män som ledamöter (i båda fallen endast en kvinna mer), övriga kommuner har tydligt fler män än kvinnor som ledamöter och fyra av kommunerna har en överrepresentation av män (fler än 60 %) som ledamöter.</li>
     

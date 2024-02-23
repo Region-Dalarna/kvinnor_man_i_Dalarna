@@ -1,5 +1,8 @@
-# Bearbetar data från nedladdat Exceldokument (se dokumentet för mer info) och spar ett nytt Exceldokument
+# Bearbetar data från nedladdat Exceldokument (se flik 1 i Antal startade sjukfall bransch.xlsx för mer info) och spar ett nytt Exceldokument
+# Källa: https://www.forsakringskassan.se/statistik-och-analys/sjuk/statistik-inom-omradet-sjuk---sjukpenning-och-rehabiliteringspenning
+# Välj sjukfrånvaro per bransch och sektor, 2010-
 # Läser in nödvändiga bibliotek med pacman
+# Senast kontrollerad: 2024-02-23 (data)
 if (!require("pacman")) install.packages("pacman")
 p_load(here,
        openxlsx,
