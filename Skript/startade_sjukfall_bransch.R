@@ -2,7 +2,7 @@
 # Källa: https://www.forsakringskassan.se/statistik-och-analys/sjuk/statistik-inom-omradet-sjuk---sjukpenning-och-rehabiliteringspenning
 # Välj sjukfrånvaro per bransch och sektor, 2010-
 # Läser in nödvändiga bibliotek med pacman
-# Senast kontrollerad: 2024-02-23 (data)
+# Senast kontrollerad: 2024-02-23 (data). Finns fram till 2022.
 if (!require("pacman")) install.packages("pacman")
 p_load(here,
        openxlsx,

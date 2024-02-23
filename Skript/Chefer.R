@@ -1,6 +1,7 @@
 ## =================================================================================================================
 # Skript som laddar hem data för andel chefer från SCB och skapar ett diagram
 # Källa: https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__AA__AA0003__AA0003B/IntGr1LanKonUtb/
+# Data kontrollerat 2024-02-23. Uppdaterades senast (av SCB) 2023-04-12. Finns data till 2021.
 # =================================================================================================================
 # Läser in nödvändiga bibliotek med pacman
 if (!require("pacman")) install.packages("pacman")
