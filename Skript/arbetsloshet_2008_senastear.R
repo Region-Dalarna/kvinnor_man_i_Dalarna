@@ -1,6 +1,7 @@
 # Arbetslöshet från 2008 och framåt
 # https://arbetsformedlingen.se/statistik/sok-statistik/tidigare-statistik
 # Välj Inskrivna arbetslösa, som andel av registerbaserad arbetskraft 2008 - maj 2023
+# Data uppdaterades senast 20240226
 pacman::p_load(openxlsx,
                here,
                tidyverse)
@@ -16,7 +17,7 @@ diag_arbetsloshet_2008_senastear <- function(region_vekt = "20",
 
   # ========================================== Läser in data ============================================
   # Läser in data från Excel (ursprung arbetsförmedlingen). Skall användas i flera projekt varför hela sökvägen läses in (blir fel annars)
-  arbetslosa_Dalarna_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/Arbetslöshet_2008_senastear.xlsx",sheet = "Andel",startRow = 9)
+  arbetslosa_Dalarna_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/Arbetslöshet_2008_senaste_ar_240226.xlsx",sheet = "Andel",startRow = 9)
 
   # Lägger till en variabel region
   arbetslosa_Dalarna_df$Region<-"Dalarna"
