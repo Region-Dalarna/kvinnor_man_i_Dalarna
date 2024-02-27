@@ -380,30 +380,28 @@ Arbeten och yrken har historiskt varit könsuppdelade. Med könsuppdelningen har
 Sedan många år har kvinnor och män haft likvärdig tillgång till utbildning och möjlighet att fritt välja yrke. Trots detta består många av könsskillnaderna i arbetslivet (se figuren nedan) och även i antagningen till gymnasiet. Det
 finns branscher i länet som har en tydlig övervikt av det ena eller det
 andra könet, exempelvis byggbranschen som omfattar yrken inom bland
-annat el och VVS, och där kvinnor bara utgjorde ungefär `r round((forvarvsarbetande_bransch %>% filter(kön=="kvinnor",naringsgren=="Bygg",region == "Dalarna") %>% .$antal/sum(forvarvsarbetande_bransch %>% filter(naringsgren=="Bygg",region == "Dalarna") %>% .$antal))*100,0)` procent av de
-förvärvsarbetande `r unique(forvarvsarbetande_bransch$år)`. Även om det har skett en ökning av andelen kvinnor inom byggbranschen är denna ökning ännu försumbar. Inom vård och omsorg är bilden densamma men med motsatt könsfördelning. Här utgjorde kvinnor ca `r round((forvarvsarbetande_bransch %>% filter(kön=="kvinnor",naringsgren=="Vård och omsorg",region == "Dalarna") %>% .$antal/sum(forvarvsarbetande_bransch %>% filter(naringsgren=="Vård och omsorg",region == "Dalarna") %>% .$antal))*100,0)` procent av andelen förvärvsarbetande `r unique(forvarvsarbetande_bransch$år)`.
+annat el och VVS, och där kvinnor bara utgjorde ungefär `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Bygg") %>% .$andel` procent av de
+förvärvsarbetande i november `r unique(forvarvsarbetande_bransch$år)`. Även om det har skett en ökning av andelen kvinnor inom byggbranschen är denna ökning ännu försumbar. Inom vård och omsorg är bilden densamma men med motsatt könsfördelning. Här utgjorde kvinnor ca `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Vård och omsorg") %>% .$andel` procent av andelen förvärvsarbetande vid samma tidpunkt.
 
 Att åstadkomma en förändring i närtid av balansen mellan män och kvinnor inom de könssegregerade branscherna verkar inte vara inom räckhåll då ungdomars studieval är så pass könsstereotypa.
 
 <br>
 ```{r, echo=FALSE,fig.width=10, fig.align='center', out.width="90%"}
 
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: 16-74 år"
+diagram_capt <- "Källa: BAS i SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: 16-74 år"
 
-forvarvsarbetande_bransch$andel <- (forvarvsarbetande_bransch$andel)*100
-
-diagramtitel <- paste0("Antal förvärvsarbetande per bransch i Dalarna år ",unique(forvarvsarbetande_bransch$år))
+diagramtitel <- paste0("Antal förvärvsarbetande per bransch i Dalarna i ",unique(forvarvsarbetande_bransch$månad_år))
 diagramfil <- "forvarvsarbetande_bransch.png"
 
-
-forvarvsarbetande_kon_fig <- SkapaStapelDiagram(skickad_df <- forvarvsarbetande_bransch %>%
-                                                 filter(region == "Dalarna"), 
-                                               skickad_x_var = "naringsgren", 
+forvarvsarbetande_kon_fig <- SkapaStapelDiagram(skickad_df <- forvarvsarbetande_bransch %>% 
+                                                  filter(bransch != "Okänt"), 
+                                               skickad_x_var = "bransch", 
                                                skickad_y_var = "antal", 
                                                skickad_x_grupp = "kön",
                                                diagram_liggande=FALSE,
                                                manual_x_axis_text_vjust=1,
                                                manual_x_axis_text_hjust=1,
+                                               manual_y_axis_title = "",
                                                x_axis_lutning = 45,
                                                x_axis_sort_value=TRUE,
                                                manual_color = diagramfarger("kon"),
@@ -413,7 +411,7 @@ forvarvsarbetande_kon_fig <- SkapaStapelDiagram(skickad_df <- forvarvsarbetande_
                                                facet_legend_bottom=TRUE,
                                                berakna_index = FALSE,
                                                output_mapp = outputmapp,
-                                               filnamn_diagram = diagramfilnamn,
+                                               filnamn_diagram = diagramfil,
                                                skriv_till_diagramfil = spara_figur)
 ```
 

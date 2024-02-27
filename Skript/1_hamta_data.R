@@ -50,8 +50,8 @@ source(here("Skript","gymnasiet_genomströmning.R"), encoding="UTF-8")
 diag_genomstromning(spara_data = TRUE,
                     output_mapp = Output_mapp)
 
-# Förvärvsarbetande, uppdelat på kön  OBS!! UPPDATERA TILL BAS
-source(here("Skript","forvarvsarbetande_bransch.R"), encoding="UTF-8")
+# Förvärvsarbetande, uppdelat på kön  
+source(here("Skript","forvarvsarbetande_bransch_korrekt.R"), encoding="UTF-8")
 data_forvarvsarbetande_bransch(spara_data = TRUE,
                                output_mapp = Output_mapp)
 
