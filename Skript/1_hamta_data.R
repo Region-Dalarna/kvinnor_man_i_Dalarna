@@ -40,6 +40,16 @@ source(here("Skript","utbildningsniva_85.R"), encoding="UTF-8")
 data_utbniva_85(spara_data = TRUE,
                 output_mapp = Output_mapp)
 
+# Gymnasieantagning
+source(here("Skript","gymnasieantagning.R"), encoding="UTF-8")
+diag_gymnasieantagning(spara_data = TRUE,
+                       output_mapp = Output_mapp)
+
+# Genomströmning gymnasiet
+source(here("Skript","gymnasiet_genomströmning.R"), encoding="UTF-8")
+diag_genomstromning(spara_data = TRUE,
+                    output_mapp = Output_mapp)
+
 # Förvärvsarbetande, uppdelat på kön  OBS!! UPPDATERA TILL BAS
 source(here("Skript","forvarvsarbetande_bransch.R"), encoding="UTF-8")
 data_forvarvsarbetande_bransch(spara_data = TRUE,
@@ -125,14 +135,6 @@ source(here("Skript","startade_sjukfall_bransch.R"), encoding="UTF-8")
 diag_sjukfall_bransch(spara_data = TRUE,
                       output_mapp = Output_mapp)
 
-# Gymnasieantagning
-source(here("Skript","gymnasieantagning.R"), encoding="UTF-8")
-diag_gymnasieantagning(spara_data = TRUE,
-                       output_mapp = Output_mapp)
 
-# Genomströmning gymnasiet
-source(here("Skript","gymnasiet_genomströmning.R"), encoding="UTF-8")
-diag_genomstromning(spara_data = TRUE,
-                    output_mapp = Output_mapp)
 
 
