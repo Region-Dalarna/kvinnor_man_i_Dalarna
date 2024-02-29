@@ -222,14 +222,14 @@ utb_85_fig
 ```
 
 I nationell jämförelse har Dalarna en relativt låg andel personer med högre
-utbildning. I hela riket har 37 procent av kvinnorna och 24 procent av männen i åldersgruppen 25-64 år minst 3 års eftergymnasial utbildning.
+utbildning. I hela riket har `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Sverige",kön == "kvinnor") %>% .$andel,0)` procent av kvinnorna och `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Sverige",kön == "män") %>% .$andel,0)` procent av männen i åldersgruppen 25-64 år minst 3 års eftergymnasial utbildning.
 
 I Dalarna är andelen kvinnor med en högre utbildning om minst 3 år `r unique(utbildning_df$år)` ungefär `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Dalarna",kön == "kvinnor") %>% .$andel,0) `
 procent och motsvarande siffra för män i länet är cirka `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Dalarna",kön == "män") %>% .$andel,0) ` procent. Detta utfall placerar Dalarna sämst i landet tillsammans med Gävleborg, Kalmar och Södermanlands län som har liknande låga siffror.
 
 Generellt tenderar regioner med större urbana center att både ha en yngre och en mer välutbildad befolkning jämfört med mer glest befolkade län som Dalarna. Skillnaden är störst bland män, där andelen högutbildade män i Stockholms län är mer än dubbelt så hög som motsvarande andel i Dalarnas län.
 
-Ett mönster som även bidrar till könsskillnaden i utbildningsnivå är att många yrken inom kvinnodominerade sektorer så som utbildning och vård kräver högskoleutbildning, exemepelvis lärare och sjuksköterska som också består av många sysselsatta.
+Ett mönster som även bidrar till könsskillnaden i utbildningsnivå är att många yrken inom kvinnodominerade sektorer så som utbildning och vård kräver högskoleutbildning, exempelvis lärare och sjuksköterska som också består av många sysselsatta.
 
 Utbildningsnivån påverkar inte bara livsinkomsten utan även medellivslängden. För personer som uppnått 65 års ålder skiljer det nästan tre år i medellivslängd mellan dem som har förgymnasial utbildning och dem med eftergymnasial utbildning. Skillnaden mellan könen är genomgående cirka två år, vilket innebär att kvinnor i respektive utbildningsgrupp lever i genomsnitt två år längre än män i samma utbildningsgrupp. Samtidigt visar det sig att boenderelationer också påverkar medellivslängden, och särskilt för män. Män med förgymnasial utbildning som är sammanboende lever i genomsnitt längre än ensamstående män med eftergymnasial utbildning. Sämst utsikter, genomsnittligt, för ett långt liv har således ensamstående män med låg utbildningsnivå [(SCB)](https://www.scb.se/hitta-statistik/statistik-efter-amne/befolkning/befolkningsframskrivningar/demografisk-analys/pong/statistiknyhet/demografisk-analys-livslangdstabeller-efter-utbildningsniva){target="_blank"}.
 
@@ -298,7 +298,7 @@ utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
 ```
 
 ## Antagna till gymnasiet 
-En utmaning för länet är den obalans som råder i antalet antagna killar och tjejer till gymnasieprogrammen i Dalarna. Av totalt 20 gymnasieprogram i länet kan endast fyra sägas vara jämställda, dvs. de har en könsfördelning där andelen antagna är mellan 40 och 60 procent för både pojkar och flickor. De program som har en jämställd representation vid antagningen är hotell- och turismprogrammet, introduktionsprogram, restaurang- och livsmedelsprogrammet samt ekonomiprogrammet. Sju program har en övervikt av killar, där el- och energiprogrammet har den största obalansen, följt av VVS- och fastighetsprogrammet samt industritekniska programmet. Resterande nio program har en övervikt av tjejer, där vård- och omsorgsprogrammet är det mest obalanserade programmet följt av hantverksprogrammet och det humanistiska programmet.
+En utmaning för länet är den obalans som råder i antalet antagna killar och tjejer till gymnasieprogrammen i Dalarna. Av totalt 20 gymnasieprogram i länet kan endast sex sägas vara jämställda, dvs. de har en könsfördelning där andelen antagna är mellan 40 och 60 procent för både pojkar och flickor. De program som har en jämställd representation vid antagningen är hotell- och turismprogrammet, barn- och fritidsprogrammet, försäljnings- och serviceprogrammet, international baccalaurate, introduktionsprogram samt ekonomiprogrammet. Sex program har en övervikt av killar, där VVS- och fastighetsprogrammet har den största obalansen, följt av industritekniska programmet samt el- och energiprogrammet. Resterande åtta program har en övervikt av tjejer, där antverksprogrammetär det mest obalanserade programmet följt av vård- och omsorgsprogrammet och det humanistiska programmet.
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="150%"}
@@ -380,8 +380,8 @@ Arbeten och yrken har historiskt varit könsuppdelade. Med könsuppdelningen har
 Sedan många år har kvinnor och män haft likvärdig tillgång till utbildning och möjlighet att fritt välja yrke. Trots detta består många av könsskillnaderna i arbetslivet (se figuren nedan) och även i antagningen till gymnasiet. Det
 finns branscher i länet som har en tydlig övervikt av det ena eller det
 andra könet, exempelvis byggbranschen som omfattar yrken inom bland
-annat el och VVS, och där kvinnor bara utgjorde ungefär `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Bygg") %>% .$andel` procent av de
-förvärvsarbetande i november `r unique(forvarvsarbetande_bransch$år)`. Även om det har skett en ökning av andelen kvinnor inom byggbranschen är denna ökning ännu försumbar. Inom vård och omsorg är bilden densamma men med motsatt könsfördelning. Här utgjorde kvinnor ca `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Vård och omsorg") %>% .$andel` procent av andelen förvärvsarbetande vid samma tidpunkt.
+annat el och VVS, och där kvinnor bara utgör ungefär `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Bygg") %>% .$andel` procent av de
+förvärvsarbetande. Även om det har skett en ökning av andelen kvinnor inom byggbranschen är denna ökning ännu försumbar. Inom vård och omsorg är bilden densamma men med motsatt könsfördelning. Här utgör kvinnor ca `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Vård och omsorg") %>% .$andel` procent av de förvärvsarbetande.
 
 Att åstadkomma en förändring i närtid av balansen mellan män och kvinnor inom de könssegregerade branscherna verkar inte vara inom räckhåll då ungdomars studieval är så pass könsstereotypa.
 
@@ -488,7 +488,7 @@ största yrkesgruppen för män i Dalarna är kategorin som inkluderar
 Bland kvinnor är det istället vård- och utbildningsyrken som är
 vanligast. Här finns exempelvis `r tolower(first(yrke_kvinnor$Yrke))` och `r tolower(first(yrke_kvinnor[yrke_kvinnor$Yrke != first(yrke_kvinnor$Yrke),])$Yrke)`. Diagrammen nedan visar de yrken i länet som flest kvinnor respektive män arbetar inom.
 
-Två yrken av tio återkommer bland både kvinnor och män; vårdbiträden och butikssäljare i fackhandel. Butikssäljare har till antalet en jämn representation, medan vårdbiträde är, trots många män anställda, ett kvinnodominerat yrke med cirka 2 300 kvinnor och 1 100 män sysselsatta.
+Två yrken av tio återkommer bland både kvinnor och män; vårdbiträden och butikssäljare i fackhandel. Butikssäljare har till antalet en någorlunda jämn representation, medan vårdbiträde är, trots många män anställda, ett kvinnodominerat yrke med cirka 2 300 kvinnor och 1 100 män sysselsatta.
 
 Diagrammen visar också att de 10 största yrkena bland kvinnor omfattar drygt 20 000 anställda medan de 10 största yrkena bland män omfattar drygt 13 000 anställda, det vill säga, vissa kvinnodominerade yrken är väldigt omfattande i storlek, vilket kan bidra till svårigheten med att bryta den könsuppdelade arbetsmarknaden.
 
