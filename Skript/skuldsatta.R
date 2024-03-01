@@ -16,9 +16,11 @@ diag_kronofogden <-function(output_mapp = "G:/Samhällsanalys/Statistik/Närings
   # ======================================================================================================
   
   # Skuldsatta mer än 20 år - https://kronofogden.entryscape.net/catalog/2/datasets/196
+  # Uppdaterad i slutat av februari 2024
   langsiktiga_skulder_df <-read.csv2("https://kronofogden.entryscape.net/store/2/resource/201",encoding="latin1")
   
   # Antal personer med skulder under indrivning hos Kronofogden https://kronofogden.entryscape.net/catalog/2/datasets/3
+  # Uppdaterad sommaren 2023
   skulder_df <-read.csv2("https://kronofogden.entryscape.net/store/2/resource/27",encoding="latin1")
   
   langsiktiga_skulder_df$Kön <- case_when(

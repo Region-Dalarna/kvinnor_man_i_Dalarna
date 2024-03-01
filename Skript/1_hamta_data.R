@@ -70,7 +70,7 @@ source(here("Skript","arbetsloshet_2008_senastear.R"), encoding="UTF-8")
 diag_arbetsloshet_2008_senastear(spara_data = TRUE,
                                 output_mapp = Output_mapp)
 
-# Långtidsarbetslöshet - Från Supercross (Excel) OBS!! ANVÄND KOLADA ISTÄLLET
+# Långtidsarbetslöshet - Från Supercross (Excel)
 source(here("Skript","långtidsarbetslöshet.R"), encoding="UTF-8")
 diag_langtidsarbetsloshet(spara_data = TRUE,
                           output_mapp = Output_mapp)
