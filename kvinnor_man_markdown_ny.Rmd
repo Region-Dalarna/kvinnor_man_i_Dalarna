@@ -122,7 +122,7 @@ Jämställdhetspolitiken omfattar sex delmål bestående av områdena makt och i
 
 <ul>
 
-<li>Andelen högutbildade i Dalarna ökar bland både kvinnor och män, men andelen kvinnor med högre utbildning ökar i mycket snabbare. Idag har nästan dubbelt så många kvinnor som män i åldern 25-64 år en minst 3-årig eftergymnasial utbildning i Dalarna. </li>
+<li>Andelen högutbildade i Dalarna ökar bland både kvinnor och män, men andelen kvinnor med högre utbildning ökar i mycket snabbare. Idag är nästan dubbelt så många kvinnor som män högutbildade i Dalarna. </li>
 
 <li>Obalansen mellan tjejers och killars val till gymnasieprogrammen består. Antagningsstatistiken år 2023 visade att endast sex program av tjugo har en jämn representation av tjejer och killar.</li>
     
@@ -130,7 +130,7 @@ Jämställdhetspolitiken omfattar sex delmål bestående av områdena makt och i
 
 <li>I likhet med riket som helhet har kvinnor i Dalarna fortfarande en avsevärt lägre medianinkomst än män, även om kvinnornas inkomster har ökat i något högre takt än männens de senaste decennierna.</li>
 
-<li>Trots att skillnaderna mellan könen har minskat tydligt sedan slutet av 1990-talet, fördelas föräldrapenningdagarna ojämställt i Dalarna. År 2023 togs ungefär 7 av 10 föräldrapenningdagar ut av kvinnorna.</li>
+<li>Trots att skillnaderna mellan könen har minskat tydligt sedan slutet av 1990-talet, fördelas föräldrapenningdagarna fortfarande ojämställt i Dalarna.</li>
 
 <li>I Dalarna är kvinnors ohälsa betydligt mer omfattande än mäns sett genom försäkringskassans statistik. Denna skillnad gäller oavsett vilken bransch personen jobbar inom och är ännu tydligare när det kommer till stressrelaterade symtom.</li>
 
