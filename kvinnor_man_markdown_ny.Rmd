@@ -122,21 +122,21 @@ Jämställdhetspolitiken omfattar sex delmål bestående av områdena makt och i
 
 <ul>
 
-<li>Andelen högutbildade i Dalarna ökar bland både kvinnor och män, men andelen kvinnor med högre utbildning ökar i mycket snabbare. Idag är nästan dubbelt så många kvinnor som män högutbildade i Dalarna. </li>
+<li>Andelen högutbildade ökar bland både kvinnor och män, men andelen kvinnor med högre utbildning ökar i mycket snabbare takt. Idag är nästan dubbelt så många kvinnor som män högutbildade i Dalarna. </li>
 
 <li>Obalansen mellan tjejers och killars val till gymnasieprogrammen består. Antagningsstatistiken år 2023 visade att endast sex program av tjugo har en jämn representation av tjejer och killar.</li>
     
-<li>Ungefär lika stor andel av de inrikes födda kvinnorna och männen arbetar i Dalarna, men för utrikes födda arbetar en klart större andel män. Den största skillnaden är dock inte mellan könen, utan mellan inrikes och utrikes födda generellt, där de sistnämnda i vissa av Dalarnas kommuner har tre gånger så hög arbetslöshet som inrikes födda.</li>
+<li>Ungefär lika stor andel av de inrikes födda kvinnorna och männen arbetar i Dalarna, men bland utrikes födda arbetar en klart större andel män. Den största skillnaden är dock inte mellan könen, utan mellan inrikes och utrikes födda generellt.</li>
 
 <li>I likhet med riket som helhet har kvinnor i Dalarna fortfarande en avsevärt lägre medianinkomst än män, även om kvinnornas inkomster har ökat i något högre takt än männens de senaste decennierna.</li>
 
-<li>Trots att skillnaderna mellan könen har minskat tydligt sedan slutet av 1990-talet, fördelas föräldrapenningdagarna fortfarande ojämställt i Dalarna.</li>
+<li>Trots att skillnaderna i uttag av föräldrapenningdagar mellan könen har minskat tydligt sedan slutet av 1990-talet, är uttaget fortfarande långt ifrån jämställt i Dalarna.</li>
 
 <li>I Dalarna är kvinnors ohälsa betydligt mer omfattande än mäns sett genom försäkringskassans statistik. Denna skillnad gäller oavsett vilken bransch personen jobbar inom och är ännu tydligare när det kommer till stressrelaterade symtom.</li>
 
 <li>Inom politiken har fördelningen av förtroendeposter mellan kvinnor och män under de senaste årtiondena jämnats ut. Det råder dock fortfarande stora skillnader på lokal nivå, då endast två kommuner i Dalarna har fler kvinnliga än manliga ledamöter i fullmäktige. </li>
     
-<li>Oavsett utbildningsnivå finns fler män än kvinnor på chefspositioner i Dalarna. Trenden visar dock att en utjämning av andelen kvinnor och män på chefspositioner pågår.</li>
+<li>Oavsett utbildningsnivå finns fler män än kvinnor på chefspositioner i Dalarna. Trenden visar dock att en utjämning mellan könen pågår.</li>
 
 # Utbildning
 Det jämställdhetspolitiska målet för utbildningsområdet innebär att kvinnor och män, flickor och pojkar ska ha samma möjligheter och villkor när det gäller utbildning, studieval och personlig utveckling.
