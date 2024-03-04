@@ -34,14 +34,14 @@ options(dplyr.summarise.inform = FALSE)
 outputmapp = here("Diagram","/")
 
 # Kvarleva från tidigare
-lista_figurer=list()
-skapa_lista=FALSE
+# lista_figurer=list()
+# skapa_lista=FALSE
 
 # Om man vill uppdatera den externa hemsidan sätts denna variabel till TRUE
 uppdatera_hemsida = FALSE
 
 # Om man vill uppdatera data sätts denna variabel till TRUE
-uppdatera_data = FALSE
+#uppdatera_data = FALSE
 
 # Om man vill spara figurer sätts denna variabel till TRUE
 spara_figur = FALSE
