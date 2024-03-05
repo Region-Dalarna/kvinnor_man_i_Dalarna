@@ -7,7 +7,7 @@ if (!require("pacman")) install.packages("pacman")
 p_load(openxlsx)
 
 # Funktioner som behövs
-source("https://raw.githubusercontent.com/JonFrank81/funktioner/main/hamta_data.R")
+source("https://raw.githubusercontent.com/JonFrank81/funktioner_alternativ/main/hamta_data.R")
 
 #test_list <- diag_chefer(skapa_fil = FALSE)
 
