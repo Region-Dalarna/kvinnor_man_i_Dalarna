@@ -46,14 +46,14 @@ uppdatera_hemsida = FALSE
 # Om man vill spara figurer sätts denna variabel till TRUE
 spara_figur = FALSE
 
-if(skapa_lista == TRUE){
-source(here("master_kvinnor_man.R"), encoding = "utf-8", echo = FALSE)
-lista_figurer=c(lista_figurer,hamta_figurer(skapa_ppt=FALSE))
-}
-
-if(uppdatera_data == TRUE){
-source(here("Skript","1_hamta_data.R"), encoding="UTF-8")
-}
+# if(skapa_lista == TRUE){
+# source(here("master_kvinnor_man.R"), encoding = "utf-8", echo = FALSE)
+# lista_figurer=c(lista_figurer,hamta_figurer(skapa_ppt=FALSE))
+# }
+# 
+# if(uppdatera_data == TRUE){
+# source(here("Skript","1_hamta_data.R"), encoding="UTF-8")
+# }
 
 # Läser in data
 # befolkning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/befolkning.xlsx",sheet = 1)
@@ -109,11 +109,21 @@ För Dalarna är de regionala målen manifesterade i [Dalastrategin 2030 - Tills
 
 All offentlig verksamhet i Dalarna så som Region Dalarna, Länsstyrelsen Dalarna, länets kommuner och lärosäte arbetar på olika sätt aktivt för att verkställa den regionala och nationella jämställdhetpolitiken och respektive organisations särskilt uppsatta mål för jämställdhet. Följande rapport är tänkt att ge en bild av hur jämställdheten utvecklas i Dalarna utifrån den statistik som finns på regional och kommunal nivå. I rapporten diskuteras även läget i Dalarna i relation till nationell statistik och nationella utmaningar.
 
-Nationella uppföljningar av hur jämställdhetspolitiken bidrar till målen görs både genom statistik och policy-analyser. Statistiska uppföljningar görs av bland andra Statistiska centralbyrån (SCB) som vart annat år (sedan 1984) publicerar skriften [På tal om kvinnor och män](https://www.scb.se/hitta-statistik/statistik-efter-amne/levnadsforhallanden/jamstalldhet/jamstalldhetsstatistik/pong/publikationer/pa-tal-om-kvinnor-och-man---lathund-om-jamstalldhet-2022/){target="_blank"}^[Statistiska Centralbyrån, På tal om kvinnor och män.] och vart tionde år (sedan 1990) gör [tidsanvändningsstudier](https://www.scb.se/contentassets/4e98132b0b784a01b6e4762e909a6fa2/le0103_2021a01_br_lebr2202.pdf){target="_blank"}^[Statistiska Centralbyrån, En fråga om tid - en studie av tidsanvändningen bland kvinnor och män 2021.], nu senast 2021. Vidare analyseras årligen i regeringens budgetproposition hur den ekonomiska jämställdheten utvecklas, vilket redovisas i [Prop. 2022/23:1 bilaga 3 Ekonomisk jämställdhet](https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf){target="_blank"}^[Regeringen, Budgetproposition 2022/23:1 bilaga 3, Ekonomisk jämställdhet]. 
+Region Dalarna har tidigare publicerat uppföljningar av läget i Dalarna, här på webben år 2022, och en fördjupande uppföljning av jämställdhet i regionen inom projektet Jämställd regional tillväxt, år 2019 [Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv](https://www.regiondalarna.se/contentassets/d845727dbc9f49c3b7b09a2c60456497/jamstalldhetsrapport.pdf){target="_blank"}^[Region Dalarna, Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv.].
+
+Det görs även nationella uppföljningar av jämställdhetspolitiken. För mer information om dessa, klicka på rutan nedan:
+
+<details style = "background-color: #b9dee4">
+  <summary>Nationella uppföljningar av jämställdhetspolitiken</summary>
+
+<div>Nationella uppföljningar av hur jämställdhetspolitiken bidrar till målen görs både genom statistik och policy-analyser. Statistiska uppföljningar görs av bland andra Statistiska centralbyrån (SCB) som vart annat år (sedan 1984) publicerar skriften [På tal om kvinnor och män](https://www.scb.se/hitta-statistik/statistik-efter-amne/levnadsforhallanden/jamstalldhet/jamstalldhetsstatistik/pong/publikationer/pa-tal-om-kvinnor-och-man---lathund-om-jamstalldhet-2022/){target="_blank"}^[Statistiska Centralbyrån, På tal om kvinnor och män.] och vart tionde år (sedan 1990) gör [tidsanvändningsstudier](https://www.scb.se/contentassets/4e98132b0b784a01b6e4762e909a6fa2/le0103_2021a01_br_lebr2202.pdf){target="_blank"}^[Statistiska Centralbyrån, En fråga om tid - en studie av tidsanvändningen bland kvinnor och män 2021.], nu senast 2021. Vidare analyseras årligen i regeringens budgetproposition hur den ekonomiska jämställdheten utvecklas, vilket redovisas i [Prop. 2022/23:1 bilaga 3 Ekonomisk jämställdhet](https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf){target="_blank"}^[Regeringen, Budgetproposition 2022/23:1 bilaga 3, Ekonomisk jämställdhet]. 
 
 Policy-uppföljningar av jämställdhetspolitiken görs av bland andra Jämställdhetsmyndigheten. Myndigheten har även granskat den regionala politiken ur ett jämställdhetsperspektiv. I rapporten [Regionalpolitik, könsmönster och jämställdhetsambitioner](https://jamstalldhetsmyndigheten.se/media/xkfccjgj/rapport-2022-16-bilaga-1-regionalpolitik-ko-nsmo-nster-och-ja-msta-lldhetsambitioner.pdf){target="_blank"}^[Jämställdhetsmyndigheten Regionalpolitik, könsmönster och jämställdhetsambitioner (2022:16 bilaga 1). Bilaga till rapporten "Bättre styrning för bättre resultat".] finns en fördjupning om läget i regionerna. Här efterfrågas bland annat en bättre styrning mot jämställdhetsmålen genom relevanta indikatorer. Mer konkret handlar det bland annat om att följa upp ojämställda arbetsvillkor, ojämställda inkomster, kvinnors och mäns psykiska ohälsa och långtidssjukskrivningar, och synliggöra regionala och lokala könsmönster samt intersektionella perspektiv.
+</div>
 
-Region Dalarna har tidigare publicerat uppföljningar av läget i Dalarna, här på webben år 2022, och en fördjupande uppföljning av jämställdhet i regionen inom projektet Jämställd regional tillväxt, år 2019 [Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv](https://www.regiondalarna.se/contentassets/d845727dbc9f49c3b7b09a2c60456497/jamstalldhetsrapport.pdf){target="_blank"}^[Region Dalarna, Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv.].
+</details>
+
+
 
 # Sammanfattning {-}
 
