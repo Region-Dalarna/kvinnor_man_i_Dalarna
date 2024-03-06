@@ -1,5 +1,6 @@
 ## =================================================================================================================
 # Skript som laddar hem data för ledamöter i riksdag och fullmäktige från SCB
+# https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__ME__ME0107/
 # =================================================================================================================
 # Läser in nödvändiga bibliotek med pacman
 if (!require("pacman")) install.packages("pacman")
