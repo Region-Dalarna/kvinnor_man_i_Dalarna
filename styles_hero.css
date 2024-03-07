@@ -1,0 +1,271 @@
+/* CSS Stylesheet*/
+
+/* Generell textstorlek i dokumentet */
+html {
+
+  font-size: 16px;
+
+}
+
+.title{
+  display:none;
+}
+
+/* Det som gäller för dokumentet generellt, typografi m.m.*/
+body {
+  border-top: 5px solid #158daf;
+  margin: 0;
+  font-family:'Poppins', sans-serif;
+  font-size: 1rem;
+  /*font-weight: 400;*/
+  line-height: 1.5;
+  /*color: #212529;*/
+  text-align: left;
+  /*background-color: #fff;*/ }
+
+/* Ytan ovanför introduktion. Används enbart för att undvika att det blir en stor vit yta där*/ 
+#header{
+  background-repeat: no-repeat;
+  height: 0px;
+  width: 100%;
+  top:0;
+  margin-top: 0;
+  z-index:1;
+}  
+ 
+/*Segment med p - ta eventuellt bort*/
+/*p{
+  font-family:'Poppins', sans-serif;
+  font-size: 1rem;
+}
+
+/* Rubriker mm följer nedan */
+h1,h2,h3{
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-family:'Poppins', sans-serif;
+}
+
+h1 { /* Header 1 */
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: #000000;
+  margin-top: 2rem;
+}
+h2 { /* Header 2 */
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: #000000;
+  margin-top: 1.5rem;
+}
+h3 { /* Header 3 */
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: #000000;
+}
+
+/* Liten speciallösning som gör att brödtexten inte blir så bred*/
+.toc-content.col-xs-12.col-sm-8.col-md-9{
+  padding-right: 300px;
+}
+
+/*Punktlistor*/
+
+ul {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+}
+
+li{
+  padding-bottom: 5px;
+  padding-left: 5px;
+}
+
+/*Ytan som rymmer "Mer info om statistiken*/
+details{
+  background-color: #f1f1f1;
+  font-size: 0.9rem;
+  padding: 10px 10px;
+  border-radius: 3px 3px 3px 3px;
+  border: 0.1px dotted #000000;
+  margin-bottom: 2rem;
+}
+
+/* Ta bort? Oklart om detta används här*/
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    font-size: 1em;
+    font-weight: 800;
+    /*background: #db3747;*/
+    background: #fff;;
+    color:black;
+    /*padding: 16px 20px 12px 20px;*/
+    padding: 5px 5px 5px 5px;
+    margin-bottom: 0px;
+    border-radius: 3px 3px 0 0;
+}
+
+/*html:not([data-scroll='0']) .tocify {
+top:5px;
+}*/
+
+/* Kod som ser till att bannern försvinner vid scrollning.*/
+
+/*html:not([data-scroll='0']) .hero-image {
+display:none;
+}*/
+
+/*html:not([data-scroll='0']) .toc-content.col-xs-12.col-sm-8.col-md-9 {
+top: 5px;
+}*/
+
+/*Lägger en liten röd yta ovanför table of contents. Denna innehåller en logga*/
+#TOC::before{
+  content: "";
+  display: block;
+  height: 40px;
+  background: rgba(22,141,175);
+  /*background: #db3747;*/
+  background-image: url(logga_korrekt.png);
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/*Nedan styr hur table of contents ser ut och beter sig*/
+.tocify-header {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.tocify-subheader {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.tocify ul, .tocify li { /* Increases spacing between TOC headers*/
+    line-height: 25px !important;
+}
+
+.nav-pills>li>a:hover, .nav-pills>li>a:focus, .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus{
+     background-color: #db3747;
+     color: #fff
+     border-color: #000000;
+}
+     
+/*Bannern längst upp. Är kopplad till ett htm dokument som heter here_image. Kort fungerar så att ett objekt
+i HTML läses in i Headern (i sektionen längst upp i R-markdowndokumentet). Detta heter hero_image.html. Koden Nedan
+stilsätter det i CSS*/     
+.hero-image{
+    position: relative;
+    margin-bottom: 2em;
+    /* liner gradient tints the image darker for readability*/
+    background-image: url(Dalastrategin.jpg); 
+    height: 150px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-size: cover;
+    background-color: #141c25f2;
+    background-position: center center;
+}
+
+/*Rubriken*/
+
+/*Rubriken*/
+.top-text {
+    position: absolute;
+    bottom: 35px;
+    /*left: 150px;*/
+    margin-left: 25%;
+    width: 50%;
+    color: #fff;
+    font-size: 2.5em;
+    text-align: center;
+    line-height: 1.2em;
+    text-shadow: rgba(34,34,34,.8) 3px 5px 5px;
+    background-color: rgba(84,161,189,.8);
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* Logga vänster*/
+.header-logo {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    max-width: 150px;
+    max-height: 50px;
+}
+
+/* Logga höger*/
+.header-logo_right {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    max-width: 200px;
+    max-height: 100px;
+}
+
+blockquote {
+  background: #f9f9f9;
+  border-left: 6px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  font-size: 1rem;
+  font-family: 'Montserrat';
+  font-style: italic;
+}
+
+/*.till_startsida{
+   position: absolute;
+   top: 30px;
+   right: 30px;
+   color:white;
+   font-size: 20px;
+   text-shadow: rgba(34,34,34,.8) 3px 5px 5px;
+   background-color: rgba(84,161,189,.8);
+   padding:5px;
+   
+}*/
+
+/*
+.till_startsida:hover{
+  
+   color:red;
+   
+}*/
+
+/* Om vi klickar på loggor (vilka är länkar) så skapas en liten tonad ruta runt objektet*/
+.header-logo:active{
+  background-color: rgba(84,161,189,.8);
+}
+
+.header-logo_right:active{
+  background-color: rgba(84,161,189,.8);
+}
+
+/* Gör vissa justeringar av dokumentet när fönstret minskar, så kallad media query*/
+@media (max-width: 970px){
+ 
+ .top-text {
+    font-size: 2em;
+}
+
+.toc-content.col-xs-12.col-sm-8.col-md-9{
+  padding-right: 20px;
+}
+   
+}
+
+@media(max-width: 700px){
+  .header-logo{
+  display:none;
+}
+
+ .header-logo_right {
+   display:none;
+  
+}
+
+

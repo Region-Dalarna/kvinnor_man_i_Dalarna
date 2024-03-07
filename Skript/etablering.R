@@ -2,6 +2,7 @@
 ### Etableringstid för nyanlända ###
 ####################################
 # Källa: https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__AA__AA0003__AA0003B/IntGr1LanKonUtb/
+# Senast uppdaterad 2023-04-12 (på SCBs hemsida)
 
 # Läser in nödvändiga bibliotek med pacman
 if (!require("pacman")) install.packages("pacman")
@@ -9,7 +10,7 @@ p_load(pxweb,
        openxlsx)
 
 # Funktioner som behövs
-source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
+source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R")
 
 #test_list=diag_etablering(skapa_fil=FALSE)
 

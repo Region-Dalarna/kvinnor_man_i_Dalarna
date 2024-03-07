@@ -5,7 +5,7 @@ p_load(openxlsx,
        here)
 
 # Läser in de funktioner som används i skriptet
-#source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
+#source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R")
 
 #test_list=diag_langtidsarbetsloshet()
 diag_langtidsarbetsloshet <- function(spara_data=TRUE,

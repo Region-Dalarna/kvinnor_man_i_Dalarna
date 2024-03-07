@@ -5,7 +5,7 @@ p_load(tidyverse,
        openxlsx)
 
 # Funktioner som behövs
-source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
+source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R")
 
 hamta_data_brott <- function(region_vekt = "20",
                              output_mapp = "G:/Samhällsanalys/Statistik/Näringsliv/basfakta/",

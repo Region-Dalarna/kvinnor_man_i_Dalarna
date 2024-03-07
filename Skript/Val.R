@@ -1,5 +1,6 @@
 ## =================================================================================================================
 # Skript som laddar hem data för ledamöter i riksdag och fullmäktige från SCB
+# https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__ME__ME0107/
 # =================================================================================================================
 # Läser in nödvändiga bibliotek med pacman
 if (!require("pacman")) install.packages("pacman")
@@ -7,7 +8,7 @@ p_load(pxweb,
        openxlsx)
 
 # Funktioner som behövs
-source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
+source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R")
 
 #test_list <- diag_val(skapa_fil = FALSE)
 

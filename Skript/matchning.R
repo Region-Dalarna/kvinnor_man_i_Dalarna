@@ -1,4 +1,6 @@
 # Matchning på arbetsmarknaden. Från reginonala matchningsindikatorer (val 24 under arbetsmarknad)
+# https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__AM__AM9906__AM9906A/RegionInd19M2N/
+# Senast uppdaterad 2023-06-28 (på SCBs hemsida)
 
 # Läser in nödvändiga bibliotek med pacman
 if (!require("pacman")) install.packages("pacman")
@@ -14,6 +16,8 @@ diag_matchning <- function(output_mapp = "G:/Samhällsanalys/Statistik/Näringsl
   # Skapa en lista med information som vi vill ha hem -- skapas lättast via pxweb_interactive()
   
   url = "https://api.scb.se/OV0104/v1/doris/sv/ssd/AM/AM9906/AM9906A/RegionInd19M2N"
+  
+  pxvardelist(url, "contentscode")  
   
   pxweb_query_list <- 
     list("Region"=hamtaAllaLan(tamedriket = TRUE),

@@ -1,12 +1,13 @@
 ## =================================================================================================================
 # Skript som laddar hem data för förvärvsarbetande, bransch från SCB
 # https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__AM__AM0208__AM0208M/YREG60N/
+# Uppdaterades senaste (SCBs tabell): 2023-03-08
 # =================================================================================================================
 if (!require("pacman")) install.packages("pacman")
 p_load(pxweb,
        openxlsx)
 
-source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
+source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R")
 
 #test_list <- data_yrke(skapa_fil = TRUE)
 
