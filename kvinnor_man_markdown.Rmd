@@ -88,7 +88,6 @@ startade_sjukfall_bransch_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/st
 gymnasieantagning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasieantagning.xlsx")
 gymnasiet_genomstromning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasie_genomströmning.xlsx")
 ```
-
 <p style = "font-size:12px">
 <i>Skapad av: Samhällsanalys, Region Dalarna<br>
 Senast uppdaterad: `r Sys.Date()`</i>
@@ -107,11 +106,9 @@ Policy-uppföljningar av jämställdhetspolitiken görs av bland andra Jämstäl
 
 Region Dalarna har tidigare publicerat uppföljningar av läget i Dalarna, här på webben år 2022, och en fördjupande uppföljning av jämställdhet i regionen inom projektet Jämställd regional tillväxt, år 2019 [Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv](https://www.regiondalarna.se/contentassets/78c014a2f54a405a9467906f995f29d4/jamstalldhetsrapport.pdf)^[Region Dalarna, Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv:
     <https://www.regiondalarna.se/contentassets/78c014a2f54a405a9467906f995f29d4/jamstalldhetsrapport.pdf].
-
 <br>    
 
 # Sammanfattning {-}
-
 Jämställdhetspolitiken omfattar sex delmål bestående av områdena makt och inflytande, ekonomi, utbildning, obetalt hem- och omsorgsarbete, hälsa samt delmålet att mäns våld mot kvinnor ska upphöra. I Dalarna ser vi bland annat följande mönster och trender utifrån ett jämställdhetsperpektiv.
 <br>
 
