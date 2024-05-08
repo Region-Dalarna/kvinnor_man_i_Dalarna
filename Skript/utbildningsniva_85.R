@@ -5,7 +5,7 @@ p_load(pxweb,openxlsx)
 # Skript som behövs
 source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R")
 
-#test_list=data_utbniva_85(skapa_fil=FALSE)
+#test=data_utbniva_85(spara_data=FALSE,region_vekt="2061")
 data_utbniva_85 <- function(region_vekt="20",
                             spara_data = TRUE,
                             output_mapp = "G:/skript/jon/Slask/",

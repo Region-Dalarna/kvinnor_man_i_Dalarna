@@ -26,7 +26,7 @@ diag_stress<-function(region_vekt = "20",
   # Döper om vissa variabler i dataset
   flik_lista[[1]] <- flik_lista[[1]] %>% 
     rename(Antal = `Antal pågående sjukfall`,
-           Andel_procent = `Andel pågående sjukfall i procent`)
+           Andel_procent = `Andel pågående sjukfall (%)`)
   
   
   # Sparar data till Excel
