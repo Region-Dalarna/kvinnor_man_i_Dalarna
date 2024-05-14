@@ -1,4 +1,4 @@
-test = diag_sysselsatta_forandring_bransch(region_vekt = hamtakommuner(lan="20",tamedriket = FALSE),spara_figur = TRUE,output_mapp_figur = "G:/Samhällsanalys/API/Fran_R/utskrift/",diag_facet=FALSE)
+#test = diag_sysselsatta_forandring_bransch(region_vekt = hamtakommuner(lan="20",tamedriket = FALSE),spara_figur = TRUE,output_mapp_figur = "G:/Samhällsanalys/API/Fran_R/utskrift/",diag_facet=FALSE)
 diag_sysselsatta_forandring_bransch <- function(region_vekt = "20", # Region vi är intresserade av. 
                                                 output_mapp_figur = "G:/Samhällsanalys/Statistik/Näringsliv/basfakta/", # Här hamnar sparad figur
                                                 filnamn_data = "andel_forvarvsarbetande.xlsx",
@@ -9,8 +9,7 @@ diag_sysselsatta_forandring_bransch <- function(region_vekt = "20", # Region vi 
                                                 returnera_figur = TRUE) { # Skall figur returneras (i en lista))
   
   # ========================================== Allmän info ============================================
-  #hamtakommuner(lan="20",tamedriket = FALSE)
-  # 1: Skapar diagram för andelen förvärvsarbetande inom olika branscher, dels på länsnivå, dels på kommunnivå. Enbart senaste år och ingen uppdelning på kön
+  # 
   # 1: Antal förvärvsarbetande senaste observation uppdelat på kön
   # Senast uppdaterad: Jon 2024-01-18
   # ========================================== Inställningar ============================================
@@ -32,15 +31,7 @@ diag_sysselsatta_forandring_bransch <- function(region_vekt = "20", # Region vi 
   #vald_region = skapa_kortnamn_lan(hamtaregion_kod_namn(region_vekt)$region)
   
   # =============================================== API-uttag ===============================================
-  
-  # Hämtar data
-  # source("G:/skript/hamta_data/hamta_syss_bransch_kon_manad_bas.R")
-  # 
-  # 
-  # df = hamta_syss_branscher_kon_manad_bas(region_vekt = region_vekt,
-  #                                         ar_vekt = NA,
-  #                                         ) 
-  
+
   source("C:/Users/frkjon/Projekt/laget_i_Dalarna/Skript/hamta_sysselsatta_region_kon_sni2007_fodelseregion_tid_ArbStDoNMNN_scb.R")
   df <- hamta_sysselsatta_region_kon_sni2007_fodelseregion_tid_scb(region_vekt = region_vekt,
                                                                    kon_klartext = "totalt",
@@ -92,10 +83,7 @@ diag_sysselsatta_forandring_bransch <- function(region_vekt = "20", # Region vi 
       diagramfil <- paste0("förändring_",unique(df$bransch),".png")
     }
     
-    #diagram_titel <- paste0("Föränding i antal förvärvsarbetande (16-74 år) per bransch inom ",hamtaregion_kod_namn(vald_region)[2])
-    #diagram_titel <- str_wrap(diagram_titel,40)
     diagram_undertitel <- paste0("Mellan ",senaste_manad," ",min(df$år)," och ",senaste_manad," ",max(df$år))
-    #diagramfil <- paste0("förändring_bransch_",first(hamtaregion_kod_namn(vald_region)[2]),".png")
     objektnamn <- c(objektnamn,diagramfil %>% str_remove(".png"))
     
     gg_obj <- SkapaStapelDiagram(skickad_df = df %>% 

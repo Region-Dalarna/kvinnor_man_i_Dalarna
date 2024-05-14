@@ -257,7 +257,8 @@ diagramfilnamn <- paste0("medianinkomst_",unique(medianinkomst_df %>% filter(reg
 
 # Skapar diagram för medianinkomst i valt län vs riket (ej uppdelat på kön)
 medianinkomst_linje_fig <- SkapaLinjeDiagram(skickad_df = medianinkomst_df %>%
-                                               filter(kön != "totalt"),
+                                               filter(kön != "totalt",
+                                                      regionkod=="2061"),
                                              skickad_x_var = "år",
                                              skickad_y_var = "medianinkomst",
                                              skickad_x_grupp = "kön",
@@ -605,7 +606,7 @@ fp_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df %>%
                              skriv_till_diagramfil = spara_figur)
 
 diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
-diagramtitel <- "Andel nettodagar per kön i Smedjebacken"
+diagramtitel <- "Andel nettodagar (föräldrapenning) per kön i Smedjebacken"
 diagramfilnamn <- "Foraldrapenning_andel_Smedjebacken.png"
 
 fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
@@ -901,6 +902,8 @@ chefer_linje_fig <- SkapaLinjeDiagram(skickad_df =chefer_df %>%
                                       output_mapp = outputmapp_figur,
                                       filnamn_diagram = diagramfilnamn,
                                       skriv_till_diagramfil = spara_figur)
+
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\n Bearbetning: Samhällsanalys, Region Dalarna."
 
 kommunval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 3)
 
