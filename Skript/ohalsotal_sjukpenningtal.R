@@ -19,7 +19,7 @@ diag_ohalsa<-function(region_vekt = "20",
   # =============================================== Uttag ===============================================
   # Adresser till data
   path = c("https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/ohm-ohalsotal/SJPohttal.xlsx","https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/ohm-sjptal/SJPsjptal.xlsx")
-  
+  # https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/ohm-ohalsotal/SJPohttal.xlsx
   # Anropar funktionen hamta_data_FK som hämtar data från öppna data på Försäkringskassan och returnerar en lista.
   flik_lista <- hamta_data_FK(path, c("Ohälsotalet","Sjukpenningtalet"),region_vekt)
   

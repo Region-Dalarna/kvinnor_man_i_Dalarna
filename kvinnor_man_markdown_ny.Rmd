@@ -72,7 +72,6 @@ etablering_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/etableringstid.xl
 medianinkomst_df <-  read.xlsx("G:/skript/projekt/data/kvinnor_man/medianinkomst.xlsx") %>% 
   rename(medianinkomst = `Medianinkomst,.tkr`)
 disponibel_inkomst_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/disponibel_inkomst.xlsx")
-matchning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/matchning.xlsx")
 langsiktiga_skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx",sheet = 1)
 skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx", sheet = 2)
 skulder_andel_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta_andel.xlsx")
@@ -524,77 +523,81 @@ till. Genomsnittligt ligger matchningsgraden på runt `r round(matchning_df %>% 
 `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "totalt",region == "Dalarna") %>% .$matchningsgrad,0)` procent, vilket är något sämre än genomsnittet för riket som helhet.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-  diagram_capt <- "Källa: SCB:s öppna statistikdatabas, regionala matchningsindikatorer.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Med matchning avses matchad förvärvsgrad\ndvs. andelen utbildade som har ett yrke som helt matchar deras utbildning (enligt SCB)."
-
-diagramtitel <- paste0("Matchning på arbetsmarknaden i Sveriges regioner ",max(matchning_df$år))
-diagramfilnamn <- paste0("matchning_lan.png")
-
-matchning_lan_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
-                                         filter(kön != "samtliga anställda",
-                                                fodelseland == "totalt",
-                                                år == max(år)),
-                                       skickad_x_var = "region",
-                                       skickad_y_var = "matchningsgrad",
-                                       skickad_x_grupp = "kön",
-                                       manual_x_axis_text_vjust=1,
-                                       manual_x_axis_text_hjust=1,
-                                       manual_color = diagramfarger("kon"),
-                                       diagram_titel = diagramtitel,
-                                       diagram_capt =  diagram_capt,
-                                       x_axis_sort_value = TRUE,
-                                       x_axis_lutning = 45,
-                                       stodlinjer_avrunda_fem = TRUE,
-                                       manual_y_axis_title = "procent",
-                                       output_mapp = outputmapp,
-                                       filnamn_diagram = diagramfilnamn,
-                                       skriv_till_diagramfil = spara_figur)
+#   diagram_capt <- "Källa: SCB:s öppna statistikdatabas, regionala matchningsindikatorer.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Med matchning avses matchad förvärvsgrad\ndvs. andelen utbildade som har ett yrke som helt matchar deras utbildning (enligt SCB)."
+# 
+# diagramtitel <- paste0("Matchning på arbetsmarknaden i Sveriges regioner ",max(matchning_df$år))
+# diagramfilnamn <- paste0("matchning_lan.png")
+# 
+# matchning_lan_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
+#                                          filter(kön != "samtliga anställda",
+#                                                 fodelseland == "totalt",
+#                                                 år == max(år)),
+#                                        skickad_x_var = "region",
+#                                        skickad_y_var = "matchningsgrad",
+#                                        skickad_x_grupp = "kön",
+#                                        manual_x_axis_text_vjust=1,
+#                                        manual_x_axis_text_hjust=1,
+#                                        manual_color = diagramfarger("kon"),
+#                                        diagram_titel = diagramtitel,
+#                                        diagram_capt =  diagram_capt,
+#                                        x_axis_sort_value = TRUE,
+#                                        x_axis_lutning = 45,
+#                                        stodlinjer_avrunda_fem = TRUE,
+#                                        manual_y_axis_title = "procent",
+#                                        output_mapp = outputmapp,
+#                                        filnamn_diagram = diagramfilnamn,
+#                                        skriv_till_diagramfil = spara_figur)
 ```
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-matchning_lan_fig
+gg_matchning$matchning_jmf
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+  diagram_capt <- "Källa: SCB:s öppna statistikdatabas, regionala matchningsindikatorer.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Med matchning avses matchad förvärvsgrad\ndvs. andelen utbildade som har ett yrke som helt matchar deras utbildning (enligt SCB)."
 ```
 <br>
 Matchningen på arbetsmarknaden tenderar således att vara högre för högre utbildningsnivåer, vilket kan förklaras med att högre utbildning ofta är tydligare kopplad till ett visst yrke. Det finns också skillnader i matchningen beroende på födelseland. I Dalarna har inrikes födda högst matchning med ungefär `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "födda i Sverige",region == "Dalarna") %>% .$matchningsgrad,0)`
 procent för både kvinnor och män. Även personer födda inom EU har hög
-matchning (runt `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "födda i Norden eller EU utom Sverige",region == "Dalarna") %>% .$matchningsgrad,0)` procent). Lägst matchningsgrad har personer `r matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` (ca `r round(matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)`  procent).
+matchning (runt `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "födda i Norden eller EU utom Sverige",region == "Dalarna") %>% .$matchningsgrad,0)` procent). Lägst matchningsgrad har personer `r matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` (ca `r round(matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)`  procent). Värt att notera är att det är stora könsskillnader när det kommer till personer födda i Afika. Kvinnor har högst matchningsgrad bland grupperna i diagrammet nedan (ca `r round(matchning_df %>% filter(kön == "kvinnor",region == "Dalarna",fodelseland == "födda i Afrika") %>% .$matchningsgrad,0)` procent), medan männen har lägst matchningsgrad (ca `r round(matchning_df %>% filter(kön == "män",region == "Dalarna",fodelseland == "födda i Afrika") %>% .$matchningsgrad,0)` procent).
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-matchning_df <- matchning_df %>% 
-  mutate("fodelseland" = ifelse(fodelseland %in% c("födda i Europa utom Norden och EU samt Sydamerika, Nordamerika och Oceanien"),"övriga", fodelseland)) 
-
-diagramtitel <- paste0("Matchning på arbetsmarknaden i Dalarna ",max(matchning_df$år))
-diagramfilnamn <- paste0("matchning_bakgrund.png")
-
-matchning_bakg_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
-                                           filter(kön != "samtliga anställda",
-                                                  år == max(år),
-                                                  region == "Dalarna",
-                                                  fodelseland != "totalt"),
-                                         skickad_x_var = "fodelseland",
-                                         skickad_y_var = "matchningsgrad",
-                                         skickad_x_grupp = "kön",
-                                         # manual_x_axis_text_vjust=1,
-                                         # manual_x_axis_text_hjust=1,
-                                         manual_color = diagramfarger("kon"),
-                                         diagram_titel = diagramtitel,
-                                         diagram_capt =  diagram_capt,
-                                         diagram_facet = FALSE,
-                                         x_axis_sort_value = TRUE,
-                                         x_axis_lutning =0,
-                                         diagram_liggande = TRUE,
-                                         stodlinjer_avrunda_fem = TRUE,
-                                         manual_y_axis_title="procent",
-                                         berakna_index = FALSE,
-                                         output_mapp = outputmapp,
-                                         filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = spara_figur)
+# matchning_df <- matchning_df %>% 
+#   mutate("fodelseland" = ifelse(fodelseland %in% c("födda i Europa utom Norden och EU samt Sydamerika, Nordamerika och Oceanien"),"övriga", fodelseland)) 
+# 
+# diagramtitel <- paste0("Matchning på arbetsmarknaden i Dalarna ",max(matchning_df$år))
+# diagramfilnamn <- paste0("matchning_bakgrund.png")
+# 
+# matchning_bakg_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
+#                                            filter(kön != "samtliga anställda",
+#                                                   år == max(år),
+#                                                   region == "Dalarna",
+#                                                   fodelseland != "totalt"),
+#                                          skickad_x_var = "fodelseland",
+#                                          skickad_y_var = "matchningsgrad",
+#                                          skickad_x_grupp = "kön",
+#                                          # manual_x_axis_text_vjust=1,
+#                                          # manual_x_axis_text_hjust=1,
+#                                          manual_color = diagramfarger("kon"),
+#                                          diagram_titel = diagramtitel,
+#                                          diagram_capt =  diagram_capt,
+#                                          diagram_facet = FALSE,
+#                                          x_axis_sort_value = TRUE,
+#                                          x_axis_lutning =0,
+#                                          diagram_liggande = TRUE,
+#                                          stodlinjer_avrunda_fem = TRUE,
+#                                          manual_y_axis_title="procent",
+#                                          berakna_index = FALSE,
+#                                          output_mapp = outputmapp,
+#                                          filnamn_diagram = diagramfilnamn,
+#                                          skriv_till_diagramfil = spara_figur)
 
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-matchning_bakg_fig
+gg_matchning$matchning_bakgrund
 ```
 
 # Ekonomisk jämställdhet

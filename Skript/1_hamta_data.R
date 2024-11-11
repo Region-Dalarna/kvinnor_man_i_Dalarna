@@ -90,17 +90,18 @@ source(here("Skript","disponibel_inkomst.R"), encoding="UTF-8")
 diag_disponibelinkomst(spara_data = TRUE,
                        output_mapp = Output_mapp)
 
-# Matchning
-source(here("Skript","matchning.R"), encoding="UTF-8")
-diag_matchning(spara_data = TRUE,
-               output_mapp = Output_mapp)
+# Ersatt av funktion
+# # Matchning - FUNKAR INTE. SCB har ändrat sin hemsida.
+# source(here("Skript","matchning.R"), encoding="UTF-8")
+# diag_matchning(spara_data = TRUE,
+#                output_mapp = Output_mapp)
 
-# Skuldsatta (Kronofogden)
+# Skuldsatta (Kronofogden) - Sannolikt saknas även anslutning till Kronofogden
 source(here("Skript","skuldsatta.R"), encoding="UTF-8")
 diag_kronofogden(spara_data = TRUE,
                  output_mapp = Output_mapp)
 
-# Skuldsatta andel (Kronofogden)
+# Skuldsatta andel (Kronofogden) - Sannolikt saknas även anslutning till Kronofogden
 source(here("Skript","skuldsatta_andel.R"), encoding="UTF-8")
 diag_kronofogden_andel(spara_data = TRUE,
                        output_mapp = Output_mapp)
@@ -115,7 +116,7 @@ source(here("Skript","Chefer.R"), encoding="UTF-8")
 diag_chefer(spara_data = TRUE,
             output_mapp = Output_mapp)
 
-# Föräldrapenning och VAB
+# Föräldrapenning och VAB - Funkar inte. Sannolikt begränsas uppkopplingen mot försäkringskassan
 source(here("Skript","foraldrapenning.R"), encoding="UTF-8")
 diag_foraldraforsakring(spara_data = TRUE,
                         output_mapp = Output_mapp)
