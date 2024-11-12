@@ -19,7 +19,10 @@ diag_foraldraforsakring<-function(region_vekt = "20",
   # =============================================== Uttag ===============================================
   # Adresser till data
   path = c("https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/fp-antal-mottagare-nettodagar-belopp/FPAntalDagarBeloppLanKommun.xlsx",
-           "https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/tfp-antal-mottagare-belopp/TfpAntalDagarBeloppLanKommun.xlsx")
+           "https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/tfp-vab-antal-mottagare-belopp/tfpVabAntalDagarBeloppLanKommun.xlsx")
+  
+  # https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/tfp-antal-mottagare-belopp/TfpAntalDagarBeloppLanKommun.xlsx
+  # https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/tfp-vab-antal-mottagare-belopp/tfpVabAntalDagarBeloppLanKommun.xlsx
   
   # Anropar funktionen hamta_data_FK som hämtar data från öppna data på Försäkringskassan och returnerar en lista.
   flik_lista <- hamta_data_FK(path, c("Föräldrapenning","VAB"),region_vekt)

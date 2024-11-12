@@ -116,7 +116,7 @@ source(here("Skript","Chefer.R"), encoding="UTF-8")
 diag_chefer(spara_data = TRUE,
             output_mapp = Output_mapp)
 
-# Föräldrapenning och VAB - Funkar inte. Sannolikt begränsas uppkopplingen mot försäkringskassan
+# Föräldrapenning och VAB Kontrollerad och fungerar (data har ej uppdaterats för 2024 ännu)
 source(here("Skript","foraldrapenning.R"), encoding="UTF-8")
 diag_foraldraforsakring(spara_data = TRUE,
                         output_mapp = Output_mapp)
@@ -126,7 +126,7 @@ source(here("Skript","ohalsotal_sjukpenningtal.R"), encoding="UTF-8")
 diag_ohalsa(spara_data = TRUE,
             output_mapp = Output_mapp)
 
-# Startade sjukfall stress - Är något fel!
+# Startade sjukfall stress - Har uppdaterat (inklusive markdown-skript)
 source(here("Skript","sjukfall_stress.R"), encoding="UTF-8")
 diag_stress(spara_data = TRUE,
             output_mapp = Output_mapp)

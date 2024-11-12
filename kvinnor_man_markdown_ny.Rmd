@@ -1428,10 +1428,10 @@ diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Reg
 diagramtitel <- "Vård av barn, antal uttagna nettodagar i Dalarna"
 diagramfilnamn <- "vab_antal.png"
 
+# tidigare  Delförmån == "Vård av barn"
 tfp_fig <- SkapaStapelDiagram(skickad_df = vab_df%>%
                                filter(Kommun == "Samtliga kommuner",
-                                      Kön != "Kvinnor och män",
-                                      Delförmån == "Vård av barn") %>% 
+                                      Kön != "Kvinnor och män") %>% 
                                 mutate(Kön = tolower(Kön),
                                        Antal_nettodagar = as.numeric(Antal_nettodagar)), 
                              skickad_x_var = "År", 
@@ -1461,11 +1461,10 @@ tfp_fig
 
 diagramtitel <- "Vård av barn, förändring i antal uttagna nettodagar i Dalarna"
 diagramfilnamn <- "Vab_antal_linje.png"
-
+# tidigare: Delförmån == "Vård av barn"
 tfp_fig_linje <- SkapaLinjeDiagram(skickad_df = vab_df%>%
                                      filter(Kommun == "Samtliga kommuner",
-                                            Kön != "Kvinnor och män",
-                                            Delförmån == "Vård av barn") %>% 
+                                            Kön != "Kvinnor och män") %>% 
                                       mutate(Kön = tolower(Kön),
                                              Antal_nettodagar = as.numeric(Antal_nettodagar),
                                              "år" = År), 
@@ -1671,8 +1670,10 @@ sjukpenningtal_kommun_fig
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 diagram_capt<-"Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
 
+# Tidigare: filter(Kommun == "Samtliga kommuner") %>% 
+
 stress_df_utskrift <- stress_df %>%
-  filter(Kommun == "Samtliga kommuner") %>% 
+  filter(Kommun == "20 Dalarnas län") %>% 
     mutate(Antal = as.numeric(Antal)) %>% 
       group_by(År,Län,Kön) %>% 
         summarize(Antal_medel=mean(Antal))
