@@ -2,7 +2,7 @@
 # Källa: https://www.forsakringskassan.se/statistik-och-analys/sjuk/statistik-inom-omradet-sjuk---sjukpenning-och-rehabiliteringspenning
 # Välj sjukfrånvaro per bransch och sektor, 2010-
 # Läser in nödvändiga bibliotek med pacman
-# Senast kontrollerad: 2024-02-23 (data). Finns fram till 2022.
+# Senast kontrollerad: 2024-11-13 (data). Finns fram till 2023.
 if (!require("pacman")) install.packages("pacman")
 p_load(here,
        openxlsx,
@@ -10,7 +10,7 @@ p_load(here,
 
 #test_list <- diag_sjukpenning_bransch(skapa_fil=FALSE)
 diag_sjukfall_bransch <- function(output_mapp = "G:/Samhällsanalys/Statistik/Näringsliv/basfakta/",
-                                     filnamn = "startade_sjukfall_bransch_bearbetad.xlsx",
+                                     filnamn = "startade_sjukfall_bransch_bearbetad", # Utan filändelse. Datum och filändelse läggs till i skriptet.
                                      spara_data = TRUE){
   
   # ========================================== Inställningar ============================================
@@ -21,7 +21,7 @@ diag_sjukfall_bransch <- function(output_mapp = "G:/Samhällsanalys/Statistik/N�
   
   # Läser in data från Excel
   # Antal startade sjukfall per 1000 förvärvsarbetande
-  antal_sjukfall_bransch_df <-read.xlsx("G:/skript/projekt/data/kvinnor_man/Antal startade sjukfall bransch.xlsx",sheet = 2)
+  antal_sjukfall_bransch_df <-read.xlsx("G:/skript/projekt/data/kvinnor_man/Antal startade sjukfall bransch_2024_11_13.xlsx",sheet = 2)
 
   # Pivoterar data för att få den på rätt sätt
   antal_sjukfall_bransch_df <- antal_sjukfall_bransch_df %>% 
@@ -47,6 +47,8 @@ diag_sjukfall_bransch <- function(output_mapp = "G:/Samhällsanalys/Statistik/N�
                                                  antal_sjukfall_bransch_df$SNI2007 == "Q - Vård och omsorg; sociala tjänster" ~ "Vård och omsorg",
                                                  antal_sjukfall_bransch_df$SNI2007 == "R - Kultur, nöje och fritid" ~ "Kultur m.m.",
                                                  antal_sjukfall_bransch_df$SNI2007 == "S - Annan serviceverksamhet" ~ "Annan serviceverksamhet")
+  
+  filnamn <- paste(filnamn,format(Sys.Date(),"_%Y_%b_%d"),".xlsx",sep="")
 
   # Sparar data till Excel
   if (spara_data==TRUE){

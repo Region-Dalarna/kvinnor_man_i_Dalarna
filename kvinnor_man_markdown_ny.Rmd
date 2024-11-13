@@ -91,7 +91,7 @@ sjukpenningtal_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/ohalsotal_sju
     filter(Ålder == "Samtliga 16-64 år")
 stress_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/sjukfall_stress.xlsx")
 # OBS! UPPDATERAS MANUELLT
-startade_sjukfall_bransch_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/startade_sjukfall_bransch_bearbetad.xlsx")
+startade_sjukfall_bransch_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/startade_sjukfall_bransch_bearbetad_2024_nov_13.xlsx")
 gymnasieantagning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasieantagning.xlsx")
 gymnasiet_genomstromning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasie_genomströmning.xlsx")
 ```
@@ -1582,7 +1582,7 @@ diagram_capt_sjukpenning<-"Källa: Försäkringskassan.\nBearbetning: Samhällsa
 
 sjukpenningtal_df_utskrift <-sjukpenningtal_df %>%
   filter(Ålder == "Samtliga 16-64 år") %>%
-    mutate(Sjukpenningtal = as.numeric(Sjukpenningtal)) %>% 
+    mutate(Sjukpenningtal = as.numeric(`Sjukpenningtal.1.0`)) %>% 
       group_by(År,Län,Kommun,Kön) %>% 
         summarize(Sjukpenningtal_medel=mean(Sjukpenningtal))
 
