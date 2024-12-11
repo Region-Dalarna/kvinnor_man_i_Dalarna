@@ -2,7 +2,7 @@ output_mapp_figur = "Diagram/"
 
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diagram_matchning_lan_bakgrund.R")
 gg_matchning <- diag_matchning_lan(region_vekt = "20",
-                                   spara_figur = TRUE,
+                                   spara_figur = FALSE,
                                    returnera_data = TRUE,
                                    kon_klartext = "*")
 

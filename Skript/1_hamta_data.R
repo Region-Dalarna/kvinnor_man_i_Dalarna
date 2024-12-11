@@ -116,7 +116,7 @@ source(here("Skript","Chefer.R"), encoding="UTF-8")
 diag_chefer(spara_data = TRUE,
             output_mapp = Output_mapp)
 
-# Föräldrapenning och VAB Kontrollerad och fungerar (data har ej uppdaterats för 2024 ännu)
+# Föräldrapenning och VAB - ok, uppdaterat med Peters skript -  (data har ej uppdaterats för 2024 ännu)
 source(here("Skript","foraldrapenning.R"), encoding="UTF-8")
 diag_foraldraforsakring(spara_data = TRUE,
                         output_mapp = Output_mapp)
@@ -132,6 +132,7 @@ diag_stress(spara_data = TRUE,
             output_mapp = Output_mapp)
 
 # Startade sjukfall bransch. Försäkringskassan, Excel hemsida. senast uppdaterad 2024-11-13
+# Finns inte att hämta via dataportal
 source(here("Skript","startade_sjukfall_bransch.R"), encoding="UTF-8")
 diag_sjukfall_bransch(spara_data = TRUE,
                       output_mapp = Output_mapp)

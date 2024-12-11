@@ -8,6 +8,8 @@ p_load(here,
        openxlsx,
        tidyverse)
 
+# source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R")
+# test <- hamta_fk_json_dataset_med_url("https://api.scb.se/OV0104/v1/doris/sv/ssd/AM/AM0209/AM0209A/KSjuSNI2007")
 #test_list <- diag_sjukpenning_bransch(skapa_fil=FALSE)
 diag_sjukfall_bransch <- function(output_mapp = "G:/Samhällsanalys/Statistik/Näringsliv/basfakta/",
                                      filnamn = "startade_sjukfall_bransch_bearbetad", # Utan filändelse. Datum och filändelse läggs till i skriptet.

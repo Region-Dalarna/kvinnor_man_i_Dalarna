@@ -2,7 +2,9 @@
 # Källa: Kronofogden
 
 if (!require("pacman")) install.packages("pacman")
-p_load(pxweb,openxlsx)
+p_load(pxweb,
+       openxlsx,
+       readxl)
 
 # Laddar in de funktioner som används för att skapa diagram
 source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R")
@@ -19,6 +21,13 @@ diag_kronofogden <-function(output_mapp = "G:/Samhällsanalys/Statistik/Närings
   # Uppdaterad i slutat av februari 2024
   langsiktiga_skulder_df <-read.csv2("https://kronofogden.entryscape.net/store/2/resource/201",encoding="latin1")
   
+  #Verkar för tillfället inte fungera att ladda hem filen direkt från Kronofogden
+  # td = tempdir()              # skapa temporär mapp
+  # varsel_fil <- tempfile(tmpdir=td, fileext = ".xlsx")
+  # GET("https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/sjp-startade-diagnos/SJPStartadeSjukfallDiagnos.xlsx"
+  # , write_disk(varsel_fil, overwrite = TRUE))
+  # 
+  # dataset_df <- read_xlsx(varsel_fil)
   # Antal personer med skulder under indrivning hos Kronofogden https://kronofogden.entryscape.net/catalog/2/datasets/3
   # Uppdaterad sommaren 2023
   skulder_df <-read.csv2("https://kronofogden.entryscape.net/store/2/resource/27",encoding="latin1")

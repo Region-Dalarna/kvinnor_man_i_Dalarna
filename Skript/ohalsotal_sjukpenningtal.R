@@ -7,7 +7,8 @@ if (!require("pacman")) install.packages("pacman")
 p_load(openxlsx)
 
 # Funktioner som behövs
-source("https://raw.githubusercontent.com/JonFrank81/funktioner_alternativ/main/hamta_data.R")
+#source("https://raw.githubusercontent.com/JonFrank81/funktioner_alternativ/main/hamta_data.R")
+source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R")
 
 #test_list <- diag_chefer(skapa_fil = FALSE)
 
@@ -20,8 +21,45 @@ diag_ohalsa<-function(region_vekt = "20",
   # Adresser till data
   path = c("https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/ohm-ohalsotal/SJPohttal.xlsx","https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/ohm-sjptal/SJPsjptal.xlsx")
   # https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/ohm-ohalsotal/SJPohttal.xlsx
+  # Tidigare
   # Anropar funktionen hamta_data_FK som hämtar data från öppna data på Försäkringskassan och returnerar en lista.
-  flik_lista <- hamta_data_FK(path, c("Ohälsotalet","Sjukpenningtalet"),region_vekt)
+  #flik_lista <- hamta_data_FK(path, c("Ohälsotalet","Sjukpenningtalet"),region_vekt)
+  
+  flik_lista = list()
+  
+  ohalsa_lista = hamta_excel_dataset_med_url(path[1],skippa_rader = 2) 
+  
+  # Eftersom dataset är så stort returneras det med en lista. Här slås dessa ihop till en dataframe.
+  j=1
+  ohalsa_df=c()
+  while(j<=length(ohalsa_lista)){
+    ohalsa_df <- rbind(ohalsa_df,ohalsa_lista[[j]])
+    j=j+1
+  }
+  
+  ohalsa_df <- ohalsa_df %>% 
+    filter(substr(Län,1,2) %in% region_vekt) %>% 
+      select(-kolumnnamn)
+  
+  flik_lista[[1]] = ohalsa_df
+  
+  sjp_lista = hamta_excel_dataset_med_url(path[2],skippa_rader = 2) 
+  
+  j=1
+  sjp_df=c()
+  while(j<=length(sjp_lista)){
+    sjp_df <- rbind(sjp_df,sjp_lista[[j]])
+    j=j+1
+  }
+  
+  sjp_df <- sjp_df %>% 
+    filter(substr(Län,1,2) %in% region_vekt) %>% 
+      select(-kolumnnamn)
+  
+  flik_lista[[2]] = sjp_df
+  
+  names(flik_lista) = c("Ohälsotalet","Sjukpenningtalet")
+  
   
   # flik_lista = lst()
   # i=1

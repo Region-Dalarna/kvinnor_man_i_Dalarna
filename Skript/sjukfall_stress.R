@@ -7,7 +7,8 @@ if (!require("pacman")) install.packages("pacman")
 p_load(openxlsx)
 
 # Funktioner som behövs
-source("https://raw.githubusercontent.com/JonFrank81/funktioner_alternativ/main/hamta_data.R")
+#source("https://raw.githubusercontent.com/JonFrank81/funktioner_alternativ/main/hamta_data.R")
+source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R")
 
 #test_list <- diag_chefer(skapa_fil = FALSE)
 
@@ -20,14 +21,27 @@ diag_stress<-function(region_vekt = "20",
   # Adresser till data
   path = c("https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/sjp-pagaende-sjukfall-diagnos-f43/SJPPagSjukfallDiagnosF43.xlsx")
   
-  # Anropar funktionen hamta_data_FK som hämtar data från öppna data på Försäkringskassan och returnerar en lista.
-  flik_lista <- hamta_data_FK(path, c("Stress"),region_vekt)
-  
+  # Tidigare
+  # # Anropar funktionen hamta_data_FK som hämtar data från öppna data på Försäkringskassan och returnerar en lista.
+  # flik_lista <- hamta_data_FK(path, c("Stress"),region_vekt)
+  # 
   # Döper om vissa variabler i dataset
-  flik_lista[[1]] <- flik_lista[[1]] %>% 
-    rename(Antal = `Antal pågående sjukfall`,
-           Andel_procent = `Andel pågående sjukfall (%)`)
+  # flik_lista[[1]] <- flik_lista[[1]] %>%
+  #   rename(Antal = `Antal pågående sjukfall`,
+  #          Andel_procent = `Andel pågående sjukfall (%)`)
   
+  # Med Peters nya skript
+  flik_lista = list()
+  
+  stress_df = hamta_excel_dataset_med_url(path,skippa_rader = 2) %>% 
+    filter(substr(Län,1,2) %in% region_vekt) %>%
+      rename(Antal = `Antal pågående sjukfall`,
+             Andel_procent = `Andel pågående sjukfall (%)`) %>%  
+        select(-kolumnnamn)
+  
+  flik_lista[[1]] = stress_df
+
+  names(flik_lista) = c("Stress")
   
   # Sparar data till Excel
   if (spara_data==TRUE){
