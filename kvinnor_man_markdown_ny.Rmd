@@ -495,9 +495,9 @@ Skillnader mellan kvinnor och män föreligger således fortfarande på yrkesniv
 Bland kvinnor är det istället vård- och utbildningsyrken som är
 vanligast. Här finns exempelvis `r tolower(first(yrke_kvinnor$Yrke))` och `r tolower(first(yrke_kvinnor[yrke_kvinnor$Yrke != first(yrke_kvinnor$Yrke),])$Yrke)`. Diagrammen nedan visar de yrken i länet som flest kvinnor respektive män arbetar inom.
 
-Två yrken av tio återkommer bland både kvinnor och män; vårdbiträden och butikssäljare i fackhandel. Butikssäljare har till antalet en någorlunda jämn representation, medan vårdbiträde är, trots många män anställda, ett kvinnodominerat yrke med cirka 2 300 kvinnor och 1 100 män sysselsatta.
+Två yrken av tio återkommer bland både kvinnor och män; vårdbiträden och butikssäljare i fackhandel. Båda yrkena är kvinnodominerade, med `r format(plyr::round_any(yrke_kvinnor %>% filter(Yrke == "Butikssäljare, fackhandel") %>% .$Antal,100),big.mark=" "` kvinnor och `r format(plyr::round_any(yrke_man %>% filter(Yrke == "Butikssäljare, fackhandel") %>% .$Antal,100),big.mark=" ")` män sysselsatta som butikssäljare i fackhandel, medan `r format(plyr::round_any(yrke_kvinnor %>% filter(Yrke == "Vårdbiträden") %>% .$Antal,100),big.mark=" ")` kvinnor och `r format(plyr::round_any(yrke_man %>% filter(Yrke == "Vårdbiträden") %>% .$Antal,100),big.mark=" ")` män arbetar som vårdbiträden.
 
-Diagrammen visar också att de 10 största yrkena bland kvinnor omfattar drygt 20 000 anställda medan de 10 största yrkena bland män omfattar drygt 13 000 anställda, det vill säga, vissa kvinnodominerade yrken är väldigt omfattande i storlek, vilket kan bidra till svårigheten med att bryta den könsuppdelade arbetsmarknaden.
+Diagrammen visar också att de 10 största yrkena bland kvinnor omfattar drygt `r format(plyr::round_any(yrke_kvinnor %>% .$Antal %>% sum(),100),big.mark=" ")` anställda medan de 10 största yrkena bland män omfattar drygt `r format(plyr::round_any(yrke_man %>% .$Antal %>% sum(),100),big.mark=" ")` anställda, det vill säga, vissa kvinnodominerade yrken är väldigt omfattande i storlek, vilket kan bidra till svårigheten med att bryta den könsuppdelade arbetsmarknaden.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -1529,37 +1529,40 @@ ohalsotal_fig <- SkapaStapelDiagram(skickad_df = ohalsotal_df_utskrift %>%
 # ohalsotal_df_alt <- ohalsotal_df %>%
 #   filter(Ålder == "Samtliga 16-64 år") %>%
 #     mutate(Ohälsotalet = as.numeric(Ohälsotalet),
-#            månad_namn = format(as.Date(paste0(År,"-", Månad, "-01")), "%B")) %>% 
-#       mutate(tid = paste0(månad_namn, " ", År)) %>% 
+#            månad_namn = format(as.Date(paste0(År,"-", Månad, "-01")), "%B")) %>%
+#       mutate(tid = paste0(månad_namn, " ", År)) %>%
 #         mutate(tid = factor(tid, levels = rev(unique(tid))))
-#       
-#       # group_by(År,Län,Kommun,Kön) %>% 
-#       #   summarize(Ohälsotalet_medel=mean(Ohälsotalet))
-# 
-# # diagram_capt_ohälsa <- paste0("Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Ohälsotalet: hur många dagar under en tolvmånadersperiod\nFörsäkringskassan betalar ut ersättning för nedsatt arbetsförmåga\ni förhållande till antalet försäkrade i åldrarna 16-64 år. Data för ",max(ohalsotal_df_alt$År)," till och med ",first(ohalsotal_df_alt$månad_namn))
-# 
-# ohalsotal_fig_alt <- SkapaStapelDiagram(skickad_df = ohalsotal_df_alt %>%
+
+      # group_by(År,Län,Kommun,Kön) %>%
+      #   summarize(Ohälsotalet_medel=mean(Ohälsotalet))
+
+# diagram_capt_ohälsa <- paste0("Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Ohälsotalet: hur många dagar under en tolvmånadersperiod\nFörsäkringskassan betalar ut ersättning för nedsatt arbetsförmåga\ni förhållande till antalet försäkrade i åldrarna 16-64 år. Data för ",max(ohalsotal_df_alt$År)," till och med ",first(ohalsotal_df_alt$månad_namn))
+
+# ohalsotal_fig_alt <- SkapaLinjeDiagram(skickad_df = ohalsotal_df_alt %>%
 #                                      filter(Kommun == "Samtliga kommuner",
-#                                             Kön != "Kvinnor och män") %>% 
-#                                       mutate(Kön = tolower(Kön)), 
-#                                    skickad_x_var = "tid", 
-#                                    skickad_y_var = "Ohälsotalet", 
+#                                             Kön != "Kvinnor och män",
+#                                             År>2004) %>%
+#                                       mutate(Kön = tolower(Kön)),
+#                                    skickad_x_var = "tid",
+#                                    skickad_y_var = "Ohälsotalet",
 #                                    skickad_x_grupp = "Kön",
 #                                    x_axis_lutning = 45,
-#                                    manual_x_axis_text_vjust=1,
-#                                    manual_x_axis_text_hjust=1,
 #                                    manual_color = diagramfarger("kon"),
 #                                    manual_y_axis_title = "",
-#                                    diagram_titel = diagramtitel,
+#                                    diagram_titel = "diagramtitel",
 #                                    diagram_capt =  diagram_capt_ohälsa,
 #                                    stodlinjer_avrunda_fem = TRUE,
-#                                    diagram_facet = FALSE,
-#                                    berakna_index = FALSE,
-#                                    x_axis_visa_var_xe_etikett = 12,
+#                                    x_axis_visa_var_xe_etikett = 6,
 #                                    inkludera_sista_vardet_var_xe_etikett = TRUE,
-#                                    output_mapp = outputmapp,
-#                                    filnamn_diagram = diagramfilnamn,
+#                                    output_mapp = "outputmapp",
+#                                    filnamn_diagram = "diagramfilnamn",
 #                                    skriv_till_diagramfil = FALSE)
+# 
+#  g_test <- ohalsotal_fig_alt+ geom_segment(aes(xend = Date, y = 0, yend = Cases))
+
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 ```
 
 Ohälsotalet^[Ohälsotalet: hur många dagar under en tolvmånadersperiod
