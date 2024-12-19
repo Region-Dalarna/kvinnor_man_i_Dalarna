@@ -1223,14 +1223,16 @@ skuldsatta_fig <- SkapaStapelDiagram(skickad_df = skulder_df_sum,
                                      skriv_till_diagramfil = spara_figur)
 ```
 Under det senaste decenniet har antalet skuldsatta minskat
-från drygt 10 000 skuldsatta till `r format(skulder_df_sum %>% filter(Kön == "kvinnor",År == max(.$År)) %>% .$Antal_skuldsatta + skulder_df_sum %>% filter(Kön == "män",År == max(.$År)) %>% .$Antal_skuldsatta,big.mark=" ") ` i Dalarnas län. Av dessa är ungefär 60 procent män och 40 procent kvinnor. Fördelningen har inte förändrats över tid. Det är således avsevärt fler män än kvinnor i länet som är skuldsatta.
+från drygt 10 000 skuldsatta till knappt `r format(plyr::round_any(skulder_df_sum %>% filter(Kön == "kvinnor",År == max(.$År)) %>% .$Antal_skuldsatta + skulder_df_sum %>% filter(Kön == "män",År == max(.$År)) %>% .$Antal_skuldsatta,100),big.mark=" ") ` i Dalarnas län. Av dessa är ungefär 60 procent män och 40 procent kvinnor. Fördelningen har inte förändrats över tid. Det är således avsevärt fler män än kvinnor i länet som är skuldsatta.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 skuldsatta_fig
 ```
 
-Som andel av befolkningen i Dalarna år 2022 utgör skuldsatta kvinnor ca 3 procent och skuldsatta män ca 4,5 procent. Medianskulden var för kvinnor 53 000 kr och för män 65 500 kr. Störst andel skuldsatta finns i åldersintervallet 35-44 år, år 2022 var 6,5 procent av männen och 4,4 procent av kvinnorna i Dalarna i denna åldersgrupp skuldsatta [(Kronofogden)](<https://kronofogden.se/om-kronofogden/statistik/statistik-om-antal-skuldsatta>){target="_blank"}.
+Som andel av befolkningen i Dalarna år 2023 utgör skuldsatta kvinnor ca 3 procent och skuldsatta män ca 4,7 procent. Medianskulden var för kvinnor ungefär 58 400 kr och för män ca 75 200 kr [(Kronofogden)](<https://kronofogden.se/om-kronofogden/statistik/statistik-om-antal-skuldsatta>){target="_blank"} 
+
+Störst andel `r max(skulder_andel_df$År)` skuldsatta finns i åldersintervallet `r skulder_andel_df %>% filter(kön == "kvinnor") %>% filter(skulder_andel_proc==max(skulder_andel_proc)) %>% .$Ålder`, år `r max(skulder_andel_df$År)` var `r gsub("\\.",",",round(skulder_andel_df %>% filter(kön == "män") %>% filter(skulder_andel_proc==max(skulder_andel_proc)) %>% .$skulder_andel_proc,1))` procent av männen och `r gsub("\\.",",",round(skulder_andel_df %>% filter(kön == "kvinnor") %>% filter(skulder_andel_proc==max(skulder_andel_proc)) %>% .$skulder_andel_proc,1))` procent av kvinnorna i Dalarna i denna åldersgrupp skuldsatta .
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
