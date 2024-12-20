@@ -169,10 +169,10 @@ diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsan
 
 # Tar bort uppgift saknas och beräknar hur stor andel som har en viss utbildning
 utbildning_85_utskrift<-utbildning_85_df %>%
-  filter(utb_niva!="Uppgift saknas") %>%
     group_by(år,region,kön,utb_niva) %>%
       summarize(antal=sum(Befolkning)) %>%
-        mutate(andel=(antal/sum(antal))*100)
+        mutate(andel=(antal/sum(antal))*100) %>% 
+          filter(utb_niva!="Uppgift saknas") 
 
   diagramtitel <-paste0("Utbildningsnivå (25-64 år) i Dalarna ", unique(utbildning_df$år))
   diagramfilnamn <- paste0("utbildningsniva_Dalarnas län.png")
@@ -495,7 +495,7 @@ Skillnader mellan kvinnor och män föreligger således fortfarande på yrkesniv
 Bland kvinnor är det istället vård- och utbildningsyrken som är
 vanligast. Här finns exempelvis `r tolower(first(yrke_kvinnor$Yrke))` och `r tolower(first(yrke_kvinnor[yrke_kvinnor$Yrke != first(yrke_kvinnor$Yrke),])$Yrke)`. Diagrammen nedan visar de yrken i länet som flest kvinnor respektive män arbetar inom.
 
-Två yrken av tio återkommer bland både kvinnor och män; vårdbiträden och butikssäljare i fackhandel. Båda yrkena är kvinnodominerade, med `r format(plyr::round_any(yrke_kvinnor %>% filter(Yrke == "Butikssäljare, fackhandel") %>% .$Antal,100),big.mark=" "` kvinnor och `r format(plyr::round_any(yrke_man %>% filter(Yrke == "Butikssäljare, fackhandel") %>% .$Antal,100),big.mark=" ")` män sysselsatta som butikssäljare i fackhandel, medan `r format(plyr::round_any(yrke_kvinnor %>% filter(Yrke == "Vårdbiträden") %>% .$Antal,100),big.mark=" ")` kvinnor och `r format(plyr::round_any(yrke_man %>% filter(Yrke == "Vårdbiträden") %>% .$Antal,100),big.mark=" ")` män arbetar som vårdbiträden.
+Två yrken av tio återkommer bland både kvinnor och män; vårdbiträden och butikssäljare i fackhandel. Båda yrkena är kvinnodominerade, med `r format(plyr::round_any(yrke_kvinnor %>% filter(Yrke == "Butikssäljare, fackhandel") %>% .$Antal,100),big.mark=" ")` kvinnor och `r format(plyr::round_any(yrke_man %>% filter(Yrke == "Butikssäljare, fackhandel") %>% .$Antal,100),big.mark=" ")` män sysselsatta som butikssäljare i fackhandel, medan `r format(plyr::round_any(yrke_kvinnor %>% filter(Yrke == "Vårdbiträden") %>% .$Antal,100),big.mark=" ")` kvinnor och `r format(plyr::round_any(yrke_man %>% filter(Yrke == "Vårdbiträden") %>% .$Antal,100),big.mark=" ")` män arbetar som vårdbiträden.
 
 Diagrammen visar också att de 10 största yrkena bland kvinnor omfattar drygt `r format(plyr::round_any(yrke_kvinnor %>% .$Antal %>% sum(),100),big.mark=" ")` anställda medan de 10 största yrkena bland män omfattar drygt `r format(plyr::round_any(yrke_man %>% .$Antal %>% sum(),100),big.mark=" ")` anställda, det vill säga, vissa kvinnodominerade yrken är väldigt omfattande i storlek, vilket kan bidra till svårigheten med att bryta den könsuppdelade arbetsmarknaden.
 
@@ -559,8 +559,7 @@ gg_matchning$matchning_jmf
 ```
 <br>
 Matchningen på arbetsmarknaden tenderar således att vara högre för högre utbildningsnivåer, vilket kan förklaras med att högre utbildning ofta är tydligare kopplad till ett visst yrke. Det finns också skillnader i matchningen beroende på födelseland. I Dalarna har inrikes födda högst matchning med ungefär `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "födda i Sverige",region == "Dalarna") %>% .$matchningsgrad,0)`
-procent sammanlagt för både kvinnor och män. Även personer födda inom EU har hög
-matchning (runt `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "födda i Norden eller EU utom Sverige",region == "Dalarna") %>% .$matchningsgrad,0)` procent). Lägst matchningsgrad har personer `r matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` (ca `r round(matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)`  procent). Värt att notera är att det är stora könsskillnader när det kommer till personer födda i Afrika. Kvinnor har högst matchningsgrad bland grupperna i diagrammet nedan (ca `r round(matchning_df %>% filter(kön == "kvinnor",region == "Dalarna",fodelseland == "födda i Afrika") %>% .$matchningsgrad,0)` procent), medan männen har lägst matchningsgrad (ca `r round(matchning_df %>% filter(kön == "män",region == "Dalarna",fodelseland == "födda i Afrika") %>% .$matchningsgrad,0)` procent).
+procent sammanlagt för både kvinnor och män. Lägst matchningsgrad har personer `r matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` (ca `r round(matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)`  procent). Värt att notera är att det är stora könsskillnader när det kommer till personer födda i Afrika. Kvinnor har högst matchningsgrad bland grupperna i diagrammet nedan (ca `r round(matchning_df %>% filter(kön == "kvinnor",region == "Dalarna",fodelseland == "födda i Afrika") %>% .$matchningsgrad,0)` procent), medan männen har lägst matchningsgrad (ca `r round(matchning_df %>% filter(kön == "män",region == "Dalarna",fodelseland == "födda i Afrika") %>% .$matchningsgrad,0)` procent).
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -615,7 +614,7 @@ En egen inkomst är en av förutsättningarna för ett ekonomiskt självständig
 
 En jämförelse mellan kvinnors och mäns löner i Dalarna visar på stora skillnader och dessa har hållit i sig över tid. Medianinkomsten för en man i Dalarna var `r max(medianinkomst_df$år)` ca `r round(medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "män") %>% .$medianinkomst,0)` tusen kronor före skatt, medan en kvinna hade en medianinkomst på ungefär `r round(medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "kvinnor") %>% .$medianinkomst,0)` tusen kronor. I den andra figuren nedan syns även en positiv utveckling i form av att den relativa skillnaden i inkomst mellan könen har minskat sedan millennieskiftet. Diagrammet visar att kvinnors medianinkomst har fördubblats medan mäns har ökat med ungefär `r round((medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "män") %>% .$medianinkomst/medianinkomst_df %>% filter(region == "Dalarnas län", år == min(år),kön == "män") %>% .$medianinkomst-1)*100,0)` procent. Det är dock viktigt att notera att figurerna nedan endast redovisar kvinnors och mäns skilda ekonomiska förutsättningar, medan det kan finnas flera förklaringar till skillnaden. En faktor är att kvinnor i högre grad arbetar deltid, och därför kan ha en lägre årsinkomst. Som vi också sett i ett flertal tidigare figurer finns det stora skillnader mellan könen kopplat till bland annat yrke och utbildning, vilket ytterligare kan förklara en del av skillnaden. 
 
-På nationell nivå har SCB jämfört den standardvägda lönen, dvs. lönen när hänsyn tas till bland annat ålder och utbildningsnivå, för att synliggöra om det kan finnas en diskrimineringsaspekt i lönenivån. Slutsatsen blev att kvinnors standardvägda lön är ungefär 95 procent av männens standardvägda lön, det vill säga det finns en oförklarad löneskillnad mellan kvinnor och män [(SCB)](<https://www.scb.se/hitta-statistik/statistik-efter-amne/arbetsmarknad/loner-och-arbetskostnader/lonestrukturstatistik-hela-ekonomin/pong/tabell-och-diagram/kvinnors-lon-i-procent-av-mans-lon-efter-sektor>){target="_blank"}.
+På nationell nivå har SCB jämfört den standardvägda lönen, dvs. lönen när hänsyn tas till bland annat ålder och utbildningsnivå, för att synliggöra om det kan finnas en diskrimineringsaspekt i lönenivån. Slutsatsen blev att kvinnors standardvägda lön är ungefär 95 procent av männens standardvägda lön, det vill säga det finns en oförklarad löneskillnad mellan kvinnor och män [(SCB)](<https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__AM__AM0110__AM0110B/LonStandVagdYrkA/>){target="_blank"}.
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -1230,9 +1229,9 @@ från drygt 10 000 skuldsatta till knappt `r format(plyr::round_any(skulder_df_s
 skuldsatta_fig
 ```
 
-Som andel av befolkningen i Dalarna år 2023 utgör skuldsatta kvinnor ca 3 procent och skuldsatta män ca 4,7 procent. Medianskulden var för kvinnor ungefär 58 400 kr och för män ca 75 200 kr [(Kronofogden)](<https://kronofogden.se/om-kronofogden/statistik/statistik-om-antal-skuldsatta>){target="_blank"} 
+Som andel av befolkningen i Dalarna år 2023 utgör skuldsatta kvinnor ca 3 procent och skuldsatta män ca 4,7 procent. Medianskulden var för kvinnor ungefär 58 400 kr och för män ca 75 200 kr [(Kronofogden)](<https://kronofogden.se/om-kronofogden/statistik/statistik-om-antal-skuldsatta>){target="_blank"}. 
 
-Störst andel `r max(skulder_andel_df$År)` skuldsatta finns i åldersintervallet `r skulder_andel_df %>% filter(kön == "kvinnor") %>% filter(skulder_andel_proc==max(skulder_andel_proc)) %>% .$Ålder`, år `r max(skulder_andel_df$År)` var `r gsub("\\.",",",round(skulder_andel_df %>% filter(kön == "män") %>% filter(skulder_andel_proc==max(skulder_andel_proc)) %>% .$skulder_andel_proc,1))` procent av männen och `r gsub("\\.",",",round(skulder_andel_df %>% filter(kön == "kvinnor") %>% filter(skulder_andel_proc==max(skulder_andel_proc)) %>% .$skulder_andel_proc,1))` procent av kvinnorna i Dalarna i denna åldersgrupp skuldsatta .
+Störst andel skuldsatta finns i åldersintervallet `r skulder_andel_df %>% filter(kön == "kvinnor") %>% filter(skulder_andel_proc==max(skulder_andel_proc)) %>% .$Ålder`, år `r max(skulder_andel_df$År)` var `r gsub("\\.",",",round(skulder_andel_df %>% filter(kön == "män") %>% filter(skulder_andel_proc==max(skulder_andel_proc)) %>% .$skulder_andel_proc,1))` procent av männen och `r gsub("\\.",",",round(skulder_andel_df %>% filter(kön == "kvinnor") %>% filter(skulder_andel_proc==max(skulder_andel_proc)) %>% .$skulder_andel_proc,1))` procent av kvinnorna i Dalarna i denna åldersgrupp skuldsatta .
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -1293,7 +1292,7 @@ skuldsatta_lang <- SkapaStapelDiagram(skickad_df = langsiktiga_skulder_df_sum,
                                      skriv_till_diagramfil = spara_figur)
 ```
 
-I det andra diagrammet nedan redovisas antalet långsiktigt skuldsatta i
+I diagrammet nedan redovisas antalet långsiktigt skuldsatta i
 Dalarna. Med långsiktigt skuldsatt menas att personen varit i Kronofogdens register under minst 20 års tid. Även här finns det betydligt fler män än kvinnor till antalet. Åren 2013 - 2016 var en period med ett större antal skuldsatta i båda grupperna, men därefter har antalet minskat bland både kvinnor och män. Mätt över tidsperioden `r min(langsiktiga_skulder_df_sum$År)` - `r max(langsiktiga_skulder_df_sum$År)` har antalet män minskat med `r round((1-(langsiktiga_skulder_df_sum %>% filter(År==max(.$År),Kön=="män") %>% .$Antal_skuldsatta/langsiktiga_skulder_df_sum %>% filter(År==min(.$År),Kön=="män") %>% .$Antal_skuldsatta))*100,0)` procent medan antalet kvinnor istället har ökat med `r round(((langsiktiga_skulder_df_sum %>% filter(År==max(.$År),Kön=="kvinnor") %>% .$Antal_skuldsatta/langsiktiga_skulder_df_sum %>% filter(År==min(.$År),Kön=="kvinnor") %>% .$Antal_skuldsatta)-1)*100,0)` procent.
 
 <br>
@@ -1309,14 +1308,10 @@ En jämn ansvarsfördelning för obetalt hem- och omsorgsarbete är det fjärde 
 Ett större ansvar för det obetalda arbetet minskar ofta utrymmet för inkomstbringande arbete och påverkar på så sätt individernas livsinkomster. Det kan också skapa ett beroende till en partner med en högre inkomst. 
 
 ## Föräldrapenning
-Antalet mottagare av föräldrapenning (den första figuren nedan) ökade
+Antalet mottagare av föräldrapenning ökade
 från ungefär 13 000 i slutet av 1990-talet till över 22 000 år 2018. Givet att den absoluta majoriteten av dessa barn har två vårdnadshavare är det värt att notera att det varje år är cirka 10 procent av fäderna som inte tar ut några föräldrapenningdagar alls.
 
 En minskning i antalet föräldrapenningdagar syntes under pandemiåren och åren därefter, vilket sannolikt beror på att uttaget av tillfällig föräldrapenning (Vab) då ökade kraftigt (se avsnitt 3.2 nedan). Antalet uttagna dagar har ökat för såväl kvinnor som män, men den relativa skillnaden i uttag mellan könen har minskat.
-
-Fördelningen av dagar mellan vårdnadshavarna har jämnats ut något sedan slutet av 1990-talet då runt 85-90 procent av föräldrapenningdagarna togs ut av mammorna. Sedan dess har först en (1995), sedan två (2002) och även tre månader (2016) reserverats åt respektive vårdnadshavare (också kallade "pappamånader"). Detta har bidragit till ett jämnare uttag men utvecklingen får ändå sägas gå relativt trögt, då kvinnors andel endast har minskat till runt `r round(as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Kvinnor", År == max(År)) %>% .$Andel),0)` procent `r max(foraldrapenning_df$År)`. Svenska vårdnadshavare är således långt ifrån att ge sina barn en jämställd tillgång till sina föräldrar. Skillnaden i uttag påverkar också den disponibla inkomsten, som beskrivits under rubriken Ekonomisk jämställdhet. Skillnaden är som störst mellan sammanboende kvinnor och män när det yngsta barnet är 0–3 år [(Regeringen, 2022)](<https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf>){target="_blank"}^[Regeringen, Budgetproposition 2022/23:1 bilaga 3, Ekonomisk jämställdhet.].
-
-Hur vårdnadshavare fördelar föräldrapenningen mellan sig är relativt olika i Dalarnas kommuner. I `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun, regex='\\S+')` är uttaget  mest jämställt relativt sett, där drygt `r round(as.numeric(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel),0)` procent av föräldrapenningdagarna togs ut av männen. Minst jämställt är fördelningen i `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun, regex='\\S+')`, där motsvarande uttag är ca `r round(as.numeric(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel),0)` procent.
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -1352,6 +1347,8 @@ fp_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df %>%
 fp_fig
 ```
 
+Fördelningen av dagar mellan vårdnadshavarna har jämnats ut något sedan slutet av 1990-talet då runt 85-90 procent av föräldrapenningdagarna togs ut av mammorna. Sedan dess har först en (1995), sedan två (2002) och även tre månader (2016) reserverats åt respektive vårdnadshavare (också kallade "pappamånader"). Detta har bidragit till ett jämnare uttag men utvecklingen får ändå sägas gå relativt trögt, då kvinnors andel endast har minskat till runt `r round(as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Kvinnor", År == max(År)) %>% .$Andel),0)` procent `r max(foraldrapenning_df$År)`. Svenska vårdnadshavare är således långt ifrån att ge sina barn en jämställd tillgång till sina föräldrar. Skillnaden i uttag påverkar också den disponibla inkomsten, som beskrivits under rubriken Ekonomisk jämställdhet. Skillnaden är som störst mellan sammanboende kvinnor och män när det yngsta barnet är 0–3 år [(Regeringen, 2022)](<https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf>){target="_blank"}^[Regeringen, Budgetproposition 2022/23:1 bilaga 3, Ekonomisk jämställdhet.].
+
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
@@ -1383,6 +1380,8 @@ fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 fp_andel_fig
 ```
+
+Hur vårdnadshavare fördelar föräldrapenningen mellan sig är relativt olika i Dalarnas kommuner. I `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun, regex='\\S+')` är uttaget  mest jämställt relativt sett, där drygt `r round(as.numeric(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel),0)` procent av föräldrapenningdagarna togs ut av männen. Minst jämställt är fördelningen i `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun, regex='\\S+')`, där motsvarande uttag är ca `r round(as.numeric(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel),0)` procent.
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -1422,8 +1421,7 @@ fp_andel_fig
 ```
 
 ## Tillfällig föräldrapenning
-Tillfällig föräldrapenning ges för vård av sjukt barn och är det som i folkmun kallas vab. Sett över tidsperioden minskade antalet uttagna nettodagar något mellan 2006 och 2009, för att därefter öka stadigt fram till 2022 (den första figuren nedan). År 2023 minskade uttaget av tillfällig föräldrapenning/vab för såväl kvinnor som män något, men ligger fortfarande på klart högre nivåer än innan pandemin. Även för vård av sjukt barn tar kvinnor ut betydligt fler dagar än män, men fördelningen ligger precis runt spannet för vad som antas som statistisk jämställdhet, kvinnor tar ut cirka 60 procent av dagarna och män tar ut cirka 40 procent. Till skillnad från trenden för föräldrapenning har fördelningen av vab-dagar hållt sig jämnare de senaste decennierna (under pandemin verkar män ha ökat sitt uttag något jämfört med kvinnor), se den andra figuren nedan.
-
+Tillfällig föräldrapenning ges för vård av sjukt barn och är det som i folkmun kallas vab. Sett över tidsperioden minskade antalet uttagna nettodagar något mellan 2006 och 2009, för att därefter öka stadigt fram till 2022. År 2023 minskade uttaget av tillfällig föräldrapenning/vab för såväl kvinnor som män något, men ligger fortfarande på klart högre nivåer än innan pandemin. Även för vård av sjukt barn tar kvinnor ut betydligt fler dagar än män, men fördelningen ligger precis runt spannet för vad som antas som statistisk jämställdhet, kvinnor tar ut cirka 60 procent av dagarna och män tar ut cirka 40 procent. 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
@@ -1457,6 +1455,8 @@ tfp_fig <- SkapaStapelDiagram(skickad_df = vab_df%>%
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 tfp_fig
 ```
+
+Till skillnad från trenden för föräldrapenning har fördelningen av vab-dagar hållt sig jämnare de senaste decennierna (under pandemin verkar män ha ökat sitt uttag något jämfört med kvinnor).
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -1571,10 +1571,6 @@ Ohälsotalet^[Ohälsotalet: hur många dagar under en tolvmånadersperiod
     Försäkringskassan betalar ut ersättning för nedsatt arbetsförmåga i
     förhållande till antalet försäkrade i åldersgruppen 16-64 år] mäter i vilken utsträckning personer är borta från arbetet på grund av nedsatt arbetsförmåga, mätt under ett års tid. Ohälsotalet varierar över tid och var relativt högt under början av 2000-talet. Därefter syns en klart nedåtgående trend. Under hela tidsperioden har ohälsotalet varit högre för kvinnor än för män, även om skillnaden mellan könen har minskat något över tid.
 
-Ohälsotalet för Dalarnas befolkning visar att det finns skillnader mellan länets
-kommuner. För män är ohälsotalet år `r max(ohalsotal_df_utskrift$År)` högst i `r stri_extract_last(ohalsotal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Ohälsotalet_medel == max(.$Ohälsotalet_medel)) %>% .$Kommun, regex='\\S+')` och lägst i `r stri_extract_last(ohalsotal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$Kommun, regex='\\S+')`. För
-kvinnor är ohälsotalet högst i `r stri_extract_last(ohalsotal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Ohälsotalet_medel == max(.$Ohälsotalet_medel)) %>% .$Kommun, regex='\\S+')` och lägst i `r stri_extract_last(ohalsotal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$Kommun, regex='\\S+')`. För att fastställa orsaken till skillnaderna mellan kommuner behövs djupare studier och analyser, men potentiella faktorer kan vara att branschstrukturen skiljer sig mellan kommunerna och att det är olika hög sjukfrånvaro i olika branscher, men även att socioekonomiska förutsättningar skiljer sig åt mellan kommunerna i Dalarna.
-
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 ohalsotal_fig
@@ -1613,6 +1609,10 @@ ohalsotal_kommun_fig <- SkapaStapelDiagram(skickad_df = ohalsotal_df_utskrift %>
                                    skriv_till_diagramfil = spara_figur)
 
 ```
+
+Ohälsotalet för Dalarnas befolkning visar att det finns skillnader mellan länets
+kommuner. För män är ohälsotalet år `r max(ohalsotal_df_utskrift$År)` högst i `r stri_extract_last(ohalsotal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Ohälsotalet_medel == max(.$Ohälsotalet_medel)) %>% .$Kommun, regex='\\S+')` och lägst i `r stri_extract_last(ohalsotal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$Kommun, regex='\\S+')`. För
+kvinnor är ohälsotalet högst i `r stri_extract_last(ohalsotal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Ohälsotalet_medel == max(.$Ohälsotalet_medel)) %>% .$Kommun, regex='\\S+')` och lägst i `r stri_extract_last(ohalsotal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$Kommun, regex='\\S+')`. För att fastställa orsaken till skillnaderna mellan kommuner behövs djupare studier och analyser, men potentiella faktorer kan vara att branschstrukturen skiljer sig mellan kommunerna och att det är olika hög sjukfrånvaro i olika branscher, men även att socioekonomiska förutsättningar skiljer sig åt mellan kommunerna i Dalarna.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -1666,14 +1666,14 @@ Exempelvis beror den kraftiga nedgången i sjukpenningtalet mellan 2002
 och 2010 sannolikt inte på att arbetstagare var mindre sjuka, utan på
 att bedömningen av vad som berättigar en sjukskrivning var hårdare.
 
-Även när det kommer till sjukpenningtalet finns det skillnader mellan
-Dalarnas kommuner. För män är talet högst i `r stri_extract_last(sjukpenningtal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Sjukpenningtal_medel == max(.$Sjukpenningtal_medel)) %>% .$Kommun, regex='\\S+')`, medan det för
-kvinnor är högst i `r stri_extract_last(sjukpenningtal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Sjukpenningtal_medel == max(.$Sjukpenningtal_medel)) %>% .$Kommun, regex='\\S+')`. Sjukpenningtalet är en delmängd av ohälsotalet och därför samvarierar resultaten mellan kommunerna i stort. Talet är lägst för både kvinnor och män i `r stri_extract_last(sjukpenningtal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Sjukpenningtal_medel == min(.$Sjukpenningtal_medel)) %>% .$Kommun, regex='\\S+')`.
-
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 sjukpenningtal_fig
 ```
+
+Även när det kommer till sjukpenningtalet finns det skillnader mellan
+Dalarnas kommuner. För män är talet högst i `r stri_extract_last(sjukpenningtal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Sjukpenningtal_medel == max(.$Sjukpenningtal_medel)) %>% .$Kommun, regex='\\S+')`, medan det för
+kvinnor är högst i `r stri_extract_last(sjukpenningtal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Sjukpenningtal_medel == max(.$Sjukpenningtal_medel)) %>% .$Kommun, regex='\\S+')`. Sjukpenningtalet är en delmängd av ohälsotalet och därför samvarierar resultaten mellan kommunerna i stort. Talet är lägst för både kvinnor och män i `r stri_extract_last(sjukpenningtal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Sjukpenningtal_medel == min(.$Sjukpenningtal_medel)) %>% .$Kommun, regex='\\S+')`.
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
