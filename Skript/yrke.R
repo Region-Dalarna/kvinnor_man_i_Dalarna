@@ -24,8 +24,7 @@ data_yrke<-function(region_vekt = "20",
                                                               tid_koder = "9999") %>% 
     filter(år == max(år)) %>% 
       select(-`Anställda (yrkesregistret) 16-64 år med arbetsplats i regionen (dagbef)`) %>% 
-        rename(Antal = `Anställda (yrkesregistret) med arbetsplats i regionen (dagbef)`,
-               Yrke = `Yrke (SSYK 2012)`)
+        rename(Yrke = `Yrke (SSYK 2012)`)
   
   # # Variabler som skall tas ut
   # varlista <-  list(Region = c(region_vekt),

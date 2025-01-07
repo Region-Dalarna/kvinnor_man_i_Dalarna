@@ -55,7 +55,7 @@ source(here("Skript","forvarvsarbetande_bransch_korrekt.R"), encoding="UTF-8")
 data_forvarvsarbetande_bransch(spara_data = TRUE,
                                output_mapp = Output_mapp)
 
-# Yrke, uppdelat på kön - Funkar inte för tillfället
+# Yrke, uppdelat på kön 
 source(here("Skript","yrke.R"), encoding="UTF-8")
 data_yrke(spara_data = TRUE,
           output_mapp = Output_mapp)
