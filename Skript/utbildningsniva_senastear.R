@@ -1,5 +1,6 @@
 ## =================================================================================================================
 # Skript som laddar hem data för utbildningsnivå från SCB
+# Senast ändrad: 2025-01-07. I summarise har jag bytt från sum(Befolkning) till sum(Antal)
 # =================================================================================================================
 if (!require("pacman")) install.packages("pacman")
 p_load(pxweb,openxlsx)
@@ -35,7 +36,7 @@ data_utbildningsniva<-function(region_vekt = "20",
   utbildning_df <- utbildning_df %>%
     mutate(utbildningsnivå = ifelse(utbildningsnivå %in% c("eftergymnasial utbildning, 3 år eller mer","forskarutbildning"),"eftergymnasial utbildning, 3 år eller mer",utbildningsnivå)) %>% 
       group_by(region, kön, år,utbildningsnivå) %>% 
-        summarise("antal"= sum(Befolkning)) %>% 
+        summarise("antal"= sum(Antal)) %>% 
           mutate(andel=(antal/sum(antal))*100) %>% 
             mutate(region=skapa_kortnamn_lan(region,byt_ut_riket_mot_sverige = TRUE))
   

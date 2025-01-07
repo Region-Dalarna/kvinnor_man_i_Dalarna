@@ -67,8 +67,7 @@ arbetsmarknadsstatus_kommun_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/
 arbetsloshet_tidsserie <- read.xlsx("G:/skript/projekt/data/kvinnor_man/arbetslöshet_08_senastear_bearbetad.xlsx",sheet = 1)
 langtidsarbetsloshet_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/långtidsarbetslöshet_bearbetad.xlsx",sheet = 1)
 langtidsarbetsloshet_utbildning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/långtidsarbetslöshet_bearbetad.xlsx",sheet = 2)
-etablering_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/etableringstid.xlsx") %>% 
-  rename(andel = `Andel.förvärvsarbetande.(ny.definition.från.och.med.2019)`)
+etablering_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/etableringstid.xlsx") 
 medianinkomst_df <-  read.xlsx("G:/skript/projekt/data/kvinnor_man/medianinkomst.xlsx") %>% 
   rename(medianinkomst = `Medianinkomst,.tkr`)
 disponibel_inkomst_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/disponibel_inkomst.xlsx")
@@ -168,13 +167,14 @@ diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsan
                                                                                     "förgymnasial utbildning kortare än 9 år")[6:1])
 
 # Tar bort uppgift saknas och beräknar hur stor andel som har en viss utbildning
+# Ändrat från befolkning till antal
 utbildning_85_utskrift<-utbildning_85_df %>%
     group_by(år,region,kön,utb_niva) %>%
-      summarize(antal=sum(Befolkning)) %>%
+      summarize(antal=sum(Antal)) %>%
         mutate(andel=(antal/sum(antal))*100) %>% 
           filter(utb_niva!="Uppgift saknas") 
 
-  diagramtitel <-paste0("Utbildningsnivå (25-64 år) i Dalarna ", unique(utbildning_df$år))
+  diagramtitel <-paste0("Utbildningsnivå (25-64 år) i Dalarna")
   diagramfilnamn <- paste0("utbildningsniva_Dalarnas län.png")
 
   utbildning_fig <- SkapaStapelDiagram(skickad_df <- utbildning_df %>%
@@ -280,7 +280,7 @@ diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsa
 utbildning_85_utskrift<-utbildning_85_df %>%
   filter(utb_niva!="Uppgift saknas") %>%
     group_by(år,region,kön,utb_niva) %>%
-      summarize(antal=sum(Befolkning)) %>%
+      summarize(antal=sum(Antal)) %>%
         mutate(andel=(antal/sum(antal))*100)
 
 diagramtitel <- paste0("Andel av befolkningen (25-64 år) med minst 3 års eftergymnasial utbildning i ",unique(utbildning_85_utskrift$region))
@@ -1097,7 +1097,7 @@ Hur snabbt en nyligen invandrad person etableras på arbetsmarknaden är också 
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\n"
 
 # Skapar en faktorvariabel för att få tid sedan etablering i "rätt" ordning i figuren
 etablering_df$bakgrundsvariabel <- factor(etablering_df$bakgrundsvariabel, levels = c("0-1 år","2-3 år",
@@ -1874,7 +1874,7 @@ regionval_fig <- SkapaStapelDiagram(skickad_df = regionval_summering_df,
 kommunval_summering_df <- kommunval_df %>%
  filter(valår==max(valår))%>%
   group_by(region,kön) %>%
-    summarise("Antal" = sum(`Kommunfullmäktigledamöter`))
+    summarise("Antal" = sum(`Antal`))
 
 diagramtitel <- paste0("Kommunfullmäktigeledamöter i Dalarna ",max(kommunval_df$valår))
 diagramfilnamn <- "kommunfullmäktige_.png"
@@ -1930,12 +1930,19 @@ kommunval_fig
 ```
 
 ## Chefsskap
+
+```{r,echo=FALSE}
+chefer_just_df <- chefer_df %>%
+         filter(!is.na(Andel))
+```
+
+
 Ett annat mått på makt är den ställning individen har på arbetsplatsen
 och i yrkeslivet. I det först diagrammet nedan visas andelen chefer uppdelade efter kön och för olika utbildningsnivåer. I samtliga grupper i Dalarna är en större andel av männen sysselsatta i någon form av chefsposition jämfört med
 motsvarande grupp kvinnor. Andelen chefer är även tydligt kopplad till
 utbildningsnivå där högre utbildning är associerad med en högre andel
 individer i chefspositioner. Bland gruppen sysselsatta män i Dalarna med
-eftergymnasial utbildning innehar drygt `r round(chefer_df %>% filter(år == max(år),utbildningsnivå == "eftergymnasial utbildning", kön == "män") %>% .$Andel,0) ` procent någon form av chefsställning. Bland kvinnor med eftergymnasial utbildning är motsvarande siffra ungefär `r round(chefer_df %>% filter(år == max(år),utbildningsnivå == "eftergymnasial utbildning", kön == "kvinnor") %>% .$Andel,0) ` procent.
+eftergymnasial utbildning innehar drygt `r round(chefer_just_df %>% filter(år == max(år),utbildningsnivå == "eftergymnasial utbildning", kön == "män") %>% .$Andel,0) ` procent någon form av chefsställning. Bland kvinnor med eftergymnasial utbildning är motsvarande siffra ungefär `r round(chefer_just_df %>% filter(år == max(år),utbildningsnivå == "eftergymnasial utbildning", kön == "kvinnor") %>% .$Andel,0) ` procent.
 
 I det andra diagrammet ser vi utveckling över tid. Andelen kvinnor i
 chefsposition i Dalarna har nästintill fördubblats under en
@@ -1943,12 +1950,12 @@ tjugoårsperiod, och under samma period är andelen män i chefspositioner mer
 eller mindre oförändrat. Det betyder att antalet chefspositioner har ökat i antal, men totalt sett så går utvecklingen över tid ändå i en mer jämställd riktning, även om situationen på arbetsmarknaden fortsatt får anses vara ojämställd.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-  diagram_capt <- c("Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Andel chefer av sysselsatta med ett klassificerat yrke (20-64 år) uppdelat på utbildningsnivå",
-                    "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Förändring i andelen chefer av sysselsatta med ett klassificerat yrke (20-64 år) för samtliga utbildningsnivåer")
-diagramtitel <- paste0("Andel chefer år ",max(chefer_df$år)," i Dalarna")
+  diagram_capt <- c("Källa: SCB:s öppna statistikdatabas, BAS\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Andel chefer av sysselsatta med ett klassificerat yrke (20-65 år) uppdelat på utbildningsnivå",
+                    "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Förändring i andelen chefer av sysselsatta med ett klassificerat yrke  för samtliga utbildningsnivåer.\nFram till och med 2021, 20-64 år och data från RAMS. Från 2022, 20-65 år och data från BAS.")
+diagramtitel <- paste0("Andel chefer år ",max(chefer_just_df$år)," i Dalarna")
 diagramfilnamn <- paste0("andel_chefer.png")
 
-chefer_fig <- SkapaStapelDiagram(skickad_df =chefer_df %>% 
+chefer_fig <- SkapaStapelDiagram(skickad_df = chefer_just_df %>% 
                                filter(år == max(år),
                                       utbildningsnivå != "utbildningsnivå: uppgift saknas"),
                              skickad_x_var = "utbildningsnivå",
@@ -1978,7 +1985,7 @@ chefer_fig
   diagramtitel <- paste0("Förändring i andel chefer i Dalarna")
   diagramfilnamn <- paste0("andel_chefer_linje.png")
 
-  chefer_linje_fig <- SkapaLinjeDiagram(skickad_df =chefer_df %>% 
+  chefer_linje_fig <- SkapaLinjeDiagram(skickad_df =chefer_just_df %>% 
                                 filter(år >"2000",
                                        utbildningsnivå == "samtliga utbildningsnivåer"),
                               skickad_x_var = "år",

@@ -55,7 +55,7 @@ source(here("Skript","forvarvsarbetande_bransch_korrekt.R"), encoding="UTF-8")
 data_forvarvsarbetande_bransch(spara_data = TRUE,
                                output_mapp = Output_mapp)
 
-# Yrke, uppdelat på kön
+# Yrke, uppdelat på kön - Funkar inte för tillfället
 source(here("Skript","yrke.R"), encoding="UTF-8")
 data_yrke(spara_data = TRUE,
           output_mapp = Output_mapp)
@@ -75,7 +75,7 @@ source(here("Skript","långtidsarbetslöshet.R"), encoding="UTF-8")
 diag_langtidsarbetsloshet(spara_data = TRUE,
                           output_mapp = Output_mapp)
 
-# Etableringstid på arbetsmarknaden
+# Etableringstid på arbetsmarknaden - Funkar inte, SCB har nog ändrat länk
 source(here("Skript","etablering.R"), encoding="UTF-8")
 diag_etablering(spara_data = TRUE,
                 output_mapp = Output_mapp)
@@ -111,7 +111,7 @@ source(here("Skript","val.R"), encoding="UTF-8")
 diag_val(spara_data = TRUE,
          output_mapp = Output_mapp)
 
-# Chefer 
+# Chefer - Samma som Etablering,
 source(here("Skript","Chefer.R"), encoding="UTF-8")
 diag_chefer(spara_data = TRUE,
             output_mapp = Output_mapp)
