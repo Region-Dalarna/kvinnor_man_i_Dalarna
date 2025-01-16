@@ -109,7 +109,7 @@ Denna rapport ger en bild utifrån kvantitativa mått av nuläget i Dalarna för
 
 <li>Andelen högutbildade ökar bland både kvinnor och män, men andelen kvinnor ökar i högre takt och idag är nästan dubbelt så många kvinnor som män i Dalarna högutbildade. </li>
 
-<li>Obalansen mellan tjejers och killars val till gymnasieprogrammen består. Endast sex program av tjugo program har en jämn representation av tjejer och killar.</li>
+<li>Obalansen mellan tjejers och killars val till gymnasieprogrammen består. Endast fem program av tjugo program har en jämn representation av tjejer och killar.</li>
 
 <li>I likhet med riket som helhet har kvinnor i Dalarna en avsevärt lägre medianinkomst än män, även om kvinnors inkomster har ökat i något högre takt än mäns de senaste decennierna.</li>
 
@@ -1384,7 +1384,7 @@ fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
 fp_andel_fig
 ```
 
-Hur vårdnadshavare fördelar föräldrapenningen mellan sig är relativt olika i Dalarnas kommuner. I `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun, regex='\\S+')` är uttaget  mest jämställt relativt sett, där drygt `r round(as.numeric(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel),0)` procent av föräldrapenningdagarna togs ut av männen. Minst jämställt är fördelningen i `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun, regex='\\S+')`, där motsvarande uttag är ca `r round(as.numeric(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel),0)` procent.
+Hur vårdnadshavare fördelar föräldrapenningen mellan sig är relativt olika i Dalarnas kommuner. I `r stri_extract_last(first(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun), regex='\\S+')` och Orsa är uttaget  mest jämställt relativt sett, där drygt `r round(as.numeric(first(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel)),0)` procent av föräldrapenningdagarna togs ut av männen. Minst jämställt är fördelningen i `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun, regex='\\S+')`, där motsvarande uttag är ca `r round(as.numeric(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel),0)` procent.
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -1424,7 +1424,7 @@ fp_andel_fig
 ```
 
 ## Tillfällig föräldrapenning
-Tillfällig föräldrapenning ges för vård av sjukt barn och är det som i folkmun kallas vab. Sett över tidsperioden minskade antalet uttagna nettodagar något mellan 2006 och 2009, för att därefter öka stadigt fram till 2022. År 2023 minskade uttaget av tillfällig föräldrapenning/vab för såväl kvinnor som män något, men ligger fortfarande på klart högre nivåer än innan pandemin. Även för vård av sjukt barn tar kvinnor ut betydligt fler dagar än män, men fördelningen ligger precis runt spannet för vad som antas som statistisk jämställdhet, kvinnor tar ut cirka 60 procent av dagarna och män tar ut cirka 40 procent. 
+Tillfällig föräldrapenning ges för vård av sjukt barn och är det som i folkmun kallas vab. Sett över tidsperioden minskade antalet uttagna nettodagar något mellan 2006 och 2009, för att därefter öka stadigt fram till 2022. På senare år har uttaget av tillfällig föräldrapenning/vab för såväl kvinnor som män minskat, men ligger fortfarande på högre nivåer än innan pandemin. Även för vård av sjukt barn tar kvinnor ut betydligt fler dagar än män, men fördelningen ligger precis utanför spannet för vad som antas som statistisk jämställdhet, kvinnor tar ut ca `r round(vab_df %>% filter(Kommun == "Samtliga kommuner",Kön == "Kvinnor",År == max(År)) %>% .$Andel,0)` procent av dagarna. 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
@@ -1572,7 +1572,7 @@ ohalsotal_fig <- SkapaStapelDiagram(skickad_df = ohalsotal_df_utskrift %>%
 
 Ohälsotalet^[Ohälsotalet: hur många dagar under en tolvmånadersperiod
     Försäkringskassan betalar ut ersättning för nedsatt arbetsförmåga i
-    förhållande till antalet försäkrade i åldersgruppen 16-64 år] mäter i vilken utsträckning personer är borta från arbetet på grund av nedsatt arbetsförmåga, mätt under ett års tid. Ohälsotalet varierar över tid och var relativt högt under början av 2000-talet. Därefter syns en klart nedåtgående trend. Under hela tidsperioden har ohälsotalet varit högre för kvinnor än för män, även om skillnaden mellan könen har minskat något över tid.
+    förhållande till antalet försäkrade i åldersgruppen 16-64 år] mäter i vilken utsträckning personer är borta från arbetet på grund av nedsatt arbetsförmåga, mätt under ett års tid. Ohälsotalet varierar över tid och var relativt högt under början av 2000-talet. Därefter syns en klart nedåtgående trend, även om ohälsotalet har ökat något de senaste åren. Under hela tidsperioden har ohälsotalet varit högre för kvinnor än för män, även om skillnaden mellan könen har minskat något över tid.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -1755,7 +1755,7 @@ stress_fig <- SkapaStapelDiagram(skickad_df = stress_df_utskrift %>%
                              skriv_till_diagramfil = spara_figur)
 ```
 
-Antalet sjukfall kopplade till stressrelaterade symptom  har ökat dramatiskt sedan 2010. Även för dessa sjukfall ses en trend där antalet minskade markant under en period fram till 2010, för att sedan öka. Kvinnor står för cirka `r round(stress_df_utskrift %>% filter(Kön=="Kvinnor",År==max(.$År)) %>% .$Antal_medel/stress_df_utskrift %>% filter(Kön=="Kvinnor och män",År==max(.$År)) %>% .$Antal_medel,2)*100` procent av dessa sjukskrivningar. Trots den stora skillnaden i antal mellan kvinnor och män, så är ökningen relativt likvärdig. Antalet pågående sjukfall kopplade till stress ökade markant för respektive grupp mellan 2010 och 2016, innan det skedde en viss minskning under åren innan och under pandemin. Därefter har det pågående sjukfallen kopplade till stress återigen börjat öka tydligt för såväl kvinnor som män. 
+Antalet sjukfall kopplade till stressrelaterade symptom  har ökat dramatiskt sedan 2010. Även för dessa sjukfall ses en trend där antalet minskade tydligt under en period fram till 2010, för att sedan öka. Kvinnor står för cirka `r round(stress_df_utskrift %>% filter(Kön=="Kvinnor",År==max(.$År)) %>% .$Antal_medel/stress_df_utskrift %>% filter(Kön=="Kvinnor och män",År==max(.$År)) %>% .$Antal_medel,2)*100` procent av dessa sjukskrivningar. Trots den stora skillnaden i antal mellan kvinnor och män, så är ökningen relativt likvärdig. Antalet pågående sjukfall kopplade till stress ökade markant för respektive grupp mellan 2010 och 2016, innan det skedde en viss minskning under åren innan och under pandemin. Därefter har det pågående sjukfallen kopplade till stress återigen börjat öka tydligt för såväl kvinnor som män. 
 
 Att utröna vad det ökade antalet sjukfall beror på är svårt, men det finns ett väl belagt samband mellan psykiatriska diagnoser (såsom svår stress) och den
 psykosociala arbetsmiljön [(Försäkringskassan, 2016)](<https://www.forsakringskassan.se/download/18.3a5418591814e228e4413b2/1661267958656/psykisk-ohalsa-korta-analyser-2016-2.pdf>){target="_blank"}^[Försäkringskassan, Korta analyser 2016:2, "Sjukskrivning för reaktioner på svår stress ökar mest."]. För en fördjupad diskussion runt detta ämne, se Försäkringskassans rapport från november 2024: ["Psykisk ohälsa i dagens arbetsliv "](https://www.forsakringskassan.se/download/18.21e4089719320208e5873/1731686616744/psykisk-ohalsa-i-dagens-arbetsliv-lagesrapport-2024.pdf){target="_blank"}^[Försäkringskassans lägesrapport (2024) - "Psykisk ohälsa i dagens arbetsliv"].
@@ -1822,7 +1822,7 @@ diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\n Bearbetning: Samhälls
 riksdagsval_summering_df <- riksdagsval_df %>%
       filter(region=="Totalt för riket") %>%
         group_by(kön,valår) %>%
-          summarise("Antal" = sum(`Riksdagsledamöter`))
+          summarise("Antal" = sum(Antal))
 
 diagramtitel <- paste0("Riksdagsledamöter per valår")
 diagramfilnamn <- paste0("Riksdagsledamöter",".png")
@@ -1847,7 +1847,7 @@ riksdag_fig <- SkapaStapelDiagram(skickad_df = riksdagsval_summering_df,
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 regionval_summering_df <- regionval_df %>%
       group_by(kön,valår) %>%
-        summarise("Antal" = sum(`Regionfullmäktigledamöter`))
+        summarise("Antal" = sum(Antal))
 
 diagramtitel <- "Regionfullmäktigeledamöter per valår i Dalarna"
 diagramfilnamn <- "regionfullmaktige.png"
@@ -1906,23 +1906,23 @@ mellan könen är bara `r riksdagsval_summering_df %>% filter(valår == max(val�
 Riksdagen i Sverige var mandatperioden som tog sin början `r riksdagsval_summering_df %>% filter(kön == "kvinnor",Antal == max(Antal)) %>% .$valår ` då antalet kvinnor
 var `r riksdagsval_summering_df %>% filter(kön == "kvinnor",Antal == max(Antal)) %>% .$Antal`.
 
-Trenden på nationell nivå syns även på regional nivå där trenden går mot
-en mer jämställd representation bland de folkvalda. Vid landstingsvalet 1982 i Dalarna var antalet manliga ledamöter i regionfullmäktige övervägande män, medan könsfördelningen vid regionvalet 2014 var i princip helt jämställd med ett nästan
-jämnt antal män och kvinnor bland folkvalda i regionens fullmäktige.
-Efter valet 2018 syns däremot återigen en ökning av andelen män i regionfullmäktige och sedan det senaste valet (`r max(regionval_summering_df$valår)`) sitter `r regionval_summering_df %>% filter(valår == max(valår),kön =="män") %>% .$Antal - regionval_summering_df %>% filter(valår == max(valår),kön =="kvinnor") %>% .$Antal ` fler män än kvinnor i regionfullmäktige.
-
-På lokal nivå i Dalarna finns det stora skillnader mellan kommunerna.
-Efter valet 2022 var Avesta och Smedjebacken de enda kommuner i länet där kvinnorna i fullmäktige översteg antalet män (med en person i respektive fullmäktige). Borlänge, Gagnef, Mora och Vansbro har istället en majoritet män, dvs mer än 60 procent män, bland deras folkvalda ledamöter.
-
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 riksdag_fig
 ```
 
+Trenden på nationell nivå syns även på regional nivå där trenden går mot
+en mer jämställd representation bland de folkvalda. Vid landstingsvalet 1982 i Dalarna var antalet manliga ledamöter i regionfullmäktige övervägande män, medan könsfördelningen vid regionvalet 2014 var i princip helt jämställd med ett nästan
+jämnt antal män och kvinnor bland folkvalda i regionens fullmäktige.
+Efter valet 2018 syns däremot återigen en ökning av andelen män i regionfullmäktige och sedan det senaste valet (`r max(regionval_summering_df$valår)`) sitter `r regionval_summering_df %>% filter(valår == max(valår),kön =="män") %>% .$Antal - regionval_summering_df %>% filter(valår == max(valår),kön =="kvinnor") %>% .$Antal ` fler män än kvinnor i regionfullmäktige.
+
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 regionval_fig
 ```
+
+På lokal nivå i Dalarna finns det stora skillnader mellan kommunerna.
+Efter valet 2022 var Avesta och Smedjebacken de enda kommuner i länet där kvinnorna i fullmäktige översteg antalet män (med en person i respektive fullmäktige). Borlänge, Gagnef, Mora och Vansbro har istället en majoritet män, dvs mer än 60 procent män, bland deras folkvalda ledamöter.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -1935,7 +1935,6 @@ kommunval_fig
 chefer_just_df <- chefer_df %>%
          filter(!is.na(Andel))
 ```
-
 
 Ett annat mått på makt är den ställning individen har på arbetsplatsen
 och i yrkeslivet. I diagrammet nedan visas andelen chefer uppdelade efter kön och för olika utbildningsnivåer. I samtliga grupper i Dalarna är en större andel av männen sysselsatta i någon form av chefsposition jämfört med
@@ -1972,11 +1971,6 @@ chefer_fig <- SkapaStapelDiagram(skickad_df = chefer_just_df %>%
 
 ```
 
-I diagrammet nedan ser vi utveckling över tid. Andelen kvinnor i
-chefsposition i Dalarna har fördubblats under en
-tjugoårsperiod, och under samma period är andelen män i chefspositioner mer
-eller mindre oförändrat. Det betyder att antalet chefspositioner har ökat i antal, men totalt sett så går utvecklingen över tid ändå i en mer jämställd riktning, även om situationen på arbetsmarknaden fortsatt får anses vara ojämställd.
-
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 chefer_fig
@@ -2005,6 +1999,11 @@ chefer_fig
 
 
 ```
+
+I diagrammet nedan ser vi utveckling över tid. Andelen kvinnor i
+chefsposition i Dalarna har fördubblats under en
+tjugoårsperiod, och under samma period är andelen män i chefspositioner mer
+eller mindre oförändrat. Det betyder att antalet chefspositioner har ökat i antal, men totalt sett så går utvecklingen över tid ändå i en mer jämställd riktning, även om situationen på arbetsmarknaden fortsatt får anses vara ojämställd.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}

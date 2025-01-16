@@ -7,6 +7,7 @@ data_yrke<-function(region_vekt = "20",
   # Skript som skapar diagram för störst antal anställa med ett visst yrke i en region.
   # Könsuppdelat, finns både som facet och inte facet
   # Uppdaterat 2024-11-11: Jon, har uppdaterat så att data hämtas via ett nytt skript
+  # Kommenterat bort `Anställda (yrkesregistret) 16-64 år med arbetsplats i regionen (dagbef)`
   # =================================================================================================================
   if (!require("pacman")) install.packages("pacman")
   p_load(pxweb,
@@ -23,7 +24,7 @@ data_yrke<-function(region_vekt = "20",
                                                               yrke2012_klartext = "*",
                                                               tid_koder = "9999") %>% 
     filter(år == max(år)) %>% 
-      select(-`Anställda (yrkesregistret) 16-64 år med arbetsplats i regionen (dagbef)`) %>% 
+      #select(-`Anställda (yrkesregistret) 16-64 år med arbetsplats i regionen (dagbef)`) %>% 
         rename(Yrke = `Yrke (SSYK 2012)`)
   
   # # Variabler som skall tas ut

@@ -3,6 +3,7 @@
 # Välj sjukfrånvaro per bransch och sektor, 2010-
 # Läser in nödvändiga bibliotek med pacman
 # Senast kontrollerad: 2024-11-13 (data). Finns fram till 2023.
+# Kontrollerad igen 2025-01-16 - ingen ny data
 if (!require("pacman")) install.packages("pacman")
 p_load(here,
        openxlsx,
