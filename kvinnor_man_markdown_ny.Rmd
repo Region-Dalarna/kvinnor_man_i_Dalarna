@@ -152,7 +152,7 @@ Bland den vuxna befolkningen ser vi att även om både kvinnor och män vidareut
 
 ## Utbildningsnivå 
 
-Utbildningsnivån inom åldersgruppen 25-64 år i Dalarna redovisas i figuren nedan
+Utbildningsnivån inom åldersgruppen 25-64 år i Dalarna år `r max(utbildning_df$år)`  redovisas i figuren nedan
 och visar på stora skillnader mellan könen. En betydligt större andel kvinnor i länet har en högre utbildning i jämförelse med andelen män med högre utbildning. Bland kvinnor i Dalarna är den vanligaste, med `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel,0)` procent, utbildningsnivån "`r utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$utbildningsnivå`". Inom den här utbildningskategorin är motsvarande siffra för män i Dalarna drygt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer")  %>% .$andel,0)` procent. I kombination med "kortare eftergymnasiala studier (högst 2 år)" är det totalt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "eftergymnasial utbildning, mindre än 3 år")  %>% .$andel,0)` procent av kvinnorna i Dalarna som har någon form av eftergymnasial utbildning. För män i länet är motsvarande siffra cirka `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män", utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, mindre än 3 år")  %>% .$andel,0)` procent.
 
 Bland män i Dalarna är den vanligast förekommande utbildningskategorin
@@ -174,7 +174,8 @@ utbildning_85_utskrift<-utbildning_85_df %>%
         mutate(andel=(antal/sum(antal))*100) %>% 
           filter(utb_niva!="Uppgift saknas") 
 
-  diagramtitel <-paste0("Utbildningsnivå (25-64 år) i Dalarna")
+  diagramtitel_senaste <- paste0("Utbildningsnivå (25-64 år) i Dalarna år ",max(utbildning_df$år))
+  diagramtitel <- "Utbildningsnivå (25-64 år) i Dalarna"
   diagramfilnamn <- paste0("utbildningsniva_Dalarnas län.png")
 
   utbildning_fig <- SkapaStapelDiagram(skickad_df <- utbildning_df %>%
@@ -187,7 +188,7 @@ utbildning_85_utskrift<-utbildning_85_df %>%
                                        x_axis_sort_value=FALSE,
                                        manual_color = diagramfarger("kon"),
                                        manual_y_axis_title = "procent",
-                                       diagram_titel = diagramtitel,
+                                       diagram_titel = diagramtitel_senaste,
                                        diagram_capt =  diagram_capt,
                                        stodlinjer_avrunda_fem = TRUE,
                                        berakna_index = FALSE,
