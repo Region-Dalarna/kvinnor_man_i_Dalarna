@@ -1424,6 +1424,15 @@ fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
 fp_andel_fig
 ```
 
+Uttaget av nettodagar är av förklarliga skäl ojämnt fördelat över året. Mest benägna är såväl kvinnor som män att ta ut dagar i juli och augusti, sannolikt för att kunna vara hemma med barnen under deras skollov på sommaren. Även januari är en populär månad, troligtvis fokuserat i början av månaden när barnen är lediga från förskola och skola. 
+
+Ett påstående som ibland förs fram är att män är mer benägna att ta ut dagar under exempelvis älgjakten (september och oktober primärt) eller större idrottsevenemang, men någon sådan tendens syns inte i diagrammet nedan. Män tar ut sina dagar i första hand under januari, juli och augusti, medan det är relativt jämnt fördelat mellan övriga månader. Visserligen sticker september ut som en månad med relativt många uttagna dagar, men det gäller för såväl kvinnor som män och bör således inte vara kopplat till eventuell älgjakt under månaden.
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
+gg_forsakringskassan$foraldrapenning_manad
+```
+
+
 ## Tillfällig föräldrapenning
 Tillfällig föräldrapenning ges för vård av sjukt barn och är det som i folkmun kallas vab. Sett över tidsperioden minskade antalet uttagna nettodagar något mellan 2006 och 2009, för att därefter öka stadigt fram till 2022. På senare år har uttaget av tillfällig föräldrapenning/vab för såväl kvinnor som män minskat, men ligger fortfarande på högre nivåer än innan pandemin. Även för vård av sjukt barn tar kvinnor ut betydligt fler dagar än män, men fördelningen ligger precis utanför spannet för vad som antas som statistisk jämställdhet, kvinnor tar ut ca `r round(vab_df %>% filter(Kommun == "Samtliga kommuner",Kön == "Kvinnor",År == max(År)) %>% .$Andel,0)` procent av dagarna. 
 <br>
