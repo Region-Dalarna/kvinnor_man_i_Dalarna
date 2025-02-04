@@ -3,17 +3,18 @@
 # Källa: https://www.dataportal.se/datasets/547_12671
 # Källa: https://www.dataportal.se/datasets/547_12364
 # =================================================================================================================
-test <- diag_foraldrapenning_manad()
+test <- diag_foraldrapenning_manad(spara_diagrambildfil = TRUE)
 diag_foraldrapenning_manad<-function(region_vekt = "20", 
-                                     output_mapp = "G:/Samhällsanalys/Statistik/Näringsliv/basfakta/",
-                                     filnamn = "sjukfall_stress.xlsx",
-                                     spara_data = FALSE){
+                                     output_mapp = here("Diagram","/"),
+                                     spara_diagrambildfil = FALSE,
+                                     spara_dataframe_till_global_environment = FALSE){
   
   # =============================================== Uttag ===============================================
   
   # # Läser in nödvändiga bibliotek med pacman
   if (!require("pacman")) install.packages("pacman")
-  p_load(openxlsx)
+  p_load(openxlsx,
+         here)
   
   # Funktioner som behövs
   #source("https://raw.githubusercontent.com/JonFrank81/funktioner_alternativ/main/hamta_data.R")
@@ -55,12 +56,16 @@ diag_foraldrapenning_manad<-function(region_vekt = "20",
                             foraldrapenning_df$Månad == 12 ~ "December"
                           )
       
+      if(spara_dataframe_till_global_environment) {
+        assign("foraldrapenning_manad_df", foraldrapenning_df, envir = .GlobalEnv)
+      }
+      
       # Create factor-variable for month
       foraldrapenning_df$Månad = factor(foraldrapenning_df$Månad, levels = c("Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"))
       
       diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
       diagramtitel <- "Uttagna nettodagar av föräldrapenning i Dalarna"
-      diagramfil <- "foraldrapenning_manad.png"
+      diagramfilnamn <- "foraldrapenning_manad.png"
       
       
       gg_obj <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
@@ -83,12 +88,12 @@ diag_foraldrapenning_manad<-function(region_vekt = "20",
                                          diagram_titel = diagramtitel,
                                          diagram_capt =  diagram_capt,
                                          stodlinjer_avrunda_fem = TRUE,
-                                         output_mapp = "outputmapp",
-                                         filnamn_diagram = "diagramfilnamn",
-                                         skriv_till_diagramfil = FALSE)
+                                         output_mapp = output_mapp,
+                                         filnamn_diagram = diagramfilnamn,
+                                         skriv_till_diagramfil = spara_diagrambildfil)
       
   gg_list <- c(gg_list, list(gg_obj))
-  names(gg_list)[[length(gg_list)]] <- diagramfil %>% str_remove(".png")
+  names(gg_list)[[length(gg_list)]] <- diagramfilnamn %>% str_remove(".png")
       
   vab_df <- hamta_excel_dataset_med_url(path[2],skippa_rader = 2) %>% 
     filter(substr(Län,1,2) %in% region_vekt) %>%
@@ -113,12 +118,16 @@ diag_foraldrapenning_manad<-function(region_vekt = "20",
     vab_df$Månad == 12 ~ "December"
   )
   
+  if(spara_dataframe_till_global_environment) {
+    assign("vab_manad_df", vab_df, envir = .GlobalEnv)
+  }
+  
   # Create factor-variable for month
   vab_df$Månad = factor(vab_df$Månad, levels = c("Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"))
   
   diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna.\nGäller månad när föräldern vabbade."
   diagramtitel <- "Uttagna nettodagar av tillfällig föräldrapenning i Dalarna"
-  
+  diagramfilnamn <- "vab_manad.png"
   
   gg_obj <- SkapaStapelDiagram(skickad_df = vab_df%>%
                                         filter(Kommun == "20 Dalarnas län",
@@ -141,13 +150,13 @@ diag_foraldrapenning_manad<-function(region_vekt = "20",
                                       diagram_titel = diagramtitel,
                                       diagram_capt =  diagram_capt,
                                       stodlinjer_avrunda_fem = TRUE,
-                                      output_mapp = "outputmapp",
-                                      filnamn_diagram = "diagramfilnamn",
-                                      skriv_till_diagramfil = FALSE)
+                                      output_mapp = output_mapp,
+                                      filnamn_diagram = diagramfilnamn,
+                                      skriv_till_diagramfil = spara_diagrambildfil)
   
   gg_list <- c(gg_list, list(gg_obj))
   diagramfil <- "tf_foraldrapenning_manad.png"
-  names(gg_list)[[length(gg_list)]] <- diagramfil %>% str_remove(".png")
+  names(gg_list)[[length(gg_list)]] <- diagramfilnamn %>% str_remove(".png")
   
   return(gg_list)
   
@@ -156,8 +165,8 @@ diag_foraldrapenning_manad<-function(region_vekt = "20",
   # names(flik_lista) = c("Stress")
   
   #Sparar data till Excel
-  if (spara_data==TRUE){
-    openxlsx::write.xlsx(flik_lista,paste0(output_mapp,filnamn))
-  }
+  # if (spara_data==TRUE){
+  #   openxlsx::write.xlsx(flik_lista,paste0(output_mapp,filnamn))
+  # }
   
 }
