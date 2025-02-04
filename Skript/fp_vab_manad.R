@@ -1,12 +1,13 @@
 ## =================================================================================================================
-# Skript som laddar hem data för pågående föräldrapenning på månadsbasis från Försäkringskassan
+# Skript som laddar hem data för pågående föräldrapenning och tillfällig föräldrapenning på månadsbasis från Försäkringskassan
 # Källa: https://www.dataportal.se/datasets/547_12671
+# Källa: https://www.dataportal.se/datasets/547_12364
 # =================================================================================================================
-
+test <- diag_foraldrapenning_manad()
 diag_foraldrapenning_manad<-function(region_vekt = "20", 
                                      output_mapp = "G:/Samhällsanalys/Statistik/Näringsliv/basfakta/",
                                      filnamn = "sjukfall_stress.xlsx",
-                                     spara_data = TRUE){
+                                     spara_data = FALSE){
   
   # =============================================== Uttag ===============================================
   
@@ -25,6 +26,8 @@ diag_foraldrapenning_manad<-function(region_vekt = "20",
   # Med Peters nya skript
   flik_lista = list()
   
+  gg_list = list()
+
   #json_test = hamta_fk_json_dataset_med_url("https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/fp-antal-mottagare-nettodagar-belopp/FPAntalDagarBeloppLanKommun.json")
   
   foraldrapenning_df = hamta_excel_dataset_med_url(path[1],skippa_rader = 2) %>% 
@@ -57,9 +60,10 @@ diag_foraldrapenning_manad<-function(region_vekt = "20",
       
       diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
       diagramtitel <- "Uttagna nettodagar av föräldrapenning i Dalarna"
+      diagramfil <- "foraldrapenning_manad.png"
       
       
-      tfp_fig_linje <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
+      gg_obj <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
                                            filter(Kommun == "20 Dalarnas län",
                                                   Kön != "Kvinnor och män",
                                                   År>"2018") %>% 
@@ -82,6 +86,9 @@ diag_foraldrapenning_manad<-function(region_vekt = "20",
                                          output_mapp = "outputmapp",
                                          filnamn_diagram = "diagramfilnamn",
                                          skriv_till_diagramfil = FALSE)
+      
+  gg_list <- c(gg_list, list(gg_obj))
+  names(gg_list)[[length(gg_list)]] <- diagramfil %>% str_remove(".png")
       
   vab_df <- hamta_excel_dataset_med_url(path[2],skippa_rader = 2) %>% 
     filter(substr(Län,1,2) %in% region_vekt) %>%
@@ -113,7 +120,7 @@ diag_foraldrapenning_manad<-function(region_vekt = "20",
   diagramtitel <- "Uttagna nettodagar av tillfällig föräldrapenning i Dalarna"
   
   
-  tfp_fig_linje <- SkapaStapelDiagram(skickad_df = vab_df%>%
+  gg_obj <- SkapaStapelDiagram(skickad_df = vab_df%>%
                                         filter(Kommun == "20 Dalarnas län",
                                                Kön != "Kvinnor och män",
                                                Tidsperspektiv == "Månad när föräldern vabbade",
@@ -138,11 +145,17 @@ diag_foraldrapenning_manad<-function(region_vekt = "20",
                                       filnamn_diagram = "diagramfilnamn",
                                       skriv_till_diagramfil = FALSE)
   
-  flik_lista[[1]] = stress_df
+  gg_list <- c(gg_list, list(gg_obj))
+  diagramfil <- "tf_foraldrapenning_manad.png"
+  names(gg_list)[[length(gg_list)]] <- diagramfil %>% str_remove(".png")
   
-  names(flik_lista) = c("Stress")
+  return(gg_list)
   
-  # Sparar data till Excel
+  # flik_lista[[1]] = stress_df
+  # 
+  # names(flik_lista) = c("Stress")
+  
+  #Sparar data till Excel
   if (spara_data==TRUE){
     openxlsx::write.xlsx(flik_lista,paste0(output_mapp,filnamn))
   }
