@@ -1424,7 +1424,7 @@ fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
 fp_andel_fig
 ```
 
-Uttaget av nettodagar är av förklarliga skäl ojämnt fördelat över året. Mest benägna är såväl kvinnor som män att ta ut dagar i juli och augusti, sannolikt för att kunna vara hemma med barnen under deras skollov på sommaren. Även januari är en populär månad, troligtvis fokuserat i början av månaden när barnen är lediga från förskola och skola. 
+Antalet uttagna nettodagar av föräldrapenning är ojämnt fördelade över året. Mest benägna är såväl kvinnor som män att ta ut dagar i juli och augusti, sannolikt för att kunna vara hemma med barnen under deras skollov på sommaren. Även januari är en populär månad, troligtvis fokuserat i början av månaden när barnen är lediga från förskola och skola. 
 
 Ett påstående som ibland förs fram är att män är mer benägna att ta ut dagar under exempelvis älgjakten (september och oktober primärt) eller större idrottsevenemang, men någon sådan tendens syns inte i diagrammet nedan. Män tar ut sina dagar i första hand under januari, juli och augusti, medan det är relativt jämnt fördelat mellan övriga månader. Visserligen sticker september ut som en månad med relativt många uttagna dagar, men det gäller för såväl kvinnor som män och bör således inte vara kopplat till eventuell älgjakt under månaden.
 
