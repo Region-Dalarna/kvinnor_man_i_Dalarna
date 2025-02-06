@@ -11,8 +11,14 @@ source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_AP
 diag_kronofogden_andel <- function(output_mapp = "G:/Samhällsanalys/Statistik/Näringsliv/basfakta/",
                                    spara_data = TRUE,
                                    filnamn = "skuldsatta_andel.xlsx"){
+  
+  url <- "https://api.scb.se/OV0104/v1/doris/sv/ssd/START/BE/BE0101/BE0101A/BefolkningNy"
+  
+  max_år_SCB <- max(hamta_giltiga_varden_fran_tabell(url, "tid"))
 
-  skuldsatta_df <- read.csv2("https://kronofogden.entryscape.net/store/2/resource/27",encoding="latin1" ) %>% 
+  # Tillfällig lösning där jag läser in data från en Excelfil istället (där hämtning har gått igenom)
+  skuldsatta_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx", sheet = 2) %>% 
+  #skuldsatta_df <- read.csv2("https://kronofogden.entryscape.net/store/2/resource/27",encoding="latin1" ) %>% 
     filter(Län == "DALARNA") %>% 
       group_by(År,Ålder,Kön) %>% 
         summarize(Antal_skuldsatta = sum(Antal.skuldsatta),
@@ -20,19 +26,19 @@ diag_kronofogden_andel <- function(output_mapp = "G:/Samhällsanalys/Statistik/N
                   Skuldbelopp_person = Skuldbelopp/Antal_skuldsatta,
                   Antal_utmätning = sum(Antal.med.löneutmätning)) %>% 
           rename("kön" = Kön) %>% 
-            mutate(År=as.character(År),
-                   kön = ifelse(kön == "Kvinna","kvinnor","män")) %>%
-              filter(År == max(.$År))
-  
-  url <- "https://api.scb.se/OV0104/v1/doris/sv/ssd/START/BE/BE0101/BE0101A/BefolkningNy"
-  
+            mutate(År=as.character(År)) %>% 
+            # Tar bort nedanstående tillfälligt
+            # mutate(År=as.character(År),
+            #        kön = ifelse(kön == "Kvinna","kvinnor","män")) %>%
+              filter(År ==  max_år_SCB)
+
   # Variabler som skall tas ut. Tar bara ut för det senast år för vilket det finns data för skuldsatta.
   varlista <-  list("Region" = c("20"),
                     "Civilstand" = c("*"),
                     "Alder" = c("*"),
                     "Kon"=c("1","2"),
                     "ContentsCode"="BE0101N1",
-                    "Tid"=as.character(max(skuldsatta_df$År)))
+                    "Tid"= max_år_SCB)
   
   px_uttag <- pxweb_get(url = url,query = varlista)
   
