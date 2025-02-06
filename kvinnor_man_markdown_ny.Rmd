@@ -348,7 +348,7 @@ gymnasieantagning_fig
 ```
 
 ## Examen efter gymnasiet
-I diagrammet nedan visas genomströmningen i gymnasieskolan genom andelen med studiebevis alternativt examen 4 år efter påbörjat gymnasium. Det generella mönstret är att cirka 80 procent av tjejerna avklarat gymnasiet inom 4 år, medan andelen bland pojkarna har varit lägre (runt 75 procent). Sedan den tydliga försämringen under pandemiåren 2020 och 2021, har dock andelen med studiebevis ökat påtagligt för både tjejer och killar.
+I diagrammet nedan visas genomströmningen i gymnasieskolan genom andelen med studiebevis alternativt examen 4 år efter påbörjat gymnasium. Tidigare var det generella mönstret att cirka 80 procent av tjejerna avklarat gymnasiet inom 4 år, medan andelen bland pojkarna har varit lägre (runt 75 procent). Sedan den tydliga försämringen under pandemiåren 2020 och 2021, har dock andelen med studiebevis ökat för båda könen, men extra mycket för killarna. År 2024 var andelen med studiebevis ungefär `r round(gymnasiet_genomstromning_df %>% filter(year==max(year),kon == "Kvinnor") %>% .$value,0)` procent bland tjejer och `r round(gymnasiet_genomstromning_df %>% filter(year==max(year),kon == "Män") %>% .$value,0)` procent bland killar.
 
 ```{r, echo=FALSE}
 
