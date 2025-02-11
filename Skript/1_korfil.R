@@ -18,6 +18,11 @@ gg_forsakringskassan <- diag_foraldrapenning_manad(region_vekt = "20",
                                                    spara_diagrambildfil = TRUE,
                                                    spara_dataframe_till_global_environment = TRUE)
 
+source(here("Skript","diagram_arbesloshet_tidsserie_BAS.R"))
+gg_arbetsloshet_tidsserie_bas <- diag_arbetsloshet_tidsserie(spara_diagrambildfil = FALSE,
+                                                             spara_dataframe_till_global_environment = FALSE,
+                                                             output_mapp = output_mapp_figur)
+
 
 rmarkdown::render(
   input = 'kvinnor_man_markdown_ny.Rmd',
