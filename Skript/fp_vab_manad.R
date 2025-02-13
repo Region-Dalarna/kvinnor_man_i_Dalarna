@@ -69,7 +69,7 @@ diag_foraldrapenning_manad<-function(region_vekt = "20",
         gg_obj <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
                                              filter(Kommun == "20 Dalarnas län",
                                                     Kön != "Kvinnor och män",
-                                                    År>"2018") %>% 
+                                                    År>"2019") %>% 
                                              mutate("år" = År), 
                                            skickad_x_var = "Månad", 
                                            skickad_y_var = "Nettodagar", 
@@ -77,7 +77,7 @@ diag_foraldrapenning_manad<-function(region_vekt = "20",
                                            diagram_facet = TRUE,
                                            facet_scale = "fixed",
                                            facet_grp = "Kön",
-                                           manual_color = diagramfarger("rus_sex"),
+                                           manual_color = c(diagramfarger("rus_sex")),
                                            manual_x_axis_text_vjust = 1,
                                            manual_x_axis_text_hjust = 1,
                                            facet_legend_bottom = TRUE,
