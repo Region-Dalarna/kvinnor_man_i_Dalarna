@@ -15,6 +15,7 @@ source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_AP
 diag_stress<-function(region_vekt = "20", 
                       output_mapp = "G:/Samhällsanalys/Statistik/Näringsliv/basfakta/",
                       filnamn = "sjukfall_stress.xlsx",
+                      returnera_dataframe = FALSE,
                       spara_data = TRUE){
   
   # =============================================== Uttag ===============================================
@@ -33,7 +34,7 @@ diag_stress<-function(region_vekt = "20",
   # Med Peters nya skript
   flik_lista = list()
   
-  stress_df = hamta_excel_dataset_med_url(path,skippa_rader = 2) %>% 
+  stress_df <- hamta_excel_dataset_med_url(path,skippa_rader = 2) %>% 
     filter(substr(Län,1,2) %in% region_vekt) %>%
       rename(Antal = `Antal pågående sjukfall`,
              Andel_procent = `Andel pågående sjukfall (%)`) %>%  
@@ -47,5 +48,7 @@ diag_stress<-function(region_vekt = "20",
   if (spara_data==TRUE){
     openxlsx::write.xlsx(flik_lista,paste0(output_mapp,filnamn))
   }
+  
+  if (returnera_dataframe) return(stress_df)
   
 }

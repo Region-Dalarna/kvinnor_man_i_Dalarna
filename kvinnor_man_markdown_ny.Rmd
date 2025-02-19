@@ -390,7 +390,7 @@ Sedan många år har kvinnor och män haft likvärdig tillgång till utbildning 
 finns branscher i länet som har en tydlig övervikt av det ena eller det
 andra könet, exempelvis byggbranschen som omfattar yrken inom bland
 annat el och VVS, och där kvinnor bara utgör ungefär `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Bygg") %>% .$andel` procent av de
-förvärvsarbetande. Även om det har skett en ökning av andelen kvinnor inom byggbranschen är denna ökning ännu försumbar. Inom vård och omsorg är bilden densamma men med motsatt könsfördelning. Här utgör kvinnor ca `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Vård och omsorg") %>% .$andel` procent av de förvärvsarbetande.
+förvärvsarbetande. Även om det har skett en ökning av andelen kvinnor inom byggbranschen är denna ökning ännu försumbar. Inom vård och omsorg är bilden densamma men med motsatt könsfördelning. Här utgör kvinnor cirka `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Vård och omsorg") %>% .$andel` procent av de förvärvsarbetande.
 
 Att åstadkomma en förändring i närtid av balansen mellan män och kvinnor inom de könssegregerade branscherna verkar inte vara inom räckhåll då ungdomars studieval är så pass könsstereotypa.
 
@@ -520,7 +520,7 @@ väldigt hög sannolikhet att man även har det som yrke (närmare 100
 procent). På andra sidan av spektrumet finns dels olika former av
 gymnasieutbildningar, dels eftergymnasiala utbildningar inom exempelvis
 humaniora och konst, där runt hälften jobbar med vad de är utbildade
-till. Genomsnittligt ligger matchningsgraden på runt `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "totalt",region == "Sverige") %>% .$matchningsgrad,0)` procent i Sverige, där något fler kvinnor än män arbetar med vad de är utbildade till, men skillnaden är inte så stor. Det finns vissa skillnader mellan länen, men dessa är relativt små. I Dalarna är matchningsgraden ca
+till. Genomsnittligt ligger matchningsgraden på runt `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "totalt",region == "Sverige") %>% .$matchningsgrad,0)` procent i Sverige, där något fler kvinnor än män arbetar med vad de är utbildade till, men skillnaden är inte så stor. Det finns vissa skillnader mellan länen, men dessa är relativt små. I Dalarna är matchningsgraden cirka
 `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "totalt",region == "Dalarna") %>% .$matchningsgrad,0)` procent, vilket är något sämre än genomsnittet för riket som helhet.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -560,7 +560,7 @@ gg_matchning$matchning_jmf
 ```
 <br>
 Matchningen på arbetsmarknaden tenderar således att vara högre för högre utbildningsnivåer, vilket kan förklaras med att högre utbildning ofta är tydligare kopplad till ett visst yrke. Det finns också skillnader i matchningen beroende på födelseland. I Dalarna har inrikes födda högst matchning med ungefär `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "födda i Sverige",region == "Dalarna") %>% .$matchningsgrad,0)`
-procent sammanlagt för både kvinnor och män. Lägst matchningsgrad har personer `r matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` (ca `r round(matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)`  procent). Värt att notera är att det är stora könsskillnader när det kommer till personer födda i Afrika. Kvinnor har högst matchningsgrad bland grupperna i diagrammet nedan (ca `r round(matchning_df %>% filter(kön == "kvinnor",region == "Dalarna",fodelseland == "födda i Afrika") %>% .$matchningsgrad,0)` procent), medan männen har lägst matchningsgrad (ca `r round(matchning_df %>% filter(kön == "män",region == "Dalarna",fodelseland == "födda i Afrika") %>% .$matchningsgrad,0)` procent).
+procent sammanlagt för både kvinnor och män. Lägst matchningsgrad har personer `r matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` (cirka `r round(matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)`  procent). Värt att notera är att det är stora könsskillnader när det kommer till personer födda i Afrika. Kvinnor har högst matchningsgrad bland grupperna i diagrammet nedan (cirka `r round(matchning_df %>% filter(kön == "kvinnor",region == "Dalarna",fodelseland == "födda i Afrika") %>% .$matchningsgrad,0)` procent), medan männen har lägst matchningsgrad (cirka `r round(matchning_df %>% filter(kön == "män",region == "Dalarna",fodelseland == "födda i Afrika") %>% .$matchningsgrad,0)` procent).
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -615,7 +615,7 @@ Vid pensionering finns det numera många som fortsätter att arbeta hel- eller d
 ## Inkomst
 En egen inkomst är en av förutsättningarna för ett ekonomiskt självständigt liv. Livsinkomsten påverkar även vilken pension personen kommer att få vid pensionering. 
 
-En jämförelse mellan kvinnors och mäns löner i Dalarna visar på stora skillnader och dessa har hållit i sig över tid. Medianinkomsten för en man i Dalarna var `r max(medianinkomst_df$år)` ca `r round(medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "män") %>% .$medianinkomst,0)` tusen kronor före skatt, medan en kvinna hade en medianinkomst på ungefär `r round(medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "kvinnor") %>% .$medianinkomst,0)` tusen kronor. I den andra figuren nedan syns även en positiv utveckling i form av att den relativa skillnaden i inkomst mellan könen har minskat sedan millennieskiftet. Diagrammet visar att kvinnors medianinkomst har mer än fördubblats medan mäns har ökat med ungefär `r round((medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "män") %>% .$medianinkomst/medianinkomst_df %>% filter(region == "Dalarnas län", år == min(år),kön == "män") %>% .$medianinkomst-1)*100,0)` procent. Det är dock viktigt att notera att figurerna nedan endast redovisar kvinnors och mäns skilda ekonomiska förutsättningar, medan det kan finnas flera förklaringar till skillnaden. En faktor är att kvinnor i högre grad arbetar deltid, och därför kan ha en lägre årsinkomst. Som vi också sett i ett flertal tidigare figurer finns det stora skillnader mellan könen kopplat till bland annat yrke och utbildning, vilket ytterligare kan förklara en del av skillnaden. 
+En jämförelse mellan kvinnors och mäns löner i Dalarna visar på stora skillnader och dessa har hållit i sig över tid. Medianinkomsten för en man i Dalarna var `r max(medianinkomst_df$år)` cirka `r round(medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "män") %>% .$medianinkomst,0)` tusen kronor före skatt, medan en kvinna hade en medianinkomst på ungefär `r round(medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "kvinnor") %>% .$medianinkomst,0)` tusen kronor. I den andra figuren nedan syns även en positiv utveckling i form av att den relativa skillnaden i inkomst mellan könen har minskat sedan millennieskiftet. Diagrammet visar att kvinnors medianinkomst har mer än fördubblats medan mäns har ökat med ungefär `r round((medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "män") %>% .$medianinkomst/medianinkomst_df %>% filter(region == "Dalarnas län", år == min(år),kön == "män") %>% .$medianinkomst-1)*100,0)` procent. Det är dock viktigt att notera att figurerna nedan endast redovisar kvinnors och mäns skilda ekonomiska förutsättningar, medan det kan finnas flera förklaringar till skillnaden. En faktor är att kvinnor i högre grad arbetar deltid, och därför kan ha en lägre årsinkomst. Som vi också sett i ett flertal tidigare figurer finns det stora skillnader mellan könen kopplat till bland annat yrke och utbildning, vilket ytterligare kan förklara en del av skillnaden. 
 
 På nationell nivå har SCB jämfört den standardvägda lönen, dvs. lönen när hänsyn tas till bland annat ålder och utbildningsnivå, för att synliggöra om det kan finnas en diskrimineringsaspekt i lönenivån. Slutsatsen blev att kvinnors standardvägda lön är ungefär 95 procent av männens standardvägda lön, det vill säga det finns en oförklarad löneskillnad mellan kvinnor och män [(SCB)](<https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__AM__AM0110__AM0110B/LonStandVagdYrkA/>){target="_blank"}.
 
@@ -779,12 +779,12 @@ knitr::include_graphics(here("Diagram","ekonomiskt_bistandDalarnas län.png"))
 
 ## Arbetsmarknadsstatus
 
-Sysselsättningsgraden, det vill säga i vilken utsträckning människor i arbetsför ålder (20-64 år) arbetar, skiljer sig inte märkbart åt mellan könen bland inrikes födda som ses i det vänstra diagrammet nedan. Sverige ligger långt fram i en internationell jämförelse när det gäller att ge kvinnor och män likvärdiga möjligheter att yrkesarbeta, och det återspeglas i sysselsättningsgraden som för båda könen är ungefär lika hög, ca `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "inrikes född",region == "Sverige") %>% .$sysselsättningsgrad,0)` procent. Variationen i sysselsättningsgrad mellan länen är därför också relativt liten.
+Sysselsättningsgraden, det vill säga i vilken utsträckning människor i arbetsför ålder (20-64 år) arbetar, skiljer sig inte märkbart åt mellan könen bland inrikes födda som ses i det vänstra diagrammet nedan. Sverige ligger långt fram i en internationell jämförelse när det gäller att ge kvinnor och män likvärdiga möjligheter att yrkesarbeta, och det återspeglas i sysselsättningsgraden som för båda könen är ungefär lika hög, cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "inrikes född",region == "Sverige") %>% .$sysselsättningsgrad,0)` procent. Variationen i sysselsättningsgrad mellan länen är därför också relativt liten.
 
 Däremot skiljer sig sysselsättningsgraden åt mellan inrikes och utrikes födda. För utrikes födda (det högra diagrammet nedan) är sysselsättningsgraden lägre än sysselsättningsgraden för inrikes födda i samtliga svenska län. Det finns även skillnader mellan kvinnor och män. 
 
 Utrikes födda män har en högre sysselsättningsgrad än utrikes födda kvinnor i samtliga län förutom Norrbotten. I Dalarna var sysselsättningsgraden bland utrikes födda män ungefär `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad,0)` procent, vilket
-är ca `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad-arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad,0) ` procentenheter mer än för utrikes födda kvinnor i Dalarna.
+är cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad-arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad,0) ` procentenheter mer än för utrikes födda kvinnor i Dalarna.
 
 Något att ta hänsyn till när man analyserar sysselsättningsgrad och 
 arbetslöshet bland utrikes födda är hur lång tid de har varit i Sverige.
@@ -830,7 +830,7 @@ Sysselsättningsgrad uppdelad efter kommun i Dalarna visar ett liknande mönster
 
 `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$region` har den högsta sysselsättningsgraden för gruppen utrikes födda kvinnor i Dalarna, runt `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)` procent, och ligger klart över genomsnittet för länet (knappt `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(region == "Dalarna") %>% .$sysselsättningsgrad,0)` procent). Samtidigt är sysselsättningsgraden i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$region` kommun bland utrikes födda kvinnor bara ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)` procent. 
 
-Värt att notera är att en del av skillnaden i utrikes föddas sysselsättningsgrad mellan kommunerna sannolikt kan förklaras av skillnader i antalet personer som invandrade under åren runt flyktingkrisen 2015. Exempelvis var Avesta, Ludvika och Hedemora de tre kommuner som hade högst invandring i förhållande till folkmängd under 2015, 2016 och 2017. Detta verkar i första hand gälla för utrikes födda kvinnor, då både Hedemora och Ludvika har relativt hög sysselsättningsgrad för utrikes födda män, medan den är klart lägre för utrikes födda kvinnor. I Ludvika är skillnaden mellan könen i sysselsättningsgrad ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Ludvika") %>% .$sysselsättningsgrad-arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Ludvika") %>% .$sysselsättningsgrad,0)` procentenheter, vilket är den största skillnaden i länet.
+Värt att notera är att en del av skillnaden i utrikes föddas sysselsättningsgrad mellan kommunerna sannolikt kan förklaras av skillnader i antalet personer som invandrade under åren runt 2015 då invandringen till Sverige var mycket stor. Exempelvis var Avesta, Ludvika och Hedemora de tre kommuner som hade högst invandring i förhållande till folkmängd under 2015, 2016 och 2017. Detta verkar i första hand gälla för utrikes födda kvinnor, då både Hedemora och Ludvika har relativt hög sysselsättningsgrad för utrikes födda män, medan den är klart lägre för utrikes födda kvinnor. I Ludvika är skillnaden mellan könen i sysselsättningsgrad ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Ludvika") %>% .$sysselsättningsgrad-arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Ludvika") %>% .$sysselsättningsgrad,0)` procentenheter, vilket är den största skillnaden i länet.
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -871,14 +871,14 @@ Bilden av arbetsmarknaden kompletteras genom att titta på arbetslösheten som v
 
 Arbetslösheten är generellt högre för utrikes födda än för inrikes födda. Arbetslösheten för inrikes födda i Dalarna ligger något lägre än rikets, cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "kvinnor",födelseregion == "inrikes född") %>% .$arbetslöshet,0)` procent bland kvinnor och drygt `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "män",födelseregion == "inrikes född") %>% .$arbetslöshet,0)` procent bland män (se diagrammet nedan). 
 
-Arbetslösheten bland utrikes födda är däremot betydligt högre i samtliga av Sveriges län. I Dalarna är skillnaden i arbetslöshet mellan utrikes och inrikes födda ca `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "kvinnor",födelseregion == "utrikes född") %>% .$arbetslöshet - arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "kvinnor",födelseregion == "inrikes född") %>% .$arbetslöshet,0)` procentenheter för kvinnor och ca `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "män",födelseregion == "utrikes född") %>% .$arbetslöshet - arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "män",födelseregion == "inrikes född") %>% .$arbetslöshet,0)` procentenheter för män.
+Arbetslösheten bland utrikes födda är däremot betydligt högre i samtliga av Sveriges län. I Dalarna är skillnaden i arbetslöshet mellan utrikes och inrikes födda cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "kvinnor",födelseregion == "utrikes född") %>% .$arbetslöshet - arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "kvinnor",födelseregion == "inrikes född") %>% .$arbetslöshet,0)` procentenheter för kvinnor och cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "män",födelseregion == "utrikes född") %>% .$arbetslöshet - arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "män",födelseregion == "inrikes född") %>% .$arbetslöshet,0)` procentenheter för män.
 
 Vidare är arbetslösheten bland gruppen utrikes födda kvinnor klart högre än
 i gruppen utrikes födda män i samtliga av Sveriges län. 
 
 I figuren nedan framgår också att det finns avsevärda skillnader mellan
 länen. `r arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "utrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .[1,] %>% .$region ` har den lägsta arbetslösheten för utrikes födda med
-ungefär `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "utrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .[1,] %>% .$arbetslöshet,0)` procent totalt (både kvinnor och män), medan arbetslösheten är ca `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .[1,] %>% .$arbetslöshet,0)` procent i `r arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .[1,] %>% .$region `. Dalarnas län ligger något över riksgenomsnittet, men uppvisar inte extrema arbetslöshetssiffror åt något håll.
+ungefär `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "utrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .[1,] %>% .$arbetslöshet,0)` procent totalt (både kvinnor och män), medan arbetslösheten är cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .[1,] %>% .$arbetslöshet,0)` procent i `r arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .[1,] %>% .$region `. Dalarnas län ligger något över riksgenomsnittet, men uppvisar inte extrema arbetslöshetssiffror åt något håll.
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -921,7 +921,7 @@ men skillnaden gentemot genomsnittet i länet är relativt liten (ungefär 1 pro
 arbetslöshet återfinns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "totalt",födelseregion == "inrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .$region `.
 
 Bland utrikes födda är arbetslösheten avsevärt mycket högre för både kvinnor och män. Genomsnittet i Dalarnas län ligger på ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna") %>% .$arbetslöshet,0)` procent
-bland utrikes födda kvinnor och ca `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$arbetslöshet,0)` procent bland utrikes födda män. Den högsta arbetslösheten bland utrikes födda kvinnor återfinns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$region ` där den ligger på ca `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$arbetslöshet,0)` procent. `r last(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$region)` och `r first(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$region)` redovisar den högsta arbetslöshetssiffran bland utrikes födda män med ungefär `r unique(round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$arbetslöshet,0)) ` procent vardera.
+bland utrikes födda kvinnor och cirka `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$arbetslöshet,0)` procent bland utrikes födda män. Den högsta arbetslösheten bland utrikes födda kvinnor återfinns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$region ` där den ligger på cirka `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$arbetslöshet,0)` procent. `r last(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$region)` och `r first(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$region)` redovisar den högsta arbetslöshetssiffran bland utrikes födda män med ungefär `r unique(round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$arbetslöshet,0)) ` procent vardera.
 Lägst arbetslöshet bland utrikes födda män återfinns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .$region ` kommun, medan `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .$region ` har lägst arbetslöshet bland utrikes födda kvinnor.
 
 Det är återigen värt att notera att de skillnader i arbetslöshet som diskuterades i föregående stycke sannolikt delvis kan förklaras av skillnader i antalet personer som invandrat till olika kommuner, se diskussionen under sysselsättningsgrad ovan.
@@ -962,7 +962,7 @@ arb_kommun_fig
 
 <span class = "kommentar">Data uppdateras inte längre av AF. Byt till BAS från 2020? - se figur 2 nedan</span>
 
-Arbetslösheten i Dalarna för inrikes och utrikes födda visar på skillnader över tid. För gruppen inrikes födda syns en nedgång i andelen arbetslösa från 2010 och framåt, med ett litet avbrott i trendlinjen under pandemiåren 2020-2021. Gruppen utrikes födda har två trendlinjer i diagrammet nedan. Från 2006 till 2017 ökade arbetslösheten bland utrikes födda till relativt höga nivåer jämfört med början på tidsperioden. Arbetslösheten bland utrikes födda män i Dalarna var också konsekvent högre än för utrikes födda kvinnor och betydligt högre under flyktingkrisen och åren som följde. Efter flyktingkrisen, från 2017 och framåt, har arbetslösheten bland gruppen utrikes födda minskat från toppnivåerna och utrikes födda kvinnor är idag i något högre utsträckning arbetslösa jämfört med utrikes födda män. Värt att understryka är att en högre arbetslöshet kan förklaras med att fler aktivt söker arbete, tidigare har en större andel personer varit varken arbetssökande eller i arbete.
+Arbetslösheten i Dalarna för inrikes och utrikes födda visar på skillnader över tid. För gruppen inrikes födda syns en nedgång i andelen arbetslösa från 2010 och framåt, med ett litet avbrott i trendlinjen under pandemiåren 2020-2021. Gruppen utrikes födda har två trendlinjer i diagrammet nedan. Från 2006 till 2017 ökade arbetslösheten bland utrikes födda till relativt höga nivåer jämfört med början på tidsperioden. Arbetslösheten bland utrikes födda män i Dalarna var också konsekvent högre än för utrikes födda kvinnor och betydligt högre år 2015 och åren därefter då Sverige hade mycket stor flyktinginvandring. Från 2017 och framåt har arbetslösheten bland gruppen utrikes födda minskat från toppnivåerna och utrikes födda kvinnor är idag i något högre utsträckning arbetslösa jämfört med utrikes födda män. Värt att understryka är att en högre arbetslöshet kan förklaras med att fler aktivt söker arbete, tidigare har en större andel personer varit varken arbetssökande eller i arbete.
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -1100,7 +1100,7 @@ etablering_fig <- SkapaStapelDiagram(skickad_df =etablering_df %>%
 etablering_fig
 ```
 
-Hur snabbt en nyligen invandrad person etableras på arbetsmarknaden är också nära kopplat till vilken utbildningsnivå personen har. För dem med högst utbildning har det visat sig att processen tenderar att gå relativt snabbt och ca `r round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: eftergymnasial utbildning") %>% .$andel,0)` procent av kvinnorna och `r round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: eftergymnasial utbildning") %>% .$andel,0)` procent av männen arbetar innan de varit i Sverige i 2 år (0-1 år i figuren nedan). Sedan ökar etableringsgraden över tid och efter 10 år och längre är fler än 80 procent av kvinnorna mellan 20 och 65 år sysselsatta, vilket är i linje med sysselsättningsgraden för inrikes födda kvinnor i samma åldersgrupp. För dem med exempelvis gymnasial utbildning är situationen delvis annorlunda. I den gruppen arbetar ungefär `r round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: gymnasial utbildning") %>% .$andel,0)` procent av de utrikesfödda kvinnor, och ca `r round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: gymnasial utbildning") %>% .$andel,0)` procent av de utrikesfödda männen, inom 2 år efter att de kommit till Sverige. Över tid ökar andelen etablerade snabbt på arbetsmarknaden, särskilt för gymnasialt utbildade.
+Hur snabbt en nyligen invandrad person etableras på arbetsmarknaden är också nära kopplat till vilken utbildningsnivå personen har. För dem med högst utbildning har det visat sig att processen tenderar att gå relativt snabbt och cirka `r round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: eftergymnasial utbildning") %>% .$andel,0)` procent av kvinnorna och `r round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: eftergymnasial utbildning") %>% .$andel,0)` procent av männen arbetar innan de varit i Sverige i 2 år (0-1 år i figuren nedan). Sedan ökar etableringsgraden över tid och efter 10 år och längre är fler än 80 procent av kvinnorna mellan 20 och 65 år sysselsatta, vilket är i linje med sysselsättningsgraden för inrikes födda kvinnor i samma åldersgrupp. För dem med exempelvis gymnasial utbildning är situationen delvis annorlunda. I den gruppen arbetar ungefär `r round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: gymnasial utbildning") %>% .$andel,0)` procent av de utrikesfödda kvinnor, och cirka `r round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: gymnasial utbildning") %>% .$andel,0)` procent av de utrikesfödda männen, inom 2 år efter att de kommit till Sverige. Över tid ökar andelen etablerade snabbt på arbetsmarknaden, särskilt för gymnasialt utbildade.
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -1143,7 +1143,7 @@ etablering_fig_utb <- SkapaStapelDiagram(skickad_df =etablering_df %>%
 etablering_fig_utb
 ```
 
-Hur snabbt en nyligen invandrad person etablerar sig på arbetsmarknaden har förändrats avsevärt över tid, vilket åskådliggörs i diagrammet nedan. Från början av 2000-talet fram till mitten av 2010-talet låg etableringstiden relativt stabil, där ungefär 20 procent av de 20-64 åringar som varit i Sverige i upp till 2 år (0-1 år i figuren nedan) förvärvsarbetade och ungefär 50-60 procent av de 20-64 åringar som varit i Sverige mellan 4 och 10 år (4-9 år i figuren nedan) förvärvsarbetade. Efter flyktingkrisen i mitten av 2010-talet verkar dock någonting ha hänt och framförallt personer med kort vistelsetid (upp till 2 år) kommer i arbete betydligt snabbare. Mellan 2015 och `r max(etablering_df$år)` ökade andelen förvärvsarbetande av de 20-64 åringar som varit i Sverige i upp till 2 år (0-1 år i figuren nedan) från ungefär 14 procent till ca `r round(etablering_df %>% filter(bakgrundsvariabel == "0-1 år",utbildningsnivå == "samtliga utbildningsnivåer",kön == "män och kvinnor",år == max(år)) %>% .$andel,0)`  procent, en remarkabel förbättring. Under samma tidsperiod har även arbetslösheten för gruppen utrikes födda minskat betydligt, vilket illustrerats i ett tidigare diagram. Värt att notera är att det i diagrammet nedan är andelen förvärvsarbetande i åldersgruppen 20-64 år som redovisas mellan 1997 och 2021, medan det är andel förvärvsarbetande i åldergruppen 20-65 år som redovisas åren därefter. 
+Hur snabbt en nyligen invandrad person etablerar sig på arbetsmarknaden har förändrats avsevärt över tid, vilket åskådliggörs i diagrammet nedan. Från början av 2000-talet fram till mitten av 2010-talet låg etableringstiden relativt stabil, där ungefär 20 procent av de 20-64 åringar som varit i Sverige i upp till 2 år (0-1 år i figuren nedan) förvärvsarbetade och ungefär 50-60 procent av de 20-64 åringar som varit i Sverige mellan 4 och 10 år (4-9 år i figuren nedan) förvärvsarbetade. Efter den stora flyktinginvandringen i mitten av 2010-talet verkar dock någonting ha hänt och framförallt personer med kort vistelsetid (upp till 2 år) kommer i arbete betydligt snabbare. Mellan 2015 och `r max(etablering_df$år)` ökade andelen förvärvsarbetande av de 20-64 åringar som varit i Sverige i upp till 2 år (0-1 år i figuren nedan) från ungefär 14 procent till cirka `r round(etablering_df %>% filter(bakgrundsvariabel == "0-1 år",utbildningsnivå == "samtliga utbildningsnivåer",kön == "män och kvinnor",år == max(år)) %>% .$andel,0)`  procent, en remarkabel förbättring. Under samma tidsperiod har även arbetslösheten för gruppen utrikes födda minskat betydligt, vilket illustrerats i ett tidigare diagram. Värt att notera är att det i diagrammet nedan är andelen förvärvsarbetande i åldersgruppen 20-64 år som redovisas mellan 1997 och 2021, medan det är andel förvärvsarbetande i åldergruppen 20-65 år som redovisas åren därefter. 
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -1188,11 +1188,8 @@ etablering_fig_tid
 ```
 
 
-## Skuldsatta
-Ytterligare en aspekt av ekonomisk status är skuldsättningsgraden för
-olika grupper. I det första diagrammet nedan redovisas antalet personer
-i Dalarna som har skulder under indrivning hos Kronofogden. Två trender
-är tydliga.
+## Skulder hos Kronofogden
+Ytterligare en aspekt av ekonomisk status är andelen med skulder hos Kronofogden i olika grupper. I det första diagrammet nedan redovisas antalet personer i Dalarna som har skulder under indrivning hos Kronofogden. Två trender är tydliga.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
  diagram_capt <- c("Källa: Kronofogden.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Antal personer med skulder under indrivning hos Kronofogden",
@@ -1211,7 +1208,7 @@ skulder_df_sum <- skulder_df %>%
 # skulder_df_sum$skuld_miljard <-skulder_df_sum$Total_skuld/miljard
 
 
-diagramtitel <- paste0("Antal skuldsatta i Dalarnas län")
+diagramtitel <- paste0("Antal med skulder hos Kronofogden i Dalarnas län")
 diagramfilnamn <- paste0("Antal_skuldsatta_Dalarna.png")
 
 # Skapar diagram för medianinkomsten i Dalarna där män jämförs med kvinnor.
@@ -1225,21 +1222,21 @@ skuldsatta_fig <- SkapaStapelDiagram(skickad_df = skulder_df_sum,
                                      diagram_capt =  diagram_capt[1],
                                      diagram_facet = FALSE,
                                      stodlinjer_avrunda_fem = TRUE,
-                                     manual_y_axis_title = "Antal skuldsatta",
+                                     manual_y_axis_title = "Antal med skulder hos Kronofogden",
                                      berakna_index = FALSE,
                                      output_mapp = outputmapp,
                                      filnamn_diagram = diagramfilnamn,
                                      skriv_till_diagramfil = spara_figur)
 ```
-Sedan 2010 har antalet skuldsatta minskat
-från ungefär 10 300 skuldsatta till knappt `r format(plyr::round_any(skulder_df_sum %>% filter(Kön == "kvinnor",År == max(.$År)) %>% .$Antal_skuldsatta + skulder_df_sum %>% filter(Kön == "män",År == max(.$År)) %>% .$Antal_skuldsatta,100),big.mark=" ") ` i Dalarnas län. Av dessa är ungefär 60 procent män och 40 procent kvinnor. Fördelningen har inte förändrats över tid. Det är således avsevärt fler män än kvinnor i länet som är skuldsatta. Värt att notera är dock att antalet skuldsatta har börjat öka på senare år, vilket kan vara en effekt av högre bolåneräntor och ökad inflation, något som bland annat fått till följd att matpriserna stigit avsevärt [(SVT)](https://www.svt.se/nyheter/ekonomi/nara-tre-ar-med-hog-inflation-sa-dyr-blev-maten){target="_blank"}.
+Sedan 2010 har antalet med skulder hos Kronofogden minskat
+från ungefär 10 300 personer till cirka `r format(plyr::round_any(skulder_df_sum %>% filter(Kön == "kvinnor",År == max(.$År)) %>% .$Antal_skuldsatta + skulder_df_sum %>% filter(Kön == "män",År == max(.$År)) %>% .$Antal_skuldsatta,100),big.mark=" ") ` i Dalarnas län. Av dessa är ungefär 60 procent män och 40 procent kvinnor, en fördelning som inte har förändrats över tid. Det är således avsevärt fler män än kvinnor i länet som har skulder hos Kronofogden. Värt att notera är dock att antalet har börjat öka på senare år, vilket kan vara en effekt av högre bolåneräntor och ökad inflation, något som bland annat fått till följd att matpriserna stigit avsevärt [(SVT)](https://www.svt.se/nyheter/ekonomi/nara-tre-ar-med-hog-inflation-sa-dyr-blev-maten){target="_blank"}.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 skuldsatta_fig
 ```
 
-Som andel av befolkningen i Dalarna år 2024 utgör skuldsatta kvinnor  3,1 procent och skuldsatta män 4,9 procent. Medianskulden var för kvinnor ungefär 66 000 kr och för män ca 82 200 kr [(Kronofogden)](<https://kronofogden.se/om-kronofogden/statistik/statistik-om-antal-skuldsatta>){target="_blank"}. 
+Som andel av befolkningen i Dalarna år 2024 utgör kvinnor med skulder hos Kronofogden 3,1 procent och män 4,9 procent. Medianskulden var för kvinnor ungefär 66 000 kr och för män cirka 82 200 kr [(Kronofogden)](<https://kronofogden.se/om-kronofogden/statistik/statistik-om-antal-skuldsatta>){target="_blank"}. 
 
 Störst andel skuldsatta finns i åldersintervallet `r skulder_andel_df %>% filter(kön == "kvinnor") %>% filter(skulder_andel_proc==max(skulder_andel_proc)) %>% .$Ålder`, år `r max(skulder_andel_df$År)` var `r gsub("\\.",",",round(skulder_andel_df %>% filter(kön == "män") %>% filter(skulder_andel_proc==max(skulder_andel_proc)) %>% .$skulder_andel_proc,1))` procent av männen och `r gsub("\\.",",",round(skulder_andel_df %>% filter(kön == "kvinnor") %>% filter(skulder_andel_proc==max(skulder_andel_proc)) %>% .$skulder_andel_proc,1))` procent av kvinnorna i Dalarna i denna åldersgrupp skuldsatta .
 
@@ -1321,7 +1318,7 @@ Ett större ansvar för det obetalda arbetet minskar ofta utrymmet för inkomstb
 Antalet mottagare av föräldrapenning ökade
 från ungefär 13 000 i slutet av 1990-talet till över 22 000 år 2018. Givet att den absoluta majoriteten av dessa barn har två vårdnadshavare är det värt att notera att det varje år är cirka 10 procent av fäderna som inte tar ut några föräldrapenningdagar alls.
 
-En minskning i antalet föräldrapenningdagar syntes under pandemiåren och åren därefter, vilket sannolikt beror på att uttaget av tillfällig föräldrapenning (Vab) då ökade kraftigt (se avsnitt 3.2 nedan). Antalet uttagna dagar har ökat för såväl kvinnor som män, men den relativa skillnaden i uttag mellan könen har minskat.
+En minskning i antalet föräldrapenningdagar syntes under pandemiåren och åren därefter, vilket sannolikt beror på att uttaget av tillfällig föräldrapenning (vab) då ökade kraftigt (se avsnitt 3.2 nedan). Antalet uttagna dagar har ökat för såväl kvinnor som män, men den relativa skillnaden i uttag mellan könen har minskat.
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -1391,7 +1388,7 @@ fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
 fp_andel_fig
 ```
 
-Hur vårdnadshavare fördelar föräldrapenningen mellan sig är relativt olika i Dalarnas kommuner. I `r stri_extract_last(first(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun), regex='\\S+')` och Orsa är uttaget  mest jämställt relativt sett, där drygt `r round(as.numeric(first(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel)),0)` procent av föräldrapenningdagarna togs ut av männen. Minst jämställt är fördelningen i `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun, regex='\\S+')`, där motsvarande uttag är ca `r round(as.numeric(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel),0)` procent.
+Hur vårdnadshavare fördelar föräldrapenningen mellan sig är relativt olika i Dalarnas kommuner. I `r stri_extract_last(first(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun), regex='\\S+')` och Orsa är uttaget  mest jämställt relativt sett, där drygt `r round(as.numeric(first(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel)),0)` procent av föräldrapenningdagarna togs ut av männen. Minst jämställd är fördelningen i `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun, regex='\\S+')`, där motsvarande uttag är cirka `r round(as.numeric(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel),0)` procent.
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -1440,7 +1437,7 @@ gg_forsakringskassan$foraldrapenning_manad
 
 
 ## Tillfällig föräldrapenning
-Tillfällig föräldrapenning ges för vård av sjukt barn och är det som i folkmun kallas vab. Sett över tidsperioden minskade antalet uttagna nettodagar något mellan 2006 och 2009, för att därefter öka stadigt fram till 2022. På senare år har uttaget av tillfällig föräldrapenning/vab för såväl kvinnor som män minskat, men ligger fortfarande på högre nivåer än innan pandemin. Även för vård av sjukt barn tar kvinnor ut betydligt fler dagar än män, men fördelningen ligger precis utanför spannet för vad som antas som statistisk jämställdhet, kvinnor tar ut ca `r round(vab_df %>% filter(Kommun == "Samtliga kommuner",Kön == "Kvinnor",År == max(År)) %>% .$Andel,0)` procent av dagarna. 
+Tillfällig föräldrapenning ges för vård av sjukt barn och är det som i folkmun kallas vab. Sett över tidsperioden minskade antalet uttagna nettodagar något mellan 2006 och 2009, för att därefter öka stadigt fram till 2022. På senare år har uttaget av tillfällig föräldrapenning/vab för såväl kvinnor som män minskat, men ligger fortfarande på högre nivåer än innan pandemin. Även för vård av sjukt barn tar kvinnor ut betydligt fler dagar än män, men fördelningen ligger precis utanför spannet för vad som antas som statistisk jämställdhet, kvinnor tar ut cirka `r round(vab_df %>% filter(Kommun == "Samtliga kommuner",Kön == "Kvinnor",År == max(År)) %>% .$Andel,0)` procent av dagarna. 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
@@ -1487,10 +1484,10 @@ tfp_fig_linje <- SkapaLinjeDiagram(skickad_df = vab_df%>%
                                      filter(Kommun == "Samtliga kommuner",
                                             Kön != "Kvinnor och män") %>% 
                                       mutate(Kön = tolower(Kön),
-                                             Antal_nettodagar = as.numeric(Antal_nettodagar),
+                                             `Antal nettodagar` = as.numeric(Antal_nettodagar),
                                              "år" = År), 
                                    skickad_x_var = "år", 
-                                   skickad_y_var = "Antal_nettodagar", 
+                                   skickad_y_var = "Antal nettodagar", 
                                    skickad_x_grupp = "Kön",
                                    manual_color = diagramfarger("kon"),
                                    berakna_index = TRUE,
@@ -1758,7 +1755,9 @@ stress_fig <- SkapaStapelDiagram(skickad_df = stress_df_utskrift %>%
                              skickad_x_var = "År", 
                              skickad_y_var ="Antal_medel", 
                              skickad_x_grupp = "Kön",
-                             x_axis_lutning = 0,
+                             x_axis_lutning = 45,
+                             manual_x_axis_text_hjust = 1,
+                             manual_x_axis_text_vjust = 1,
                              manual_y_axis_title = "",
                              manual_color = diagramfarger("kon"),
                              stodlinjer_avrunda_fem = TRUE,
@@ -1774,7 +1773,7 @@ stress_fig <- SkapaStapelDiagram(skickad_df = stress_df_utskrift %>%
 Antalet sjukfall kopplade till stressrelaterade symptom  har ökat dramatiskt sedan 2010. Även för dessa sjukfall ses en trend där antalet minskade tydligt under en period fram till 2010, för att sedan öka. Kvinnor står för cirka `r round(stress_df_utskrift %>% filter(Kön=="Kvinnor",År==max(.$År)) %>% .$Antal_medel/stress_df_utskrift %>% filter(Kön=="Kvinnor och män",År==max(.$År)) %>% .$Antal_medel,2)*100` procent av dessa sjukskrivningar. Trots den stora skillnaden i antal mellan kvinnor och män, så är ökningen relativt likvärdig. Antalet pågående sjukfall kopplade till stress ökade markant för respektive grupp mellan 2010 och 2016, innan det skedde en viss minskning under åren innan och under pandemin. Därefter har det pågående sjukfallen kopplade till stress återigen börjat öka tydligt för såväl kvinnor som män. 
 
 Att utröna vad det ökade antalet sjukfall beror på är svårt, men det finns ett väl belagt samband mellan psykiatriska diagnoser (såsom svår stress) och den
-psykosociala arbetsmiljön [(Försäkringskassan, 2016)](<https://www.forsakringskassan.se/download/18.3a5418591814e228e4413b2/1661267958656/psykisk-ohalsa-korta-analyser-2016-2.pdf>){target="_blank"}^[Försäkringskassan, Korta analyser 2016:2, "Sjukskrivning för reaktioner på svår stress ökar mest."]. För en fördjupad diskussion runt detta ämne, se Försäkringskassans rapport från november 2024: ["Psykisk ohälsa i dagens arbetsliv "](https://www.forsakringskassan.se/download/18.21e4089719320208e5873/1731686616744/psykisk-ohalsa-i-dagens-arbetsliv-lagesrapport-2024.pdf){target="_blank"}^[Försäkringskassans lägesrapport (2024) - "Psykisk ohälsa i dagens arbetsliv"].
+psykosociala arbetsmiljön [(Försäkringskassan, 2016)](<https://www.forsakringskassan.se/download/18.3a5418591814e228e4413b2/1661267958656/psykisk-ohalsa-korta-analyser-2016-2.pdf>){target="_blank"}^[Försäkringskassan, Korta analyser 2016:2, "Sjukskrivning för reaktioner på svår stress ökar mest."]. För en fördjupad diskussion runt detta ämne, se Försäkringskassans rapport från november 2024: ["Psykisk ohälsa i dagens arbetsliv "](https://www.forsakringskassan.se/download/18.22814c2e194887717f99d/1738569517962/psykisk-ohalsa-i-dagens-arbetsliv-forsakringskassans-lagesrapport-2024-1.pdf){target="_blank"}^[Försäkringskassans lägesrapport (2024) - "Psykisk ohälsa i dagens arbetsliv"].
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -1957,7 +1956,7 @@ och i yrkeslivet. I diagrammet nedan visas andelen chefer uppdelade efter kön o
 motsvarande grupp kvinnor. Andelen chefer är även tydligt kopplad till
 utbildningsnivå där högre utbildning är associerad med en högre andel
 individer i chefspositioner. Bland gruppen sysselsatta män i Dalarna med
-eftergymnasial utbildning innehar ca `r round(chefer_just_df %>% filter(år == max(år),utbildningsnivå == "eftergymnasial utbildning", kön == "män") %>% .$Andel,0) ` procent någon form av chefsställning. Bland kvinnor med eftergymnasial utbildning är motsvarande siffra ungefär `r round(chefer_just_df %>% filter(år == max(år),utbildningsnivå == "eftergymnasial utbildning", kön == "kvinnor") %>% .$Andel,0) ` procent.
+eftergymnasial utbildning innehar cirka `r round(chefer_just_df %>% filter(år == max(år),utbildningsnivå == "eftergymnasial utbildning", kön == "män") %>% .$Andel,0) ` procent någon form av chefsställning. Bland kvinnor med eftergymnasial utbildning är motsvarande siffra ungefär `r round(chefer_just_df %>% filter(år == max(år),utbildningsnivå == "eftergymnasial utbildning", kön == "kvinnor") %>% .$Andel,0) ` procent.
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -2025,6 +2024,8 @@ eller mindre oförändrat. Det betyder att antalet chefspositioner har ökat i a
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 chefer_linje_fig
 ```
+
+# Referenser
 
 ```{r, include = FALSE}
 
