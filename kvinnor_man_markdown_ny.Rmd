@@ -102,43 +102,43 @@ Senast uppdaterad: `r Sys.Date()`</i>
 
 # Sammanfattning {-}
 
-Denna rapport ger en bild utifrån kvantitativa mått av nuläget i Dalarna för fem av jämställdhetspolitikens sex delmål, och är tänkt att komplettera SCB:s skrift <i>På tal om kvinnor och män</i>, med regionala och kommunala fördjupningar. De viktigaste trenderna och mönstren sammanfattas här: 
+Det övergripande målet för jämställdhetspolitiken är att kvinnor och män ska ha samma makt att forma samhället och sina egna liv. Utvecklingen bör följas med både kvalitativa och kvantitativa mått då det handlar om både makt och representation. Denna rapport ger en bild av nuläget i Dalarna för fem av jämställdhetspolitikens sex delmål i kvantitativa termer med en kvalitativ analys. Rapporten ger en kommunal och regional fördjupning som komplement till SCB:s skrift <i>På tal om kvinnor och män</i>. De viktigaste trenderna och mönstren i Dalarna visar att: 
 <br>
 
 <ul>
 
-<li>Andelen högutbildade ökar bland både kvinnor och män, men andelen kvinnor ökar i högre takt och idag är nästan dubbelt så många kvinnor som män i Dalarna högutbildade. </li>
+<li>Andelen högutbildade ökar bland både kvinnor och män, men andelen kvinnor ökar i högre takt. Idag är nästan dubbelt så många kvinnor som män i Dalarna högutbildade. </li>
 
-<li>Obalansen mellan tjejers och killars val till gymnasieprogrammen består. Endast fem program av tjugo program har en jämn representation av tjejer och killar.</li>
+<li>Obalansen mellan tjejers och killars val till gymnasieprogrammen består. Endast fem program av tjugo har en jämn representation av tjejer och killar.</li>
 
 <li>I likhet med riket som helhet har kvinnor i Dalarna en avsevärt lägre medianinkomst än män, även om kvinnors inkomster har ökat i något högre takt än mäns de senaste decennierna.</li>
 
-<li>Skillnaderna i uttag av föräldrapenningdagar mellan könen har tydligt minskat sedan slutet av 1990-talet, men fördelningen är fortfarande långt ifrån jämställd i Dalarna.</li>
+<li>Föräldrapenningdagarna fördelas betydligt jämnare mellan föräldrarna nu, i jämförelse med början av 1990-talet, men fördelningen i Dalarna är fortfarande långt ifrån jämställd.</li>
 
 <li>Kvinnors ohälsa mätt genom frånvaro från arbetsplatsen är betydligt mer omfattande än mäns. Skillnaden gäller oavsett bransch, och är tydligast när det gäller stressrelaterade symtom.</li>
 
-<li>Inom politiken har fördelningen av förtroendeposter mellan kvinnor och män under de senaste årtiondena jämnats ut. Det råder dock fortfarande stora skillnader på lokal nivå och fyra av Dalarnas kommuner har en övervikt av män i fullmäktige. </li>
+<li>Inom politiken har representationen av kvinnor och män på förtroendeposter under de senaste årtiondena jämnats ut. Det råder dock fortfarande stora skillnader på lokal nivå och fyra av Dalarnas kommuner har en övervikt (mer än 60 %) av män i fullmäktige. </li>
     
 
 # Introduktion {-}
 
 
-Världsläget av idag synliggör fundamentala utmaningar för demokratiska samhällen, samtidigt som en konstruktiv diskussion om jämställdhet i stort verkar ha kommit i skymundan i den allmänna debatten. Att sträva efter jämställdhet är trots det en av de mest centrala insatserna för att säkerställa mänskliga rättigheter, att uppnå de 17 målen i Agenda 2030 tillsammans med Sveriges nationella miljö- och demokratimål med flera politiskt beslutade mål för vårt samhälle.
+Världsläget synliggör fundamentala utmaningar för demokratiska samhällen, samtidigt som en konstruktiv diskussion om jämställdhet i stort verkar ha kommit i skymundan i den allmänna debatten. Att sträva efter jämställdhet är trots det en av de mer centrala insatserna för att säkerställa mänskliga rättigheter och att uppnå de 17 målen i Agenda 2030 tillsammans med nationella miljö- och demokratimål med flera politiskt beslutade mål för ett demokratiskt samhälle.
 
-För Dalarna är de regionala målen manifesterade i [Dalastrategin 2030 - Tillsammans för ett hållbart Dalarna](https://www.regiondalarna.se/contentassets/699fddaa79da4978bfe14dd4bead1134/dalastrategin-2030-tillsammans-for-ett-hallbart-dalarna-dec.pdf){target="_blank"}, med övergripande målsättning om ett sammanhållet Dalarna med goda livsmiljöer där människor upplever delaktighet och engagemang, där alla tillsammans bidrar till en hållbar utveckling. 
+För Dalarna är de regionala målen manifesterade i [Dalastrategin 2030 - Tillsammans för ett hållbart Dalarna](https://www.regiondalarna.se/contentassets/699fddaa79da4978bfe14dd4bead1134/dalastrategin-2030-tillsammans-for-ett-hallbart-dalarna-dec.pdf){target="_blank"}, med övergripande målsättning om ett sammanhållet Dalarna med goda livsmiljöer där människor skapar delaktighet och engagemang, och bidrar till en hållbar utveckling. 
 
-Alla offentliga verksamheter i Dalarna så som Region Dalarna, Länsstyrelsen Dalarna, länets kommuner och lärosäte arbetar på olika sätt aktivt för att efterleva den regionala och nationella jämställdhetpolitiken och respektive organisations särskilt uppsatta mål för jämställdhet. Följande rapport är tänkt att ge en bild av hur jämställdheten utvecklas i Dalarna utifrån den statistik som finns på regional och kommunal nivå. I rapporten diskuteras även läget i Dalarna i relation till nationell mönster och utmaningar.
+Alla offentliga verksamheter i Dalarna så som Region Dalarna, Länsstyrelsen Dalarna, länets kommuner och lärosäte arbetar på olika sätt aktivt för att efterleva den regionala och nationella jämställdhetpolitiken och respektive organisations särskilt uppsatta mål för jämställdhet. Följande rapport är tänkt att ge en bild av hur jämställdheten utvecklas i Dalarna baserat på den statistik som finns tillgänglig på regional och kommunal nivå. I rapporten diskuteras även läget i relation till nationella trender och utmaningar.
 
-Region Dalarna har tidigare publicerat uppföljningar av läget i Dalarna, här på webben år 2022, och en fördjupande uppföljning av jämställdhet i regionen inom projektet Jämställd regional tillväxt, år 2019 [Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv](https://www.regiondalarna.se/contentassets/d845727dbc9f49c3b7b09a2c60456497/jamstalldhetsrapport.pdf){target="_blank"}^[Region Dalarna, Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv.].
+Region Dalarna har tidigare publicerat uppföljningar av läget i Dalarna på webben, år 2022, 2023 och 2024, och en fördjupande uppföljning av jämställdhet i länet år 2019 [Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv](https://www.regiondalarna.se/contentassets/d845727dbc9f49c3b7b09a2c60456497/jamstalldhetsrapport.pdf){target="_blank"}^[Region Dalarna, Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv.] som togs fram inom projektet Jämställd regional tillväxt.
 
 Det görs även nationella uppföljningar av jämställdhetspolitiken. För mer information om dessa, klicka på rutan nedan:
 
 <details style = "background-color: #cff4fc">
   <summary>Nationella uppföljningar av jämställdhetspolitiken</summary>
 
-<div>Nationella uppföljningar av hur jämställdhetspolitiken bidrar till målen görs både genom statistik och policy-analyser. Statistiska uppföljningar görs av bland andra Statistiska centralbyrån (SCB) som vart annat år (sedan 1984) publicerar skriften [På tal om kvinnor och män](https://www.scb.se/hitta-statistik/statistik-efter-amne/levnadsforhallanden/jamstalldhet/jamstalldhetsstatistik/pong/publikationer/pa-tal-om-kvinnor-och-man---lathund-om-jamstalldhet-2022/){target="_blank"}^[Statistiska Centralbyrån, På tal om kvinnor och män.] och vart tionde år (sedan 1990) gör [tidsanvändningsstudier](https://www.scb.se/contentassets/4e98132b0b784a01b6e4762e909a6fa2/le0103_2021a01_br_lebr2202.pdf){target="_blank"}^[Statistiska Centralbyrån, En fråga om tid - en studie av tidsanvändningen bland kvinnor och män 2021.], nu senast 2021. Vidare analyseras årligen i regeringens budgetproposition hur den ekonomiska jämställdheten utvecklas, vilket redovisas i [Prop. 2022/23:1 bilaga 3 Ekonomisk jämställdhet](https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf){target="_blank"}^[Regeringen, Budgetproposition 2022/23:1 bilaga 3, Ekonomisk jämställdhet]. 
+<div>Nationella uppföljningar av hur jämställdhetspolitiken bidrar till målen görs både genom statistik- och policy-analyser. Statistiska uppföljningar görs av bland andra Statistiska centralbyrån (SCB) som vart annat år (sedan 1984) publicerar skriften [På tal om kvinnor och män](https://www.scb.se/webbrapporter/le0201/lathund2024/){target="_blank"}^[Statistiska Centralbyrån, På tal om kvinnor och män.] och vart tionde år (sedan 1990) gör [tidsanvändningsstudier](https://www.scb.se/contentassets/4e98132b0b784a01b6e4762e909a6fa2/le0103_2021a01_br_lebr2202.pdf){target="_blank"}^[Statistiska Centralbyrån, En fråga om tid - en studie av tidsanvändningen bland kvinnor och män 2021.], nu senast 2021. Vidare analyseras årligen i regeringens budgetproposition hur den ekonomiska jämställdheten utvecklas, vilket redovisas i [Prop. 2024/25:1 bilaga 3 Ekonomisk jämställdhet](https://www.regeringen.se/contentassets/b6626ad4c65b42f7a56e3cac029eca70/ekonomisk-jamstalldhet.pdf){target="_blank"}^[Regeringen, Budgetproposition 2024/25:1 bilaga 3, Ekonomisk jämställdhet]. 
 
-Policy-uppföljningar av jämställdhetspolitiken görs av bland andra Jämställdhetsmyndigheten. Myndigheten har även granskat den regionala politiken ur ett jämställdhetsperspektiv. I rapporten [Regionalpolitik, könsmönster och jämställdhetsambitioner](https://jamstalldhetsmyndigheten.se/media/xkfccjgj/rapport-2022-16-bilaga-1-regionalpolitik-ko-nsmo-nster-och-ja-msta-lldhetsambitioner.pdf){target="_blank"}^[Jämställdhetsmyndigheten Regionalpolitik, könsmönster och jämställdhetsambitioner (2022:16 bilaga 1). Bilaga till rapporten "Bättre styrning för bättre resultat".] finns en fördjupning om läget i regionerna. Här efterfrågas bland annat en bättre styrning mot jämställdhetsmålen genom relevanta indikatorer. Mer konkret handlar det bland annat om att följa upp ojämställda arbetsvillkor, ojämställda inkomster, kvinnors och mäns psykiska ohälsa och långtidssjukskrivningar, och synliggöra regionala och lokala könsmönster samt intersektionella perspektiv.
+Policy-uppföljningar av jämställdhetspolitiken görs av bland andra Jämställdhetsmyndigheten. Myndigheten har även granskat den regionala politiken ur ett jämställdhetsperspektiv. I rapporten [Regionalpolitik, könsmönster och jämställdhetsambitioner](https://jamstalldhetsmyndigheten.se/media/xkfccjgj/rapport-2022-16-bilaga-1-regionalpolitik-ko-nsmo-nster-och-ja-msta-lldhetsambitioner.pdf){target="_blank"}^[Jämställdhetsmyndigheten Regionalpolitik, könsmönster och jämställdhetsambitioner (2022:16 bilaga 1). Bilaga till rapporten "Bättre styrning för bättre resultat".] finns en fördjupning om läget i regionerna. Här påpekas bland annat att det behövs en bättre styrning mot jämställdhetsmålen genom relevanta indikatorer. Mer konkret handlar det bland annat om att följa upp och förebygga ojämställda arbetsvillkor, ojämställda inkomster, kvinnors och mäns psykiska ohälsa och långtidssjukskrivningar, och synliggöra regionala och lokala könsmönster samt intersektionella perspektiv.
 </div>
 
 </details>
@@ -146,9 +146,9 @@ Policy-uppföljningar av jämställdhetspolitiken görs av bland andra Jämstäl
 
 # Utbildning
 
-Det jämställdhetspolitiska målet för utbildningsområdet innebär att kvinnor och män, flickor och pojkar, ska ha samma möjligheter och villkor när det gäller utbildning, studieval och personlig utveckling.
+Det jämställdhetspolitiska målet för utbildningsområdet innebär att kvinnor och män, tjejer och killar, ska ha samma möjligheter och villkor när det gäller utbildning, studieval och personlig utveckling.
 
-Bland den vuxna befolkningen ser vi att även om både kvinnor och män vidareutbildar sig i högre utsträckning idag än i tidigare generationer så är det fler kvinnor än män som studerar på universitet och högskola. Eftergymnasial utbildning ger större chans att få ett arbete och en högre inkomst både för tjejer och killar, vilket är ett viktigt argument för att förmå den enskilde att söka till högre utbildning. Att skillnaderna mellan könen nu ökar, riskerar att medföra att olika former av könssegregerade miljöer upprätthålls, vilket i sig är negativt för samhällsutvecklingen. 
+Bland den vuxna befolkningen ser vi att även om både kvinnor och män vidareutbildar sig i högre utsträckning idag än i föregående generationer så är det fler kvinnor än män som studerar på universitet och högskola. Eftergymnasial utbildning ger större chans att få ett arbete och en högre inkomst både för tjejer och killar, vilket är ett viktigt argument för att förmå den enskilde att söka till högre utbildning. Att skillnaderna mellan könen nu ökar, riskerar att medföra att olika former av könssegregerade miljöer upprätthålls, vilket i sig är negativt för samhällsutvecklingen. 
 
 ## Utbildningsnivå 
 
