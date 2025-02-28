@@ -154,6 +154,93 @@ Både kvinnor och män vidareutbildar sig efter gymnasiet i högre utsträckning
 
 ## Utbildningsnivå 
 
+De senaste decennierna har utbildningsnivån bland befolkningen i Dalarna ökat generellt och särskilt andelen med högre utbildning. I mitten av 1980-talet hade bara drygt sju procent av befolkningen en högre utbildning. År `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` hade den andelen ökat till drygt `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "kvinnor") %>% .$andel,0)` procent
+för kvinnor och knappt `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "män") %>% .$andel,0)` procent för män. Anmärkningsvärt är dock att
+skillnaden i utbildningsnivå mellan könen har ökat avsevärt genom åren.
+I mitten av 1980-talet var andelen högutbildade ungefär lika stor bland
+kvinnor och män. År `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` var nästan dubbelt så många kvinnor som män högutbildade i Dalarna.
+
+<br>
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
+utb_85_fig
+```
+
+I nationell jämförelse har Dalarna en relativt låg andel invånare med högre
+utbildning. I hela riket har `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Sverige",kön == "kvinnor") %>% .$andel,0)` procent av kvinnorna och `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Sverige",kön == "män") %>% .$andel,0)` procent av männen i åldersgruppen 25-64 år minst 3 års eftergymnasial utbildning.
+
+I Dalarna är andelen kvinnor med en högre utbildning om minst 3 år `r unique(utbildning_df$år)` ungefär `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Dalarna",kön == "kvinnor") %>% .$andel,0) `
+procent och motsvarande siffra för män i länet är cirka `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Dalarna",kön == "män") %>% .$andel,0) ` procent. Detta utfall placerar Dalarna sämst i landet tillsammans med Gävleborgs, Kalmars och Södermanlands län som har liknande låga siffror.
+
+Generellt tenderar regioner med större urbana center att både ha en yngre och en mer välutbildad befolkning jämfört med mer glest befolkade län som Dalarna. Skillnaden är störst bland män, där andelen högutbildade män i Stockholms län är mer än dubbelt så hög som motsvarande andel i Dalarnas län.
+
+En strukturell faktor som lan bidra till könsskillnaden i utbildningsnivå är att många yrken inom kvinnodominerade sektorer så som utbildning och vård kräver högskoleutbildning, exempelvis läraryrket och sjuksköterskeyrket. Dessa yrken utgör också en stor andel av arbetstillfällena på arbetsmarknaden.
+
+Utbildningsnivån påverkar inte bara livsinkomsten utan även medellivslängden. För personer som uppnått 65 års ålder skiljer det mer än tre år i medellivslängd mellan dem som har förgymnasial utbildning och dem med eftergymnasial utbildning. Skillnaden mellan könen är genomgående cirka två år, vilket innebär att kvinnor i respektive utbildningsgrupp lever i genomsnitt två år längre än män i samma utbildningsgrupp. Samtidigt visar det sig att boenderelationer också påverkar medellivslängden, och särskilt för män. Män med förgymnasial utbildning som är sammanboende lever i genomsnitt längre än ensamstående män med eftergymnasial utbildning. Sämst utsikter, genomsnittligt, för ett långt liv har således ensamstående män med låg utbildningsnivå [(SCB)](https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__BE__BE0701/LivslUtbHushtyp/){target="_blank"}.
+
+<br>
+```{r, echo=FALSE}
+  
+diagramtitel <-paste0("Andel av befolkningen (25-64 år) med minst 3 års eftergymnasial utbildning", unique(utbildning_df$år))
+diagramtitel <- str_wrap(diagramtitel,50)
+diagramfilnamn <- paste0("utbildningsniva_jmf_lan_kon.png")
+
+utbildning_lan_fig <- SkapaStapelDiagram(skickad_df <- utbildning_df %>%
+                                           filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer"), 
+                                         skickad_x_var = "region", 
+                                         skickad_y_var = "andel", 
+                                         skickad_x_grupp = "kön",
+                                         diagram_liggande=FALSE,
+                                         manual_x_axis_text_vjust=1,
+                                         manual_x_axis_text_hjust=1,
+                                         x_axis_lutning = 45,
+                                         x_axis_sort_value=TRUE,
+                                         manual_color = diagramfarger("kon"),
+                                         manual_y_axis_title="procent",
+                                         diagram_titel = diagramtitel,
+                                         diagram_capt =  diagram_capt,
+                                         stodlinjer_avrunda_fem = TRUE,
+                                         output_mapp = outputmapp,
+                                         filnamn_diagram = diagramfilnamn,
+                                         skriv_till_diagramfil = spara_figur)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
+utbildning_lan_fig
+```
+
+```{r, echo=FALSE, include=TRUE, fig.width=5, fig.align='center', out.width="90%"}
+
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
+
+# Tar bort uppgift saknas och beräknar hur stor andel som har en viss utbildning
+utbildning_85_utskrift<-utbildning_85_df %>%
+  filter(utb_niva!="Uppgift saknas") %>%
+    group_by(år,region,kön,utb_niva) %>%
+      summarize(antal=sum(Antal)) %>%
+        mutate(andel=(antal/sum(antal))*100)
+
+diagramtitel <- paste0("Andel av befolkningen (25-64 år) med minst 3 års eftergymnasial utbildning i ",unique(utbildning_85_utskrift$region))
+diagramtitel <- str_wrap(diagramtitel)
+diagramfilnamn <- paste0("utbildningsniva_85_21_kon.png")
+
+utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
+                              filter(år%in%c("1985","1990","1995","2000","2005","2010","2015",max(utbildning_85_utskrift$år))) %>%
+                                filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer"),
+                             skickad_x_var = "år",
+                             skickad_y_var = "andel",
+                             skickad_x_grupp = "kön",
+                             manual_color = diagramfarger("kon"),
+                             diagram_titel = diagramtitel,
+                             diagram_capt =  diagram_capt,
+                             x_axis_lutning = 0,
+                             stodlinjer_avrunda_fem = TRUE,
+                             manual_y_axis_title="procent",
+                             output_mapp = outputmapp,
+                             filnamn_diagram = diagramfilnamn,
+                             skriv_till_diagramfil = spara_figur)
+
+```
+
 Utbildningsnivån inom åldersgruppen 25-64 år i Dalarna år `r max(utbildning_df$år)` enligt figuren nedan visar på stora skillnader mellan könen. En betydligt större andel kvinnor i länet har en högre utbildning i jämförelse med andelen män med högre utbildning. Bland kvinnor i Dalarna är den vanligaste, med `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel,0)` procent, utbildningsnivån "`r utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$utbildningsnivå`". Motsvarande andel bland män i Dalarna är `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer")  %>% .$andel,0)` procent. Bland män i Dalarna är i stället den vanligast förekommande utbildningskategorin
 "`r utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$utbildningsnivå`". Ungefär `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$andel,0)` procent av männen i Dalarna återfinns inom denna kategori.
 
@@ -222,93 +309,6 @@ utbildning_85_utskrift<-utbildning_85_df %>%
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 utbildning_fig
-```
-
-De senaste decennierna har andelen av befolkningen i Dalarna med högre utbildning ökat. I mitten av 1980-talet hade bara drygt sju procent av befolkningen en högre utbildning. År `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` hade den andelen ökat till drygt `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "kvinnor") %>% .$andel,0)` procent
-för kvinnor och knappt `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "män") %>% .$andel,0)` procent för män. Anmärkningsvärt är också att
-skillnaden i utbildningsnivå mellan könen har ökat avsevärt genom åren.
-I mitten av 1980-talet var andelen högutbildade ungefär lika stor bland
-kvinnor och män. År `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` var nästan dubbelt så många kvinnor som män högutbildade i Dalarna.
-
-<br>
-```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-utb_85_fig
-```
-
-I nationell jämförelse har Dalarna en relativt låg andel personer med högre
-utbildning. I hela riket har `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Sverige",kön == "kvinnor") %>% .$andel,0)` procent av kvinnorna och `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Sverige",kön == "män") %>% .$andel,0)` procent av männen i åldersgruppen 25-64 år minst 3 års eftergymnasial utbildning.
-
-I Dalarna är andelen kvinnor med en högre utbildning om minst 3 år `r unique(utbildning_df$år)` ungefär `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Dalarna",kön == "kvinnor") %>% .$andel,0) `
-procent och motsvarande siffra för män i länet är cirka `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Dalarna",kön == "män") %>% .$andel,0) ` procent. Detta utfall placerar Dalarna sämst i landet tillsammans med Gävleborg, Kalmar och Södermanlands län som har liknande låga siffror.
-
-Generellt tenderar regioner med större urbana center att både ha en yngre och en mer välutbildad befolkning jämfört med mer glest befolkade län som Dalarna. Skillnaden är störst bland män, där andelen högutbildade män i Stockholms län är mer än dubbelt så hög som motsvarande andel i Dalarnas län.
-
-Ett mönster som även bidrar till könsskillnaden i utbildningsnivå är att många yrken inom kvinnodominerade sektorer så som utbildning och vård kräver högskoleutbildning, exempelvis lärare och sjuksköterska. Dessa tjänster utgör också en stor andel av arbetstillfällena på arbetsmarknaden.
-
-Utbildningsnivån påverkar inte bara livsinkomsten utan även medellivslängden. För personer som uppnått 65 års ålder skiljer mer än tre år i medellivslängd mellan dem som har förgymnasial utbildning och dem med eftergymnasial utbildning. Skillnaden mellan könen är genomgående cirka två år, vilket innebär att kvinnor i respektive utbildningsgrupp lever i genomsnitt två år längre än män i samma utbildningsgrupp. Samtidigt visar det sig att boenderelationer också påverkar medellivslängden, och särskilt för män. Män med förgymnasial utbildning som är sammanboende lever i genomsnitt längre än ensamstående män med eftergymnasial utbildning. Sämst utsikter, genomsnittligt, för ett långt liv har således ensamstående män med låg utbildningsnivå [(SCB)](https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__BE__BE0701/LivslUtbHushtyp/){target="_blank"}.
-
-<br>
-```{r, echo=FALSE}
-  
-diagramtitel <-paste0("Andel av befolkningen (25-64 år) med minst 3 års eftergymnasial utbildning", unique(utbildning_df$år))
-diagramtitel <- str_wrap(diagramtitel,50)
-diagramfilnamn <- paste0("utbildningsniva_jmf_lan_kon.png")
-
-utbildning_lan_fig <- SkapaStapelDiagram(skickad_df <- utbildning_df %>%
-                                           filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer"), 
-                                         skickad_x_var = "region", 
-                                         skickad_y_var = "andel", 
-                                         skickad_x_grupp = "kön",
-                                         diagram_liggande=FALSE,
-                                         manual_x_axis_text_vjust=1,
-                                         manual_x_axis_text_hjust=1,
-                                         x_axis_lutning = 45,
-                                         x_axis_sort_value=TRUE,
-                                         manual_color = diagramfarger("kon"),
-                                         manual_y_axis_title="procent",
-                                         diagram_titel = diagramtitel,
-                                         diagram_capt =  diagram_capt,
-                                         stodlinjer_avrunda_fem = TRUE,
-                                         output_mapp = outputmapp,
-                                         filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = spara_figur)
-```
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-utbildning_lan_fig
-```
-
-```{r, echo=FALSE, include=TRUE, fig.width=5, fig.align='center', out.width="90%"}
-
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
-
-# Tar bort uppgift saknas och beräknar hur stor andel som har en viss utbildning
-utbildning_85_utskrift<-utbildning_85_df %>%
-  filter(utb_niva!="Uppgift saknas") %>%
-    group_by(år,region,kön,utb_niva) %>%
-      summarize(antal=sum(Antal)) %>%
-        mutate(andel=(antal/sum(antal))*100)
-
-diagramtitel <- paste0("Andel av befolkningen (25-64 år) med minst 3 års eftergymnasial utbildning i ",unique(utbildning_85_utskrift$region))
-diagramtitel <- str_wrap(diagramtitel)
-diagramfilnamn <- paste0("utbildningsniva_85_21_kon.png")
-
-utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
-                              filter(år%in%c("1985","1990","1995","2000","2005","2010","2015",max(utbildning_85_utskrift$år))) %>%
-                                filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer"),
-                             skickad_x_var = "år",
-                             skickad_y_var = "andel",
-                             skickad_x_grupp = "kön",
-                             manual_color = diagramfarger("kon"),
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             x_axis_lutning = 0,
-                             stodlinjer_avrunda_fem = TRUE,
-                             manual_y_axis_title="procent",
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = spara_figur)
-
 ```
 
 ## Antagna till gymnasiet 
