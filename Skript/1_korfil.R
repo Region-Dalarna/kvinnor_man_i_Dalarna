@@ -23,6 +23,20 @@ gg_arbetsloshet_tidsserie_bas <- diag_arbetsloshet_tidsserie(spara_diagrambildfi
                                                              spara_dataframe_till_global_environment = FALSE,
                                                              output_mapp = output_mapp_figur)
 
+# Överrepresentation av kvinnor
+source("https://raw.githubusercontent.com/Region-Dalarna/socioekonomisk_analys_nms/refs/heads/main/skript/socioek_overrep.R")
+gg_overrep = skapa_overrep_diagram(spara_diagrambildfil = TRUE,
+                             mapp = here("Diagram/") %>% paste0(., "/"))
+
+# # ============= Överrepresentation av chefer - motsvarar diagram 32 i den tidigare rapporten
+# source(here("skript","socioek_overrep.R"), encoding="UTF-8")
+# overrepresentation_bransch <- funktion_upprepa_forsok_om_fel( function() {
+#   skapa_overrep_diagram()
+# }, hoppa_over = hoppa_over_felhantering)
+# 
+# overrep_ar_min <- overrep_df$Ar %>% min()
+# overrep_ar_max <- overrep_df$Ar %>% max()
+
 
 rmarkdown::render(
   input = 'kvinnor_man_markdown_ny.Rmd',

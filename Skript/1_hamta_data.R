@@ -85,6 +85,13 @@ source(here("Skript","medianinkomst.R"), encoding="UTF-8")
 diag_medianinkomst(spara_data = TRUE,
                    output_mapp = Output_mapp)
 
+# Medianinkomst 65+
+source(here("Skript","medianinkomst.R"), encoding="UTF-8")
+diag_medianinkomst(spara_data = TRUE,
+                   filnamn = "medianinkomst_65.xlsx",
+                   alder = c("65+"),
+                   output_mapp = Output_mapp)
+
 # Disponibel inkomst
 source(here("Skript","disponibel_inkomst.R"), encoding="UTF-8")
 diag_disponibelinkomst(spara_data = TRUE,

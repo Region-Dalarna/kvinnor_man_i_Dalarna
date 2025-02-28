@@ -13,6 +13,7 @@ source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_AP
 diag_medianinkomst<-function(region_vekt = "20",
                              output_mapp = "G:/Samhällsanalys/Statistik/Näringsliv/basfakta/",
                              filnamn = "medianinkomst.xlsx",
+                             alder = c("20-64"), # Finns bland annat 65+ mfl, använd pxvardelist("https://api.scb.se/OV0104/v1/doris/sv/ssd/HE/HE0110/HE0110A/SamForvInk1","Alder")
                              spara_data = TRUE){
   
  
@@ -23,7 +24,7 @@ diag_medianinkomst<-function(region_vekt = "20",
   # Variabler som skall tas ut
   varlista <-  list("Region"=hamtakommuner(region_vekt),
                     "Kon"=c("1","2","1+2"),
-                    "Alder"=c("20-64"),
+                    "Alder" = alder,
                     "Inkomstklass"=c("TOT"),
                     "ContentsCode"=c("HE0110J8"),
                     "Tid"=c("*"))

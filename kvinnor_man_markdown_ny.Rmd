@@ -70,6 +70,8 @@ langtidsarbetsloshet_utbildning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_
 etablering_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/etableringstid.xlsx") 
 medianinkomst_df <-  read.xlsx("G:/skript/projekt/data/kvinnor_man/medianinkomst.xlsx") %>% 
   rename(medianinkomst = `Medianinkomst,.tkr`)
+medianinkomst_65plus_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/medianinkomst_65.xlsx") %>% 
+  rename(medianinkomst = `Medianinkomst,.tkr`)
 disponibel_inkomst_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/disponibel_inkomst.xlsx")
 langsiktiga_skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx",sheet = 1)
 skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx", sheet = 2)
@@ -721,6 +723,71 @@ medianinkomst_kommun_fig <- SkapaStapelDiagram(skickad_df =medianinkomst_df %>%
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 medianinkomst_kommun_fig
 ```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas. Bearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Sammaräknad förvärvsinkomst, dvs. alla skattepliktiga inkomster före skatt (dock ej kapitalinkomster)."
+
+medianinkomst_65plus_df$region <- skapa_kortnamn_lan(medianinkomst_65plus_df$region,byt_ut_riket_mot_sverige = TRUE) 
+
+diagramtitel <- paste0("Medianinkomst (65+ år) i Dalarna")
+diagramfilnamn <- paste0("medianinkomst_65plus_Dalarna_tid.png")
+
+medianinkomst_65plus_tid_fig <- SkapaStapelDiagram(skickad_df =medianinkomst_65plus_df %>%
+                                               filter(kön != "totalt",
+                                                      region == "Dalarna"),
+                                         skickad_x_var = "år", 
+                                         skickad_y_var = "medianinkomst",
+                                         skickad_x_grupp = "kön",
+                                         manual_color = diagramfarger("kon"),
+                                         diagram_titel = diagramtitel,
+                                         diagram_capt =  diagram_capt,
+                                         manual_x_axis_text_vjust=1,
+                                         manual_x_axis_text_hjust=1,
+                                         diagram_facet = FALSE,
+                                         facet_scale = "fixed",
+                                         stodlinjer_avrunda_fem = TRUE,
+                                         vand_sortering = TRUE,
+                                         x_axis_lutning = 45,
+                                         manual_y_axis_title = "",
+                                         output_mapp = outputmapp,
+                                         filnamn_diagram = diagramfilnamn,
+                                         skriv_till_diagramfil = spara_figur)
+
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
+medianinkomst_65plus_tid_fig
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+diagramtitel <- paste0("Förändring i medianinkomst (65+ år) i Dalarna")
+diagramfilnamn <- paste0("medianinkomst_65plus_Dalarna_tid_linje.png")
+
+# Skapar diagram för medianinkomst i valt län vs riket (ej uppdelat på kön)
+medianinkomst_65plus_linje_fig <- SkapaLinjeDiagram(skickad_df = medianinkomst_65plus_df %>%
+                                               filter(kön != "totalt",
+                                                      region == "Dalarna"),
+                                            skickad_x_var = "år",
+                                            skickad_y_var = "medianinkomst",
+                                            skickad_x_grupp = "kön",
+                                            #skickad_filter_OR_var = "region",
+                                            x_axis_lutning = 45,
+                                            manual_color = diagramfarger("kon"),
+                                            diagram_titel = diagramtitel,
+                                            diagram_capt =  diagram_capt,
+                                            stodlinjer_avrunda_fem = TRUE,
+                                            diagram_facet = FALSE,
+                                            berakna_index = TRUE,
+                                            output_mapp = outputmapp,
+                                            filnamn_diagram = diagramfilnamn,
+                                            skriv_till_diagramfil = spara_figur)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+medianinkomst_65plus_linje_fig
+```
+
 
 Utöver inkomster är det även relevant att undersöka den disponibla
 inkomsten, dvs. summan av alla inkomster och transfereringar (exempelvis
