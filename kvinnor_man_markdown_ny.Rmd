@@ -148,7 +148,7 @@ Policy-uppföljningar av jämställdhetspolitiken görs av bland andra Jämstäl
 
 # Utbildning
 
-Det jämställdhetspolitiska målet för utbildningsområdet innebär att kvinnor och män, tjejer och killar, ska ha samma möjligheter och villkor när det gäller utbildning, studieval och personlig utveckling.
+Det jämställdhetspolitiska delmålet för utbildningsområdet innebär att kvinnor och män, tjejer och killar, ska ha samma möjligheter och villkor när det gäller utbildning, studieval och personlig utveckling.
 
 Både kvinnor och män vidareutbildar sig efter gymnasiet i högre utsträckning idag än föregående generationer, men betydligt fler kvinnor än män studerar vid universitet och högskola. Att skillnaderna i vidareutbildning ökar mellan könen är negativt för samhällsutvecklingen, då det riskerar att medföra att olika former av könssegregerade miljöer skapas eller upprätthålls. Det medför även skilda förutsättningar på arbetsmarknaden mellan gruppen kvinnor och gruppen män, då eftergymnasial utbildning ger större chans till arbete och möjlighet till högre inkomst.
 
@@ -312,7 +312,7 @@ Då en relativt liten andel män har högskoleutbildning återfinns männen i st
 <br>
 
 
-## Antagna till gymnasiet 
+## Gymnasieutbildning och examen 
 En utmaning för länet är den obalans som råder i antalet antagna killar och tjejer till gymnasieprogrammen i Dalarna. Av totalt 20 gymnasieprogram i länet kan endast fem sägas vara jämställda, dvs. de har en könsfördelning där andelen antagna är mellan 40 och 60 procent för både killar och tjejer. De program som har en jämställd representation vid antagningen är international baccalaurate, naturvetenskapsprogrammet, ekonomiprogrammet, introduktionsprogram samt restaurang och livsmedelsprogrammet. Sex program har en övervikt av killar, där VVS- och fastighetsprogrammet har den största obalansen, följt av el- och energiprogrammet samt industritekniska programmet. Resterande nio program har en övervikt av tjejer, där vård- och omsorgsprogrammet är det mest obalanserade programmet följt av hantverksprogrammet och det humanistiska programmet.
 
 <br>
@@ -353,8 +353,7 @@ gymnasieantagning_fig <- SkapaStapelDiagram(skickad_df = gym_sum%>%
 gymnasieantagning_fig
 ```
 
-## Examen efter gymnasiet
-I diagrammet nedan visas genomströmningen i gymnasieskolan genom andelen med studiebevis alternativt examen 4 år efter påbörjat gymnasium. Tidigare var det generella mönstret att cirka 80 procent av tjejerna avklarat gymnasiet inom 4 år, medan andelen bland pojkarna har varit lägre (runt 75 procent). Sedan den tydliga försämringen under pandemiåren 2020 och 2021, har dock andelen med studiebevis ökat för båda könen, men extra mycket för killarna. År 2024 var andelen med studiebevis ungefär `r round(gymnasiet_genomstromning_df %>% filter(year==max(year),kon == "Kvinnor") %>% .$value,0)` procent bland tjejer och `r round(gymnasiet_genomstromning_df %>% filter(year==max(year),kon == "Män") %>% .$value,0)` procent bland killar.
+I diagrammet nedan visas genomströmningen i gymnasieskolan genom andelen med studiebevis alternativt examen 4 år efter påbörjat gymnasium. Tidigare var det generella mönstret att cirka 80 procent av tjejerna avklarat gymnasiet inom 4 år, och andelen bland pojkarna något lägre, cirka 75 procent. Under pandemiåren 2020 och 2021 försämrades genomströmningen, men därefter har andelen med studiebevis ökat för båda könen, men extra mycket för killarna. År 2024 var andelen med studiebevis ungefär `r round(gymnasiet_genomstromning_df %>% filter(year==max(year),kon == "Kvinnor") %>% .$value,0)` procent bland tjejer och `r round(gymnasiet_genomstromning_df %>% filter(year==max(year),kon == "Män") %>% .$value,0)` procent bland killar.
 
 ```{r, echo=FALSE}
 
@@ -390,15 +389,11 @@ gym_genom
 ```
 
 ## Bransch och yrke
-Arbeten och yrken har historiskt varit könsuppdelade. Med könsuppdelningen har även värderingar synliggjorts om vad som räknats som formellt arbete och hur det värderats. Politiska beslut har på flera sätt påverkat detta. Innan exempelvis reformerna som etablerade barn- och äldreomsorg på den reguljära arbetsmarknaden utförde kvinnor sådant omsorgsarbete obetalt eller på annat sätt utanför ordinarie arbetsmarknad. När dessa arbetsuppgifter övergick till formellt arbete var det på många sätt naturligt att framförallt kvinnor befolkade tjänsterna, dessvärre har det bidragit till att könssegregeringen på arbetsmarknaden har bestått.
+Många arbetsuppgifter och yrken har historiskt varit könsuppdelade. Med könsuppdelningen har även värderingar om vad som räknats som formellt respektive informellt arbete synliggjorts, och hur dessa arbeten värderats i pengar. Politiska beslut har på flera sätt påverkat detta. Innan exempelvis reformerna som etablerade barn- och äldreomsorg på den reguljära arbetsmarknaden utförde kvinnor detta omsorgsarbete obetalt eller på annat sätt utanför ordinarie arbetsmarknad. När dessa arbetsuppgifter övergick till formellt arbete medförde det många positiva effekter för både kvinnor och män, men det blev på många sätt naturligt att framförallt kvinnor befolkade tjänsterna. Dessvärre har det bidragit till en tydlig könssegregering på arbetsmarknaden, och som verkar svår att förändra.
 
-Sedan många år har kvinnor och män haft likvärdig tillgång till utbildning och möjlighet att fritt välja yrke. Trots detta består många av könsskillnaderna i arbetslivet (se figuren nedan) och även i antagningen till gymnasiet. Det
-finns branscher i länet som har en tydlig övervikt av det ena eller det
-andra könet, exempelvis byggbranschen som omfattar yrken inom bland
-annat el och VVS, och där kvinnor bara utgör ungefär `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Bygg") %>% .$andel` procent av de
-förvärvsarbetande. Även om det har skett en ökning av andelen kvinnor inom byggbranschen är denna ökning ännu försumbar. Inom vård och omsorg är bilden densamma men med motsatt könsfördelning. Här utgör kvinnor cirka `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Vård och omsorg") %>% .$andel` procent av de förvärvsarbetande.
+Sedan många år har kvinnor och män haft likvärdig tillgång till utbildning och möjlighet att fritt välja yrke. Trots detta består många av könsskillnaderna i arbetslivet (se figuren nedan) och de yngre generationerna verkar inte göra mindre könsstereotypa val, som redovisats ovan. Många branscher i länet har en tydlig övervikt av det ena eller det andra könet, exempelvis byggbranschen som omfattar yrken inom bland annat el och VVS, och där kvinnor bara utgör ungefär `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Bygg") %>% .$andel` procent av de förvärvsarbetande. Även om det har skett en ökning av andelen kvinnor inom byggbranschen är denna ökning ännu försumbar. Inom vård och omsorg är bilden densamma men med motsatt könsfördelning. Här utgör kvinnor cirka `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Vård och omsorg") %>% .$andel` procent av de förvärvsarbetande.
 
-Att åstadkomma en förändring i närtid av balansen mellan män och kvinnor inom de könssegregerade branscherna verkar inte vara inom räckhåll då ungdomars studieval är så pass könsstereotypa.
+Att åstadkomma en förändring i närtid av balansen mellan män och kvinnor inom de könssegregerade branscherna verkar inte vara inom räckhåll då ungdomars studieval som visat sovan är så pass könsstereotypa.
 
 <br>
 ```{r, echo=FALSE,fig.width=10, fig.align='center', out.width="90%"}
@@ -504,7 +499,7 @@ vanligast. Här finns exempelvis `r tolower(first(yrke_kvinnor$Yrke))` och `r to
 
 Två yrken av tio återkommer bland både kvinnor och män; vårdbiträden och butikssäljare i fackhandel. Båda yrkena är kvinnodominerade, med `r format(plyr::round_any(yrke_kvinnor %>% filter(Yrke == "Butikssäljare, fackhandel") %>% .$Antal,100),big.mark=" ")` kvinnor och `r format(plyr::round_any(yrke_man %>% filter(Yrke == "Butikssäljare, fackhandel") %>% .$Antal,100),big.mark=" ")` män sysselsatta som butikssäljare i fackhandel, medan `r format(plyr::round_any(yrke_kvinnor %>% filter(Yrke == "Vårdbiträden") %>% .$Antal,100),big.mark=" ")` kvinnor och `r format(plyr::round_any(yrke_man %>% filter(Yrke == "Vårdbiträden") %>% .$Antal,100),big.mark=" ")` män arbetar som vårdbiträden.
 
-Diagrammen visar också att de 10 största yrkena bland kvinnor omfattar drygt `r format(plyr::round_any(yrke_kvinnor %>% .$Antal %>% sum(),100),big.mark=" ")` anställda medan de 10 största yrkena bland män omfattar drygt `r format(plyr::round_any(yrke_man %>% .$Antal %>% sum(),100),big.mark=" ")` anställda, det vill säga, vissa kvinnodominerade yrken är väldigt omfattande i storlek, vilket kan bidra till svårigheten med att bryta den könsuppdelade arbetsmarknaden.
+Diagrammen visar också att de 10 största yrkena bland kvinnor omfattar drygt `r format(plyr::round_any(yrke_kvinnor %>% .$Antal %>% sum(),100),big.mark=" ")` anställda medan de 10 största yrkena bland män omfattar drygt `r format(plyr::round_any(yrke_man %>% .$Antal %>% sum(),100),big.mark=" ")` anställda, det vill säga, några av de kvinnodominerade yrkena är väldigt omfattande i storlek, vilket kan bidra till svårigheten med att bryta den könsuppdelade arbetsmarknaden.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -610,11 +605,11 @@ gg_matchning$matchning_bakgrund
 
 Ekonomisk jämställdhet är ett av de sex jämställdhetspolitiska delmålen och syftar till att kvinnor och män ska ges samma möjligheter och villkor i fråga om betalt arbete för att säkerställa ekonomisk självständighet livet ut. Målet utgår således ifrån ett livscykelperspektiv och understryker betydelsen av att det avlönade arbetet ska ge ekonomisk trygghet och självständighet även under pensionsåren. En central förutsättning för inkomst och egen försörjning är anknytning till och förutsättningar på arbetsmarknaden, därför redogörs här även för sysselsättningsgrad och arbetslöshet samt etableringstid för invandrade.  
 
-Ekonomisk jämställdhet analyseras genom flera olika inkomstflöden och variabler. Inkomst av arbete utgör merparten av en individs försörjning, men både lönenivå och huruvida personen arbetar hel- eller deltid påverkar inkomsten och sedemera pensionen. Därtill finns kapitalinkomster och offentliga bidrag så som exempelvis sjukpenning, föräldrapenning och bostadsbidrag, som gör att ett viktigt mått på ekonomisk standard är disponibel inkomst. Disponibel inkomst innebär den summa pengar som ett hushåll eller en person har efter att alla ekonomiska inkomster är sammanräknade (lön, avkastning, bidrag etc.) och skatter och avgifter är betalda.
+Ekonomisk jämställdhet analyseras genom flera olika inkomstflöden och variabler. Inkomst av arbete utgör merparten av en individs försörjning, men både lönenivå och huruvida personen arbetar hel- eller deltid påverkar inkomsten och sedemera pensionen. Därtill finns kapitalinkomster och offentliga bidrag så som exempelvis sjukpenning, föräldrapenning och bostadsbidrag, som gör att ett centralt mått för att fånga en individs ekonomiska standard är disponibel inkomst. Disponibel inkomst innebär den summa pengar som ett hushåll eller en person har efter att alla ekonomiska inkomster är sammanräknade (lön, avkastning, bidrag etc.) och skatter och avgifter är betalda.
 
-Det finns många faktorer som bidrar till ojämställdhet på arbetsmarknaden och för livsinkomsten, men familjebildningen är den faktor som i högst grad bidrar till ojämställda livsinkomster. Gapet i disponibel inkomst mellan kvinnor och män är som störst för sammanboende, 35 procent, när det yngsta barnet är 0–3 år [Regeringen (2022)](<https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf>){target="_blank"}^[Regeringen (2022) Prop. 2022/23:1 Bilaga 3 Ekonomisk jämställdhet 2022.].
+Det finns många faktorer som bidrar till ojämställdhet på arbetsmarknaden och för livsinkomsten, men familjebildningen är den faktor som i högst grad bidrar till ojämställda livsinkomster. Gapet i disponibel inkomst mellan kvinnor och män är som störst för sammanboende, 35 procent, när det yngsta barnet är 0–3 år [Regeringen (2022)](<https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf>){target="_blank"}^[Regeringen (2022) Prop. 2022/23:1 Bilaga 3 Ekonomisk jämställdhet 2022].
 
-Löneskillnaderna mellan könen börjar i relativt ung ålder och redan vid 29 års ålder har män i genomsnitt 20 procent högre lön än kvinnor. En del av skillnaden kan förklaras av skillnader i utbildning, då fler kvinnor väljer att studera och då kommer ut senare i arbetslivet. Trots en högre utbildning kvarstår dock gapet i lön mellan könen [(Jämställdhetsmyndigheten (2025))](https://jamstalldhetsmyndigheten.se/media/llefhgq1/kunskapssammanst%C3%A4llning-ungas-ekonomi-2025-1.pdf){target="_blank"}^[Jämställdhetsmyndigheten (2025) En tid av förväntan, väntan och osäkerhet]
+Löneskillnaderna mellan könen börjar i relativt ung ålder och redan vid 29 års ålder har män i genomsnitt 20 procent högre lön än kvinnor i samma ålder. En del av skillnaden kan förklaras av skillnader i utbildning, då fler kvinnor väljer att studera och då kommer ut senare i arbetslivet. Trots en högre utbildning kvarstår dock gapet i lön mellan könen [(Jämställdhetsmyndigheten (2025))](https://jamstalldhetsmyndigheten.se/media/llefhgq1/kunskapssammanst%C3%A4llning-ungas-ekonomi-2025-1.pdf){target="_blank"}^[Jämställdhetsmyndigheten (2025) En tid av förväntan, väntan och osäkerhet].
 
 Vid pensionering finns det numera många som fortsätter att arbeta hel- eller deltid, så kallade jobbonärer, dessa har relativt god ekonomi. De som har det sämst ställt efter pensionering är kvinnor som inte fortsätter att arbeta. 
  
@@ -691,7 +686,7 @@ medianinkomst_linje_fig <- SkapaLinjeDiagram(skickad_df = medianinkomst_df %>%
 medianinkomst_linje_fig
 ```
 
-I samtliga Dalarnas kommuner har männen högre inkomst än kvinnorna. Skillnaderna mellan kommunerna är relativt små. Kvinnor har högst medianinkomst i `r medianinkomst_df %>% filter(kön == "kvinnor", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == max(medianinkomst)) %>%  .$region ` och män i `r medianinkomst_df %>% filter(kön == "män", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == max(medianinkomst)) %>%  .$region `. Lägst medianinkomst har kvinnor i `r medianinkomst_df %>% filter(kön == "kvinnor", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == min(medianinkomst)) %>%  .$region `, medan män har lägst medianinkomst i `r medianinkomst_df %>% filter(kön == "män", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == min(medianinkomst)) %>%  .$region `.
+I samtliga av Dalarnas kommuner har männen högre medianinkomst än kvinnorna. Skillnaderna mellan kommunerna är relativt små. Kvinnor har högst medianinkomst i `r medianinkomst_df %>% filter(kön == "kvinnor", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == max(medianinkomst)) %>%  .$region ` och män i `r medianinkomst_df %>% filter(kön == "män", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == max(medianinkomst)) %>%  .$region `. Lägst medianinkomst har kvinnor i `r medianinkomst_df %>% filter(kön == "kvinnor", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == min(medianinkomst)) %>%  .$region `, medan män har lägst medianinkomst i `r medianinkomst_df %>% filter(kön == "män", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == min(medianinkomst)) %>%  .$region `.
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -793,7 +788,7 @@ medianinkomst_65plus_linje_fig
 ```
 
 
-Utöver inkomster är det även relevant att undersöka den disponibla
+Utöver inkomster är det som sagt även relevant att undersöka den disponibla
 inkomsten, dvs. summan av alla inkomster och transfereringar (exempelvis
 barnbidrag) efter avdragen slutlig skatt. I figuren nedan är det tydligt att
 den disponibla inkomsten varierar mellan olika grupper. En generell
@@ -848,7 +843,7 @@ disp_ink_fig
 knitr::include_graphics(here("Diagram","ekonomiskt_bistandDalarnas län.png"))
 ```
 
-## Arbetsmarknadsstatus
+## Sysselsätta och arbetslösa
 
 Sysselsättningsgraden, det vill säga i vilken utsträckning människor i arbetsför ålder (20-64 år) arbetar, skiljer sig inte märkbart åt mellan könen bland inrikes födda som ses i det vänstra diagrammet nedan. Sverige ligger långt fram i en internationell jämförelse när det gäller att ge kvinnor och män likvärdiga möjligheter att yrkesarbeta, och det återspeglas i sysselsättningsgraden som för båda könen är ungefär lika hög, cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "inrikes född",region == "Sverige") %>% .$sysselsättningsgrad,0)` procent. Variationen i sysselsättningsgrad mellan länen är därför också relativt liten.
 
