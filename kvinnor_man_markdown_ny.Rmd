@@ -148,17 +148,109 @@ Policy-uppföljningar av jämställdhetspolitiken görs av bland andra Jämstäl
 
 # Utbildning
 
-Det jämställdhetspolitiska målet för utbildningsområdet innebär att kvinnor och män, tjejer och killar, ska ha samma möjligheter och villkor när det gäller utbildning, studieval och personlig utveckling.
+Det jämställdhetspolitiska delmålet för utbildningsområdet innebär att kvinnor och män, tjejer och killar, ska ha samma möjligheter och villkor när det gäller utbildning, studieval och personlig utveckling.
 
-Bland den vuxna befolkningen vidareutbildar sig både kvinnor och män i högre utsträckning idag än i föregående generationer, men betydligt fler kvinnor än män som studerar på uni nversitet och högskola. Eftergymnasial utbildning ger större chans att få ett arbete och en högre inkomst både för tjejer och killar, vilket är ett viktigt argument för att förmå den enskilde att söka till högre utbildning. Att skillnaderna mellan könen nu ökar, riskerar att medföra att olika former av könssegregerade miljöer upprätthålls, vilket i sig är negativt för samhällsutvecklingen. 
+Både kvinnor och män vidareutbildar sig efter gymnasiet i högre utsträckning idag än föregående generationer, men betydligt fler kvinnor än män studerar vid universitet och högskola. Att skillnaderna i vidareutbildning ökar mellan könen är negativt för samhällsutvecklingen, då det riskerar att medföra att olika former av könssegregerade miljöer skapas eller upprätthålls. Det medför även skilda förutsättningar på arbetsmarknaden mellan gruppen kvinnor och gruppen män, då eftergymnasial utbildning ger större chans till arbete och möjlighet till högre inkomst.
 
-## Utbildningsnivå 
+## Utbildningsnivå
 
-Utbildningsnivån inom åldersgruppen 25-64 år i Dalarna år `r max(utbildning_df$år)`  redovisas i figuren nedan
-och visar på stora skillnader mellan könen. En betydligt större andel kvinnor i länet har en högre utbildning i jämförelse med andelen män med högre utbildning. Bland kvinnor i Dalarna är den vanligaste, med `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel,0)` procent, utbildningsnivån "`r utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$utbildningsnivå`". Inom den här utbildningskategorin är motsvarande siffra för män i Dalarna drygt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer")  %>% .$andel,0)` procent. I kombination med "kortare eftergymnasiala studier (högst 2 år)" är det totalt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "eftergymnasial utbildning, mindre än 3 år")  %>% .$andel,0)` procent av kvinnorna i Dalarna som har någon form av eftergymnasial utbildning. För män i länet är motsvarande siffra cirka `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män", utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, mindre än 3 år")  %>% .$andel,0)` procent.
+De senaste decennierna har utbildningsnivån bland befolkningen i Dalarna ökat generellt och särskilt andelen med högre utbildning. I mitten av 1980-talet hade bara drygt sju procent av befolkningen en högre utbildning. År `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` hade den andelen ökat till drygt `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "kvinnor") %>% .$andel,0)` procent för kvinnor och knappt `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "män") %>% .$andel,0)` procent för män. Anmärkningsvärt är dock att skillnaden i utbildningsnivå mellan könen har ökat avsevärt genom åren.
+I mitten av 1980-talet var andelen högutbildade ungefär lika stor bland kvinnor och män. År `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` var nästan dubbelt så stor andel kvinnor som män högutbildade i Dalarna.
 
-Bland män i Dalarna är den vanligast förekommande utbildningskategorin
-"`r utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$utbildningsnivå`". Ungefär `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$andel,0)` procent av männen i Dalarna återfinns inom denna kategori. Ytterligare knappt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av männen har en gymnasieutbildning om högst 2 år. Sammantaget innebär detta att ungefär `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män", utbildningsnivå == "gymnasial utbildning, 3 år") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av alla män i Dalarna har en gymnasieutbildning som högsta utbildning. Motsvarande siffra för kvinnor i Dalarna är `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor", utbildningsnivå == "gymnasial utbildning, 3 år") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent.
+
+
+```{r, echo=FALSE, include=TRUE, fig.width=5, fig.align='center', out.width="90%"}
+
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
+
+# Tar bort uppgift saknas och beräknar hur stor andel som har en viss utbildning
+utbildning_85_utskrift<-utbildning_85_df %>%
+  filter(utb_niva!="Uppgift saknas") %>%
+    group_by(år,region,kön,utb_niva) %>%
+      summarize(antal=sum(Antal)) %>%
+        mutate(andel=(antal/sum(antal))*100)
+
+diagramtitel <- paste0("Andel av befolkningen (25-64 år) med minst 3 års eftergymnasial utbildning i ",unique(utbildning_85_utskrift$region))
+diagramtitel <- str_wrap(diagramtitel)
+diagramfilnamn <- paste0("utbildningsniva_85_21_kon.png")
+
+utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
+                              filter(år%in%c("1985","1990","1995","2000","2005","2010","2015",max(utbildning_85_utskrift$år))) %>%
+                                filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer"),
+                             skickad_x_var = "år",
+                             skickad_y_var = "andel",
+                             skickad_x_grupp = "kön",
+                             manual_color = diagramfarger("kon"),
+                             diagram_titel = diagramtitel,
+                             diagram_capt =  diagram_capt,
+                             x_axis_lutning = 0,
+                             stodlinjer_avrunda_fem = TRUE,
+                             manual_y_axis_title="procent",
+                             output_mapp = outputmapp,
+                             filnamn_diagram = diagramfilnamn,
+                             skriv_till_diagramfil = spara_figur)
+
+```
+<br>
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
+utb_85_fig
+```
+<br>
+I nationell jämförelse har Dalarna en relativt låg andel personer med högre utbildning. I hela riket har 38 procent av kvinnorna och 24 procent av männen i åldersgruppen 25-64 år minst 3 års eftergymnasial utbildning. Medan andelen kvinnor i Dalarna med en högre utbildning om minst 3 år `r unique(utbildning_df$år)` är ungefär `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Dalarna",kön == "kvinnor") %>% .$andel,0) ` procent och motsvarande siffra för män i länet är cirka `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Dalarna",kön == "män") %>% .$andel,0) ` procent. Detta utfall placerar Dalarna sämst i landet tillsammans med Gävleborgs, Kalmars och Södermanlands län som har liknande låga siffror.
+
+<br>
+```{r, echo=FALSE}
+  
+diagramtitel <-paste0("Andel av befolkningen (25-64 år) med minst 3 års eftergymnasial utbildning", unique(utbildning_df$år))
+diagramtitel <- str_wrap(diagramtitel,50)
+diagramfilnamn <- paste0("utbildningsniva_jmf_lan_kon.png")
+
+utbildning_lan_fig <- SkapaStapelDiagram(skickad_df <- utbildning_df %>%
+                                           filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer"), 
+                                         skickad_x_var = "region", 
+                                         skickad_y_var = "andel", 
+                                         skickad_x_grupp = "kön",
+                                         diagram_liggande=FALSE,
+                                         manual_x_axis_text_vjust=1,
+                                         manual_x_axis_text_hjust=1,
+                                         x_axis_lutning = 45,
+                                         x_axis_sort_value=TRUE,
+                                         manual_color = diagramfarger("kon"),
+                                         manual_y_axis_title="procent",
+                                         diagram_titel = diagramtitel,
+                                         diagram_capt =  diagram_capt,
+                                         stodlinjer_avrunda_fem = TRUE,
+                                         output_mapp = outputmapp,
+                                         filnamn_diagram = diagramfilnamn,
+                                         skriv_till_diagramfil = spara_figur)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
+utbildning_lan_fig
+```
+<br>
+Generellt tenderar regioner med större urbana center att både ha en yngre och en mer välutbildad befolkning jämfört med mer glest befolkade län som Dalarna. Skillnaden är störst bland män, där andelen högutbildade män i Stockholms län är mer än dubbelt så hög som motsvarande andel i Dalarnas län.
+
+En strukturell faktor som kan bidra till könsskillnaden i utbildningsnivå är att många yrken inom kvinnodominerade sektorer så som utbildning och vård kräver högskoleutbildning, exempelvis läraryrket och sjuksköterskeyrket. Dessa yrken utgör också en stor andel av arbetstillfällena på arbetsmarknaden.
+
+Utbildningsnivån påverkar inte bara livsinkomsten utan även medellivslängden. För personer som uppnått 65 års ålder skiljer mer än tre år i medellivslängd mellan dem som har förgymnasial utbildning och dem med eftergymnasial utbildning. Skillnaden mellan könen är genomgående cirka två år, vilket innebär att kvinnor i respektive utbildningsgrupp lever i genomsnitt två år längre än män i samma utbildningsgrupp. Samtidigt visar det sig att boenderelationer också påverkar medellivslängden, och särskilt för män. Män med förgymnasial utbildning som är sammanboende lever i genomsnitt längre än ensamstående män med eftergymnasial utbildning. Sämst utsikter, genomsnittligt, för ett långt liv har således ensamstående män med låg utbildningsnivå [(SCB)](https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__BE__BE0701/LivslUtbHushtyp/){target="_blank"}.
+
+Utbildningsnivån inom åldersgruppen 25-64 år i Dalarna år `r max(utbildning_df$år)` enligt figuren nedan visar på stora skillnader mellan könen. En betydligt större andel kvinnor i länet har en högre utbildning i jämförelse med andelen män med högre utbildning. Bland kvinnor i Dalarna är den vanligaste, med `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel,0)` procent, utbildningsnivån "`r utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$utbildningsnivå`". Motsvarande andel bland män i Dalarna är `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer")  %>% .$andel,0)` procent. Bland män i Dalarna är i stället den vanligast förekommande utbildningskategorin"`r utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$utbildningsnivå`". Ungefär `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$andel,0)` procent av männen i Dalarna återfinns inom denna kategori.
+
+Räknas alla typer av eftergymnasial utbildning samman är det totalt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "eftergymnasial utbildning, mindre än 3 år")  %>% .$andel,0)` procent av kvinnorna i Dalarna som har någon form av eftergymnasial utbildning och bland män i länet är motsvarande siffra cirka `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män", utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, mindre än 3 år")  %>% .$andel,0)` procent.
+
+Även inom utbildningsnivån gymnasieutbildning om högst 2 år är en större andel män än kvinnor, `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av männen har en gymnasieutbildning om högst 2 år, medan `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av kvinnorna har en gymnasieutbildning om högst 2 år.
+
+Sammantaget innebär detta att ungefär `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män", utbildningsnivå == "gymnasial utbildning, 3 år") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av alla män i Dalarna har en gymnasieutbildning som högsta utbildning. Bland kvinnor är motsvarande andel i Dalarna `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor", utbildningsnivå == "gymnasial utbildning, 3 år") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent.
+
+Utbildningsnivån inom åldersgruppen 25-64 år i Dalarna år `r max(utbildning_df$år)` enligt figuren nedan visar på stora skillnader mellan könen. En betydligt större andel kvinnor i länet har en högre utbildning i jämförelse med andelen män med högre utbildning. Bland kvinnor i Dalarna är den vanligaste, med `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel,0)` procent, utbildningsnivån "`r utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$utbildningsnivå`". Motsvarande andel bland män i Dalarna är `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer")  %>% .$andel,0)` procent. Bland män i Dalarna är i stället den vanligast förekommande utbildningsnivån"`r utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$utbildningsnivå`". Ungefär `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$andel,0)` procent av männen i Dalarna återfinns inom denna kategori.
+
+Räknas alla typer av eftergymnasial utbildning samman är det totalt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "eftergymnasial utbildning, mindre än 3 år")  %>% .$andel,0)` procent av kvinnorna i Dalarna som har någon form av eftergymnasial utbildning och bland män i länet är motsvarande siffra cirka `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män", utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, mindre än 3 år")  %>% .$andel,0)` procent.
+
+Då en relativt liten andel män har högskoleutbildning återfinns männen i stället i de lägre utbildningsgrupperna. I gruppen med gymnasieutbildning om högst 2 år återfinns `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av männen, medan `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av kvinnorna har en gymnasieutbildning om högst 2 år. 
+
+Sammantaget innebär detta att ungefär `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män", utbildningsnivå == "gymnasial utbildning, 3 år") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av alla män i Dalarna har en gymnasieutbildning som högsta utbildning. Bland kvinnor är motsvarande andel i Dalarna `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor", utbildningsnivå == "gymnasial utbildning, 3 år") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent.
+
 
 ```{r, echo=FALSE}
 diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna"
@@ -176,8 +268,8 @@ utbildning_85_utskrift<-utbildning_85_df %>%
         mutate(andel=(antal/sum(antal))*100) %>% 
           filter(utb_niva!="Uppgift saknas") 
 
-  diagramtitel_senaste <- paste0("Utbildningsnivå (25-64 år) i Dalarna år ",max(utbildning_df$år))
-  diagramtitel <- "Utbildningsnivå (25-64 år) i Dalarna"
+  diagramtitel_senaste <- paste0("Utbildningsnivåer (25-64 år) i Dalarna år ",max(utbildning_df$år))
+  diagramtitel <- "Andel av befolkningen (25-64 år) i Dalarna med minst 3 års eftergymnasial utbildning"
   diagramfilnamn <- paste0("utbildningsniva_Dalarnas län.png")
 
   utbildning_fig <- SkapaStapelDiagram(skickad_df <- utbildning_df %>%
@@ -220,95 +312,11 @@ utbildning_85_utskrift<-utbildning_85_df %>%
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 utbildning_fig
 ```
-
-De senaste decennierna har andelen av befolkningen i Dalarna med högre utbildning ökat. I mitten av 1980-talet hade bara drygt sju procent av befolkningen en högre utbildning. År `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` hade den andelen ökat till drygt `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "kvinnor") %>% .$andel,0)` procent
-för kvinnor och knappt `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "män") %>% .$andel,0)` procent för män. Anmärkningsvärt är också att
-skillnaden i utbildningsnivå mellan könen har ökat avsevärt genom åren.
-I mitten av 1980-talet var andelen högutbildade ungefär lika stor bland
-kvinnor och män. År `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` var nästan dubbelt så många kvinnor som män högutbildade i Dalarna.
-
 <br>
-```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-utb_85_fig
-```
 
-I nationell jämförelse har Dalarna en relativt låg andel personer med högre
-utbildning. I hela riket har `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Sverige",kön == "kvinnor") %>% .$andel,0)` procent av kvinnorna och `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Sverige",kön == "män") %>% .$andel,0)` procent av männen i åldersgruppen 25-64 år minst 3 års eftergymnasial utbildning.
-
-I Dalarna är andelen kvinnor med en högre utbildning om minst 3 år `r unique(utbildning_df$år)` ungefär `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Dalarna",kön == "kvinnor") %>% .$andel,0) `
-procent och motsvarande siffra för män i länet är cirka `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Dalarna",kön == "män") %>% .$andel,0) ` procent. Detta utfall placerar Dalarna sämst i landet tillsammans med Gävleborg, Kalmar och Södermanlands län som har liknande låga siffror.
-
-Generellt tenderar regioner med större urbana center att både ha en yngre och en mer välutbildad befolkning jämfört med mer glest befolkade län som Dalarna. Skillnaden är störst bland män, där andelen högutbildade män i Stockholms län är mer än dubbelt så hög som motsvarande andel i Dalarnas län.
-
-Ett mönster som även bidrar till könsskillnaden i utbildningsnivå är att många yrken inom kvinnodominerade sektorer så som utbildning och vård kräver högskoleutbildning, exempelvis lärare och sjuksköterska. Dessa tjänster utgör också en stor andel av arbetstillfällena på arbetsmarknaden.
-
-Utbildningsnivån påverkar inte bara livsinkomsten utan även medellivslängden. För personer som uppnått 65 års ålder skiljer mer än tre år i medellivslängd mellan dem som har förgymnasial utbildning och dem med eftergymnasial utbildning. Skillnaden mellan könen är genomgående cirka två år, vilket innebär att kvinnor i respektive utbildningsgrupp lever i genomsnitt två år längre än män i samma utbildningsgrupp. Samtidigt visar det sig att boenderelationer också påverkar medellivslängden, och särskilt för män. Män med förgymnasial utbildning som är sammanboende lever i genomsnitt längre än ensamstående män med eftergymnasial utbildning. Sämst utsikter, genomsnittligt, för ett långt liv har således ensamstående män med låg utbildningsnivå [(SCB)](https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__BE__BE0701/LivslUtbHushtyp/){target="_blank"}.
-
+ 
 <br>
-```{r, echo=FALSE}
-  
-diagramtitel <-paste0("Andel av befolkningen  (25-64 år) med minst 3 års eftergymnasial utbildning ", unique(utbildning_df$år))
-diagramtitel <- str_wrap(diagramtitel,50)
-diagramfilnamn <- paste0("utbildningsniva_jmf_lan_kon.png")
-
-utbildning_lan_fig <- SkapaStapelDiagram(skickad_df <- utbildning_df %>%
-                                           filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer"), 
-                                         skickad_x_var = "region", 
-                                         skickad_y_var = "andel", 
-                                         skickad_x_grupp = "kön",
-                                         diagram_liggande=FALSE,
-                                         manual_x_axis_text_vjust=1,
-                                         manual_x_axis_text_hjust=1,
-                                         x_axis_lutning = 45,
-                                         x_axis_sort_value=TRUE,
-                                         manual_color = diagramfarger("kon"),
-                                         manual_y_axis_title="procent",
-                                         diagram_titel = diagramtitel,
-                                         diagram_capt =  diagram_capt,
-                                         stodlinjer_avrunda_fem = TRUE,
-                                         output_mapp = outputmapp,
-                                         filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = spara_figur)
-```
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-utbildning_lan_fig
-```
-
-```{r, echo=FALSE, include=TRUE, fig.width=5, fig.align='center', out.width="90%"}
-
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
-
-# Tar bort uppgift saknas och beräknar hur stor andel som har en viss utbildning
-utbildning_85_utskrift<-utbildning_85_df %>%
-  filter(utb_niva!="Uppgift saknas") %>%
-    group_by(år,region,kön,utb_niva) %>%
-      summarize(antal=sum(Antal)) %>%
-        mutate(andel=(antal/sum(antal))*100)
-
-diagramtitel <- paste0("Andel av befolkningen (25-64 år) med minst 3 års eftergymnasial utbildning i ",unique(utbildning_85_utskrift$region))
-diagramtitel <- str_wrap(diagramtitel)
-diagramfilnamn <- paste0("utbildningsniva_85_21_kon.png")
-
-utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
-                              filter(år%in%c("1985","1990","1995","2000","2005","2010","2015",max(utbildning_85_utskrift$år))) %>%
-                                filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer"),
-                             skickad_x_var = "år",
-                             skickad_y_var = "andel",
-                             skickad_x_grupp = "kön",
-                             manual_color = diagramfarger("kon"),
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             x_axis_lutning = 0,
-                             stodlinjer_avrunda_fem = TRUE,
-                             manual_y_axis_title="procent",
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = spara_figur)
-
-```
-
-## Antagna till gymnasiet 
+## Gymnasieutbildning och exame
 En utmaning för länet är den obalans som råder i antalet antagna killar och tjejer till gymnasieprogrammen i Dalarna. Av totalt 20 gymnasieprogram i länet kan endast fem sägas vara jämställda, dvs. de har en könsfördelning där andelen antagna är mellan 40 och 60 procent för både killar och tjejer. De program som har en jämställd representation vid antagningen är international baccalaurate, naturvetenskapsprogrammet, ekonomiprogrammet, introduktionsprogram samt restaurang och livsmedelsprogrammet. Sex program har en övervikt av killar, där VVS- och fastighetsprogrammet har den största obalansen, följt av el- och energiprogrammet samt industritekniska programmet. Resterande nio program har en övervikt av tjejer, där vård- och omsorgsprogrammet är det mest obalanserade programmet följt av hantverksprogrammet och det humanistiska programmet.
 
 <br>
@@ -349,8 +357,7 @@ gymnasieantagning_fig <- SkapaStapelDiagram(skickad_df = gym_sum%>%
 gymnasieantagning_fig
 ```
 
-## Examen efter gymnasiet
-I diagrammet nedan visas genomströmningen i gymnasieskolan genom andelen med studiebevis alternativt examen 4 år efter påbörjat gymnasium. Tidigare var det generella mönstret att cirka 80 procent av tjejerna avklarat gymnasiet inom 4 år, medan andelen bland pojkarna har varit lägre (runt 75 procent). Sedan den tydliga försämringen under pandemiåren 2020 och 2021, har dock andelen med studiebevis ökat för båda könen, men extra mycket för killarna. År 2024 var andelen med studiebevis ungefär `r round(gymnasiet_genomstromning_df %>% filter(year==max(year),kon == "Kvinnor") %>% .$value,0)` procent bland tjejer och `r round(gymnasiet_genomstromning_df %>% filter(year==max(year),kon == "Män") %>% .$value,0)` procent bland killar.
+I diagrammet nedan visas genomströmningen i gymnasieskolan genom andelen med studiebevis alternativt examen 4 år efter påbörjat gymnasium. Tidigare var det generella mönstret att cirka 80 procent av tjejerna avklarat gymnasiet inom 4 år, medan andelen bland pojkarna har varit lägre (runt 75 procent). Under pandemiåren 2020 och 2021 försämrades genomströmningen, men därefter har andelen med studiebevis ökat för båda könen, men extra mycket för killarna. År 2024 var andelen med studiebevis ungefär `r round(gymnasiet_genomstromning_df %>% filter(year==max(year),kon == "Kvinnor") %>% .$value,0)` procent bland tjejer och `r round(gymnasiet_genomstromning_df %>% filter(year==max(year),kon == "Män") %>% .$value,0)` procent bland killar.
 
 ```{r, echo=FALSE}
 
@@ -386,15 +393,11 @@ gym_genom
 ```
 
 ## Bransch och yrke
-Arbeten och yrken har historiskt varit könsuppdelade. Med könsuppdelningen har även värderingar synliggjorts om vad som räknats som formellt arbete och hur det värderats. Politiska beslut har på flera sätt påverkat detta. Innan exempelvis reformerna som etablerade barn- och äldreomsorg på den reguljära arbetsmarknaden utförde kvinnor sådant omsorgsarbete obetalt eller på annat sätt utanför ordinarie arbetsmarknad. När dessa arbetsuppgifter övergick till formellt arbete var det på många sätt naturligt att framförallt kvinnor befolkade tjänsterna, dessvärre har det bidragit till att könssegregeringen på arbetsmarknaden har bestått.
+Många arbetsuppgifter och yrken har historiskt varit könsuppdelade. Med könsuppdelningen har även värderingar om vad som räknats som formellt respektive informellt arbete synliggjorts, och hur dessa arbeten värderats i pengar. Politiska beslut har på flera sätt påverkat detta. Innan exempelvis reformerna som etablerade barn- och äldreomsorg på den reguljära arbetsmarknaden utförde kvinnor detta omsorgsarbete obetalt eller på annat sätt utanför ordinarie arbetsmarknad. När dessa arbetsuppgifter övergick till formellt arbete medförde det många positiva effekter för både kvinnor och män, men det blev på många sätt naturligt att framförallt kvinnor befolkade dessa tjänster. Dessvärre har det bidragit till en bestående könssegregering på arbetsmarknaden, och som verkar svår att förändra.
 
-Sedan många år har kvinnor och män haft likvärdig tillgång till utbildning och möjlighet att fritt välja yrke. Trots detta består många av könsskillnaderna i arbetslivet (se figuren nedan) och även i antagningen till gymnasiet. Det
-finns branscher i länet som har en tydlig övervikt av det ena eller det
-andra könet, exempelvis byggbranschen som omfattar yrken inom bland
-annat el och VVS, och där kvinnor bara utgör ungefär `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Bygg") %>% .$andel` procent av de
-förvärvsarbetande. Även om det har skett en ökning av andelen kvinnor inom byggbranschen är denna ökning ännu försumbar. Inom vård och omsorg är bilden densamma men med motsatt könsfördelning. Här utgör kvinnor cirka `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Vård och omsorg") %>% .$andel` procent av de förvärvsarbetande.
+Sedan många år har kvinnor och män haft likvärdig tillgång till utbildning och möjlighet att fritt välja yrke. Trots detta består många av könsskillnaderna i arbetslivet (se figuren nedan) och de yngre generationerna verkar inte göra mindre könsstereotypa val, som redovisats ovan. Många branscher i länet idag har en tydlig övervikt av det ena eller det andra könet, exempelvis byggbranschen som omfattar yrken inom bland annat el och VVS, och där kvinnor bara utgör ungefär `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Bygg") %>% .$andel` procent av de förvärvsarbetande. Även om det har skett en ökning av andelen kvinnor inom byggbranschen är denna ökning ännu liten i sammanhanget. Inom vård och omsorg är bilden densamma men med motsatt könsfördelning. Här utgör kvinnor cirka `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Vård och omsorg") %>% .$andel` procent av de förvärvsarbetande.
 
-Att åstadkomma en förändring i närtid av balansen mellan män och kvinnor inom de könssegregerade branscherna verkar inte vara inom räckhåll då ungdomars studieval är så pass könsstereotypa.
+Att åstadkomma en förändring i närtid av balansen mellan män och kvinnor inom de könssegregerade branscherna verkar inte vara inom räckhåll då ungdomars studieval som visats ovan är så pass könsstereotypa.
 
 <br>
 ```{r, echo=FALSE,fig.width=10, fig.align='center', out.width="90%"}
@@ -495,8 +498,7 @@ forvarvsarbetande_kon_fig
 
 Skillnader mellan kvinnor och män föreligger således fortfarande på yrkesnivå. Den största yrkesgruppen för män i Dalarna är kategorin som inkluderar
 `r tolower(first(yrke_man$Yrke))`, följd av `r tolower(first(yrke_man[yrke_man$Yrke != first(yrke_man$Yrke),])$Yrke)`. 
-Bland kvinnor är det istället vård- och utbildningsyrken som är
-vanligast. Här finns exempelvis `r tolower(first(yrke_kvinnor$Yrke))` och `r tolower(first(yrke_kvinnor[yrke_kvinnor$Yrke != first(yrke_kvinnor$Yrke),])$Yrke)`. Diagrammen nedan visar de yrken i länet som flest kvinnor respektive män arbetar inom.
+Bland kvinnor är det istället vård- och utbildningsyrken som är vanligast. Här finns exempelvis `r tolower(first(yrke_kvinnor$Yrke))` och `r tolower(first(yrke_kvinnor[yrke_kvinnor$Yrke != first(yrke_kvinnor$Yrke),])$Yrke)`. Diagrammen nedan visar de yrken i länet som flest kvinnor respektive män arbetar inom.
 
 Två yrken av tio återkommer bland både kvinnor och män; vårdbiträden och butikssäljare i fackhandel. Båda yrkena är kvinnodominerade, med `r format(plyr::round_any(yrke_kvinnor %>% filter(Yrke == "Butikssäljare, fackhandel") %>% .$Antal,100),big.mark=" ")` kvinnor och `r format(plyr::round_any(yrke_man %>% filter(Yrke == "Butikssäljare, fackhandel") %>% .$Antal,100),big.mark=" ")` män sysselsatta som butikssäljare i fackhandel, medan `r format(plyr::round_any(yrke_kvinnor %>% filter(Yrke == "Vårdbiträden") %>% .$Antal,100),big.mark=" ")` kvinnor och `r format(plyr::round_any(yrke_man %>% filter(Yrke == "Vårdbiträden") %>% .$Antal,100),big.mark=" ")` män arbetar som vårdbiträden.
 
@@ -606,9 +608,9 @@ gg_matchning$matchning_bakgrund
 
 Ekonomisk jämställdhet är ett av de sex jämställdhetspolitiska delmålen och syftar till att kvinnor och män ska ges samma möjligheter och villkor i fråga om betalt arbete för att säkerställa ekonomisk självständighet livet ut. Målet utgår således ifrån ett livscykelperspektiv och understryker betydelsen av att det avlönade arbetet ska ge ekonomisk trygghet och självständighet även under pensionsåren. En central förutsättning för inkomst och egen försörjning är anknytning till och förutsättningar på arbetsmarknaden, därför redogörs här även för sysselsättningsgrad och arbetslöshet samt etableringstid för invandrade.  
 
-Ekonomisk jämställdhet analyseras genom flera olika inkomstflöden och variabler. Inkomst av arbete utgör merparten av en individs försörjning, men både lönenivå och huruvida personen arbetar hel- eller deltid påverkar inkomsten och sedemera pensionen. Därtill finns kapitalinkomster och offentliga bidrag så som exempelvis sjukpenning, föräldrapenning och bostadsbidrag, som gör att ett viktigt mått på ekonomisk standard är disponibel inkomst. Disponibel inkomst innebär den summa pengar som ett hushåll eller en person har efter att alla ekonomiska inkomster är sammanräknade (lön, avkastning, bidrag etc.) och skatter och avgifter är betalda.
+Ekonomisk jämställdhet analyseras genom flera olika inkomstflöden och variabler. Inkomst av arbete utgör merparten av en individs försörjning, men både lönenivå och huruvida personen arbetar hel- eller deltid påverkar inkomsten och sedemera pensionen. Därtill finns kapitalinkomster och offentliga bidrag så som exempelvis sjukpenning, föräldrapenning och bostadsbidrag, som gör att ett centralt mått för att fånga en individs ekonomiska standard är disponibel inkomst. Disponibel inkomst innebär den summa pengar som ett hushåll eller en person har efter att alla ekonomiska inkomster är sammanräknade (lön, avkastning, bidrag etc.) och skatter och avgifter är betalda.
 
-Det finns många faktorer som bidrar till ojämställdhet på arbetsmarknaden och för livsinkomsten, men familjebildningen är den faktor som i högst grad bidrar till ojämställda livsinkomster. Gapet i disponibel inkomst mellan kvinnor och män är som störst för sammanboende, 35 procent, när det yngsta barnet är 0–3 år [Regeringen (2022)](<https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf>){target="_blank"}^[Regeringen (2022) Prop. 2022/23:1 Bilaga 3 Ekonomisk jämställdhet 2022.].
+Det finns många faktorer som bidrar till ojämställdhet på arbetsmarknaden och för livsinkomsten, men familjebildningen är den faktor som i högst grad bidrar till ojämställda livsinkomster. Gapet i disponibel inkomst mellan kvinnor och män är som störst för sammanboende, 35 procent, när det yngsta barnet är 0–3 år [Regeringen (2022)](<https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf>){target="_blank"}^[Regeringen (2022) Prop. 2022/23:1 Bilaga 3 Ekonomisk jämställdhet 2022].
 
 Löneskillnaderna mellan könen börjar i relativt ung ålder och redan vid 29 års ålder har män i genomsnitt 20 procent högre lön än kvinnor. En del av skillnaden kan förklaras av skillnader i utbildning, då fler kvinnor väljer att studera och då kommer ut senare i arbetslivet. Trots en högre utbildning kvarstår dock gapet i lön mellan könen [(Jämställdhetsmyndigheten (2025))](https://jamstalldhetsmyndigheten.se/media/llefhgq1/kunskapssammanst%C3%A4llning-ungas-ekonomi-2025-1.pdf){target="_blank"}^[Jämställdhetsmyndigheten (2025) En tid av förväntan, väntan och osäkerhet]
 
@@ -687,7 +689,7 @@ medianinkomst_linje_fig <- SkapaLinjeDiagram(skickad_df = medianinkomst_df %>%
 medianinkomst_linje_fig
 ```
 
-I samtliga Dalarnas kommuner har männen högre inkomst än kvinnorna. Skillnaderna mellan kommunerna är relativt små. Kvinnor har högst medianinkomst i `r medianinkomst_df %>% filter(kön == "kvinnor", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == max(medianinkomst)) %>%  .$region ` och män i `r medianinkomst_df %>% filter(kön == "män", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == max(medianinkomst)) %>%  .$region `. Lägst medianinkomst har kvinnor i `r medianinkomst_df %>% filter(kön == "kvinnor", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == min(medianinkomst)) %>%  .$region `, medan män har lägst medianinkomst i `r medianinkomst_df %>% filter(kön == "män", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == min(medianinkomst)) %>%  .$region `.
+I samtliga av Dalarnas kommuner har männen högre medianinkomst än kvinnorna. Skillnaderna mellan kommunerna är relativt små. Kvinnor har högst medianinkomst i `r medianinkomst_df %>% filter(kön == "kvinnor", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == max(medianinkomst)) %>%  .$region ` och män i `r medianinkomst_df %>% filter(kön == "män", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == max(medianinkomst)) %>%  .$region `. Lägst medianinkomst har kvinnor i `r medianinkomst_df %>% filter(kön == "kvinnor", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == min(medianinkomst)) %>%  .$region `, medan män har lägst medianinkomst i `r medianinkomst_df %>% filter(kön == "män", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == min(medianinkomst)) %>%  .$region `.
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -792,21 +794,10 @@ medianinkomst_65plus_linje_fig <- SkapaLinjeDiagram(skickad_df = medianinkomst_6
 medianinkomst_65plus_linje_fig
 ```
 
+Utöver inkomster är det även relevant att jämföra den disponibla inkomsten, dvs. summan av alla inkomster och transfereringar (exempelvis bostadsbidrag och barnbidrag) efter avdragen slutlig skatt. I figuren nedan är det tydligt att den disponibla inkomsten varierar mellan olika grupper. En generell trend för alla grupper är att den disponibla inkomsten, utan att justera för inflation, har ökat mellan `r paste0(min(disponibel_inkomst_df$år),"-",max(disponibel_inkomst_df$år))`.
 
-Utöver inkomster är det även relevant att undersöka den disponibla
-inkomsten, dvs. summan av alla inkomster och transfereringar (exempelvis
-barnbidrag) efter avdragen slutlig skatt. I figuren nedan är det tydligt att
-den disponibla inkomsten varierar mellan olika grupper. En generell
-trend för alla grupper är att den disponibla inkomsten, utan att justera
-för inflation, har ökat mellan `r paste0(min(disponibel_inkomst_df$år),"-",max(disponibel_inkomst_df$år))`.
-
-Det är tydligt att sammanboende, med eller utan barn, har en högre
-disponibel inkomst än ensamstående. Sammanboende med barn har också en
-högre disponibel inkomst än sammanboende utan barn. På andra sidan av
-skalan återfinns gruppen ensamstående kvinnor utan barn som har lägst
-disponibel inkomst. Diagrammet visar också på att det finns tydliga
-skillnader mellan könen. Bland ensamstående har män, med eller utan
-barn, högre disponibel inkomst än kvinnor i motsvarande grupp.
+Det är tydligt att sammanboende, med eller utan barn, har en högre disponibel inkomst än ensamstående. Sammanboende med barn har också en högre disponibel inkomst än sammanboende utan barn. På andra sidan av skalan återfinns gruppen ensamstående kvinnor utan barn som har lägst
+disponibel inkomst. Diagrammet visar också på att det finns tydliga skillnader mellan könen. Bland ensamstående har män, med eller utan barn, högre disponibel inkomst än kvinnor i motsvarande grupp.
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -848,7 +839,7 @@ disp_ink_fig
 knitr::include_graphics(here("Diagram","ekonomiskt_bistandDalarnas län.png"))
 ```
 
-## Arbetsmarknadsstatus
+## Sysselsatta och arbetslösa
 
 Sysselsättningsgraden, det vill säga i vilken utsträckning människor i arbetsför ålder (20-64 år) arbetar, skiljer sig inte märkbart åt mellan könen bland inrikes födda som ses i det vänstra diagrammet nedan. Sverige ligger långt fram i en internationell jämförelse när det gäller att ge kvinnor och män likvärdiga möjligheter att yrkesarbeta, och det återspeglas i sysselsättningsgraden som för båda könen är ungefär lika hög, cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "inrikes född",region == "Sverige") %>% .$sysselsättningsgrad,0)` procent. Variationen i sysselsättningsgrad mellan länen är därför också relativt liten.
 
@@ -857,10 +848,7 @@ Däremot skiljer sig sysselsättningsgraden åt mellan inrikes och utrikes född
 Utrikes födda män har en högre sysselsättningsgrad än utrikes födda kvinnor i samtliga län förutom Norrbotten. I Dalarna var sysselsättningsgraden bland utrikes födda män ungefär `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad,0)` procent, vilket
 är cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad-arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad,0) ` procentenheter mer än för utrikes födda kvinnor i Dalarna.
 
-Något att ta hänsyn till när man analyserar sysselsättningsgrad och 
-arbetslöshet bland utrikes födda är hur lång tid de har varit i Sverige.
-Vistelsetid i Sverige har ett starkt samband med sysselsättningsgrad och 
-arbetslöshet och därmed kommer andelen nyligen invandrade i gruppen utrikes födda att påverka nivån på dessa variabler, se rubrik 2.3.
+Något att ta hänsyn till när man analyserar sysselsättningsgrad och arbetslöshet bland utrikes födda är hur lång tid individen har varit i Sverige. Vistelsetid i Sverige har ett starkt samband med sysselsättningsgrad och arbetslöshet och därmed kommer andelen nyligen invandrade i gruppen utrikes födda att påverka nivån på dessa variabler, se rubrik 2.3.
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
@@ -897,7 +885,7 @@ syss_lan_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_lan_df %>%
 syss_lan_fig
 ```
 
-Sysselsättningsgrad uppdelad efter kommun i Dalarna visar ett liknande mönster som länen på nationell nivå. Gruppen inrikes födda har en högre sysselsättningsgrad i samtliga kommuner i Dalarna jämfört med utrikes födda. Även här är sysselsättningsgraden för inrikes födda kvinnor och män ungefär lika hög. För utrikes födda är det däremot stora skillnader mellan kvinnor och män, också mellan olika kommuner. I linje med den nationella bilden är sysselsättningsgraden högre för gruppen utrikes födda män i jämförelse med utrikes födda kvinnor i de allra flesta kommuner (undantagen är Orsa och Smedjebacken). Sysselsättningsgraden för utrikes födda män skiljer sig dock åt mellan kommuner där den högsta sysselsättningsgraden finns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$region` (knappt `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)` procent) och den lägsta i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$region` (drygt`r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)` procent).
+Sysselsättningsgraden i respektive kommun i Dalarna visar ett liknande mönster som länen på nationell nivå. Gruppen inrikes födda har en högre sysselsättningsgrad i samtliga kommuner i Dalarna jämfört med utrikes födda. Även här är sysselsättningsgraden för inrikes födda kvinnor och män ungefär lika hög. För utrikes födda är det däremot stora skillnader mellan kvinnor och män, också mellan olika kommuner. I linje med den nationella bilden är sysselsättningsgraden högre för gruppen utrikes födda män i jämförelse med utrikes födda kvinnor i de allra flesta kommuner (undantagen är Orsa och Smedjebacken). Sysselsättningsgraden för utrikes födda män skiljer sig dock åt mellan kommuner där den högsta sysselsättningsgraden finns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$region` (knappt `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)` procent) och den lägsta i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$region` (drygt`r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)` procent).
 
 `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$region` har den högsta sysselsättningsgraden för gruppen utrikes födda kvinnor i Dalarna, runt `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)` procent, och ligger klart över genomsnittet för länet (knappt `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(region == "Dalarna") %>% .$sysselsättningsgrad,0)` procent). Samtidigt är sysselsättningsgraden i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$region` kommun bland utrikes födda kvinnor bara ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)` procent. 
 
@@ -942,13 +930,9 @@ Bilden av arbetsmarknaden kompletteras genom att titta på arbetslösheten som v
 
 Arbetslösheten är generellt högre för utrikes födda än för inrikes födda. Arbetslösheten för inrikes födda i Dalarna ligger något lägre än rikets, cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "kvinnor",födelseregion == "inrikes född") %>% .$arbetslöshet,0)` procent bland kvinnor och drygt `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "män",födelseregion == "inrikes född") %>% .$arbetslöshet,0)` procent bland män (se diagrammet nedan). 
 
-Arbetslösheten bland utrikes födda är däremot betydligt högre i samtliga av Sveriges län. I Dalarna är skillnaden i arbetslöshet mellan utrikes och inrikes födda cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "kvinnor",födelseregion == "utrikes född") %>% .$arbetslöshet - arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "kvinnor",födelseregion == "inrikes född") %>% .$arbetslöshet,0)` procentenheter för kvinnor och cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "män",födelseregion == "utrikes född") %>% .$arbetslöshet - arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "män",födelseregion == "inrikes född") %>% .$arbetslöshet,0)` procentenheter för män.
+Arbetslösheten bland utrikes födda är däremot betydligt högre i samtliga av Sveriges län. I Dalarna är skillnaden i arbetslöshet mellan utrikes och inrikes födda cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "kvinnor",födelseregion == "utrikes född") %>% .$arbetslöshet - arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "kvinnor",födelseregion == "inrikes född") %>% .$arbetslöshet,0)` procentenheter för kvinnor och cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "män",födelseregion == "utrikes född") %>% .$arbetslöshet - arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "män",födelseregion == "inrikes född") %>% .$arbetslöshet,0)` procentenheter för män. Vidare är arbetslösheten bland gruppen utrikes födda kvinnor klart högre än i gruppen utrikes födda män i samtliga av Sveriges län. 
 
-Vidare är arbetslösheten bland gruppen utrikes födda kvinnor klart högre än
-i gruppen utrikes födda män i samtliga av Sveriges län. 
-
-I figuren nedan framgår också att det finns avsevärda skillnader mellan
-länen. `r arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "utrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .[1,] %>% .$region ` har den lägsta arbetslösheten för utrikes födda med
+I figuren nedan framgår också att det finns avsevärda skillnader mellan länen. `r arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "utrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .[1,] %>% .$region ` har den lägsta arbetslösheten för utrikes födda med
 ungefär `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "utrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .[1,] %>% .$arbetslöshet,0)` procent totalt (både kvinnor och män), medan arbetslösheten är cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .[1,] %>% .$arbetslöshet,0)` procent i `r arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .[1,] %>% .$region `. Dalarnas län ligger något över riksgenomsnittet, men uppvisar inte extrema arbetslöshetssiffror åt något håll.
 
 <br>
@@ -986,16 +970,13 @@ arb_lan_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_lan_df %>%
 arb_lan_fig
 ```
 
-Precis som var fallet med sysselsättningsgrad tidigare, så uppvisar
-Dalarnas kommuner ett liknande mönster som på nationell nivå. Bland inrikes födda är arbetslösheten låg och något fler män än kvinnor är arbetslösa. Högst arbetslöshet bland inrikes födda (totalt) i Dalarna finns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "totalt",födelseregion == "inrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$region `,
-men skillnaden gentemot genomsnittet i länet är relativt liten (ungefär 1 procentenhet). Lägst
-arbetslöshet återfinns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "totalt",födelseregion == "inrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .$region `.
+Precis som var fallet med sysselsättningsgrad tidigare, så uppvisar Dalarnas kommuner ett liknande mönster som på nationell nivå. Bland inrikes födda är arbetslösheten låg och något fler män än kvinnor är arbetslösa. Högst arbetslöshet bland inrikes födda (totalt) i Dalarna finns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "totalt",födelseregion == "inrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$region `, men skillnaden gentemot genomsnittet i länet är relativt liten (ungefär 1 procentenhet). Lägst arbetslöshet återfinns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "totalt",födelseregion == "inrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .$region `.
 
 Bland utrikes födda är arbetslösheten avsevärt mycket högre för både kvinnor och män. Genomsnittet i Dalarnas län ligger på ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna") %>% .$arbetslöshet,0)` procent
 bland utrikes födda kvinnor och cirka `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$arbetslöshet,0)` procent bland utrikes födda män. Den högsta arbetslösheten bland utrikes födda kvinnor återfinns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$region ` där den ligger på cirka `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$arbetslöshet,0)` procent. `r last(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$region)` och `r first(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$region)` redovisar den högsta arbetslöshetssiffran bland utrikes födda män med ungefär `r unique(round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$arbetslöshet,0)) ` procent vardera.
 Lägst arbetslöshet bland utrikes födda män återfinns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .$region ` kommun, medan `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .$region ` har lägst arbetslöshet bland utrikes födda kvinnor.
 
-Det är återigen värt att notera att de skillnader i arbetslöshet som diskuterades i föregående stycke sannolikt delvis kan förklaras av skillnader i antalet personer som invandrat till olika kommuner, se diskussionen under sysselsättningsgrad ovan.
+Det är återigen värt att notera att de skillnader i arbetslöshet som diskuterades i föregående stycke sannolikt delvis kan förklaras av skillnader i antalet personer och när i tid som de invandrat till olika kommuner, se diskussionen under sysselsättningsgrad ovan.
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
