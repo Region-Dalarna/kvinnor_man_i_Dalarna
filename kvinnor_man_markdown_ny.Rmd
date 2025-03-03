@@ -154,11 +154,6 @@ Både kvinnor och män vidareutbildar sig efter gymnasiet i högre utsträckning
 
 ## Utbildningsnivå
 
-De senaste decennierna har utbildningsnivån bland befolkningen i Dalarna ökat generellt och särskilt andelen med högre utbildning. I mitten av 1980-talet hade bara drygt sju procent av befolkningen en högre utbildning. År `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` hade den andelen ökat till drygt `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "kvinnor") %>% .$andel,0)` procent för kvinnor och knappt `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "män") %>% .$andel,0)` procent för män. Anmärkningsvärt är dock att skillnaden i utbildningsnivå mellan könen har ökat avsevärt genom åren.
-I mitten av 1980-talet var andelen högutbildade ungefär lika stor bland kvinnor och män. År `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` var nästan dubbelt så stor andel kvinnor som män högutbildade i Dalarna.
-
-
-
 ```{r, echo=FALSE, include=TRUE, fig.width=5, fig.align='center', out.width="90%"}
 
 diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
@@ -191,7 +186,10 @@ utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
                              skriv_till_diagramfil = spara_figur)
 
 ```
-<br>
+
+De senaste decennierna har utbildningsnivån bland befolkningen i Dalarna ökat generellt och särskilt andelen med högre utbildning. I mitten av 1980-talet hade bara drygt sju procent av befolkningen en högre utbildning. År `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` hade den andelen ökat till drygt `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "kvinnor") %>% .$andel,0)` procent för kvinnor och knappt `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "män") %>% .$andel,0)` procent för män. Anmärkningsvärt är dock att skillnaden i utbildningsnivå mellan könen har ökat avsevärt genom åren.
+I mitten av 1980-talet var andelen högutbildade ungefär lika stor bland kvinnor och män. År `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` var nästan dubbelt så stor andel kvinnor som män högutbildade i Dalarna.
+
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 utb_85_fig
 ```
@@ -314,9 +312,8 @@ utbildning_fig
 ```
 <br>
 
- 
-<br>
-## Gymnasieutbildning och exame
+## Gymnasieutbildning och examen
+
 En utmaning för länet är den obalans som råder i antalet antagna killar och tjejer till gymnasieprogrammen i Dalarna. Av totalt 20 gymnasieprogram i länet kan endast fem sägas vara jämställda, dvs. de har en könsfördelning där andelen antagna är mellan 40 och 60 procent för både killar och tjejer. De program som har en jämställd representation vid antagningen är international baccalaurate, naturvetenskapsprogrammet, ekonomiprogrammet, introduktionsprogram samt restaurang och livsmedelsprogrammet. Sex program har en övervikt av killar, där VVS- och fastighetsprogrammet har den största obalansen, följt av el- och energiprogrammet samt industritekniska programmet. Resterande nio program har en övervikt av tjejer, där vård- och omsorgsprogrammet är det mest obalanserade programmet följt av hantverksprogrammet och det humanistiska programmet.
 
 <br>
@@ -1012,8 +1009,6 @@ arb_kommun_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_kommun_df
 arb_kommun_fig
 ```
 
-<span class = "kommentar">Data uppdateras inte längre av AF. Byt till BAS från 2020? - se figur 2 nedan</span>
-
 Arbetslösheten i Dalarna för inrikes och utrikes födda visar på skillnader över tid. För gruppen inrikes födda syns en nedgång i andelen arbetslösa från 2010 och framåt, med ett litet avbrott i trendlinjen under pandemiåren 2020-2021. Gruppen utrikes födda har två trendlinjer i diagrammet nedan. Från 2006 till 2017 ökade arbetslösheten bland utrikes födda till relativt höga nivåer jämfört med början på tidsperioden. Arbetslösheten bland utrikes födda män i Dalarna var också konsekvent högre än för utrikes födda kvinnor och betydligt högre år 2015 och åren därefter då Sverige hade mycket stor flyktinginvandring. Från 2017 och framåt har arbetslösheten bland gruppen utrikes födda minskat från toppnivåerna och utrikes födda kvinnor är idag i något högre utsträckning arbetslösa jämfört med utrikes födda män. Värt att understryka är att en högre arbetslöshet kan förklaras med att fler aktivt söker arbete, tidigare har en större andel personer varit varken arbetssökande eller i arbete.
 
 <br>
@@ -1054,7 +1049,7 @@ arbetsloshet_08_fig <- SkapaStapelDiagram(skickad_df = arbetsloshet_tidsserie,
 arbetsloshet_08_fig
 ```
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
+```{r, echo = FALSE, message = FALSE,include = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_arbetsloshet_tidsserie_bas$arbetsloshet_bas_tidsserie_bakgrund
 ```
 
