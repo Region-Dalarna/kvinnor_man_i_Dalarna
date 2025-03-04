@@ -42,7 +42,18 @@ langtidsarbetsloshet_man_max = gsub("\\.",",",round(långtidsarbetslöshet %>% f
 # # Överrepresentation av kvinnor
 source("https://raw.githubusercontent.com/Region-Dalarna/socioekonomisk_analys_nms/refs/heads/main/skript/socioek_overrep.R")
 gg_overrep = skapa_overrep_diagram(spara_diagrambildfil = TRUE,
-                             mapp = here("Diagram/") %>% paste0(., "/"))
+                             mapp = here("Diagram/") %>% paste0(., "/"),
+                             returnera_dataframe_global_environment = TRUE,
+                             diagramtitel = "Överrepresentation av manliga chefer i Dalarna",
+                             ta_bort_titel = FALSE,
+                             ta_bort_caption = FALSE)
+
+# test = skapa_overrep_diagram(spara_diagrambildfil = FALSE,
+#                              diag_fargvekt = NA, # För diagrammet som inte är könsuppdelat
+#                              returnera_dataframe_global_environment = TRUE,
+#                              diagramtitel = "Överrepresentation av manliga chefer i Dalarna",
+#                              ta_bort_titel = FALSE,
+#                              ta_bort_caption = FALSE)
 
 # # ============= Överrepresentation av chefer - motsvarar diagram 32 i den tidigare rapporten
 # source(here("skript","socioek_overrep.R"), encoding="UTF-8")

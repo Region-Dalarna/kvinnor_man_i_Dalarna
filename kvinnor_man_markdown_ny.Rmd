@@ -2060,6 +2060,11 @@ eller mindre oförändrat. Det betyder att antalet chefspositioner har ökat i a
 chefer_linje_fig
 ```
 
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
+gg_overrep$overrep
+```
+
+
 # Referenser
 
 ```{r, include = FALSE}
