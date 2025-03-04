@@ -836,7 +836,7 @@ disp_ink_fig
 knitr::include_graphics(here("Diagram","ekonomiskt_bistandDalarnas län.png"))
 ```
 
-## Sysselsatta och arbetslösa
+## Sysselsättning och arbetslöshet
 
 Sysselsättningsgraden, det vill säga i vilken utsträckning människor i arbetsför ålder (20-64 år) arbetar, skiljer sig inte märkbart åt mellan könen bland inrikes födda som ses i det vänstra diagrammet nedan. Sverige ligger långt fram i en internationell jämförelse när det gäller att ge kvinnor och män likvärdiga möjligheter att yrkesarbeta, och det återspeglas i sysselsättningsgraden som för båda könen är ungefär lika hög, cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "inrikes född",region == "Sverige") %>% .$sysselsättningsgrad,0)` procent. Variationen i sysselsättningsgrad mellan länen är därför också relativt liten.
 
@@ -1095,7 +1095,7 @@ langtidsarbetsloshet
 ```
 
 
-## Etableringstid
+## Etableringstid på arbetsmarknaden
 Som diskuterats tidigare är sysselsättningsgraden lägre bland utrikes
 födda generellt, och för invandrade kvinnor tar det betydligt längre tid än för invandrade män att etablera sig på arbetsmarknaden. För utrikesfödda kvinnor som befunnit sig i Sverige i upp till 2 år (0-1 år i grafen nedan) är det bara ungefär `r round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "samtliga utbildningsnivåer") %>% .$andel,0)` procent i arbetsför ålder (20-65 år) som arbetar. För
 motsvarande grupp av män är ungefär `r round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "samtliga utbildningsnivåer") %>% .$andel,0)` procent i arbete inom 2 år. Över tid tenderar ändå etableringsgraden att öka avsevärt och efter mer än tio år i Sverige är det över 70 procent av invandrade såväl män som kvinnor som arbetar.
@@ -1236,7 +1236,7 @@ etablering_fig_tid
 
 
 ## Skulder hos Kronofogden
-Ytterligare en aspekt av ekonomisk status är andelen med skulder hos Kronofogden i olika grupper. I det första diagrammet nedan redovisas antalet personer i Dalarna som har skulder under indrivning hos Kronofogden. Två trender är tydliga.
+Ytterligare en aspekt av ekonomisk status är de individer som har skulder hos Kronofogden. I det första diagrammet nedan redovisas antalet personer i Dalarna som har skulder under indrivning hos Kronofogden. Två trender är tydliga.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
  diagram_capt <- c("Källa: Kronofogden.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Antal personer med skulder under indrivning hos Kronofogden",
@@ -1362,8 +1362,7 @@ En jämn ansvarsfördelning för obetalt hem- och omsorgsarbete är det fjärde 
 Ett större ansvar för det obetalda arbetet minskar ofta utrymmet för inkomstbringande arbete och påverkar på så sätt individernas livsinkomster. Det kan också skapa ett beroende till en partner med en högre inkomst. 
 
 ## Föräldrapenning
-Antalet mottagare av föräldrapenning ökade
-från ungefär 13 000 i slutet av 1990-talet till över 22 000 år 2018. Givet att den absoluta majoriteten av dessa barn har två vårdnadshavare är det värt att notera att det varje år är cirka 10 procent av fäderna som inte tar ut några föräldrapenningdagar alls.
+Antalet mottagare av föräldrapenning ökade från ungefär 13 000 i slutet av 1990-talet till över 22 000 år 2018. Givet att den absoluta majoriteten av dessa barn har två vårdnadshavare är det värt att notera att det varje år är cirka 10 procent av fäderna som inte tar ut några föräldrapenningdagar alls.
 
 En minskning i antalet föräldrapenningdagar syntes under pandemiåren och åren därefter, vilket sannolikt beror på att uttaget av tillfällig föräldrapenning (vab) då ökade kraftigt (se avsnitt 3.2 nedan). Antalet uttagna dagar har ökat för såväl kvinnor som män, men den relativa skillnaden i uttag mellan könen har minskat.
 
@@ -1476,7 +1475,7 @@ fp_andel_fig
 
 Antalet uttagna nettodagar av föräldrapenning är inte jämnt fördelade över året. Mest benägna är såväl kvinnor som män att ta ut dagar i juli och augusti, sannolikt för att ha möjlighet att vara hemma med barnen under deras skollov på sommaren. Även januari är en populär månad, troligtvis fokuserat i början av månaden när barnen är lediga från förskola och skola. 
 
-Ett påstående som ibland förs fram är att män är mer benägna att ta ut dagar under exempelvis älgjakten (september och oktober primärt) eller större idrottsevenemang, men någon sådan tendens syns inte i diagrammet nedan. Män tar i första hand ut sina dagar under januari, juli och augusti, medan det är relativt jämnt fördelat mellan övriga månader. Visserligen sticker september ut som en månad med relativt många uttagna dagar, men det gäller för såväl kvinnor som män och bör således inte vara kopplat till eventuell älgjakt under månaden.
+Ett påstående som ibland förs fram är att män är mer benägna att ta ut dagar under exempelvis älgjakten (september och oktober primärt) eller under större idrottsevenemang, men någon sådan tendens syns inte i statistiken som ses i diagrammet nedan. Män tar i första hand ut sina dagar under januari, juli och augusti, medan det är relativt jämnt fördelat mellan övriga månader. Visserligen sticker september ut som en månad med relativt många uttagna dagar, men det gäller för såväl kvinnor som män och bör således inte vara kopplat till eventuell älgjakt under månaden.
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_forsakringskassan$foraldrapenning_manad
@@ -1484,7 +1483,7 @@ gg_forsakringskassan$foraldrapenning_manad
 
 
 ## Tillfällig föräldrapenning
-Tillfällig föräldrapenning ges för vård av sjukt barn och är det som i folkmun kallas vab. Sett över tidsperioden minskade antalet uttagna nettodagar något mellan 2006 och 2009, för att därefter öka stadigt fram till 2022. På senare år har uttaget av tillfällig föräldrapenning/vab för såväl kvinnor som män minskat, men ligger fortfarande på högre nivåer än innan pandemin. Även för vård av sjukt barn tar kvinnor ut betydligt fler dagar än män, men fördelningen ligger precis utanför spannet för vad som antas som statistisk jämställdhet, kvinnor tar ut cirka `r round(vab_df %>% filter(Kommun == "Samtliga kommuner",Kön == "Kvinnor",År == max(År)) %>% .$Andel,0)` procent av dagarna. 
+Tillfällig föräldrapenning ges för vård av sjukt barn och är det som i folkmun kallas vab. Sett över tidsperioden minskade antalet uttagna nettodagar något mellan 2006 och 2009, för att därefter öka stadigt fram till 2022. På senare år har uttaget av tillfällig föräldrapenning/vab för såväl kvinnor som män minskat, men ligger fortfarande på högre nivåer än innan pandemin. Även för vård av sjukt barn tar kvinnor ut betydligt fler dagar än män, fördelningen ligger precis utanför spannet för vad som antas som statistisk jämställdhet, där kvinnor tar ut cirka `r round(vab_df %>% filter(Kommun == "Samtliga kommuner",Kön == "Kvinnor",År == max(År)) %>% .$Andel,0)` procent av dagarna. 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
@@ -1553,7 +1552,7 @@ tfp_fig_linje
 ```
 
 # Jämställd hälsa
-Jämställd hälsa är det femte jämställdhetspolitiska delmålet. Kvinnor och män, flickor och pojkar ska ha samma förutsättningar för en god hälsa och erbjudas vård och omsorg på lika villkor. Idag finns det stora skillnader i hälsa och ohälsa mellan kvinnor och män. Flickor och kvinnor är sjukskrivna för symptom som är kopplade till psykisk ohälsa i betydligt högre utsträckning än män, samtidigt dör fler män än kvinnor av självmord, i arbetsplatsolyckor, i hjärt- och kärlsjukdomar och av cancer. Förklaringar kan bland annat kopplas till brister i arbetsmiljön, att inte söka vård i tid och skillnader i vårdens bemötande.
+Jämställd hälsa är det femte jämställdhetspolitiska delmålet. Kvinnor och män, flickor och pojkar ska ha samma förutsättningar för en god hälsa och erbjudas vård och omsorg på lika villkor. Idag finns det stora skillnader i hälsa och ohälsa mellan kvinnor och män. Flickor och kvinnor är sjukskrivna för symptom som är kopplade till psykisk ohälsa i betydligt högre utsträckning än män, samtidigt dör fler män än kvinnor i suicid (självmord), i arbetsplatsolyckor, i hjärt- och kärlsjukdomar och av cancer. Förklaringar kan bland annat kopplas till brister i arbetsmiljön, att inte söka vård i tid och skillnader i vårdens bemötande.
 
 ## Ohälsotalet 
 
