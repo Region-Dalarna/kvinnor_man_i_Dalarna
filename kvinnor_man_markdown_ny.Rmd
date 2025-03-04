@@ -2060,6 +2060,11 @@ eller mindre oförändrat. Det betyder att antalet chefspositioner har ökat i a
 chefer_linje_fig
 ```
 
+Ett annat mått på makt är den ställning individen har på arbetsplatsen och i yrkeslivet. I diagrammet nedan visas över/-underrepresentation av manliga chefer inom olika branscher i Dalarna. Ett värde på 0 indikerat att andelen manliga chefer är proportionerligt mot andelen anställda i branschen, medan ett värde över/under 0 visar på en över/-underrepresentation av manliga chefer.
+
+Av förklarliga skäl är andelen manliga chefer sannolikt högst i branscher där en tydlig majoritet av de som arbetar är män, såsom bygg och tillverkning och utvinning. Som synes i diagrammet är dock andelen chefer i dessa branscher proportionerlig sett till andelen manliga anställda. Inom flera andra branscher, däribland stora branscher som handel, hotell och restaurang, samt utbildning, är däremot manliga chefer överrepresenterade, sett till könsfördelningen bland anställda inom branschen. Samtidigt finns det en tydlig trend mot en ökad andel kvinnliga chefer. Den manliga överrepresentationen på chefsnivå har minskat inom samtliga branscher förutom jord- och skogsbruk mellan `r overrep_min_ar ` och `r overrep_max_ar `. Inom vård och omsorgsbranschen har en tydlig manlig överrepresentation bytts mot en underrepresentation, vilken även gäller inom offentlig förvaltning.
+
+
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_overrep$overrep
 ```
