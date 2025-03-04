@@ -65,8 +65,8 @@ yrke_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/yrke.xlsx")
 arbetsmarknadsstatus_lan_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/arbetsmarknadsstatus_senastear.xlsx",sheet = 1)
 arbetsmarknadsstatus_kommun_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/arbetsmarknadsstatus_senastear.xlsx",sheet = 2)
 arbetsloshet_tidsserie <- read.xlsx("G:/skript/projekt/data/kvinnor_man/arbetslöshet_08_senastear_bearbetad.xlsx",sheet = 1)
-langtidsarbetsloshet_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/långtidsarbetslöshet_bearbetad.xlsx",sheet = 1)
-langtidsarbetsloshet_utbildning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/långtidsarbetslöshet_bearbetad.xlsx",sheet = 2)
+#langtidsarbetsloshet_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/långtidsarbetslöshet_bearbetad.xlsx",sheet = 1)
+#langtidsarbetsloshet_utbildning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/långtidsarbetslöshet_bearbetad.xlsx",sheet = 2)
 etablering_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/etableringstid.xlsx") 
 medianinkomst_df <-  read.xlsx("G:/skript/projekt/data/kvinnor_man/medianinkomst.xlsx") %>% 
   rename(medianinkomst = `Medianinkomst,.tkr`)
@@ -1053,47 +1053,36 @@ arbetsloshet_08_fig
 gg_arbetsloshet_tidsserie_bas$arbetsloshet_bas_tidsserie_bakgrund
 ```
 
-
 Hur långt ifrån arbetsmarknaden som en individ befinner sig beror delvis
 på hur länge personen har varit utan anställning. En person som har
 varit arbetslös länge har ofta svårare att ta sig tillbaka in på
-arbetsmarknaden. I diagrammet nedan har arbetslösa delats in i tre olika
-grupper efter tid i arbetslöshet (0-12 månader, 12-24 månader samt 24+
-månader). För inrikes födda i Dalarnas län är den största gruppen arbetslösa de som inte har haft en anställning under de senaste 12 månaderna. Ungefär `r round(langtidsarbetsloshet_df %>% filter(Bakgrund == "Inrikes född",Kon =="kvinnor",Arb_status == "0-12 månader") %>% .$Andel,0)` procent av de arbetslösa kvinnorna och `r round(langtidsarbetsloshet_df %>% filter(Bakgrund == "Inrikes född",Kon =="män",Arb_status == "0-12 månader") %>% .$Andel,0)` procent av de arbetslösa männen har varit arbetslösa i max 12 månader. Bland utrikes födda är bilden delvis annorlunda, där ungefär `r round(langtidsarbetsloshet_df %>% filter(Bakgrund == "Utrikes född",Kon =="kvinnor",Arb_status == "0-12 månader") %>% .$Andel,0)` procent av de arbetslösa kvinnorna och `r round(langtidsarbetsloshet_df %>% filter(Bakgrund == "Utrikes född",Kon =="män",Arb_status == "0-12 månader") %>% .$Andel,0)` procent av de arbetslösa männen har varit arbetslösa i max 12 månader. Samtidigt är andelen som varit arbetslösa länge bland utrikes födda relativt stor. Ungefär `r round(langtidsarbetsloshet_df %>% filter(Bakgrund == "Utrikes född",Kon =="kvinnor",Arb_status == "24- månader") %>% .$Andel,0)` procent av de arbetslösa kvinnorna och `r round(langtidsarbetsloshet_df %>% filter(Bakgrund == "Utrikes född",Kon =="män",Arb_status =="24- månader") %>% .$Andel,0)` procent av de arbetslösa männen har varit arbetslösa i mer än 24 månader.
+arbetsmarknaden.Som långtidsarbetslös räknas den som har varit öppet arbetslös eller i program med aktivitetsstöd i minst sex månader. År `r langtidsarbetsloshet_ar_min` noterades `r langtidsarbetsloshet_kvinnor_min` procent av länets kvinnor i åldern 25-64 år som långtidsarbetslösa, medan motsvarande siffra för männen var `r langtidsarbetsloshet_man_min` procent. Under 2010-talet gick långtidsarbetslösheten såväl upp som ned, innan den nådde sin topp i samband med pandemin 2020-2021. På senare år har långtidsarbetslösheten minskat tydligt och var år `r langtidsarbetsloshet_ar_max` i Dalarna något högre för män, men något lägre för kvinnor jämfört med 2011. Långtidsarbetslösheten i Sverige är högre än i Dalarna för båda könen. En generell orsak till långtidsarbetslöshet är strukturarbetslöshet som innebär att de arbetssökande saknar rätt kompetens för de arbeten som finns tillgängliga.
 
-<br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt <- c("Källa: SCB.\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Arbetslöshet uppdelat på hur länge man varit arbetslös den 31 oktober innevarande år.")
+diagram_capt <- "Källa: Arbetsförmedlingen (via Kolada)\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Antal invånare 25-64 år (årsmedelvärde år T) som varit öppet arbetslösa eller i program med aktivitetsstöd i minst sex månader,\ndividerat med antal invånare 25-64 år den 31/12 år T-1."
 
-diagramtitel <- "Tid som arbetslös i Dalarna (18-64 år) år 2021"
-diagramfilnamn <- "langtidsarbetsloshet.png"
+diagramtitel <- "Långtidsarbetslöshet 25-64 år i Dalarna"
+diagramfilnamn <- "langtidsarbetsloshet_kolada.png"
 
-langtidsarbetsloshet <- SkapaStapelDiagram(skickad_df =langtidsarbetsloshet_df, 
-                             skickad_x_var = "Arb_status", 
-                             skickad_y_var = "Andel", 
-                             skickad_x_grupp = "Kon",
-                             x_axis_lutning = 0,
-                             x_axis_sort_value=FALSE,
-                             manual_color = diagramfarger("kon"),
-                             manual_y_axis_title="procent",
+  arb1 <- SkapaStapelDiagram(skickad_df = långtidsarbetslöshet,
+                             skickad_x_var = "ar",
+                             skickad_y_var = "varde",
+                             skickad_x_grupp = "kon",
                              diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             diagram_facet = TRUE,
-                             facet_grp = "Bakgrund",
-                             facet_legend_bottom=TRUE,
-                             facet_scale = "fixed",
-                             y_axis_100proc = TRUE,
-                             berakna_index = FALSE,
-                             output_mapp = "",
+                             diagram_capt = diagram_capt,
+                             manual_y_axis_title = "procent",
+                             x_axis_lutning = 0,
+                             manual_color=diagramfarger("kon"),
+                             lagg_pa_logga = FALSE,
+                             output_mapp = outputmapp,
                              filnamn_diagram = diagramfilnamn,
                              skriv_till_diagramfil = spara_figur)
 
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-langtidsarbetsloshet
+arb1
 ```
-
 
 ## Etableringstid på arbetsmarknaden
 Som diskuterats tidigare är sysselsättningsgraden lägre bland utrikes
