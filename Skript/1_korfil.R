@@ -48,6 +48,8 @@ gg_overrep = skapa_overrep_diagram(spara_diagrambildfil = TRUE,
                              ta_bort_titel = FALSE,
                              ta_bort_caption = FALSE)
 
+overrep_max_ar = overrep_df$Ar %>% max()
+overrep_min_ar = overrep_df$Ar %>% min()
 # test = skapa_overrep_diagram(spara_diagrambildfil = FALSE,
 #                              diag_fargvekt = NA, # För diagrammet som inte är könsuppdelat
 #                              returnera_dataframe_global_environment = TRUE,
