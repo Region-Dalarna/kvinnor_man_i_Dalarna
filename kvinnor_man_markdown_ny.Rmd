@@ -1236,7 +1236,7 @@ etablering_fig_tid
 
 
 ## Skulder hos Kronofogden
-Ytterligare en aspekt av ekonomisk status är de individer som har skulder hos Kronofogden. I det första diagrammet nedan redovisas antalet personer i Dalarna som har skulder under indrivning hos Kronofogden. Två trender är tydliga.
+Ytterligare en aspekt av ekonomisk status är att ha skulder hos Kronofogden, vilket både är bekymmer för individen och orsakar stora kostnader för samhället. I det första diagrammet nedan redovisas antalet personer i Dalarna som har skulder under indrivning hos Kronofogden. Två trender är tydliga.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
  diagram_capt <- c("Källa: Kronofogden.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Antal personer med skulder under indrivning hos Kronofogden",
