@@ -1858,7 +1858,7 @@ sjukfall_bransch_fig
 ```
 
 # Makt och politik
-Det första av de jämställdhetspolitiska delmålen lyder "en jämn fördelning av makt och inflytande". Detta mäts bland annat genom kvinnors och mäns representation på maktpositioner i både politik och näringsliv. Historiskt har, av förklarliga skäl, män befolkat dessa positioner och kvinnor i undantagsfall, men dessvärre visar nuläget också att många traditionella mönster består. Ju högre upp i hierarkin, desto fler män på positionerna. [Jämställdhetsmyndigheten](<https://jamstalldhetsmyndigheten.se/jamstalldhet-i-sverige/delmal-1-jamn-fordelning-av-makt-och-inflytande/>){target="_blank"} skriver att: 
+Det första av de jämställdhetspolitiska delmålen lyder "en jämn fördelning av makt och inflytande". Detta mäts bland annat genom kvinnors och mäns representation på maktpositioner i både politik, offentlig sektor och näringsliv. Historiskt har män befolkat dessa positioner och kvinnor i undantagsfall, men dessvärre visar nuläget att många traditionella mönster består. Ju högre upp i hierarkin, desto fler män på positionerna. [Jämställdhetsmyndigheten](<https://jamstalldhetsmyndigheten.se/jamstalldhet-i-sverige/delmal-1-jamn-fordelning-av-makt-och-inflytande/>){target="_blank"} skriver att: 
 
 <blockquote>Näringsliv, högre utbildningar och organisationer med mindre insyn har få kvinnor på höga positioner.</blockquote> 
 
@@ -1951,9 +1951,7 @@ kommunval_fig <- SkapaStapelDiagram(skickad_df = kommunval_summering_df,
 Den politiska sfären har historiskt varit mansdominerad och kvinnor har
 haft avsevärt färre tunga politiska uppdrag. Det första diagrammet i det
 här avsnittet visar könsfördelningen bland riksdagsledamöter från valet
-1973 till `r max(riksdagsval_summering_df$valår)`. Riksdagens könsfördelning har under den här tidsperioden sett en stor förändring och utveckling. Vid riksdagsvalet 1973 var en övervägande majoritet av de folkvalda ledamöterna män. Endast drygt 70 kvinnor återfanns på bänkarna i Riksdagen under den här mandatperioden. `r as.numeric(max(riksdagsval_summering_df$valår)) -  as.numeric(min(riksdagsval_summering_df$valår)) ` år senare är männen fortfarande fler än kvinnorna, men skillnaden
-mellan könen är bara `r riksdagsval_summering_df %>% filter(valår == max(valår),kön =="män") %>% .$Antal - riksdagsval_summering_df %>% filter(valår == max(valår),kön =="kvinnor") %>% .$Antal ` stycken ledamöter. Den mest jämställda
-Riksdagen i Sverige var mandatperioden som tog sin början `r riksdagsval_summering_df %>% filter(kön == "kvinnor",Antal == max(Antal)) %>% .$valår ` då antalet kvinnor
+1973 till `r max(riksdagsval_summering_df$valår)`. Riksdagens könsfördelning har under den här tidsperioden genomgått en stor förändring och utveckling. Vid riksdagsvalet 1973 var en övervägande majoritet av de folkvalda ledamöterna män. Endast drygt 70 kvinnor återfanns på bänkarna i Riksdagen under den här mandatperioden. `r as.numeric(max(riksdagsval_summering_df$valår)) -  as.numeric(min(riksdagsval_summering_df$valår)) ` år senare är männen fortfarande fler än kvinnorna, men skillnaden mellan könen är bara `r riksdagsval_summering_df %>% filter(valår == max(valår),kön =="män") %>% .$Antal - riksdagsval_summering_df %>% filter(valår == max(valår),kön =="kvinnor") %>% .$Antal ` stycken ledamöter. Den mest jämställda Riksdagen i Sverige var mandatperioden som tog sin början `r riksdagsval_summering_df %>% filter(kön == "kvinnor",Antal == max(Antal)) %>% .$valår ` då antalet kvinnor
 var `r riksdagsval_summering_df %>% filter(kön == "kvinnor",Antal == max(Antal)) %>% .$Antal`.
 
 <br>
@@ -1961,18 +1959,14 @@ var `r riksdagsval_summering_df %>% filter(kön == "kvinnor",Antal == max(Antal)
 riksdag_fig
 ```
 
-Trenden på nationell nivå syns även på regional nivå där trenden går mot
-en mer jämställd representation bland de folkvalda. Vid landstingsvalet 1982 i Dalarna var antalet manliga ledamöter i regionfullmäktige övervägande män, medan könsfördelningen vid regionvalet 2014 var i princip helt jämställd med ett nästan
-jämnt antal män och kvinnor bland folkvalda i regionens fullmäktige.
-Efter valet 2018 syns däremot återigen en ökning av andelen män i regionfullmäktige och sedan det senaste valet (`r max(regionval_summering_df$valår)`) sitter `r regionval_summering_df %>% filter(valår == max(valår),kön =="män") %>% .$Antal - regionval_summering_df %>% filter(valår == max(valår),kön =="kvinnor") %>% .$Antal ` fler män än kvinnor i regionfullmäktige.
+Den positiva trenden om en mer jämställd representation bland de folkvalda på nationell nivå syns även på regional nivå. Vid landstingsvalet 1982 i Dalarna var antalet ledamöter i regionfullmäktige övervägande män, medan könsfördelningen vid regionvalet 2014 i princip var helt jämställd med ett nästan jämnt antal män och kvinnor bland folkvalda i regionens fullmäktige. Efter valet 2018 syns däremot återigen en ökning av andelen män i regionfullmäktige och sedan det senaste valet (`r max(regionval_summering_df$valår)`) sitter `r regionval_summering_df %>% filter(valår == max(valår),kön =="män") %>% .$Antal - regionval_summering_df %>% filter(valår == max(valår),kön =="kvinnor") %>% .$Antal ` fler män än kvinnor i regionfullmäktige.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 regionval_fig
 ```
 
-På lokal nivå i Dalarna finns det stora skillnader mellan kommunerna.
-Efter valet 2022 var Avesta och Smedjebacken de enda kommuner i länet där kvinnorna i fullmäktige översteg antalet män (med en person i respektive fullmäktige). Borlänge, Gagnef, Mora och Vansbro har istället en majoritet män, dvs mer än 60 procent män, bland deras folkvalda ledamöter.
+På lokal nivå i Dalarna finns det stora skillnader mellan kommunerna. Efter valet 2022 var Avesta och Smedjebacken de enda kommuner i länet där kvinnorna i fullmäktige översteg antalet män (med en person i respektive fullmäktige). Borlänge, Gagnef, Mora och Vansbro har istället en majoritet män, dvs mer än 60 procent, bland deras folkvalda ledamöter.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -2060,9 +2054,9 @@ eller mindre oförändrat. Det betyder att antalet chefspositioner har ökat i a
 chefer_linje_fig
 ```
 
-Ett annat mått på makt är den ställning individen har på arbetsplatsen och i yrkeslivet. I diagrammet nedan visas över/-underrepresentation av manliga chefer inom olika branscher i Dalarna. Ett värde på 0 indikerat att andelen manliga chefer är proportionerligt mot andelen anställda i branschen, medan ett värde över/under 0 visar på en över/-underrepresentation av manliga chefer.
+Ett annat mått på makt är den ställning individen har på arbetsplatsen och i yrkeslivet. I diagrammet nedan visas över/-underrepresentation av manliga chefer inom olika branscher i Dalarna. Ett värde på 0 indikerar att andelen manliga chefer är proportionerligt mot andelen anställda män i branschen, medan ett värde över/under 0 visar på en över/-underrepresentation av manliga chefer.
 
-Av förklarliga skäl är andelen manliga chefer sannolikt högst i branscher där en tydlig majoritet av de som arbetar är män, såsom bygg och tillverkning och utvinning. Som synes i diagrammet är dock andelen chefer i dessa branscher proportionerlig sett till andelen manliga anställda. Inom flera andra branscher, däribland stora branscher som handel, hotell och restaurang, samt utbildning, är däremot manliga chefer överrepresenterade, sett till könsfördelningen bland anställda inom branschen. Samtidigt finns det en tydlig trend mot en ökad andel kvinnliga chefer. Den manliga överrepresentationen på chefsnivå har minskat inom samtliga branscher förutom jord- och skogsbruk mellan `r overrep_min_ar ` och `r overrep_max_ar `. Inom vård och omsorgsbranschen har en tydlig manlig överrepresentation bytts mot en underrepresentation, vilken även gäller inom offentlig förvaltning.
+En överrepresentation av manliga chefer kan antas vara störst i branscher där en tydlig majoritet av de som arbetar är män, såsom bygg, tillverkning och utvinning. Men som synes i diagrammet är dock andelen män på chefspositioner i dessa branscher proportionerlig sett till andelen anställda män. Inom flera andra branscher, däribland stora branscher som handel, hotell och restaurang samt utbildning, är däremot män på chefspositioner överrepresenterade sett till könsfördelningen bland de anställda inom branschen. Samtidigt finns det totalt sett en tydlig trend mot en ökad andel kvinnor på chefspositioner. Den manliga överrepresentationen på chefsnivå har minskat inom samtliga branscher förutom jord- och skogsbruk mellan `r overrep_min_ar ` och `r overrep_max_ar `. Inom vård- och omsorgsbranschen har en tydlig manlig överrepresentation bytts mot en underrepresentation, vilken även gäller inom offentlig förvaltning.
 
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
