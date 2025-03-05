@@ -1617,15 +1617,7 @@ sjukpenningtal_fig <- SkapaStapelDiagram(skickad_df = sjukpenningtal_df_utskrift
                                        skriv_till_diagramfil =spara_figur)
 ```
 
-I likhet med ohälsotalet tenderar sjukpenningtalet, som enbart
-innefattar sjukpenning och rehabiliteringspenning, att variera kraftigt
-över tiden. I början av 2000-talet var talet högt för både kvinnor och
-män, för att därefter minska rejält fram till 2010. Därefter har sjukpenningtalet både gått upp och ned, men på senare år kan en ökning återigen skönjas. Kvinnor är sjukskrivna i större utsträckning än män, vilket återspeglas i sjukpenningtalet. Att talet förändras över tid behöver inte nödvändigtvis bero på att människor blir mer eller mindre sjuka.
-Det kan snarare bero på en mer eller mindre restriktiv syn på vad som
-krävs för att bli sjukskriven, något som ofta är politiskt styrt.
-Exempelvis beror den kraftiga nedgången i sjukpenningtalet mellan 2002
-och 2010 sannolikt inte på att arbetstagare var mindre sjuka, utan på
-att bedömningen av vad som berättigar en sjukskrivning var hårdare.
+I likhet med ohälsotalet tenderar sjukpenningtalet, som enbart innefattar sjukpenning och rehabiliteringspenning, att variera kraftigt över tiden. I början av 2000-talet var talet högt för både kvinnor och män, för att därefter minska rejält fram till 2010. Därefter har sjukpenningtalet både gått upp och ned, men på senare år kan en ökning återigen skönjas. Kvinnor är sjukskrivna i större utsträckning än män, vilket återspeglas i sjukpenningtalet. Att talet förändras över tid behöver inte nödvändigtvis bero på att människor blir mer eller mindre sjuka. Det kan snarare bero på en mer eller mindre restriktiv syn på vad som krävs för att bli sjukskriven, något som ofta är politiskt styrt. Exempelvis beror den kraftiga nedgången i sjukpenningtalet mellan 2002 och 2010 sannolikt inte främst på att arbetstagare var mindre sjuka, utan på att bedömningen av vad som berättigar en sjukskrivning var hårdare.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -1718,7 +1710,7 @@ stress_fig <- SkapaStapelDiagram(skickad_df = stress_df_utskrift %>%
 Antalet sjukfall kopplade till stressrelaterade symptom  har ökat dramatiskt sedan 2010. Även för dessa sjukfall ses en trend där antalet minskade tydligt under en period fram till 2010, för att sedan öka. Kvinnor står för cirka `r round(stress_df_utskrift %>% filter(Kön=="Kvinnor",År==max(.$År)) %>% .$Antal_medel/stress_df_utskrift %>% filter(Kön=="Kvinnor och män",År==max(.$År)) %>% .$Antal_medel,2)*100` procent av dessa sjukskrivningar. Trots den stora skillnaden i antal mellan kvinnor och män, så är ökningen relativt likvärdig. Antalet pågående sjukfall kopplade till stress ökade markant för respektive grupp mellan 2010 och 2016, innan det skedde en viss minskning under åren innan och under pandemin. Därefter har det pågående sjukfallen kopplade till stress återigen börjat öka tydligt för såväl kvinnor som män. 
 
 Att utröna vad det ökade antalet sjukfall beror på är svårt, men det finns ett väl belagt samband mellan psykiatriska diagnoser (såsom svår stress) och den
-psykosociala arbetsmiljön [(Försäkringskassan, 2016)](<https://www.forsakringskassan.se/download/18.3a5418591814e228e4413b2/1661267958656/psykisk-ohalsa-korta-analyser-2016-2.pdf>){target="_blank"}^[Försäkringskassan, Korta analyser 2016:2, "Sjukskrivning för reaktioner på svår stress ökar mest."]. För en fördjupad diskussion runt detta ämne, se Försäkringskassans rapport från november 2024: ["Psykisk ohälsa i dagens arbetsliv "](https://www.forsakringskassan.se/download/18.22814c2e194887717f99d/1738569517962/psykisk-ohalsa-i-dagens-arbetsliv-forsakringskassans-lagesrapport-2024-1.pdf){target="_blank"}^[Försäkringskassans lägesrapport (2024) - "Psykisk ohälsa i dagens arbetsliv"].
+psykosociala arbetsmiljön [(Försäkringskassan, 2016)](<https://www.forsakringskassan.se/download/18.3a5418591814e228e4413b2/1661267958656/psykisk-ohalsa-korta-analyser-2016-2.pdf>){target="_blank"}^[Försäkringskassan, Korta analyser 2016:2, "Sjukskrivning för reaktioner på svår stress ökar mest."]. Kvinnors större ohälsa kan även kopplas till en högre grad av dubbelarbete bland kvinnor och bristande jämställdhet i nära relationer. För en fördjupad diskussion runt detta ämne, se Försäkringskassans rapport från november 2024: ["Psykisk ohälsa i dagens arbetsliv "](https://www.forsakringskassan.se/download/18.22814c2e194887717f99d/1738569517962/psykisk-ohalsa-i-dagens-arbetsliv-forsakringskassans-lagesrapport-2024-1.pdf){target="_blank"}^[Försäkringskassans lägesrapport (2024) - "Psykisk ohälsa i dagens arbetsliv"].
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -1729,7 +1721,7 @@ stress_fig
 ## Sjukfall i olika branscher
 Generellt är det stora skillnader i antalet startade sjukfall (per
 1 000 förvärvsarbetande) mellan olika branscher. För kvinnor är antalet
-störst i ett typiskt kvinnodominerat yrke som vård och omsorg, vilket kan vara en förklaring till att kvinnor är sjukskrivna i större utsträckning än män. För män är det istället inom transportbranschen, en mansdominerad bransch, som antalet startade sjukfall är högst. Oavsett kön, är antal startade sjukfall lägst inom klassiska kontorsjobb som ekonomi, juridik och IT. Notera även att antalet startade sjukfall (per 1 000 förvärvsarbetande) är högre för kvinnor än för män i samtliga branscher i diagrammet nedan.
+störst i typiskt kvinnodominerade yrken som vård och omsorg, vilket kan vara en förklaring till att kvinnor är sjukskrivna i större utsträckning än män. För män är det istället inom transportbranschen, en mansdominerad bransch, som antalet startade sjukfall är högst. Oavsett kön, är antal startade sjukfall lägst inom klassiska kontorsarbeten som ekonomi, juridik och IT. Notera även att antalet startade sjukfall (per 1 000 förvärvsarbetande) är högre för kvinnor än för män i samtliga branscher i diagrammet nedan.
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="80%"}
@@ -1858,8 +1850,7 @@ kommunval_fig <- SkapaStapelDiagram(skickad_df = kommunval_summering_df,
 
 ```
 
-Den politiska sfären har historiskt varit mansdominerad och kvinnor har
-haft avsevärt färre tunga politiska uppdrag. Det första diagrammet i det
+Den politiska sfären har historiskt varit mansdominerad och avsevärt färre kvinnor har haft tunga politiska uppdrag. Det första diagrammet i det
 här avsnittet visar könsfördelningen bland riksdagsledamöter från valet
 1973 till `r max(riksdagsval_summering_df$valår)`. Riksdagens könsfördelning har under den här tidsperioden genomgått en stor förändring och utveckling. Vid riksdagsvalet 1973 var en övervägande majoritet av de folkvalda ledamöterna män. Endast drygt 70 kvinnor återfanns på bänkarna i Riksdagen under den här mandatperioden. `r as.numeric(max(riksdagsval_summering_df$valår)) -  as.numeric(min(riksdagsval_summering_df$valår)) ` år senare är männen fortfarande fler än kvinnorna, men skillnaden mellan könen är bara `r riksdagsval_summering_df %>% filter(valår == max(valår),kön =="män") %>% .$Antal - riksdagsval_summering_df %>% filter(valår == max(valår),kön =="kvinnor") %>% .$Antal ` stycken ledamöter. Den mest jämställda Riksdagen i Sverige var mandatperioden som tog sin början `r riksdagsval_summering_df %>% filter(kön == "kvinnor",Antal == max(Antal)) %>% .$valår ` då antalet kvinnor
 var `r riksdagsval_summering_df %>% filter(kön == "kvinnor",Antal == max(Antal)) %>% .$Antal`.
