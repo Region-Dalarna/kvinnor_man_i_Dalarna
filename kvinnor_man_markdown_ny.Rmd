@@ -146,7 +146,7 @@ Policy-uppföljningar av jämställdhetspolitiken görs av bland andra Jämstäl
 </details>
 
 
-# Jämställd utbildning
+# Utbildning och yrken
 
 Det jämställdhetspolitiska delmålet för utbildningsområdet innebär att kvinnor och män, tjejer och killar, ska ha samma möjligheter och villkor när det gäller utbildning, studieval och personlig utveckling.
 
@@ -389,8 +389,8 @@ gym_genom <- SkapaStapelDiagram(skickad_df = gymnasiet_genomstromning_df %>%
 gym_genom
 ```
 
-## Branscher och yrken
-Många arbetsuppgifter och yrken har historiskt varit könsuppdelade. Med könsuppdelningen har även värderingar om vad som räknats som formellt respektive informellt arbete synliggjorts, och hur dessa arbeten värderats i pengar. Politiska beslut har på flera sätt påverkat detta. Innan exempelvis reformerna som etablerade barn- och äldreomsorg på den reguljära arbetsmarknaden utförde kvinnor detta omsorgsarbete obetalt eller på annat sätt utanför ordinarie arbetsmarknad. När dessa arbetsuppgifter övergick till formellt arbete medförde det många positiva effekter för både kvinnor och män, men det blev på många sätt naturligt att framförallt kvinnor befolkade dessa tjänster. Dessvärre har det bidragit till en bestående könssegregering på arbetsmarknaden, och som verkar svår att förändra.
+## Yrken och branscher
+Många arbetsuppgifter och yrken har historiskt varit könsuppdelade. Med könsuppdelningen har även värderingar om vad som räknats som formellt respektive informellt arbete synliggjorts, och hur dessa arbeten värderats i pengar. Politiska beslut har på flera sätt påverkat detta. Innan exempelvis reformerna som etablerade barn- och äldreomsorg på den reguljära arbetsmarknaden utförde kvinnor detta omsorgsarbete obetalt eller på annat sätt utanför ordinarie arbetsmarknad. När dessa arbetsuppgifter övergick till formellt arbete medförde det många positiva effekter för både kvinnor och män, men det blev på många sätt naturligt att framförallt kvinnor befolkade dessa tjänster. Dessvärre har det bidragit till en bestående könssegregering på arbetsmarknaden, som verkar svår att förändra.
 
 Sedan många år har kvinnor och män haft likvärdig tillgång till utbildning och möjlighet att fritt välja yrke. Trots detta består många av könsskillnaderna i arbetslivet (se figuren nedan) och de yngre generationerna verkar inte göra mindre könsstereotypa val, som redovisats ovan. Många branscher i länet idag har en tydlig övervikt av det ena eller det andra könet, exempelvis byggbranschen som omfattar yrken inom bland annat el och VVS, och där kvinnor bara utgör ungefär `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Bygg") %>% .$andel` procent av de förvärvsarbetande. Även om det har skett en ökning av andelen kvinnor inom byggbranschen är denna ökning ännu liten i sammanhanget. Inom vård och omsorg är bilden densamma men med motsatt könsfördelning. Här utgör kvinnor cirka `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Vård och omsorg") %>% .$andel` procent av de förvärvsarbetande.
 
@@ -511,89 +511,8 @@ yrken_man_fig
 yrken_kvinnor_fig
 ```
 
-## Matchning
 
-Matchning på arbetsmarknaden mäter i hur stor utsträckning de som är anställda i respektive yrkeskategori har en passande utbildning för arbetet. Generellt tenderar olika typer av specialiserade eftergymnasiala utbildningar, som exempelvis läkare och psykologer, ha hög matchning. Blir man anställd som läkare är det väldigt hög sannolikhet att man även har en läkarutbildning (närmare 100 procent). På andra sidan av spektrumet finns dels olika former av gymnasieutbildningar, dels eftergymnasiala utbildningar inom exempelvis humaniora och konst, där runt hälften jobbar med vad de är utbildade till. Genomsnittligt ligger matchningsgraden på runt `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "totalt",region == "Sverige") %>% .$matchningsgrad,0)` procent i Sverige, där något fler kvinnor än män arbetar med vad de är utbildade till, men skillnaden är inte så stor. Det finns vissa skillnader mellan länen, men dessa är relativt små. I Dalarna är matchningsgraden cirka
-`r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "totalt",region == "Dalarna") %>% .$matchningsgrad,0)` procent, vilket är något sämre än genomsnittet för riket som helhet.
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-#   diagram_capt <- "Källa: SCB:s öppna statistikdatabas, regionala matchningsindikatorer.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Med matchning avses matchad förvärvsgrad\ndvs. andelen utbildade som har ett yrke som helt matchar deras utbildning (enligt SCB)."
-# 
-# diagramtitel <- paste0("Matchning på arbetsmarknaden i Sveriges regioner ",max(matchning_df$år))
-# diagramfilnamn <- paste0("matchning_lan.png")
-# 
-# matchning_lan_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
-#                                          filter(kön != "samtliga anställda",
-#                                                 fodelseland == "totalt",
-#                                                 år == max(år)),
-#                                        skickad_x_var = "region",
-#                                        skickad_y_var = "matchningsgrad",
-#                                        skickad_x_grupp = "kön",
-#                                        manual_x_axis_text_vjust=1,
-#                                        manual_x_axis_text_hjust=1,
-#                                        manual_color = diagramfarger("kon"),
-#                                        diagram_titel = diagramtitel,
-#                                        diagram_capt =  diagram_capt,
-#                                        x_axis_sort_value = TRUE,
-#                                        x_axis_lutning = 45,
-#                                        stodlinjer_avrunda_fem = TRUE,
-#                                        manual_y_axis_title = "procent",
-#                                        output_mapp = outputmapp,
-#                                        filnamn_diagram = diagramfilnamn,
-#                                        skriv_till_diagramfil = spara_figur)
-```
-
-<br>
-```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-gg_matchning$matchning_jmf
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-  diagram_capt <- "Källa: SCB:s öppna statistikdatabas, regionala matchningsindikatorer.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Med matchning avses matchad förvärvsgrad\ndvs. andelen utbildade som har ett yrke som helt matchar deras utbildning (enligt SCB)."
-```
-<br>
-Matchningen på arbetsmarknaden tenderar således att vara högre för högre utbildningsnivåer, vilket kan förklaras med att högre utbildning ofta är tydligare kopplad till ett visst yrke. Det finns också skillnader i matchningen beroende på födelseland. I Dalarna har inrikes födda högst matchning med ungefär `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "födda i Sverige",region == "Dalarna") %>% .$matchningsgrad,0)`
-procent sammanlagt för både kvinnor och män. Lägst matchningsgrad har personer `r matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` (cirka `r round(matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)`  procent). Värt att notera är att det är stora könsskillnader när det kommer till personer födda i Afrika. Kvinnor har högst matchningsgrad bland grupperna i diagrammet nedan (cirka `r round(matchning_df %>% filter(kön == "kvinnor",region == "Dalarna",fodelseland == "födda i Afrika") %>% .$matchningsgrad,0)` procent), medan männen har lägst matchningsgrad (cirka `r round(matchning_df %>% filter(kön == "män",region == "Dalarna",fodelseland == "födda i Afrika") %>% .$matchningsgrad,0)` procent).
-
-<br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-# matchning_df <- matchning_df %>% 
-#   mutate("fodelseland" = ifelse(fodelseland %in% c("födda i Europa utom Norden och EU samt Sydamerika, Nordamerika och Oceanien"),"övriga", fodelseland)) 
-# 
-# diagramtitel <- paste0("Matchning på arbetsmarknaden i Dalarna ",max(matchning_df$år))
-# diagramfilnamn <- paste0("matchning_bakgrund.png")
-# 
-# matchning_bakg_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
-#                                            filter(kön != "samtliga anställda",
-#                                                   år == max(år),
-#                                                   region == "Dalarna",
-#                                                   fodelseland != "totalt"),
-#                                          skickad_x_var = "fodelseland",
-#                                          skickad_y_var = "matchningsgrad",
-#                                          skickad_x_grupp = "kön",
-#                                          # manual_x_axis_text_vjust=1,
-#                                          # manual_x_axis_text_hjust=1,
-#                                          manual_color = diagramfarger("kon"),
-#                                          diagram_titel = diagramtitel,
-#                                          diagram_capt =  diagram_capt,
-#                                          diagram_facet = FALSE,
-#                                          x_axis_sort_value = TRUE,
-#                                          x_axis_lutning =0,
-#                                          diagram_liggande = TRUE,
-#                                          stodlinjer_avrunda_fem = TRUE,
-#                                          manual_y_axis_title="procent",
-#                                          berakna_index = FALSE,
-#                                          output_mapp = outputmapp,
-#                                          filnamn_diagram = diagramfilnamn,
-#                                          skriv_till_diagramfil = spara_figur)
-
-```
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-gg_matchning$matchning_bakgrund
-```
-
-# Ekonomisk jämställdhet
+# Ekonomi, inkomster och sysselsättning
 
 Ekonomisk jämställdhet är ett av de sex jämställdhetspolitiska delmålen och syftar till att kvinnor och män ska ges samma möjligheter och villkor i fråga om betalt arbete för att säkerställa ekonomisk självständighet livet ut. Målet utgår således ifrån ett livscykelperspektiv och understryker betydelsen av att det avlönade arbetet ska ge ekonomisk trygghet och självständighet även under pensionsåren. En central förutsättning för inkomst och egen försörjning är anknytning till och förutsättningar på arbetsmarknaden, därför redogörs här även för sysselsättningsgrad och arbetslöshet samt etableringstid för invandrade.  
 
@@ -1076,7 +995,7 @@ diagramfilnamn <- "langtidsarbetsloshet_kolada.png"
 arb1
 ```
 
-## Etableringstid på arbetsmarknaden
+## Arbetsmarknadsetablering för invandrade
 Som diskuterats tidigare är sysselsättningsgraden lägre bland utrikes
 födda generellt, och för invandrade kvinnor tar det betydligt längre tid än för invandrade män att etablera sig på arbetsmarknaden. För utrikesfödda kvinnor som befunnit sig i Sverige i upp till 2 år (0-1 år i grafen nedan) är det bara ungefär `r round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "samtliga utbildningsnivåer") %>% .$andel,0)` procent i arbetsför ålder (20-65 år) som arbetar. För
 motsvarande grupp av män är ungefär `r round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "samtliga utbildningsnivåer") %>% .$andel,0)` procent i arbete inom 2 år. Över tid tenderar ändå etableringsgraden att öka avsevärt och efter mer än tio år i Sverige är det över 70 procent av invandrade såväl män som kvinnor som arbetar.
@@ -1236,7 +1155,7 @@ skulder_df_sum <- skulder_df %>%
 # skulder_df_sum$skuld_miljard <-skulder_df_sum$Total_skuld/miljard
 
 
-diagramtitel <- paste0("Antal med skulder hos Kronofogden i Dalarnas län")
+diagramtitel <- paste0("Antal med skulder till Kronofogden, Dalarnas län")
 diagramfilnamn <- paste0("Antal_skuldsatta_Dalarna.png")
 
 # Skapar diagram för medianinkomsten i Dalarna där män jämförs med kvinnor.
@@ -1272,7 +1191,7 @@ Störst andel skuldsatta finns i åldersintervallet `r skulder_andel_df %>% filt
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
  diagram_capt <- "Källa: Kronofogden.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Andel av befolkningen i en viss åldersgrupp med skulder under indrivning hos Kronofogden."
 
-diagramtitel <- paste0("Andel skuldsatta i Dalarnas län år ",unique(skulder_andel_df$År))
+diagramtitel <- paste0("Andel med skulder till Kronofogden, Dalarnas län år ",unique(skulder_andel_df$År))
 diagramfilnamn <- paste0("Andel_skuldsatta_Dalarna.png")
 
 # Skapar diagram för medianinkomsten i Dalarna där män jämförs med kvinnor.
@@ -1307,7 +1226,7 @@ langsiktiga_skulder_df_sum <- langsiktiga_skulder_df %>%
     group_by(År,Län,Kön)  %>% 
       summarize(Antal_skuldsatta=sum(Antal.personer))
 
-diagramtitel <- paste0("Antal långsiktigt skuldsatta i Dalarnas län")
+diagramtitel <- paste0("Antal med skulder under minst 20 år till Kronofogden, Dalarnas län")
 diagramfilnamn <- paste0("Antal_langsiktigt_skuldsatta.png")
 
 skuldsatta_lang <- SkapaStapelDiagram(skickad_df = langsiktiga_skulder_df_sum,
@@ -1327,15 +1246,14 @@ skuldsatta_lang <- SkapaStapelDiagram(skickad_df = langsiktiga_skulder_df_sum,
                                      skriv_till_diagramfil = spara_figur)
 ```
 
-I diagrammet nedan redovisas antalet långsiktigt skuldsatta i
-Dalarna. Med långsiktigt skuldsatt menas att personen varit i Kronofogdens register under minst 20 års tid. Även här finns det betydligt fler män än kvinnor till antalet. Åren 2013 - 2016 var en period med ett större antal skuldsatta i båda grupperna, men därefter har antalet minskat bland både kvinnor och män. Mätt över tidsperioden `r min(langsiktiga_skulder_df_sum$År)` - `r max(langsiktiga_skulder_df_sum$År)` har antalet män minskat med `r round((1-(langsiktiga_skulder_df_sum %>% filter(År==max(.$År),Kön=="män") %>% .$Antal_skuldsatta/langsiktiga_skulder_df_sum %>% filter(År==min(.$År),Kön=="män") %>% .$Antal_skuldsatta))*100,0)` procent medan antalet kvinnor istället har ökat med `r round(((langsiktiga_skulder_df_sum %>% filter(År==max(.$År),Kön=="kvinnor") %>% .$Antal_skuldsatta/langsiktiga_skulder_df_sum %>% filter(År==min(.$År),Kön=="kvinnor") %>% .$Antal_skuldsatta)-1)*100,0)` procent.
+I diagrammet nedan redovisas antalet långsiktigt skuldsatta i Dalarna, vilket betyder indivder som under minst 20 års tid har haft skulder till Kronofogden. Även här finns det betydligt fler män än kvinnor till antalet. Åren 2013 - 2016 var en period med ett större antal skuldsatta i båda grupperna, men därefter har antalet minskat bland både kvinnor och män. Mätt över tidsperioden `r min(langsiktiga_skulder_df_sum$År)` - `r max(langsiktiga_skulder_df_sum$År)` har antalet män minskat med `r round((1-(langsiktiga_skulder_df_sum %>% filter(År==max(.$År),Kön=="män") %>% .$Antal_skuldsatta/langsiktiga_skulder_df_sum %>% filter(År==min(.$År),Kön=="män") %>% .$Antal_skuldsatta))*100,0)` procent medan antalet kvinnor istället har ökat med `r round(((langsiktiga_skulder_df_sum %>% filter(År==max(.$År),Kön=="kvinnor") %>% .$Antal_skuldsatta/langsiktiga_skulder_df_sum %>% filter(År==min(.$År),Kön=="kvinnor") %>% .$Antal_skuldsatta)-1)*100,0)` procent.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 skuldsatta_lang
 ```
 
-# Obetalt arbete
+# Obetalt hem- och omsorgsarbete
 En jämn ansvarsfördelning för obetalt hem- och omsorgsarbete är det fjärde jämställdhetspolitiska delmålet. Jämställdhetsmyndigheten har sammanfattat nuläget för delmålet nationellt. De skriver på sin [hemsida](https://jamstalldhetsmyndigheten.se/jamstalldhet-i-sverige/delmal-4-jamn-fordelning-av-det-obetalda-hem-och-omsorgsarbetet/){target="_blank"}:
 
 <blockquote>Kvinnor tar fortfarande i hög grad ansvar för det obetalda hem- och omsorgsarbetet. De tar ut mer av föräldraförsäkringen och lägger mer tid på att ta hand om barn. Kvinnor och män ger omsorg, men på olika sätt. Kvinnors omsorgsarbete tycks dock påverka dem mer negativt än män. I hemmet är det främst kvinnor som städar, lagar mat och tvättar medan män klipper gräset, tar hand om bilen och sköter ekonomin.</blockquote>
@@ -1532,7 +1450,7 @@ tfp_fig_linje <- SkapaLinjeDiagram(skickad_df = vab_df%>%
 tfp_fig_linje
 ```
 
-# Jämställd hälsa
+# Hälsa och ohälsa
 Jämställd hälsa är det femte jämställdhetspolitiska delmålet. Kvinnor och män, flickor och pojkar ska ha samma förutsättningar för en god hälsa och erbjudas vård och omsorg på lika villkor. Idag finns det stora skillnader i hälsa och ohälsa mellan kvinnor och män. Flickor och kvinnor är sjukskrivna för symptom som är kopplade till psykisk ohälsa i betydligt högre utsträckning än män, samtidigt dör fler män än kvinnor i suicid (självmord), i arbetsplatsolyckor, i hjärt- och kärlsjukdomar och av cancer. Förklaringar kan bland annat kopplas till brister i arbetsmiljön, att inte söka vård i tid och skillnader i vårdens bemötande.
 
 ## Ohälsotalet 
@@ -1856,7 +1774,7 @@ Det första av de jämställdhetspolitiska delmålen lyder "en jämn fördelning
 
 Samtidigt har bilden förbättrats inom offentlig sektor och inom politiken generellt de senaste decennierna.
 
-## Politiskt valda
+## Politisk representation
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\n Bearbetning: Samhällsanalys, Region Dalarna."
