@@ -1621,8 +1621,7 @@ sjukpenningtal_fig
 ```
 
 Även när det kommer till sjukpenningtalet finns det skillnader mellan
-Dalarnas kommuner. För män är talet högst i `r stri_extract_last(sjukpenningtal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Sjukpenningtal_medel == max(.$Sjukpenningtal_medel)) %>% .$Kommun, regex='\\S+')`, medan det för
-kvinnor är högst i `r stri_extract_last(sjukpenningtal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Sjukpenningtal_medel == max(.$Sjukpenningtal_medel)) %>% .$Kommun, regex='\\S+')`. Sjukpenningtalet är en delmängd av ohälsotalet och därför samvarierar resultaten mellan kommunerna i stort. Talet är lägst för både kvinnor och män i `r stri_extract_last(sjukpenningtal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Sjukpenningtal_medel == min(.$Sjukpenningtal_medel)) %>% .$Kommun, regex='\\S+')`.
+Dalarnas kommuner. För både kvinnor och män är talet högst i `r stri_extract_last(sjukpenningtal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Sjukpenningtal_medel == max(.$Sjukpenningtal_medel)) %>% .$Kommun, regex='\\S+')`. Sjukpenningtalet är en delmängd av ohälsotalet och därför samvarierar resultaten mellan kommunerna i stort. Talet är lägst för både kvinnor och män i `r stri_extract_last(sjukpenningtal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Sjukpenningtal_medel == min(.$Sjukpenningtal_medel)) %>% .$Kommun, regex='\\S+')`.
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
