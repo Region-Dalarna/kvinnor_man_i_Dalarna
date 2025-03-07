@@ -318,7 +318,7 @@ En utmaning för länet är den obalans som råder i antalet antagna killar och 
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="150%"}
-diagram_capt <- "Källa: Källan är Gymnasieantagningen, Dalarnas kommunförbund\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Antagna i början av september"
+diagram_capt <- "Källa: Gymnasieantagningen, Dalarnas kommunförbund\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Antagna i början av september"
 
 gym_sum <- gymnasieantagning_df %>% 
   group_by(ar,program) %>% 
@@ -432,63 +432,68 @@ forvarvsarbetande_kon_fig
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 
-  diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: 16-64 år"
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_yrke_ssyk3_storsta_per_geografi.R")
 
-  yrke_man <- yrke_df %>% 
-    filter(kön=='män',Yrke!="yrke okänt") %>%
-      slice_max(Antal,n=10)
-    
-    diagram_titel <- paste0("Yrken med högst antal förvärvsarbetande män i Dalarnas län ",unique(yrke_df$år))
-    diagram_titel <- str_wrap(diagram_titel,60)
-    diagramfil="yrken_man.png"
-    
-    yrken_man_fig <- SkapaStapelDiagram(skickad_df = yrke_man, 
-                                 skickad_x_var = "Yrke", 
-                                 skickad_y_var = "Antal",
-                                 manual_y_axis_title = "Antal förvärvsarbetande",
-                                 manual_color = diagramfarger("rus_sex")[1],
-                                 x_axis_sort_value = TRUE,
-                                 stodlinjer_avrunda_fem = TRUE,
-                                 diagram_titel = diagram_titel,
-                                 diagram_capt = diagram_capt,
-                                 x_axis_lutning = 0,
-                                 diagram_liggande = TRUE,
-                                 output_mapp = outputmapp,
-                                 filnamn_diagram = diagramfil,
-                                 skriv_till_diagramfil = spara_figur)
-  
+yrken_konsfordelning <- diag_storsta_yrke_per_geografi(facet_ovanpa_varandra = TRUE, storre_text = TRUE)
+
+
+  # diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: 16-64 år"
+  # 
+  # yrke_man <- yrke_df %>% 
+  #   filter(kön=='män',Yrke!="yrke okänt") %>%
+  #     slice_max(Antal,n=10)
+  #   
+  #   diagram_titel <- paste0("Yrken med högst antal förvärvsarbetande män i Dalarnas län ",unique(yrke_df$år))
+  #   diagram_titel <- str_wrap(diagram_titel,60)
+  #   diagramfil="yrken_man.png"
+  #   
+  #   yrken_man_fig <- SkapaStapelDiagram(skickad_df = yrke_man, 
+  #                                skickad_x_var = "Yrke", 
+  #                                skickad_y_var = "Antal",
+  #                                manual_y_axis_title = "Antal förvärvsarbetande",
+  #                                manual_color = diagramfarger("rus_sex")[1],
+  #                                x_axis_sort_value = TRUE,
+  #                                stodlinjer_avrunda_fem = TRUE,
+  #                                diagram_titel = diagram_titel,
+  #                                diagram_capt = diagram_capt,
+  #                                x_axis_lutning = 0,
+  #                                diagram_liggande = TRUE,
+  #                                output_mapp = outputmapp,
+  #                                filnamn_diagram = diagramfil,
+  #                                skriv_till_diagramfil = spara_figur)
+  # 
 
 
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
 
-  diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: 16-64 år"
-
-  yrke_kvinnor <- yrke_df %>% 
-    filter(kön=='kvinnor',Yrke!="yrke okänt") %>%
-      slice_max(Antal,n=10) %>% 
-        mutate(Yrke = ifelse(Yrke == "Undersköterskor, hemtjänst, hemsjukvård och äldreboende","Undersköterskor m.fl.",Yrke))
-    
-    diagram_titel <- paste0("Yrken med högst antal förvärvsarbetande kvinnor i Dalarnas län ",unique(yrke_df$år))
-    diagram_titel <- str_wrap(diagram_titel,60)
-    diagramfil="yrken_kvinnor.png"
-    
-    yrken_kvinnor_fig <- SkapaStapelDiagram(skickad_df = yrke_kvinnor, 
-                                 skickad_x_var = "Yrke", 
-                                 skickad_y_var = "Antal",
-                                 manual_y_axis_title = "Antal förvärvsarbetande",
-                                 manual_color = diagramfarger("rus_sex")[1],
-                                 x_axis_sort_value = TRUE,
-                                 diagram_titel = diagram_titel,
-                                 diagram_capt = diagram_capt,
-                                 x_axis_lutning = 0,
-                                 stodlinjer_avrunda_fem = TRUE,
-                                 diagram_liggande = TRUE,
-                                 output_mapp = outputmapp,
-                                 filnamn_diagram = diagramfil,
-                                 skriv_till_diagramfil = spara_figur)
-  
+  # diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: 16-64 år"
+  # 
+  # yrke_kvinnor <- yrke_df %>% 
+  #   filter(kön=='kvinnor',Yrke!="yrke okänt") %>%
+  #     slice_max(Antal,n=10) %>% 
+  #       mutate(Yrke = ifelse(Yrke == "Undersköterskor, hemtjänst, hemsjukvård och äldreboende","Undersköterskor m.fl.",Yrke))
+  #   
+  #   diagram_titel <- paste0("Yrken med högst antal förvärvsarbetande kvinnor i Dalarnas län ",unique(yrke_df$år))
+  #   diagram_titel <- str_wrap(diagram_titel,60)
+  #   diagramfil="yrken_kvinnor.png"
+  #   
+  #   yrken_kvinnor_fig <- SkapaStapelDiagram(skickad_df = yrke_kvinnor, 
+  #                                skickad_x_var = "Yrke", 
+  #                                skickad_y_var = "Antal",
+  #                                manual_y_axis_title = "Antal förvärvsarbetande",
+  #                                manual_color = diagramfarger("rus_sex")[1],
+  #                                x_axis_sort_value = TRUE,
+  #                                diagram_titel = diagram_titel,
+  #                                diagram_capt = diagram_capt,
+  #                                x_axis_lutning = 0,
+  #                                stodlinjer_avrunda_fem = TRUE,
+  #                                diagram_liggande = TRUE,
+  #                                output_mapp = outputmapp,
+  #                                filnamn_diagram = diagramfil,
+  #                                skriv_till_diagramfil = spara_figur)
+  # 
 
 
 ```
@@ -503,12 +508,13 @@ Diagrammen visar också att de 10 största yrkena bland kvinnor omfattar drygt `
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-yrken_man_fig
+yrken_konsfordelning[[1]]
+#yrken_man_fig
 ```
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-yrken_kvinnor_fig
+#yrken_kvinnor_fig
 ```
 
 
