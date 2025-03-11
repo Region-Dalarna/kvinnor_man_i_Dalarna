@@ -5,6 +5,26 @@ output_mapp_figur = here("Diagram","/")
 
 source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R")
 
+
+# De tio största yrkena för män respektive kvinnor
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_yrke_ssyk3_storsta_per_geografi.R")
+yrken_konsfordelning <- diag_storsta_yrke_per_geografi(facet_ovanpa_varandra = TRUE, storre_text = TRUE,returnera_dataframe_global_environment = TRUE,antal_yrken = 10)
+
+yrke_storst_kvinnor <- storsta_yrken_per_geografi_df %>% filter(kön == "kvinnor",Antal == max(Antal)) %>% .$yrke
+yrke_storst_kvinnor_antal <- storsta_yrken_per_geografi_df %>% filter(kön == "kvinnor",Antal == max(Antal)) %>% .$Antal
+yrke_nast_storst_kvinnor <- tolower(storsta_yrken_per_geografi_df %>% filter(kön == "kvinnor", yrke != yrke_storst_kvinnor) %>% filter(Antal == max(Antal))  %>%  .$yrke)
+
+yrke_storst_man <- storsta_yrken_per_geografi_df %>% filter(kön == "män") %>% filter(Antal == max(Antal)) %>% .$yrke
+yrke_storst_man_antal <- storsta_yrken_per_geografi_df %>% filter(kön == "män") %>% filter(Antal == max(Antal)) %>% .$Antal
+yrke_nast_storst_man <- tolower(storsta_yrken_per_geografi_df %>% filter(kön == "män", yrke != yrke_storst_man) %>% filter(Antal == max(Antal))  %>%  .$yrke)
+
+butikspersonal_kvinnor <- format(plyr::round_any(storsta_yrken_per_geografi_df %>% filter(kön == "kvinnor",yrke == "Butikspersonal") %>% .$Antal,100),big.mark=" ")
+butikspersonal_man <- format(plyr::round_any(storsta_yrken_per_geografi_df %>% filter(kön == "män",yrke == "Butikspersonal") %>% .$Antal,100),big.mark=" ")
+
+tio_storsta_sum_kvinnor <- format(plyr::round_any(storsta_yrken_per_geografi_df %>% filter(kön == "kvinnor") %>%  .$Antal %>% sum(),100),big.mark=" ")
+tio_storsta_sum_man <- format(plyr::round_any(storsta_yrken_per_geografi_df %>% filter(kön == "män") %>%  .$Antal %>% sum(),100),big.mark=" ")
+
+# Matchning
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diagram_matchning_lan_bakgrund.R")
 gg_matchning <- diag_matchning_lan(region_vekt = "20",
                                    output_mapp_figur = output_mapp_figur,
@@ -12,6 +32,7 @@ gg_matchning <- diag_matchning_lan(region_vekt = "20",
                                    returnera_data = TRUE,
                                    kon_klartext = "*")
 
+# VaB
 source(here("Skript","fp_vab_manad.R"))
 gg_forsakringskassan <- diag_foraldrapenning_manad(region_vekt = "20",
                                                    output_mapp = output_mapp_figur,
