@@ -1,9 +1,10 @@
 diag_arbetsloshet_tidsserie <-function(vald_region = "20",
                                      alder_klartext = "20-64 år", #Välj enbart 1. Finns: 15-19 år, 16-19 år, 20-24 år, 25-29 år, 30-34 år, 35-39 år, 40-44 år, 45-49 år, 50-54 år, 55-59 år, 60-64 år, 65-69 år, 70-74 år, 15-74 år, 16-64 år, 16-65 år, 20-64 år, 20-65 år
                                      tid = "*",
+                                     diagramtitel_tabort = FALSE,
                                      spara_diagrambildfil = FALSE,
                                      spara_dataframe_till_global_environment = FALSE,
-                                     output_mapp = "G:/Samhällsanalys/Statistik/Näringsliv/basfakta/"){
+                                     output_mapp = "G:/Samhällsanalys/API/Fran_R/Utskrift/" ){
   
   if (!require("pacman")) install.packages("pacman")
   pacman::p_load(tidyverse)
@@ -41,6 +42,7 @@ diag_arbetsloshet_tidsserie <-function(vald_region = "20",
                                             skickad_x_grupp = "kön",
                                             manual_x_axis_text_vjust=1,
                                             manual_x_axis_text_hjust=1,
+                                            utan_diagramtitel = diagramtitel_tabort,
                                             manual_color = diagramfarger("kon"),
                                             diagram_titel = diagramtitel,
                                             diagram_capt =  diagram_capt,

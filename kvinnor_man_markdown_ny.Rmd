@@ -1150,7 +1150,7 @@ skulder_df_sum <- skulder_df %>%
 # skulder_df_sum$skuld_miljard <-skulder_df_sum$Total_skuld/miljard
 
 
-diagramtitel <- paste0("Antal med skulder till Kronofogden, Dalarnas län")
+diagramtitel <- paste0("Antal med skulder till Kronofogden i Dalarna")
 diagramfilnamn <- paste0("Antal_skuldsatta_Dalarna.png")
 
 # Skapar diagram för medianinkomsten i Dalarna där män jämförs med kvinnor.
@@ -1186,7 +1186,7 @@ Störst andel skuldsatta finns i åldersintervallet `r skulder_andel_df %>% filt
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
  diagram_capt <- "Källa: Kronofogden.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Andel av befolkningen i en viss åldersgrupp med skulder under indrivning hos Kronofogden."
 
-diagramtitel <- paste0("Andel med skulder till Kronofogden, Dalarnas län år ",unique(skulder_andel_df$År))
+diagramtitel <- paste0("Andel med skulder till Kronofogden i Dalarna år ",unique(skulder_andel_df$År))
 diagramfilnamn <- paste0("Andel_skuldsatta_Dalarna.png")
 
 # Skapar diagram för medianinkomsten i Dalarna där män jämförs med kvinnor.
@@ -1221,7 +1221,7 @@ langsiktiga_skulder_df_sum <- langsiktiga_skulder_df %>%
     group_by(År,Län,Kön)  %>% 
       summarize(Antal_skuldsatta=sum(Antal.personer))
 
-diagramtitel <- paste0("Antal med skulder under minst 20 år till Kronofogden, Dalarnas län")
+diagramtitel <- paste0("Antal med skulder under minst 20 år till Kronofogden i Dalarna")
 diagramfilnamn <- paste0("Antal_langsiktigt_skuldsatta.png")
 
 skuldsatta_lang <- SkapaStapelDiagram(skickad_df = langsiktiga_skulder_df_sum,
@@ -1957,9 +1957,10 @@ En överrepresentation av manliga chefer kan antas vara störst i branscher där
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_overrep$overrep
 ```
+# Mäns våld  mot kvinnor
+Löptext.
 
-
-# Referenser
+# Referenser {-}
 
 ```{r, include = FALSE}
 
