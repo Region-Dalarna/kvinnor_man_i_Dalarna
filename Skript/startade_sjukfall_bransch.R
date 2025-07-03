@@ -25,7 +25,7 @@ diag_sjukfall_bransch <- function(output_mapp = "G:/Samhällsanalys/Statistik/N�
   
   # Läser in data från Excel
   # Antal startade sjukfall per 1000 förvärvsarbetande
-  antal_sjukfall_bransch_df <-read.xlsx("G:/skript/projekt/data/kvinnor_man/Antal startade sjukfall bransch_2024_11_13.xlsx",sheet = 2)
+  antal_sjukfall_bransch_df <-read.xlsx("G:/skript/projekt/data/kvinnor_man/Antal startade sjukfall bransch_2025_07_03.xlsx",sheet = 2)
 
   # Pivoterar data för att få den på rätt sätt
   antal_sjukfall_bransch_df <- antal_sjukfall_bransch_df %>% 

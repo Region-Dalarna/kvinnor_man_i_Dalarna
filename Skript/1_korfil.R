@@ -90,6 +90,6 @@ overrep_min_ar = overrep_df$Ar %>% min()
 
 rmarkdown::render(
   input = 'kvinnor_man_markdown_ny.Rmd',
-  output_file = 'kvinnor_man_markdown_ny.html',
+  output_file = 'kvinnor_man.html',
   envir = parent.frame()
 )

@@ -22,8 +22,9 @@ diag_foraldrapenning_manad<-function(region_vekt = "20",
   source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R")
   
   # Adresser till data
-  path = c("https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/fp-antal-mottagare-nettodagar-belopp-manad/FPAntalDagarBeloppManadLan.xlsx","https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/tfp-utb-ers/TfpVabErsUtbLanKommun.xlsx")
-
+  #path = c("https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/fp-antal-mottagare-nettodagar-belopp-manad/FPAntalDagarBeloppManadLan.xlsx","https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/tfp-utb-ers/TfpVabErsUtbLanKommun.xlsx")
+  path = c("https://www.forsakringskassan.se/api/sprstatistikrapportera/public/v1/fp-antal-mottagare-nettodagar-belopp-manad/FPAntalDagarBeloppManadLan.xlsx","https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/tfp-utb-ers/TfpVabErsUtbLanKommun.xlsx")
+  
   # Med Peters nya skript
   flik_lista = list()
   

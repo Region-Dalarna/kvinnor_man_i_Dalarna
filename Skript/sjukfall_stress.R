@@ -20,7 +20,8 @@ diag_stress<-function(region_vekt = "20",
   
   # =============================================== Uttag ===============================================
   # Adresser till data
-  path = c("https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/sjp-pagaende-sjukfall-diagnos-f43/SJPPagSjukfallDiagnosF43.xlsx")
+  #path = c("https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/sjp-pagaende-sjukfall-diagnos-f43/SJPPagSjukfallDiagnosF43.xlsx")
+  path = c("https://www.forsakringskassan.se/api/sprstatistikrapportera/public/v1/sjp-pagaende-sjukfall-diagnos-f43/SJPPagSjukfallDiagnosF43.xlsx")
   
   # Tidigare
   # # Anropar funktionen hamta_data_FK som hämtar data från öppna data på Försäkringskassan och returnerar en lista.
