@@ -1,3 +1,14 @@
+
+# Skall data uppdateras? Annars läses data in från en sparad global environment-fil.
+# Notera dock att ett flertal diagram skapas via Excelfiler (se skriptet hamta_data). Uppdatera data i detta fall åsyftar enbart de diagram-funktion som körs nedan
+uppdatera_data = FALSE
+
+if(uppdatera_data == TRUE){
+  
+  cat("Hämtning av data påbörjad")
+  start_time <- Sys.time()
+
+
 if (!require("pacman")) install.packages("pacman")
 p_load(here)
 
@@ -89,6 +100,21 @@ gg_overrep = skapa_overrep_diagram(spara_diagrambildfil = TRUE,
 
 overrep_max_ar = overrep_df$Ar %>% max()
 overrep_min_ar = overrep_df$Ar %>% min()
+
+save.image(file = "G:/skript/projekt/environments/kvinnor_man.RData")
+
+end_time <- Sys.time()
+elapsed_time <- as.numeric(difftime(end_time, start_time, units = "secs"))
+cat(sprintf("Hämtning av data klar: Det tog %.2f sekunder.", elapsed_time))
+cat("\n\n")
+
+
+}else{
+  load("G:/skript/projekt/environments/kvinnor_man.RData")
+}
+
+# Diverse tidigare kod som inte används
+
 # test = skapa_overrep_diagram(spara_diagrambildfil = FALSE,
 #                              diag_fargvekt = NA, # För diagrammet som inte är könsuppdelat
 #                              returnera_dataframe_global_environment = TRUE,
@@ -106,8 +132,8 @@ overrep_min_ar = overrep_df$Ar %>% min()
 # overrep_ar_max <- overrep_df$Ar %>% max()
 
 
-rmarkdown::render(
-  input = 'kvinnor_man_markdown_ny.Rmd',
-  output_file = 'kvinnor_man.html',
-  envir = parent.frame()
-)
+# rmarkdown::render(
+#   input = 'kvinnor_man_markdown_ny.Rmd',
+#   output_file = 'kvinnor_man.html',
+#   envir = parent.frame()
+# )
