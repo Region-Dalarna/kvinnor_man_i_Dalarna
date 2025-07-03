@@ -70,7 +70,7 @@ arbetsmarknadsstatus_kommun_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/
 arbetsloshet_tidsserie <- read.xlsx("G:/skript/projekt/data/kvinnor_man/arbetslöshet_08_senastear_bearbetad.xlsx",sheet = 1)
 #langtidsarbetsloshet_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/långtidsarbetslöshet_bearbetad.xlsx",sheet = 1)
 #langtidsarbetsloshet_utbildning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/långtidsarbetslöshet_bearbetad.xlsx",sheet = 2)
-etablering_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/etableringstid.xlsx") 
+#etablering_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/etableringstid.xlsx") 
 medianinkomst_df <-  read.xlsx("G:/skript/projekt/data/kvinnor_man/medianinkomst.xlsx") %>% 
   rename(medianinkomst = `Medianinkomst,.tkr`)
 medianinkomst_65plus_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/medianinkomst_65.xlsx") %>% 
@@ -995,134 +995,24 @@ Att vara anhöriginvandrare sätter också kvinnan i fråga i en särskild beroe
 
 Regeringen har under år 2023 satt fokus på insatser som ska få utrikes födda kvinnor i arbete snabbare. Bland annat har länsstyrelserna ett regionalt uppdrag med detta mål.
 
-<br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas, BAS.\nBearbetning: Samhällsanalys, Region Dalarna."
-
-# Skapar en faktorvariabel för att få tid sedan etablering i "rätt" ordning i figuren
-etablering_df$bakgrundsvariabel <- factor(etablering_df$bakgrundsvariabel, levels = c("0-1 år","2-3 år",
-                                                                                "4-9 år","10- år"))
-
-diagramtitel <- paste0("Andel förvärvsarbetande 20-65 år bland utrikes födda i Dalarna"," ",max(etablering_df$år)," efter vistelsetid")
-diagramtitel <- str_wrap(diagramtitel,60)
-diagramfilnamn <- paste0("etablering_lan.png")
-
-# Skapar diagram där etableringstiden jämförs mellan män och kvinnor, oavsett utbildning
-etablering_fig <- SkapaStapelDiagram(skickad_df =etablering_df %>%
-                                      filter(år==max(år),
-                                             utbildningsnivå=="samtliga utbildningsnivåer",
-                                             kön != "män och kvinnor"),
-                                    skickad_x_var = "bakgrundsvariabel",
-                                    skickad_y_var = "andel",
-                                    skickad_x_grupp = "kön",
-                                    # manual_x_axis_text_vjust=0.9,
-                                    manual_color = diagramfarger("kon"),
-                                    diagram_titel = diagramtitel,
-                                    diagram_capt =  diagram_capt,
-                                    manual_x_axis_title = "Vistelsetid i Sverige",
-                                    y_axis_100proc = TRUE,
-                                    diagram_facet = FALSE,
-                                    x_axis_sort_value = FALSE,
-                                    x_axis_lutning = 0,
-                                    manual_y_axis_title = "procent",
-                                    output_mapp = outputmapp,
-                                    filnamn_diagram = diagramfilnamn,
-                                    skriv_till_diagramfil = spara_figur)
-
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
+gg_etablering$etablering_lan_kon
 ```
+
+Hur snabbt en nyligen invandrad person etableras på arbetsmarknaden är också nära kopplat till vilken utbildningsnivå personen har. För dem med högst utbildning har det visat sig att processen tenderar att gå relativt snabbt och cirka `r eftergym_0_1_kvinna` procent av kvinnorna och `r eftergym_0_1_man` procent av männen arbetar innan de varit i Sverige i 2 år (0-1 år i figuren nedan). Sedan ökar etableringsgraden över tid och efter 10 år och längre är `r eftergym_10_kvinna` procent av kvinnorna mellan 20 och 65 år sysselsatta, vilket är i linje med sysselsättningsgraden för inrikes födda kvinnor i samma åldersgrupp. För dem med gymnasial utbildning är situationen delvis annorlunda. I den gruppen arbetar ungefär `r gym_0_1_kvinna` procent av de utrikesfödda kvinnor, och cirka `r gym_0_1_man` procent av de utrikesfödda männen, inom 2 år efter att de kommit till Sverige. Över tid ökar andelen etablerade snabbt på arbetsmarknaden, särskilt för gymnasialt utbildade. 
+
+För de med lägst utbildningsnivå (förgymnasialt utbildade) är relativt få etablerade på arbetsmarknaden. I den gruppen arbetar bara ungefär `r forgym_0_1_kvinna` procent av de utrikesfödda kvinnor, och cirka `r forgym_0_1_man` procent av de utrikesfödda männen, inom 2 år efter att de kommit till Sverige. Andelen etablerade ökar sedan med vistelsetiden, men är på klart lägre nivåer än för grupper med högre utbildningsvivåer. Även bland inrikes födda är det en klart lägre andel med förgymnasial utbildning som är etablerade på arbetsmarknaden.
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-etablering_fig
+gg_etablering$etablering_lan_utb
 ```
 
-Hur snabbt en nyligen invandrad person etableras på arbetsmarknaden är också nära kopplat till vilken utbildningsnivå personen har. För dem med högst utbildning har det visat sig att processen tenderar att gå relativt snabbt och cirka `r round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: eftergymnasial utbildning") %>% .$andel,0)` procent av kvinnorna och `r round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: eftergymnasial utbildning") %>% .$andel,0)` procent av männen arbetar innan de varit i Sverige i 2 år (0-1 år i figuren nedan). Sedan ökar etableringsgraden över tid och efter 10 år och längre är fler än 80 procent av kvinnorna mellan 20 och 65 år sysselsatta, vilket är i linje med sysselsättningsgraden för inrikes födda kvinnor i samma åldersgrupp. För dem med exempelvis gymnasial utbildning är situationen delvis annorlunda. I den gruppen arbetar ungefär `r round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: gymnasial utbildning") %>% .$andel,0)` procent av de utrikesfödda kvinnor, och cirka `r round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: gymnasial utbildning") %>% .$andel,0)` procent av de utrikesfödda männen, inom 2 år efter att de kommit till Sverige. Över tid ökar andelen etablerade snabbt på arbetsmarknaden, särskilt för gymnasialt utbildade.
-
-<br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas, BAS.\nBearbetning: Samhällsanalys, Region Dalarna.\n"
-
-# Skapar en faktorvariabel för att få tid sedan etablering i "rätt" ordning i figuren
-etablering_df$bakgrundsvariabel <- factor(etablering_df$bakgrundsvariabel, levels = c("0-1 år","2-3 år",
-                                                                                "4-9 år","10- år"))
-
-diagramtitel <- paste0("Andel förvärvsarbetande 20-65 år bland utrikes födda i Dalarna"," ",max(etablering_df$år))
-diagramtitel <- str_wrap(diagramtitel,60)
-diagramfilnamn <- paste0("etablering_lan_utb.png")
-    
-etablering_fig_utb <- SkapaStapelDiagram(skickad_df =etablering_df %>%
-                                           filter(år == max(år),
-                                                  kön != "män och kvinnor",
-                                                  utbildningsnivå %in% c("utbildningsnivå: gymnasial utbildning" ,"utbildningsnivå: eftergymnasial utbildning")),
-                                         skickad_x_var = "bakgrundsvariabel", 
-                                         skickad_y_var = "andel", 
-                                         skickad_x_grupp = "kön",
-                                         manual_x_axis_title = "Vistelsetid i Sverige",
-                                         manual_color = diagramfarger("kon"),
-                                         diagram_titel = diagramtitel,
-                                         diagram_capt =  diagram_capt,
-                                         diagram_facet = TRUE,
-                                         facet_grp = "utbildningsnivå",
-                                         facet_legend_bottom = TRUE,
-                                         facet_scale = "fixed",
-                                         x_axis_sort_value = FALSE,
-                                         y_axis_100proc = TRUE,
-                                         x_axis_lutning = 0, 
-                                         manual_y_axis_title="procent",
-                                         output_mapp = outputmapp,
-                                         filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = spara_figur)
-
-```
+Hur snabbt en nyligen invandrad person etablerar sig på arbetsmarknaden har förändrats avsevärt över tid, vilket åskådliggörs i diagrammet nedan. Från början av 2000-talet fram till mitten av 2010-talet låg etableringstiden relativt stabil, där ungefär 20 procent av de 20-64 åringar som varit i Sverige i upp till 2 år (0-1 år i figuren nedan) förvärvsarbetade och ungefär 50-60 procent av de 20-64 åringar som varit i Sverige mellan 4 och 10 år (4-9 år i figuren nedan) förvärvsarbetade. Efter den stora flyktinginvandringen i mitten av 2010-talet verkar dock någonting ha hänt och framförallt personer med kort vistelsetid (upp till 2 år) kommer i arbete betydligt snabbare. Mellan 2015 och `r max(etablering_df$år)` ökade andelen förvärvsarbetande av de 20-64 åringar som varit i Sverige i upp till 2 år (0-1 år i figuren nedan) från ungefär `r round(etablering_df %>% filter(bakgrundsvariabel == "0-1 år",utbildningsnivå == "samtliga utbildningsnivåer",kön == "män och kvinnor",år == min(år)) %>% .$andel,0)` procent till cirka `r round(etablering_df %>% filter(bakgrundsvariabel == "0-1 år",utbildningsnivå == "samtliga utbildningsnivåer",kön == "män och kvinnor",år == max(år)) %>% .$andel,0)`  procent, en remarkabel förbättring. Under samma tidsperiod har även arbetslösheten för gruppen utrikes födda minskat betydligt, vilket illustrerats i ett tidigare diagram. Värt att notera är att det i diagrammet nedan är andelen förvärvsarbetande i åldersgruppen 20-64 år som redovisas mellan 1997 och 2021, medan det är andelen förvärvsarbetande i åldergruppen 20-65 år som redovisas åren därefter. 
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-etablering_fig_utb
+gg_etablering$etablering_tid
 ```
-
-Hur snabbt en nyligen invandrad person etablerar sig på arbetsmarknaden har förändrats avsevärt över tid, vilket åskådliggörs i diagrammet nedan. Från början av 2000-talet fram till mitten av 2010-talet låg etableringstiden relativt stabil, där ungefär 20 procent av de 20-64 åringar som varit i Sverige i upp till 2 år (0-1 år i figuren nedan) förvärvsarbetade och ungefär 50-60 procent av de 20-64 åringar som varit i Sverige mellan 4 och 10 år (4-9 år i figuren nedan) förvärvsarbetade. Efter den stora flyktinginvandringen i mitten av 2010-talet verkar dock någonting ha hänt och framförallt personer med kort vistelsetid (upp till 2 år) kommer i arbete betydligt snabbare. Mellan 2015 och `r max(etablering_df$år)` ökade andelen förvärvsarbetande av de 20-64 åringar som varit i Sverige i upp till 2 år (0-1 år i figuren nedan) från ungefär 14 procent till cirka `r round(etablering_df %>% filter(bakgrundsvariabel == "0-1 år",utbildningsnivå == "samtliga utbildningsnivåer",kön == "män och kvinnor",år == max(år)) %>% .$andel,0)`  procent, en remarkabel förbättring. Under samma tidsperiod har även arbetslösheten för gruppen utrikes födda minskat betydligt, vilket illustrerats i ett tidigare diagram. Värt att notera är att det i diagrammet nedan är andelen förvärvsarbetande i åldersgruppen 20-64 år som redovisas mellan 1997 och 2021, medan det är andelen förvärvsarbetande i åldergruppen 20-65 år som redovisas åren därefter. 
-
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Fram till och med 2021, 20-64 år och data från RAMS. Från 2022, 20-65 år och data från BAS."
-
-etablering_df_tid <- etablering_df %>% 
-  filter(bakgrundsvariabel != "10- år",
-         utbildningsnivå == "samtliga utbildningsnivåer",
-         kön == "män och kvinnor")
-
-# Skapar en faktorvariabel för att få tid sedan etablering i "rätt" ordning i figuren
-etablering_df_tid$bakgrundsvariabel <- factor(etablering_df_tid$bakgrundsvariabel, levels = c("0-1 år","2-3 år",
-                                                                                              "4-9 år"))
-
-diagramtitel <- paste0("Andel förvärvsarbetande bland utrikes födda i Dalarna efter vistelsetid i Sverige")
-diagramtitel <- str_wrap(diagramtitel,60)
-diagramfilnamn <- paste0("etablering_tid.png")
-    
-etablering_fig_tid <- SkapaStapelDiagram(skickad_df =etablering_df_tid,
-                                         skickad_x_var = "år", 
-                                         skickad_y_var = "andel", 
-                                         skickad_x_grupp = "bakgrundsvariabel",
-                                         manual_color = diagramfarger("rus_sex"),
-                                         diagram_titel = diagramtitel,
-                                         diagram_capt =  diagram_capt,
-                                         diagram_facet = TRUE,
-                                         facet_grp = "utbildningsnivå",
-                                         facet_legend_bottom = TRUE,
-                                         facet_scale = "fixed",
-                                         x_axis_sort_value = FALSE,
-                                         x_axis_lutning = 45, 
-                                         y_axis_100proc = TRUE,
-                                         manual_y_axis_title="procent",
-                                         output_mapp = outputmapp,
-                                         filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = spara_figur)
-
-```
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-etablering_fig_tid
-```
-
 
 ## Skulder hos Kronofogden
 Ytterligare en aspekt av ekonomisk status är att ha skulder hos Kronofogden, vilket både är bekymmer för individen och orsakar stora kostnader för samhället. I det första diagrammet nedan redovisas antalet personer i Dalarna som har skulder under indrivning hos Kronofogden. Två trender är tydliga.
