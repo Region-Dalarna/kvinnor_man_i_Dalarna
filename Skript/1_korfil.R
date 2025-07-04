@@ -70,7 +70,7 @@ gg_fp_vab <- diag_foraldrapenning_vab(region_vekt = "20",
                                       spara_diagrambildfil = TRUE,
                                       spara_dataframe_till_global_environment = TRUE)
 
-# VaB
+# VaB - månadsbasis
 source(here("Skript","fp_vab_manad.R"))
 gg_forsakringskassan <- diag_foraldrapenning_manad(region_vekt = "20",
                                                    output_mapp = output_mapp_figur,
@@ -78,6 +78,17 @@ gg_forsakringskassan <- diag_foraldrapenning_manad(region_vekt = "20",
                                                    diag_vab = FALSE,
                                                    spara_diagrambildfil = TRUE,
                                                    spara_dataframe_till_global_environment = TRUE)
+
+# Sjukpenningtal och ohälsotal
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diagram_ohalsotal_sjukpenningtal_kv_man.R")
+gg_ohalsotal_sjp <- diag_ohalsotal_sjukpenningtal (region_vekt = "20",
+                                                   output_mapp = output_mapp_figur,
+                                                   diag_ohalsotal = TRUE,
+                                                   diag_sjukpenningtal = TRUE,
+                                                   spara_diagrambildfil = TRUE,
+                                                   spara_dataframe_till_global_environment = TRUE)
+
+
 
 # source(here("Skript","diagram_arbesloshet_tidsserie_BAS.R"))
 # gg_arbetsloshet_tidsserie_bas <- diag_arbetsloshet_tidsserie(spara_diagrambildfil = FALSE,
