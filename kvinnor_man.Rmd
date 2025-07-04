@@ -76,10 +76,10 @@ riksdagsval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet
 regionval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 2)
 kommunval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 3)
 chefer_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/chefer.xlsx")
-foraldrapenning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/foraldrapenning.xlsx",sheet = 1) %>% 
-  mutate(Kommun = ifelse(Kommun == "20 Dalarnas län", "Samtliga kommuner",  Kommun))
-vab_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/foraldrapenning.xlsx",sheet = 2) %>% 
-  mutate(Kommun = ifelse(Kommun == "20 Dalarnas län", "Samtliga kommuner",  Kommun))
+# foraldrapenning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/foraldrapenning.xlsx",sheet = 1) %>% 
+#   mutate(Kommun = ifelse(Kommun == "20 Dalarnas län", "Samtliga kommuner",  Kommun))
+# vab_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/foraldrapenning.xlsx",sheet = 2) %>% 
+#   mutate(Kommun = ifelse(Kommun == "20 Dalarnas län", "Samtliga kommuner",  Kommun))
 ohalsotal_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/ohalsotal_sjukpenningtal.xlsx",sheet = 1) %>% 
   mutate(Kommun = ifelse(Kommun == "20 Dalarnas län", "Samtliga kommuner",  Kommun)) %>% 
     filter(Ålder == "Samtliga 16-64 år")
@@ -1142,110 +1142,22 @@ Antalet mottagare av föräldrapenning ökade från ungefär 13 000 i slutet av 
 En minskning i antalet föräldrapenningdagar syntes under pandemiåren och åren därefter, vilket sannolikt beror på att uttaget av tillfällig föräldrapenning (vab) då ökade kraftigt (se avsnitt 3.2 nedan). Antalet uttagna dagar har ökat för såväl kvinnor som män, men den relativa skillnaden i uttag mellan könen har minskat.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
-diagramtitel <- "Antal mottagare av föräldrapenning i Dalarna"
-diagramfilnamn <- "Foraldrapenning_antal.png"
-
-fp_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df %>%
-                               filter(Kommun == "Samtliga kommuner",
-                                      Kön != "Kvinnor och män") %>% 
-                                mutate(Kön = tolower(Kön),
-                                       Antal_mottagare = as.numeric(Antal_mottagare)), 
-                             skickad_x_var = "År", 
-                             skickad_y_var = "Antal_mottagare", 
-                             skickad_x_grupp = "Kön",
-                             x_axis_lutning = 45,
-                             manual_x_axis_text_vjust=1,
-                             manual_x_axis_text_hjust=1,
-                             manual_y_axis_title = "Antal mottagare",
-                             manual_color = diagramfarger("kon"),
-                             stodlinjer_avrunda_fem = TRUE,
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             diagram_facet = FALSE,
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = spara_figur)
-    
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-fp_fig
+gg_fp_vab$Foraldrapenning_antal_Dalarna
 ```
 
 Fördelningen av dagar mellan vårdnadshavarna har jämnats ut något sedan slutet av 1990-talet då runt 85-90 procent av föräldrapenningdagarna togs ut av mammorna. Sedan dess har först en (1995), sedan två (2002) och även tre månader (2016) reserverats åt respektive vårdnadshavare (också kallade "pappamånader"). Detta har bidragit till ett jämnare uttag men utvecklingen får ändå sägas gå relativt trögt, då kvinnors andel endast har minskat till runt `r round(as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Kvinnor", År == max(År)) %>% .$Andel),0)` procent `r max(foraldrapenning_df$År)`. Svenska vårdnadshavare är således långt ifrån att ge sina barn en jämställd tillgång till sina föräldrar. Skillnaden i uttag påverkar också den disponibla inkomsten, som beskrivits under rubriken Ekonomisk jämställdhet. Skillnaden är som störst mellan sammanboende kvinnor och män när det yngsta barnet är 0–3 år [(Regeringen, 2022)](<https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf>){target="_blank"}.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
-diagramtitel <- "Andel nettodagar per kön i Dalarna"
-diagramfilnamn <- "Foraldrapenning_andel.png"
-
-fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
-                               filter(Kommun == "Samtliga kommuner",
-                                      Kön != "Kvinnor och män") %>% 
-                                mutate(Kön = tolower(Kön),
-                                       Andel = as.numeric(Andel)), 
-                             skickad_x_var = "År", 
-                             skickad_y_var = "Andel", 
-                             skickad_x_grupp = "Kön",
-                             x_axis_lutning = 45,
-                             manual_x_axis_text_vjust=1,
-                             manual_x_axis_text_hjust=1,
-                             manual_color = diagramfarger("kon"),
-                             stodlinjer_avrunda_fem = TRUE,
-                             manual_y_axis_title = "",
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             diagram_facet = FALSE,
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = spara_figur)
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-fp_andel_fig
+gg_fp_vab$Foraldrapenning_andel_Dalarna
 ```
 
-Hur vårdnadshavare fördelar föräldrapenningen mellan sig är relativt olika i Dalarnas kommuner. I `r stri_extract_last(first(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun), regex='\\S+')` och Orsa är uttaget  mest jämställt relativt sett, där drygt `r round(as.numeric(first(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel)),0)` procent av föräldrapenningdagarna togs ut av männen. Minst jämställd är fördelningen i `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun, regex='\\S+')`, där motsvarande uttag är cirka `r round(as.numeric(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel),0)` procent.
+Hur vårdnadshavare fördelar föräldrapenningen mellan sig är relativt olika i Dalarnas kommuner. I `r first(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun)` är uttaget  mest jämställt relativt sett, där ungefär `r round(as.numeric(first(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel)),0)` procent av föräldrapenningdagarna togs ut av männen. Minst jämställd är fördelningen i `r foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun`, där motsvarande uttag är cirka `r round(as.numeric(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel),0)` procent.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
-diagramtitel <- paste0("Andel nettodagar per kön i Dalarna år ",max(foraldrapenning_df$År))
-diagramfilnamn <- "Foraldrapenning_andel_kommun.png"
-
-fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
-                               filter(Kommun != "Samtliga kommuner",
-                                      Kön != "Kvinnor och män",
-                                      År == max(År)) %>% 
-                                mutate(Kön = tolower(Kön),
-                                       Andel = as.numeric(Andel),
-                                       Kommun = stri_extract_last(Kommun, regex='\\S+')), 
-                             skickad_x_var = "Kommun", 
-                             skickad_y_var = "Andel", 
-                             skickad_x_grupp = "Kön",
-                             x_axis_lutning = 45,
-                             manual_color = diagramfarger("kon"),
-                             manual_y_axis_title = "",
-                             manual_x_axis_text_vjust=1,
-                             manual_x_axis_text_hjust=1,
-                             x_axis_sort_value = TRUE,
-                             stodlinjer_avrunda_fem = TRUE,
-                             x_axis_sort_grp = 1,
-                             vand_sortering = FALSE,
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             diagram_facet = FALSE,
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = spara_figur)
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-fp_andel_fig
+gg_fp_vab$Foraldrapenning_andel_kommun_Dalarna
 ```
 
 Antalet uttagna nettodagar av föräldrapenning är inte jämnt fördelade över året. Mest benägna är såväl kvinnor som män att ta ut dagar i juli och augusti, sannolikt för att ha möjlighet att vara hemma med barnen under deras skollov på sommaren. Även januari är en populär månad, troligtvis fokuserat i början av månaden när barnen är lediga från förskola och skola. 
@@ -1259,71 +1171,17 @@ gg_forsakringskassan$foraldrapenning_manad
 
 ## Tillfällig föräldrapenning
 Tillfällig föräldrapenning ges för vård av sjukt barn och är det som i folkmun kallas vab. Sett över tidsperioden minskade antalet uttagna nettodagar något mellan 2006 och 2009, för att därefter öka stadigt fram till 2022. På senare år har uttaget av tillfällig föräldrapenning/vab för såväl kvinnor som män minskat, men ligger fortfarande på högre nivåer än innan pandemin. Även för vård av sjukt barn tar kvinnor ut betydligt fler dagar än män, fördelningen ligger precis utanför spannet för vad som antas som statistisk jämställdhet, där kvinnor tar ut cirka `r round(vab_df %>% filter(Kommun == "Samtliga kommuner",Kön == "Kvinnor",År == max(År)) %>% .$Andel,0)` procent av dagarna. 
+
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
-diagramtitel <- "Vård av barn, antal uttagna nettodagar i Dalarna"
-diagramfilnamn <- "vab_antal.png"
-
-# tidigare  Delförmån == "Vård av barn"
-tfp_fig <- SkapaStapelDiagram(skickad_df = vab_df%>%
-                               filter(Kommun == "Samtliga kommuner",
-                                      Kön != "Kvinnor och män") %>% 
-                                mutate(Kön = tolower(Kön),
-                                       Antal_nettodagar = as.numeric(Antal_nettodagar)), 
-                             skickad_x_var = "År", 
-                             skickad_y_var = "Antal_nettodagar", 
-                             skickad_x_grupp = "Kön",
-                             x_axis_lutning = 45,
-                             manual_x_axis_text_vjust=1,
-                             manual_x_axis_text_hjust=1,
-                             manual_y_axis_title = "",
-                             manual_color = diagramfarger("kon"),
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             stodlinjer_avrunda_fem = TRUE,
-                             diagram_facet = FALSE,
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = spara_figur)
-    
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-tfp_fig
+gg_fp_vab$vab_antal_Dalarna
 ```
 
 Till skillnad från trenden för föräldrapenning har fördelningen av vab-dagar hållt sig jämnare de senaste decennierna (under pandemin verkar män ha ökat sitt uttag något jämfört med kvinnor).
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-diagramtitel <- "Vård av barn, förändring i antal uttagna nettodagar i Dalarna"
-diagramfilnamn <- "Vab_antal_linje.png"
-# tidigare: Delförmån == "Vård av barn"
-tfp_fig_linje <- SkapaLinjeDiagram(skickad_df = vab_df%>%
-                                     filter(Kommun == "Samtliga kommuner",
-                                            Kön != "Kvinnor och män") %>% 
-                                      mutate(Kön = tolower(Kön),
-                                             `Antal nettodagar` = as.numeric(Antal_nettodagar),
-                                             "år" = År), 
-                                   skickad_x_var = "år", 
-                                   skickad_y_var = "Antal nettodagar", 
-                                   skickad_x_grupp = "Kön",
-                                   manual_color = diagramfarger("kon"),
-                                   berakna_index = TRUE,
-                                   x_axis_lutning = 45,
-                                   diagram_titel = diagramtitel,
-                                   diagram_capt =  diagram_capt,
-                                   stodlinjer_avrunda_fem = TRUE,
-                                   diagram_facet = FALSE,
-                                   output_mapp = outputmapp,
-                                   filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = spara_figur)
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-tfp_fig_linje
+gg_fp_vab$Vab_antal_linjeDalarna
 ```
 
 # Hälsa och ohälsa

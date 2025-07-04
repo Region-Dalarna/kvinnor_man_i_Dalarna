@@ -123,10 +123,10 @@ source(here("Skript","Chefer.R"), encoding="UTF-8")
 diag_chefer(spara_data = TRUE,
             output_mapp = Output_mapp)
 
-# Föräldrapenning och VAB - ok, uppdaterat med Peters skript 
-source(here("Skript","foraldrapenning.R"), encoding="UTF-8")
-diag_foraldraforsakring(spara_data = TRUE,
-                        output_mapp = Output_mapp)
+# Föräldrapenning och VAB - Är numer ett diagramskript
+# source(here("Skript","foraldrapenning.R"), encoding="UTF-8")
+# diag_foraldraforsakring(spara_data = TRUE,
+#                         output_mapp = Output_mapp)
 
 
 # Ohälsotal och sjukpenningtal

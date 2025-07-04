@@ -5,7 +5,7 @@ uppdatera_data = FALSE
 
 if(uppdatera_data == TRUE){
   
-  cat("Hämtning av data påbörjad")
+  cat("Hämtning av data påbörjad\n\n")
   start_time <- Sys.time()
 
 
@@ -60,6 +60,15 @@ gg_matchning <- diag_matchning_lan(region_vekt = "20",
                                    spara_figur = TRUE,
                                    returnera_data = TRUE,
                                    kon_klartext = "*")
+
+# Föräldrapenning och VAB
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diagram_foraldrapenning_vab_kv_man.R")
+gg_fp_vab <- diag_foraldrapenning_vab(region_vekt = "20",
+                                      output_mapp = output_mapp_figur,
+                                      diag_foraldrapenning = TRUE,
+                                      diag_vab = TRUE,
+                                      spara_diagrambildfil = TRUE,
+                                      spara_dataframe_till_global_environment = TRUE)
 
 # VaB
 source(here("Skript","fp_vab_manad.R"))
