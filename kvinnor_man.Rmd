@@ -195,7 +195,7 @@ I nationell jämförelse har Dalarna en relativt låg andel personer med högre 
 <br>
 ```{r, echo=FALSE}
   
-diagramtitel <-paste0("Andel av befolkningen (25-64 år) med minst 3 års eftergymnasial utbildning", unique(utbildning_df$år))
+diagramtitel <-paste0("Andel av befolkningen (25-64 år) med minst 3 års eftergymnasial utbildning år ", unique(utbildning_df$år))
 diagramtitel <- str_wrap(diagramtitel,50)
 diagramfilnamn <- paste0("utbildningsniva_jmf_lan_kon.png")
 
