@@ -60,10 +60,10 @@ data_forvarvsarbetande_bransch(spara_data = TRUE,
 # data_yrke(spara_data = TRUE,
 #           output_mapp = Output_mapp)
 
-# Arbetsmarknadsstatus (senaste år)
-source(here("Skript","arbetsmarknadsstatus_senastear.R"), encoding="UTF-8")
-diag_arbetsmarknadsstatus(skapa_fil = TRUE,
-                          output_mapp = Output_mapp)
+# Arbetsmarknadsstatus (senaste år) - Numer ett diagramskript
+# source(here("Skript","arbetsmarknadsstatus_senastear.R"), encoding="UTF-8")
+# diag_arbetsmarknadsstatus(skapa_fil = TRUE,
+#                           output_mapp = Output_mapp)
 
 # Arbetslöshet, bakgrund. 2008 - senaste år. Arbetsförmedlingen, Excel från hemsida
 source(here("Skript","arbetsloshet_2008_senastear.R"), encoding="UTF-8")
