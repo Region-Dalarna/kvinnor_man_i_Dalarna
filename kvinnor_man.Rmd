@@ -22,6 +22,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 # Nödvändiga paket
 if (!require("pacman")) install.packages("pacman")
 p_load(here,
+       glue,
        tidyverse,
        openxlsx,
        stringi)
@@ -80,12 +81,12 @@ chefer_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/chefer.xlsx")
 #   mutate(Kommun = ifelse(Kommun == "20 Dalarnas län", "Samtliga kommuner",  Kommun))
 # vab_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/foraldrapenning.xlsx",sheet = 2) %>% 
 #   mutate(Kommun = ifelse(Kommun == "20 Dalarnas län", "Samtliga kommuner",  Kommun))
-ohalsotal_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/ohalsotal_sjukpenningtal.xlsx",sheet = 1) %>% 
-  mutate(Kommun = ifelse(Kommun == "20 Dalarnas län", "Samtliga kommuner",  Kommun)) %>% 
-    filter(Ålder == "Samtliga 16-64 år")
-sjukpenningtal_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/ohalsotal_sjukpenningtal.xlsx",sheet = 2)%>% 
-  mutate(Kommun = ifelse(Kommun == "20 Dalarnas län", "Samtliga kommuner",  Kommun)) %>% 
-    filter(Ålder == "Samtliga 16-64 år")
+# ohalsotal_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/ohalsotal_sjukpenningtal.xlsx",sheet = 1) %>% 
+#   mutate(Kommun = ifelse(Kommun == "20 Dalarnas län", "Samtliga kommuner",  Kommun)) %>% 
+#     filter(Ålder == "Samtliga 16-64 år")
+# sjukpenningtal_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/ohalsotal_sjukpenningtal.xlsx",sheet = 2)%>% 
+#   mutate(Kommun = ifelse(Kommun == "20 Dalarnas län", "Samtliga kommuner",  Kommun)) %>% 
+#     filter(Ålder == "Samtliga 16-64 år")
 stress_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/sjukfall_stress.xlsx")
 # OBS! UPPDATERAS MANUELLT
 startade_sjukfall_bransch_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/startade_sjukfall_bransch_bearbetad_2025_jul_03.xlsx")
@@ -1188,214 +1189,39 @@ gg_fp_vab$Vab_antal_linjeDalarna
 Jämställd hälsa är det femte jämställdhetspolitiska delmålet. Kvinnor och män, flickor och pojkar ska ha samma förutsättningar för en god hälsa och erbjudas vård och omsorg på lika villkor. Idag finns det stora skillnader i hälsa och ohälsa mellan kvinnor och män. Flickor och kvinnor är sjukskrivna för symptom som är kopplade till psykisk ohälsa i betydligt högre utsträckning än män, samtidigt dör fler män än kvinnor i suicid (självmord), i arbetsplatsolyckor, i hjärt- och kärlsjukdomar och av cancer. Förklaringar kan bland annat kopplas till brister i arbetsmiljön, att inte söka vård i tid och skillnader i vårdens bemötande.
 
 ## Ohälsotalet 
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-senaste_manad <- ohalsotal_df %>% mutate(månad_namn = format(as.Date(paste0(År,"-", Månad, "-01")), "%B")) %>% .$månad_namn %>% unique() %>% first()
-
-ohalsotal_df_utskrift <- ohalsotal_df %>%
-  filter(Ålder == "Samtliga 16-64 år") %>%
-    mutate(Ohälsotalet = as.numeric(Ohälsotalet)) %>% 
-      group_by(År,Län,Kommun,Kön) %>% 
-        summarize(Ohälsotalet_medel=mean(Ohälsotalet))
-
-diagram_capt_ohälsa <- glue("Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Ohälsotalet: hur många dagar under en tolvmånadersperiod\nFörsäkringskassan betalar ut ersättning för nedsatt arbetsförmåga\ni förhållande till antalet försäkrade i åldrarna 16-64 år. Data för {max(ohalsotal_df$År)} till och med {senaste_manad}.")
-
-diagramtitel <- "Genomsnittligt ohälsotal (16-64 år) per år i Dalarna"
-diagramfilnamn <- "ohalsotal.png"
-
-ohalsotal_fig <- SkapaStapelDiagram(skickad_df = ohalsotal_df_utskrift %>%
-                                     filter(Kommun == "Samtliga kommuner",
-                                            Kön != "Kvinnor och män") %>% 
-                                      mutate(Kön = tolower(Kön)), 
-                                   skickad_x_var = "År", 
-                                   skickad_y_var = "Ohälsotalet_medel", 
-                                   skickad_x_grupp = "Kön",
-                                   x_axis_lutning = 45,
-                                   manual_color = diagramfarger("kon"),
-                                   manual_y_axis_title = "",
-                                   diagram_titel = diagramtitel,
-                                   diagram_capt =  diagram_capt_ohälsa,
-                                   stodlinjer_avrunda_fem = TRUE,
-                                   diagram_facet = FALSE,
-                                   berakna_index = FALSE,
-                                   output_mapp = outputmapp,
-                                   filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = spara_figur)
-
-# ohalsotal_df_alt <- ohalsotal_df %>%
-#   filter(Ålder == "Samtliga 16-64 år") %>%
-#     mutate(Ohälsotalet = as.numeric(Ohälsotalet),
-#            månad_namn = format(as.Date(paste0(År,"-", Månad, "-01")), "%B")) %>%
-#       mutate(tid = paste0(månad_namn, " ", År)) %>%
-#         mutate(tid = factor(tid, levels = rev(unique(tid))))
-
-      # group_by(År,Län,Kommun,Kön) %>%
-      #   summarize(Ohälsotalet_medel=mean(Ohälsotalet))
-
-# diagram_capt_ohälsa <- paste0("Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Ohälsotalet: hur många dagar under en tolvmånadersperiod\nFörsäkringskassan betalar ut ersättning för nedsatt arbetsförmåga\ni förhållande till antalet försäkrade i åldrarna 16-64 år. Data för ",max(ohalsotal_df_alt$År)," till och med ",first(ohalsotal_df_alt$månad_namn))
-
-# ohalsotal_fig_alt <- SkapaLinjeDiagram(skickad_df = ohalsotal_df_alt %>%
-#                                      filter(Kommun == "Samtliga kommuner",
-#                                             Kön != "Kvinnor och män",
-#                                             År>2004) %>%
-#                                       mutate(Kön = tolower(Kön)),
-#                                    skickad_x_var = "tid",
-#                                    skickad_y_var = "Ohälsotalet",
-#                                    skickad_x_grupp = "Kön",
-#                                    x_axis_lutning = 45,
-#                                    manual_color = diagramfarger("kon"),
-#                                    manual_y_axis_title = "",
-#                                    diagram_titel = "diagramtitel",
-#                                    diagram_capt =  diagram_capt_ohälsa,
-#                                    stodlinjer_avrunda_fem = TRUE,
-#                                    x_axis_visa_var_xe_etikett = 6,
-#                                    inkludera_sista_vardet_var_xe_etikett = TRUE,
-#                                    output_mapp = "outputmapp",
-#                                    filnamn_diagram = "diagramfilnamn",
-#                                    skriv_till_diagramfil = FALSE)
-# 
-#  g_test <- ohalsotal_fig_alt+ geom_segment(aes(xend = Date, y = 0, yend = Cases))
-
-```
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-```
-
 Ohälsotalet^[Ohälsotalet: hur många dagar under en tolvmånadersperiod
     Försäkringskassan betalar ut ersättning för nedsatt arbetsförmåga i
     förhållande till antalet försäkrade i åldersgruppen 16-64 år] mäter i vilken utsträckning personer är borta från arbetet på grund av nedsatt arbetsförmåga, mätt under ett års tid. Ohälsotalet varierar över tid och var relativt högt under början av 2000-talet. Därefter syns en klart nedåtgående trend, även om ohälsotalet har ökat något de senaste åren. Under hela tidsperioden har ohälsotalet varit högre för kvinnor än för män, även om skillnaden mellan könen har minskat något över tid.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-ohalsotal_fig
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-# diagram_capt_ohälsa <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Ohälsotalet: hur många dagar under en tolvmånadersperiod\nFörsäkringskassan betalar ut ersättning för nedsatt arbetsförmåga\ni förhållande till antalet försäkrade i åldrarna 16-64 år. "
-
-diagramtitel <- paste0("Genomsnittligt ohälsotal (16-64 år) i Dalarna år ",max(ohalsotal_df_utskrift$År))
-diagramfilnamn <- "ohalsotal_kommun.png"
-
-ohalsotal_kommun_fig <- SkapaStapelDiagram(skickad_df = ohalsotal_df_utskrift %>%
-                                     filter(Kommun != "Samtliga kommuner",
-                                            Kön != "Kvinnor och män",
-                                            År == max(.$År)) %>% 
-                                      mutate(Kön = tolower(Kön),
-                                             Kommun = stri_extract_last(Kommun, regex='\\S+')), 
-                                   skickad_x_var = "Kommun", 
-                                   skickad_y_var = "Ohälsotalet_medel", 
-                                   skickad_x_grupp = "Kön",
-                                   manual_x_axis_text_vjust = 1,
-                                   manual_x_axis_text_hjust = 1,
-                                   x_axis_lutning = 45,
-                                   x_axis_sort_value = TRUE,
-                                   x_axis_sort_grp = 1,
-                                   vand_sortering = TRUE,
-                                   manual_color = diagramfarger("kon"),
-                                   manual_y_axis_title = "",
-                                   diagram_titel = diagramtitel,
-                                   diagram_capt =  diagram_capt_ohälsa,
-                                   stodlinjer_avrunda_fem = TRUE,
-                                   diagram_facet = FALSE,
-                                   berakna_index = FALSE,
-                                   output_mapp = outputmapp,
-                                   filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = spara_figur)
-
+gg_ohalsotal_sjp$ohalsotal_Dalarna
 ```
 
 Ohälsotalet för Dalarnas befolkning visar att det finns skillnader mellan länets
-kommuner. För män är ohälsotalet år `r max(ohalsotal_df_utskrift$År)` högst i `r stri_extract_last(ohalsotal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Ohälsotalet_medel == max(.$Ohälsotalet_medel)) %>% .$Kommun, regex='\\S+')` och lägst i `r stri_extract_last(ohalsotal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$Kommun, regex='\\S+')`. För
-kvinnor är ohälsotalet högst i `r stri_extract_last(ohalsotal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Ohälsotalet_medel == max(.$Ohälsotalet_medel)) %>% .$Kommun, regex='\\S+')` och lägst i `r stri_extract_last(ohalsotal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$Kommun, regex='\\S+')`. För att fastställa orsaken till skillnaderna mellan kommuner behövs djupare studier och analyser. Potentiella faktorer kan vara att branschstrukturen skiljer sig mellan kommunerna och att det är olika hög sjukfrånvaro i olika branscher, men även att socioekonomiska förutsättningar skiljer sig åt mellan kommunerna i Dalarna.
+kommuner. För män är ohälsotalet år `r max(ohalsotal_df$År)` högst i `r ohalsotal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Ohälsotalet_medel == max(.$Ohälsotalet_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")` och lägst i `r ohalsotal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")`. För
+kvinnor är ohälsotalet högst i `r ohalsotal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Ohälsotalet_medel == max(.$Ohälsotalet_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")` och lägst i `r ohalsotal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")`. För att fastställa orsaken till skillnaderna mellan kommuner behövs djupare studier och analyser. Potentiella faktorer kan vara att branschstrukturen skiljer sig mellan kommunerna och att det är olika hög sjukfrånvaro i olika branscher, men även att socioekonomiska förutsättningar skiljer sig åt mellan kommunerna i Dalarna.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-ohalsotal_kommun_fig
+gg_ohalsotal_sjp$ohalsotal_kommun_Dalarna
 ```
 
 ## Sjukpenningtalet
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-senaste_manad <- sjukpenningtal_df %>% mutate(månad_namn = format(as.Date(paste0(År,"-", Månad, "-01")), "%B")) %>% .$månad_namn %>% unique() %>% first()
-
-diagram_capt_sjukpenning<- glue("Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring:Sjukpenningtalet är antalet dagar med sjukpenning och rehabiliteringspenning\nsom har betalats ut under en 12-månaders period. Den summan delas med antalet försäkrade i\nSverige som är i åldrarna 16–64 år. Data för {max(sjukpenningtal_df$År)} till och med {senaste_manad}.")
-
-sjukpenningtal_df_utskrift <-sjukpenningtal_df %>%
-  filter(Ålder == "Samtliga 16-64 år") %>%
-    mutate(Sjukpenningtal = as.numeric(`Sjukpenningtal.1.0`)) %>% 
-      group_by(År,Län,Kommun,Kön) %>% 
-        summarize(Sjukpenningtal_medel=mean(Sjukpenningtal))
-
-diagramtitel <- "Genomsnittligt sjukpenningtal (16-64 år) per år i Dalarna"
-diagramfilnamn <- "sjukpenningtal.png"
-
-sjukpenningtal_fig <- SkapaStapelDiagram(skickad_df = sjukpenningtal_df_utskrift %>%
-                                         filter(Kommun == "Samtliga kommuner",
-                                                Kön != "Kvinnor och män") %>% 
-                                          mutate(Kön = tolower(Kön)), 
-                                       skickad_x_var = "År", 
-                                       skickad_y_var = "Sjukpenningtal_medel", 
-                                       skickad_x_grupp = "Kön",
-                                       x_axis_lutning = 45,
-                                       manual_color = diagramfarger("kon"),
-                                       manual_y_axis_title = "",
-                                       diagram_titel = diagramtitel,
-                                       diagram_capt =  diagram_capt_sjukpenning,
-                                       stodlinjer_avrunda_fem = TRUE,
-                                       diagram_facet = FALSE,
-                                       berakna_index = FALSE,
-                                       output_mapp = outputmapp,
-                                       filnamn_diagram = diagramfilnamn,
-                                       skriv_till_diagramfil =spara_figur)
-```
 
 I likhet med ohälsotalet tenderar sjukpenningtalet, som enbart innefattar sjukpenning och rehabiliteringspenning, att variera kraftigt över tiden. I början av 2000-talet var talet högt för både kvinnor och män, för att därefter minska rejält fram till 2010. Därefter har sjukpenningtalet både gått upp och ned, men på senare år kan en ökning återigen skönjas. Kvinnor är sjukskrivna i större utsträckning än män, vilket återspeglas i sjukpenningtalet. Att talet förändras över tid behöver inte nödvändigtvis bero på att människor blir mer eller mindre sjuka. Det kan snarare bero på en mer eller mindre restriktiv syn på vad som krävs för att bli sjukskriven, något som ofta är politiskt styrt. Exempelvis beror den kraftiga nedgången i sjukpenningtalet mellan 2002 och 2010 sannolikt inte främst på att arbetstagare var mindre sjuka, utan på att bedömningen av vad som berättigar en sjukskrivning var hårdare.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-sjukpenningtal_fig
+gg_ohalsotal_sjp$sjukpenningtal_Dalarna
 ```
 
 Även när det kommer till sjukpenningtalet finns det skillnader mellan
-Dalarnas kommuner. För både kvinnor och män är talet högst i `r stri_extract_last(sjukpenningtal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Sjukpenningtal_medel == max(.$Sjukpenningtal_medel)) %>% .$Kommun, regex='\\S+')`. Sjukpenningtalet är en delmängd av ohälsotalet och därför samvarierar resultaten mellan kommunerna i stort. Talet är lägst för både kvinnor och män i `r stri_extract_last(sjukpenningtal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Sjukpenningtal_medel == min(.$Sjukpenningtal_medel)) %>% .$Kommun, regex='\\S+')`.
+Dalarnas kommuner. För både kvinnor och män är talet högst i `r sjukpenningtal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Sjukpenningtal_medel == max(.$Sjukpenningtal_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")`. Sjukpenningtalet är en delmängd av ohälsotalet och därför samvarierar resultaten mellan kommunerna i stort. Talet är lägst för både kvinnor och män i `r sjukpenningtal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Sjukpenningtal_medel == min(.$Sjukpenningtal_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")`.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-diagramtitel <- paste0("Genomsnittligt sjukpenningtal (16-64 år) i Dalarna år ",max(sjukpenningtal_df_utskrift$År))
-diagramfilnamn <- "sjukpenningtal_kommun.png"
-
-sjukpenningtal_kommun_fig <- SkapaStapelDiagram(skickad_df = sjukpenningtal_df_utskrift %>%
-                                     filter(Kommun != "Samtliga kommuner",
-                                            Kön != "Kvinnor och män",
-                                            År == max(.$År)) %>% 
-                                      mutate(Kön = tolower(Kön),
-                                             Kommun = stri_extract_last(Kommun, regex='\\S+')), 
-                                   skickad_x_var = "Kommun", 
-                                   skickad_y_var = "Sjukpenningtal_medel", 
-                                   skickad_x_grupp = "Kön",
-                                   manual_x_axis_text_vjust = 1,
-                                   manual_x_axis_text_hjust = 1,
-                                   x_axis_lutning = 45,
-                                   x_axis_sort_value = TRUE,
-                                   x_axis_sort_grp = 1,
-                                   vand_sortering = TRUE,
-                                   manual_color = diagramfarger("kon"),
-                                   stodlinjer_avrunda_fem = TRUE,
-                                   manual_y_axis_title = "",
-                                   diagram_titel = diagramtitel,
-                                   diagram_capt =  diagram_capt_sjukpenning,
-                                   diagram_facet = FALSE,
-                                   berakna_index = FALSE,
-                                   output_mapp = outputmapp,
-                                   filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = spara_figur)
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-sjukpenningtal_kommun_fig
+gg_ohalsotal_sjp$sjukpenningtal_kommun_Dalarna
 ```
 
 ## Stressrelaterade sjukfall 

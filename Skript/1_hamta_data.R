@@ -129,10 +129,10 @@ diag_chefer(spara_data = TRUE,
 #                         output_mapp = Output_mapp)
 
 
-# Ohälsotal och sjukpenningtal
-source(here("Skript","ohalsotal_sjukpenningtal.R"), encoding="UTF-8")
-diag_ohalsa(spara_data = TRUE,
-            output_mapp = Output_mapp)
+# Ohälsotal och sjukpenningtal - Numer ett diagramskript
+# source(here("Skript","ohalsotal_sjukpenningtal.R"), encoding="UTF-8")
+# diag_ohalsa(spara_data = TRUE,
+#             output_mapp = Output_mapp)
 
 # Startade sjukfall stress - Har uppdaterat (inklusive markdown-skript)
 source(here("Skript","sjukfall_stress.R"), encoding="UTF-8")
