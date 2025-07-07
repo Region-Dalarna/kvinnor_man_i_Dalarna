@@ -89,6 +89,16 @@ gg_ohalsotal_sjp <- diag_ohalsotal_sjukpenningtal (region_vekt = "20",
                                                    spara_dataframe_till_global_environment = TRUE)
 
 
+# Sjukfall kopplade till stress
+source(here("Skript","diagram_sjukfall_stress.R"))
+gg_sjukfall_stress <- diag_sjukfall_stress (region_vekt = "20",
+                                            output_mapp = output_mapp_figur,
+                                            spara_diagrambildfil = TRUE,
+                                            spara_dataframe_till_global_environment = TRUE)
+
+andel_kvinnor_stress <- round(stress_df %>% filter(Kön=="Kvinnor",År==max(.$År)) %>% 
+                                .$Antal_medel/stress_df %>% filter(Kön=="Kvinnor och män",År==max(.$År)) %>% 
+                                .$Antal_medel,2)*100
 
 # source(here("Skript","diagram_arbesloshet_tidsserie_BAS.R"))
 # gg_arbetsloshet_tidsserie_bas <- diag_arbetsloshet_tidsserie(spara_diagrambildfil = FALSE,
