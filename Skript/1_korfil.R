@@ -1,6 +1,6 @@
 
 # Skall data uppdateras? Annars läses data in från en sparad global environment-fil.
-# Notera dock att ett flertal diagram skapas via Excelfiler (se skriptet hamta_data). Uppdatera data i detta fall åsyftar enbart de diagram-funktion som körs nedan
+# Notera dock att ett flertal diagram skapas via Excelfiler (se skriptet hamta_data). Uppdatera data i detta fall åsyftar enbart de diagram-funktioner som körs nedan
 uppdatera_data = FALSE
 
 if(uppdatera_data == TRUE){
