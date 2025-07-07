@@ -105,6 +105,185 @@ andel_kvinnor_stress <- round(stress_df %>% filter(Kön=="Kvinnor",År==max(.$Å
 #                                                              spara_dataframe_till_global_environment = FALSE,
 #                                                              output_mapp = output_mapp_figur)
 
+
+##########################
+## Arbetsmarknadsstatus ##
+##########################
+
+
+##########
+## Län ##
+#########
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diagram_arbetsmarknadsstatus_senastear.R")
+gg_diagram_arbetsmarknadsstatus_lan <- diagram_arbetsmarknadsstatus(region_vekt = hamtaAllaLan(),
+                                                                    kon_klartext = c("kvinnor","män"),
+                                                                    alder_klartext = "20-64 år",
+                                                                    valda_farger = diagramfarger("kon"),
+                                                                    fodelseregion_klartext_vekt = c("inrikes född", "utrikes född"),
+                                                                    diag_arbetskraftsdeltagande = FALSE,
+                                                                    returnera_data = TRUE,
+                                                                    spara_figur = FALSE,
+                                                                    data_namm = "arbetsmarknadsstatus_lan_df")
+
+# Variabler sysselsättningsgrad län
+arbetsloshesstatus_manad <- unique(arbetsmarknadsstatus_lan_df$manad_long)
+arbetsloshesstatus_ar <- unique(arbetsmarknadsstatus_lan_df$ar)
+
+
+# Sysselsättningsgrad inrikes Sverige
+syssgrad_inrikes_man_Sverige <- gsub("\\.",",",arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "inrikes född",region == "Sverige",variabel == "sysselsättningsgrad" ) %>%  .$varde)
+
+syssgrad_inrikes_kvinna_Sverige <- gsub("\\.",",",arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "inrikes född",region == "Sverige",variabel == "sysselsättningsgrad" ) %>%  .$varde)
+
+# Sysselsättningsgrad utrikes Dalarna
+syssgrad_utrikes_man_Dalarna <- gsub("\\.",",",arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad" ) %>%  .$varde)
+
+syssgrad_utrikes_kvinna_Dalarna <- gsub("\\.",",",arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad" ) %>%  .$varde)
+
+syssgrad_utrikes_skillnad_Dalarna <- round(arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad" ) %>%  .$varde-arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad" ) %>%  .$varde,0)
+
+# Variabler arbetslöshet lan
+
+# Arbetslöshet inrikes/utrikes och skillnad inrikes/utrikes Dalarna
+arblosthet_inrikes_man_Dalarna <- gsub("\\.",",",arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "inrikes född",region == "Dalarna",variabel == "arbetslöshet" ) %>%  .$varde)
+
+arblosthet_inrikes_kvinna_Dalarna <- gsub("\\.",",",arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "inrikes född",region == "Dalarna",variabel == "arbetslöshet" ) %>%  .$varde)
+
+arblosthet_utrikes_man_Dalarna <- gsub("\\.",",",arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna",variabel == "arbetslöshet" ) %>%  .$varde)
+
+arblosthet_utrikes_kvinna_Dalarna <- gsub("\\.",",",arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna",variabel == "arbetslöshet" ) %>%  .$varde)
+
+arblosthet_kvinnor_utrikes_inrikes_skillnad_Dalarna <- round(arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna",variabel == "arbetslöshet" ) %>%  .$varde-arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "inrikes född",region == "Dalarna",variabel == "arbetslöshet") %>%  .$varde,0)
+
+arblosthet_man_utrikes_inrikes_skillnad_Dalarna <- round(arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna",variabel == "arbetslöshet" ) %>%  .$varde-arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "inrikes född",region == "Dalarna",variabel == "arbetslöshet") %>%  .$varde,0)
+
+# Högst arbetslöshet län utrikes
+arblosthet_utrikes_man_max_lan <- arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född") %>%
+  filter(variabel == "arbetslöshet" ) %>% filter(varde == max(varde)) %>%  .$region %>% glue_collapse(sep = ", ", last = " och ")
+
+arblosthet_utrikes_man_max_varde <- gsub("\\.",",",arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född") %>%
+                                           filter(variabel == "arbetslöshet" ) %>% filter(varde == max(varde)) %>%  .$varde) %>% first()
+
+arblosthet_utrikes_kvinna_max_lan <- arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>%
+  filter(variabel == "arbetslöshet" ) %>% filter(varde == max(varde)) %>%  .$region %>% glue_collapse(sep = ", ", last = " och ")
+
+arblosthet_utrikes_kvinna_max_varde <- gsub("\\.",",",arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>%
+                                              filter(variabel == "arbetslöshet" ) %>% filter(varde == max(varde)) %>%  .$varde) %>% first()
+
+# Lägst arbetslöshet län utrikes
+
+arblosthet_utrikes_man_min_lan <- arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född") %>%
+  filter(variabel == "arbetslöshet" ) %>% filter(varde == min(varde)) %>%  .$region %>% glue_collapse(sep = ", ", last = " och ")
+
+arblosthet_utrikes_man_min_varde <- gsub("\\.",",",arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född") %>%
+                                           filter(variabel == "arbetslöshet" ) %>% filter(varde == min(varde)) %>%  .$varde) %>% first()
+
+arblosthet_utrikes_kvinna_min_lan <- arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>%
+  filter(variabel == "arbetslöshet" ) %>% filter(varde == min(varde)) %>%  .$region %>% glue_collapse(sep = ", ", last = " och ")
+
+arblosthet_utrikes_kvinna_min_varde <- gsub("\\.",",",arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>%
+                                              filter(variabel == "arbetslöshet" ) %>% filter(varde == min(varde)) %>%  .$varde) %>% first()
+
+
+############
+## Kommun ##
+############
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diagram_arbetsmarknadsstatus_senastear.R")
+gg_diagram_arbetsmarknadsstatus_kommun <- diagram_arbetsmarknadsstatus(region_vekt = hamtakommuner(),
+                                                                       kon_klartext = c("kvinnor","män"),
+                                                                       alder_klartext = "20-64 år",
+                                                                       valda_farger = diagramfarger("kon"),
+                                                                       fodelseregion_klartext_vekt = c("inrikes född", "utrikes född"),
+                                                                       diag_arbetskraftsdeltagande = FALSE,
+                                                                       returnera_data = TRUE,
+                                                                       spara_figur = FALSE,
+                                                                       data_namm = "arbetsmarknadsstatus_kommun_df")
+
+# Variabler sysselsättningsgrad kommun
+
+# Högst sysselsättningsgrad
+syssgrad_utrikes_man_max_kommun <- arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>%
+  filter(variabel == "sysselsättningsgrad" ) %>% filter(varde == max(varde)) %>%  .$region %>% glue_collapse(sep = ", ", last = " och ")
+
+syssgrad_utrikes_man_max_varde <- gsub("\\.",",",arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>%
+                                         filter(variabel == "sysselsättningsgrad" ) %>% filter(varde == max(varde)) %>%  .$varde) %>% first()
+
+syssgrad_utrikes_kvinna_max_kommun <- arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>%
+  filter(variabel == "sysselsättningsgrad" ) %>% filter(varde == max(varde)) %>%  .$region %>% glue_collapse(sep = ", ", last = " och ")
+
+syssgrad_utrikes_kvinna_max_varde <- gsub("\\.",",",arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>%
+                                            filter(variabel == "sysselsättningsgrad" ) %>% filter(varde == max(varde)) %>%  .$varde) %>% first()
+
+# Lägst sysselsättningsgrad
+
+syssgrad_utrikes_man_min_kommun <- arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>%
+  filter(variabel == "sysselsättningsgrad" ) %>% filter(varde == min(varde)) %>%  .$region %>% glue_collapse(sep = ", ", last = " och ")
+
+syssgrad_utrikes_man_min_varde <- gsub("\\.",",",arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>%
+                                         filter(variabel == "sysselsättningsgrad" ) %>% filter(varde == min(varde)) %>%  .$varde) %>% first()
+
+syssgrad_utrikes_kvinna_min_kommun <- arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>%
+  filter(variabel == "sysselsättningsgrad" ) %>% filter(varde == min(varde)) %>%  .$region %>% glue_collapse(sep = ", ", last = " och ")
+
+syssgrad_utrikes_kvinna_min_varde <- gsub("\\.",",",arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>%
+                                            filter(variabel == "sysselsättningsgrad" ) %>% filter(varde == min(varde)) %>%  .$varde) %>% first()
+
+# Variabler arbetslöshet kommun
+
+# Utrikes
+
+arblosthet_utrikes_man_max_kommun <- arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>%
+  filter(variabel == "arbetslöshet" ) %>% filter(varde == max(varde)) %>%  .$region %>% glue_collapse(sep = ", ", last = " och ")
+
+arblosthet_utrikes_man_kommun_max_varde <- gsub("\\.",",",arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>%
+                                                  filter(variabel == "arbetslöshet" ) %>% filter(varde == max(varde)) %>%  .$varde) %>% first()
+
+arblosthet_utrikes_kvinna_max_kommun <- arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>%
+  filter(variabel == "arbetslöshet" ) %>% filter(varde == max(varde)) %>%  .$region %>% glue_collapse(sep = ", ", last = " och ")
+
+arblosthet_utrikes_kvinna_kommun_max_varde <- gsub("\\.",",",arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>%
+                                                     filter(variabel == "arbetslöshet" ) %>% filter(varde == max(varde)) %>%  .$varde) %>% first()
+
+arblosthet_utrikes_man_min_kommun <- arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>%
+  filter(variabel == "arbetslöshet" ) %>% filter(varde == min(varde)) %>%  .$region %>% glue_collapse(sep = ", ", last = " och ")
+
+arblosthet_utrikes_man_kommun_min_varde <- gsub("\\.",",",arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>%
+                                                  filter(variabel == "arbetslöshet" ) %>% filter(varde == min(varde)) %>%  .$varde) %>% first()
+
+arblosthet_utrikes_kvinna_min_kommun <- arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>%
+  filter(variabel == "arbetslöshet" ) %>% filter(varde == min(varde)) %>%  .$region %>% glue_collapse(sep = ", ", last = " och ")
+
+arblosthet_utrikes_kvinna_kommun_min_varde <- gsub("\\.",",",arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>%
+                                                     filter(variabel == "arbetslöshet" ) %>% filter(varde == min(varde)) %>%  .$varde) %>% first()
+
+# Inrikes
+
+arblosthet_inrikes_man_max_kommun <- arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "inrikes född") %>%
+  filter(variabel == "arbetslöshet" ) %>% filter(varde == max(varde)) %>%  .$region %>% glue_collapse(sep = ", ", last = " och ")
+
+
+arblosthet_inrikes_man_max_varde <- gsub("\\.",",",arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "inrikes född") %>%
+                                           filter(variabel == "arbetslöshet" ) %>% filter(varde == max(varde)) %>%  .$varde) %>% first()
+
+arblosthet_inrikes_kvinna_max_kommun <- arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "inrikes född") %>%
+  filter(variabel == "arbetslöshet" ) %>% filter(varde == max(varde)) %>%  .$region %>% glue_collapse(sep = ", ", last = " och ")
+
+arblosthet_inrikes_kvinna_max_varde <- gsub("\\.",",",arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "inrikes född") %>%
+                                              filter(variabel == "arbetslöshet" ) %>% filter(varde == max(varde)) %>%  .$varde) %>% first()
+
+arblosthet_inrikes_man_min_kommun <- arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "inrikes född") %>%
+  filter(variabel == "arbetslöshet" ) %>% filter(varde == min(varde)) %>%  .$region %>% glue_collapse(sep = ", ", last = " och ")
+
+arblosthet_inrikes_man_min_varde <- gsub("\\.",",",arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "inrikes född") %>%
+                                           filter(variabel == "arbetslöshet" ) %>% filter(varde ==min(varde)) %>%  .$varde) %>% first()
+
+arblosthet_inrikes_kvinna_min_kommun <- arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "inrikes född") %>%
+  filter(variabel == "arbetslöshet" ) %>% filter(varde == min(varde)) %>%  .$region %>% glue_collapse(sep = ", ", last = " och ")
+
+arblosthet_inrikes_kvinna_min_varde <- gsub("\\.",",",arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "inrikes född") %>%
+                                           filter(variabel == "arbetslöshet" ) %>% filter(varde ==min(varde)) %>%  .$varde) %>% first()
+
+
 # Hämtar data för långtidsarbetslöshet
 långtidsarbetslöshet <- hamta_kolada_df(kpi_id = c("N03926"),
                                         valda_kommuner = "20",
