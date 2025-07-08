@@ -16,6 +16,24 @@ output_mapp_figur = here("Diagram","/")
 
 source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R")
 
+# Utbildningsnivå 85 - senaste år och jämförelse mellan länen för senaste år.
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diag_utbniva_flera_diagram_scb.R")
+gg_utbniva_85 <- diag_utbniva_tidserie_och_lansjmfr (region_vekt = c("20"),
+                                                     output_mapp = output_mapp_figur,
+                                                     diagram_capt = "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna",
+                                                     skapa_fil = TRUE,
+                                                     diag_hogutb_over_tid = TRUE,
+                                                     diag_lagutb_over_tid = FALSE,
+                                                     diag_andel_alla_utbnivaer = FALSE,
+                                                     diag_andel_utbniva_jmfr_lan = TRUE,
+                                                     vald_utb_niva = "hogutb")
+
+# Ovan saknar ett funktion som returnerar data till global environment, så jag hämtar detta från ggplot-objektet
+utbildning_85_df <- gg_utbniva_85$hogutb_andel_ar20_1985_2024$data
+
+utb_85_senaste_ar <- max(utbildning_85_df$år)
+utb_85_senaste_andel_kv <- round(utbildning_85_df %>% filter(kön == "kvinnor",år == utb_85_senaste_ar) %>% .$total,0)
+utb_85_senaste_andel_man <- round(utbildning_85_df %>% filter(kön == "män",år == utb_85_senaste_ar) %>% .$total,0)
 
 # De tio största yrkena för män respektive kvinnor
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_yrke_ssyk3_storsta_per_geografi.R")
