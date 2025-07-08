@@ -35,10 +35,10 @@ source(here("Skript","utbildningsniva_senastear.R"), encoding="UTF-8")
 data_utbildningsniva(spara_data = TRUE,
                      output_mapp = Output_mapp)
 
-# Utbildningsnivå från 85 och framåt uppdelat på kön
-source(here("Skript","utbildningsniva_85.R"), encoding="UTF-8")
-data_utbniva_85(spara_data = TRUE,
-                output_mapp = Output_mapp)
+# Utbildningsnivå från 85 och framåt uppdelat på kön - Numer ett diagramskript
+# source(here("Skript","utbildningsniva_85.R"), encoding="UTF-8")
+# data_utbniva_85(spara_data = TRUE,
+#                 output_mapp = Output_mapp)
 
 # Gymnasieantagning
 source(here("Skript","gymnasieantagning.R"), encoding="UTF-8")
