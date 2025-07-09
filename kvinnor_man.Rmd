@@ -56,10 +56,6 @@ spara_figur = FALSE
 utbildning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/utbildningsniva.xlsx")
 forvarvsarbetande_bransch <- read.xlsx("G:/skript/projekt/data/kvinnor_man/forvarvsarbetande_bransch.xlsx")
 arbetsloshet_tidsserie <- read.xlsx("G:/skript/projekt/data/kvinnor_man/arbetslöshet_08_senastear_bearbetad.xlsx",sheet = 1)
-medianinkomst_df <-  read.xlsx("G:/skript/projekt/data/kvinnor_man/medianinkomst.xlsx") %>% 
-  rename(medianinkomst = `Medianinkomst,.tkr`)
-medianinkomst_65plus_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/medianinkomst_65.xlsx") %>% 
-  rename(medianinkomst = `Medianinkomst,.tkr`)
 disponibel_inkomst_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/disponibel_inkomst.xlsx")
 langsiktiga_skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx",sheet = 1)
 skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx", sheet = 2)
@@ -169,11 +165,11 @@ diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsan
 
 # Tar bort uppgift saknas och beräknar hur stor andel som har en viss utbildning
 # Ändrat från befolkning till antal
-utbildning_85_utskrift<-utbildning_85_df %>%
-    group_by(år,region,kön,utb_niva) %>%
-      summarize(antal=sum(Antal)) %>%
-        mutate(andel=(antal/sum(antal))*100) %>% 
-          filter(utb_niva!="Uppgift saknas") 
+# utbildning_85_utskrift<-utbildning_85_df %>%
+#     group_by(år,region,kön,utb_niva) %>%
+#       summarize(antal=sum(Antal)) %>%
+#         mutate(andel=(antal/sum(antal))*100) %>% 
+#           filter(utb_niva!="Uppgift saknas") 
 
   diagramtitel_senaste <- paste0("Utbildningsnivåer (25-64 år) i Dalarna år ",max(utbildning_df$år))
   diagramtitel <- "Andel av befolkningen (25-64 år) i Dalarna med minst 3 års eftergymnasial utbildning"
@@ -196,22 +192,22 @@ utbildning_85_utskrift<-utbildning_85_df %>%
                                        output_mapp = outputmapp,
                                        filnamn_diagram = diagramfilnamn,
                                        skriv_till_diagramfil = spara_figur)
-
-  utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
-                              filter(år%in%c("1985","1990","1995","2000","2005","2010","2015",max(utbildning_85_utskrift$år))) %>%
-                                filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer"),
-                             skickad_x_var = "år",
-                             skickad_y_var = "andel",
-                             skickad_x_grupp = "kön",
-                             manual_color = diagramfarger("kon"),
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             x_axis_lutning = 0,
-                             stodlinjer_avrunda_fem = TRUE,
-                             manual_y_axis_title="procent",
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = spara_figur)
+# 
+#   utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
+#                               filter(år%in%c("1985","1990","1995","2000","2005","2010","2015",max(utbildning_85_utskrift$år))) %>%
+#                                 filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer"),
+#                              skickad_x_var = "år",
+#                              skickad_y_var = "andel",
+#                              skickad_x_grupp = "kön",
+#                              manual_color = diagramfarger("kon"),
+#                              diagram_titel = diagramtitel,
+#                              diagram_capt =  diagram_capt,
+#                              x_axis_lutning = 0,
+#                              stodlinjer_avrunda_fem = TRUE,
+#                              manual_y_axis_title="procent",
+#                              output_mapp = outputmapp,
+#                              filnamn_diagram = diagramfilnamn,
+#                              skriv_till_diagramfil = spara_figur)
 
 ```
 
@@ -435,179 +431,39 @@ Vid pensionering finns det numera många som fortsätter att arbeta hel- eller d
 ## Inkomst
 En egen inkomst är en av förutsättningarna för ett ekonomiskt självständigt liv. Livsinkomsten påverkar även vilken pension personen kommer att få vid pensionering. 
 
-En jämförelse mellan löner för kvinnor och män i arbetsför ålder (20-64 år) i Dalarna visar på stora skillnader och dessa har hållit i sig över tid. Medianinkomsten för en man i Dalarna var `r max(medianinkomst_df$år)` cirka `r round(medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "män") %>% .$medianinkomst,0)` tusen kronor före skatt, medan en kvinna hade en medianinkomst på ungefär `r round(medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "kvinnor") %>% .$medianinkomst,0)` tusen kronor. I den andra figuren nedan syns även en positiv utveckling i form av att den relativa skillnaden i inkomst mellan könen har minskat sedan millennieskiftet. Diagrammet visar att kvinnors medianinkomst har ökat med `r round((medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "kvinnor") %>% .$medianinkomst/medianinkomst_df %>% filter(region == "Dalarnas län", år == min(år),kön == "kvinnor") %>% .$medianinkomst-1)*100,0)` procent sedan slutet på 1990-talet, medan mäns har ökat med ungefär `r round((medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "män") %>% .$medianinkomst/medianinkomst_df %>% filter(region == "Dalarnas län", år == min(år),kön == "män") %>% .$medianinkomst-1)*100,0)` procent. Det är dock viktigt att notera att figurerna nedan endast redovisar kvinnors och mäns skilda ekonomiska förutsättningar, medan det kan finnas flera förklaringar till skillnaden. En faktor är att kvinnor i högre grad arbetar deltid, och därför kan ha en lägre årsinkomst. Som vi också sett i ett flertal tidigare figurer finns det stora skillnader mellan könen kopplat till bland annat yrke och utbildning, vilket ytterligare kan förklara en del av skillnaden. 
+En jämförelse mellan löner för kvinnor och män i arbetsför ålder (20-64 år) i Dalarna visar på stora skillnader och dessa har hållit i sig över tid. Medianinkomsten för en man i Dalarna var `r inkomst_max_ar` cirka `r medianinkomst_man_max_20_64` tusen kronor före skatt, medan en kvinna hade en medianinkomst på ungefär `r medianinkomst_kvinna_max_20_64` tusen kronor. I den andra figuren nedan syns även en positiv utveckling i form av att den relativa skillnaden i inkomst mellan könen har minskat sedan millennieskiftet. Diagrammet visar att kvinnors medianinkomst har ökat med `r medianinkomst_kvinna_forandring_20_64` procent sedan slutet millennieskiftet, medan mäns har ökat med ungefär `r medianinkomst_man_forandring_20_64` procent. Det är dock viktigt att notera att figurerna nedan endast redovisar kvinnors och mäns skilda ekonomiska förutsättningar, medan det kan finnas flera förklaringar till skillnaden. En faktor är att kvinnor i högre grad arbetar deltid, och därför kan ha en lägre årsinkomst. Som vi också sett i ett flertal tidigare figurer finns det stora skillnader mellan könen kopplat till bland annat yrke och utbildning, vilket ytterligare kan förklara en del av skillnaden. 
 
 På nationell nivå har SCB jämfört den standardvägda lönen, dvs. lönen när hänsyn tas till bland annat ålder och utbildningsnivå, för att synliggöra om det kan finnas en diskrimineringsaspekt i lönenivån. Slutsatsen blev att kvinnors standardvägda lön är ungefär 95 procent av männens standardvägda lön, det vill säga det finns en oförklarad löneskillnad mellan kvinnor och män [(SCB)](<https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__AM__AM0110__AM0110B/LonStandVagdYrkA/>){target="_blank"}.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas. Bearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Sammaräknad förvärvsinkomst, dvs. alla skattepliktiga inkomster före skatt (dock ej kapitalinkomster)."
-
-medianinkomst_df$region <- skapa_kortnamn_lan(medianinkomst_df$region,byt_ut_riket_mot_sverige = TRUE) 
-
-diagramtitel <- paste0("Medianinkomst (20-64 år) i Dalarna")
-diagramfilnamn <- paste0("medianinkomst_Dalarana_tid.png")
-
-medianinkomst_tid_fig <- SkapaStapelDiagram(skickad_df =medianinkomst_df %>%
-                                               filter(kön != "totalt",
-                                                      region == "Dalarna"),
-                                         skickad_x_var = "år", 
-                                         skickad_y_var = "medianinkomst",
-                                         skickad_x_grupp = "kön",
-                                         manual_color = diagramfarger("kon"),
-                                         diagram_titel = diagramtitel,
-                                         diagram_capt =  diagram_capt,
-                                         manual_x_axis_text_vjust=1,
-                                         manual_x_axis_text_hjust=1,
-                                         diagram_facet = FALSE,
-                                         facet_scale = "fixed",
-                                         stodlinjer_avrunda_fem = TRUE,
-                                         vand_sortering = TRUE,
-                                         x_axis_lutning = 45,
-                                         manual_y_axis_title = "",
-                                         output_mapp = outputmapp,
-                                         filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = spara_figur)
-
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-medianinkomst_tid_fig
+gg_inkomst$Medianinkomst_20_64_Dalarna_tid
 ```
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagramtitel <- paste0("Förändring i medianinkomst (20-64 år) i Dalarna")
-diagramfilnamn <- paste0("medianinkomst_Dalarana_tid_linje.png")
-
-# Skapar diagram för medianinkomst i valt län vs riket (ej uppdelat på kön)
-medianinkomst_linje_fig <- SkapaLinjeDiagram(skickad_df = medianinkomst_df %>%
-                                               filter(kön != "totalt",
-                                                      region == "Dalarna"),
-                                            skickad_x_var = "år",
-                                            skickad_y_var = "medianinkomst",
-                                            skickad_x_grupp = "kön",
-                                            #skickad_filter_OR_var = "region",
-                                            x_axis_lutning = 45,
-                                            manual_color = diagramfarger("kon"),
-                                            diagram_titel = diagramtitel,
-                                            diagram_capt =  diagram_capt,
-                                            stodlinjer_avrunda_fem = TRUE,
-                                            diagram_facet = FALSE,
-                                            berakna_index = TRUE,
-                                            output_mapp = outputmapp,
-                                            filnamn_diagram = diagramfilnamn,
-                                            skriv_till_diagramfil = spara_figur)
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
-medianinkomst_linje_fig
+gg_inkomst$Medianinkomst_20_64_Dalarna_tid_linje
 ```
 
-I samtliga av Dalarnas kommuner har männen högre medianinkomst än kvinnorna. Skillnaderna mellan kommunerna är relativt små. Kvinnor har högst medianinkomst i `r medianinkomst_df %>% filter(kön == "kvinnor", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == max(medianinkomst)) %>%  .$region ` och män i `r medianinkomst_df %>% filter(kön == "män", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == max(medianinkomst)) %>%  .$region `. Lägst medianinkomst har kvinnor i `r medianinkomst_df %>% filter(kön == "kvinnor", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == min(medianinkomst)) %>%  .$region `, medan män har lägst medianinkomst i `r medianinkomst_df %>% filter(kön == "män", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == min(medianinkomst)) %>%  .$region `.
+I samtliga av Dalarnas kommuner har männen högre medianinkomst än kvinnorna. Skillnaderna mellan kommunerna är relativt små. Kvinnor har högst medianinkomst i `r medianinkomst_kommun_max_kvinnor ` och män i `r medianinkomst_kommun_max_man `. Lägst medianinkomst har kvinnor i `r medianinkomst_kommun_min_kvinnor `, medan män har lägst medianinkomst i `r medianinkomst_kommun_min_man `.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-diagramtitel <- paste0("Medianinkomst (20-64 år) år ",max(medianinkomst_df$år))
-diagramfilnamn <- paste0("medianinkomst_kommun.png")
-    
-medianinkomst_kommun_fig <- SkapaStapelDiagram(skickad_df =medianinkomst_df %>%
-                                               filter(kön != "totalt",
-                                                      år == max(år)),
-                                         skickad_x_var = "region", 
-                                         skickad_y_var = "medianinkomst",
-                                         skickad_x_grupp = "kön",
-                                         manual_color = diagramfarger("kon"),
-                                         diagram_titel = diagramtitel,
-                                         diagram_capt =  diagram_capt,
-                                         manual_x_axis_text_vjust=1,
-                                         manual_x_axis_text_hjust=1,
-                                         diagram_facet = FALSE,
-                                         facet_scale = "fixed",
-                                         x_axis_sort_value = TRUE,
-                                         x_axis_sort_grp = 1,
-                                         stodlinjer_avrunda_fem = TRUE,
-                                         vand_sortering = TRUE,
-                                         x_axis_lutning = 45, 
-                                         manual_y_axis_title = "",
-                                         output_mapp = outputmapp,
-                                         filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = spara_figur)
-
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-medianinkomst_kommun_fig
+gg_inkomst$Medianinkomst_20_64_Dalarna_kommun
 ```
 
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+Personer 65 år och äldre har en lägre medianinkomsten än personer i arbetsför ålder (20-64 år). I Dalarna var medianinkomsten år `r inkomst_max_ar` för män 65 år och äldre `r medianinkomst_man_max_65` tusen kronor före skatt, medan en kvinna i samma åldersgrupp hade en medianinkomst på `r medianinkomst_kvinna_max_65` tusen kronor. Att inkomsterna är lägre för personer 65 år och äldre är rimligt eftersom många i den åldern har gått i pension och då har lägre inkomster än de hade när de förvärvsarbetade.
 
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas. Bearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Sammaräknad förvärvsinkomst, dvs. alla skattepliktiga inkomster före skatt (dock ej kapitalinkomster)."
+I den andra figuren nedan syns dock att den relativa skillnaden i inkomst mellan könen har minskat mer sedan millennieskiftet för personer äldre än 65 år, jämfört med de i arbetsför ålder (20-64 år). Diagrammet visar att kvinnors medianinkomst har ökat med `r medianinkomst_kvinna_forandring_65` procent medan mäns har ökat med ungefär `r medianinkomst_man_forandring_65` procent.
 
-medianinkomst_65plus_df$region <- skapa_kortnamn_lan(medianinkomst_65plus_df$region,byt_ut_riket_mot_sverige = TRUE) 
-
-diagramtitel <- paste0("Medianinkomst (65+ år) i Dalarna")
-diagramfilnamn <- paste0("medianinkomst_65plus_Dalarna_tid.png")
-
-medianinkomst_65plus_tid_fig <- SkapaStapelDiagram(skickad_df =medianinkomst_65plus_df %>%
-                                               filter(kön != "totalt",
-                                                      region == "Dalarna"),
-                                         skickad_x_var = "år", 
-                                         skickad_y_var = "medianinkomst",
-                                         skickad_x_grupp = "kön",
-                                         manual_color = diagramfarger("kon"),
-                                         diagram_titel = diagramtitel,
-                                         diagram_capt =  diagram_capt,
-                                         manual_x_axis_text_vjust=1,
-                                         manual_x_axis_text_hjust=1,
-                                         diagram_facet = FALSE,
-                                         facet_scale = "fixed",
-                                         stodlinjer_avrunda_fem = TRUE,
-                                         vand_sortering = TRUE,
-                                         x_axis_lutning = 45,
-                                         manual_y_axis_title = "",
-                                         output_mapp = outputmapp,
-                                         filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = spara_figur)
-
-```
-
-Personer 65 år och äldre har en lägre medianinkomsten än personer i arbetsför ålder (20-64 år). I Dalarna var medianinkomsten år `r max(medianinkomst_65plus_df$år)` för män 65 år och äldre `r round(medianinkomst_65plus_df %>% filter(region == "Dalarna", år == max(år),kön == "män") %>% .$medianinkomst,0)` tusen kronor före skatt, medan en kvinna i samma åldersgrupp hade en medianinkomst på `r round(medianinkomst_65plus_df %>% filter(region == "Dalarna", år == max(år),kön == "kvinnor") %>% .$medianinkomst,0)` tusen kronor. Att inkomsterna är lägre för personer 65 år och äldre är rimligt eftersom många i den åldern har gått i pension och då har lägre inkomster än de hade när de förvärvsarbetade.
-
-I den andra figuren nedan syns dock att den relativa skillnaden i inkomst mellan könen har minskat mer sedan slutet på 1990-talet för personer äldre än 65 år, jämfört med de i arbetsför ålder (20-64 år). Diagrammet visar att kvinnors medianinkomst har ökat med `r round((medianinkomst_65plus_df %>% filter(region == "Dalarna", år == max(år),kön == "kvinnor") %>% .$medianinkomst/medianinkomst_65plus_df %>% filter(region == "Dalarna", år == min(år),kön == "kvinnor") %>% .$medianinkomst-1)*100,0)` procent medan mäns har ökat med ungefär `r round((medianinkomst_65plus_df %>% filter(region == "Dalarna", år == max(år),kön == "män") %>% .$medianinkomst/medianinkomst_65plus_df %>% filter(region == "Dalarna", år == min(år),kön == "män") %>% .$medianinkomst-1)*100,0)` procent.
-
+<br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-medianinkomst_65plus_tid_fig
+gg_inkomst$Medianinkomst_65_Dalarna_tid
 ```
 
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagramtitel <- paste0("Förändring i medianinkomst (65+ år) i Dalarna")
-diagramfilnamn <- paste0("medianinkomst_65plus_Dalarna_tid_linje.png")
-
-# Skapar diagram för medianinkomst i valt län vs riket (ej uppdelat på kön)
-medianinkomst_65plus_linje_fig <- SkapaLinjeDiagram(skickad_df = medianinkomst_65plus_df %>%
-                                               filter(kön != "totalt",
-                                                      region == "Dalarna"),
-                                            skickad_x_var = "år",
-                                            skickad_y_var = "medianinkomst",
-                                            skickad_x_grupp = "kön",
-                                            #skickad_filter_OR_var = "region",
-                                            x_axis_lutning = 45,
-                                            manual_color = diagramfarger("kon"),
-                                            diagram_titel = diagramtitel,
-                                            diagram_capt =  diagram_capt,
-                                            stodlinjer_avrunda_fem = TRUE,
-                                            diagram_facet = FALSE,
-                                            berakna_index = TRUE,
-                                            output_mapp = outputmapp,
-                                            filnamn_diagram = diagramfilnamn,
-                                            skriv_till_diagramfil = spara_figur)
-```
-
+<br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
-medianinkomst_65plus_linje_fig
+gg_inkomst$Medianinkomst_65_Dalarna_tid_linje
 ```
 
 Utöver inkomster är det även relevant att jämföra den disponibla inkomsten, dvs. summan av alla inkomster och transfereringar (exempelvis bostadsbidrag och barnbidrag) efter avdragen slutlig skatt. I figuren nedan är det tydligt att den disponibla inkomsten varierar mellan olika grupper. En generell trend för alla grupper är att den disponibla inkomsten, utan att justera för inflation, har ökat mellan `r paste0(min(disponibel_inkomst_df$år),"-",max(disponibel_inkomst_df$år))`.

@@ -53,6 +53,46 @@ butikspersonal_man <- format(plyr::round_any(storsta_yrken_per_geografi_df %>% f
 tio_storsta_sum_kvinnor <- format(plyr::round_any(storsta_yrken_per_geografi_df %>% filter(kön == "kvinnor") %>%  .$Antal %>% sum(),100),big.mark=" ")
 tio_storsta_sum_man <- format(plyr::round_any(storsta_yrken_per_geografi_df %>% filter(kön == "män") %>%  .$Antal %>% sum(),100),big.mark=" ")
 
+# Inkomst c("20-64 år","65+ år")
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diagram_inkomst_region_aldersgrupper_kv_man.R")
+gg_inkomst <- diag_inkomst_scb(regionvekt = "20", # Enbart ett i taget. går även att välja kommuner, men då genereras inget kommundiagram
+                               output_mapp = output_mapp_figur,                                  # mapp där diagram ska sparas, NA = sparas ingen fil
+                               inkomst_typ = "Medianinkomst, tkr", # Finns "Medianinkomst, tkr", "Medelinkomst, tkr". Max 1 åt gången
+                               diag_tid = TRUE,
+                               diag_linje = TRUE,
+                               diag_kommun = TRUE,
+                               skriv_diagrambildfil = FALSE,                           # TRUE om diagram ska skrivas till fil, FALSE om diagram inte ska skrivas till fil
+                               alder_klartext = c("20-64 år","65+ år"),			 #  Finns: "20+ år", "20-64 år", "20-65 år", "65+ år", "66+ år". OBS!! Funkar ej med "*"
+                               returnera_data_rmarkdown = TRUE
+)
+
+inkomst_max_ar <- max(forvarvsinkomst_df$år)
+
+# Län 20-64 år
+medianinkomst_man_max_20_64 <- round(forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "män",ålder == "20-64 år") %>% .$`Medianinkomst, tkr`,0)
+medianinkomst_kvinna_max_20_64 <- round(forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "kvinnor",ålder == "20-64 år") %>% .$`Medianinkomst, tkr`,0)
+medianinkomst_man_forandring_20_64 <- round((forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "män",ålder == "20-64 år") %>% .$`Medianinkomst, tkr`/forvarvsinkomst_df %>% filter(region == "Dalarna", år == min(år),kön == "män",ålder == "20-64 år") %>% .$`Medianinkomst, tkr`-1)*100,0)
+medianinkomst_kvinna_forandring_20_64 <- round((forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "kvinnor",ålder == "20-64 år") %>% .$`Medianinkomst, tkr`/forvarvsinkomst_df %>% filter(region == "Dalarna", år == min(år),kön == "kvinnor",ålder == "20-64 år") %>% .$`Medianinkomst, tkr`-1)*100,0)
+
+# Kommun 20-64 år
+# Högst
+medianinkomst_kommun_max_kvinnor <- forvarvsinkomst_df %>% filter(kön == "kvinnor", år == max(år),ålder == "20-64 år") %>% filter(`Medianinkomst, tkr` == max(`Medianinkomst, tkr`)) %>%  .$region %>%  glue_collapse(sep = ", ", last = " och ")
+medianinkomst_kommun_max_kvinnor_varde <- round(forvarvsinkomst_df %>% filter(kön == "kvinnor", år == max(år),ålder == "20-64 år") %>% filter(`Medianinkomst, tkr` == max(`Medianinkomst, tkr`)) %>%  .$`Medianinkomst, tkr` %>% first(),0)
+medianinkomst_kommun_max_man <- forvarvsinkomst_df %>% filter(kön == "män", år == max(år),ålder == "20-64 år") %>% filter(`Medianinkomst, tkr` == max(`Medianinkomst, tkr`)) %>%  .$region %>%  glue_collapse(sep = ", ", last = " och ")
+medianinkomst_kommun_max_man_varde <- round(forvarvsinkomst_df %>% filter(kön == "män", år == max(år),ålder == "20-64 år") %>% filter(`Medianinkomst, tkr` == max(`Medianinkomst, tkr`)) %>%  .$`Medianinkomst, tkr` %>% first(),0)
+
+# Lägst
+medianinkomst_kommun_min_kvinnor <- forvarvsinkomst_df %>% filter(kön == "kvinnor", år == max(år),ålder == "20-64 år") %>% filter(`Medianinkomst, tkr` == min(`Medianinkomst, tkr`)) %>%  .$region %>%  glue_collapse(sep = ", ", last = " och ")
+medianinkomst_kommun_min_kvinnor_varde <- round(forvarvsinkomst_df %>% filter(kön == "kvinnor", år == max(år),ålder == "20-64 år") %>% filter(`Medianinkomst, tkr` == min(`Medianinkomst, tkr`)) %>%  .$`Medianinkomst, tkr` %>% first(),0)
+medianinkomst_kommun_min_man <- forvarvsinkomst_df %>% filter(kön == "män", år == max(år),ålder == "20-64 år") %>% filter(`Medianinkomst, tkr` == min(`Medianinkomst, tkr`)) %>%  .$region %>%  glue_collapse(sep = ", ", last = " och ")
+medianinkomst_kommun_min_man_varde <- round(forvarvsinkomst_df %>% filter(kön == "män", år == max(år),ålder == "20-64 år") %>% filter(`Medianinkomst, tkr` == min(`Medianinkomst, tkr`)) %>%  .$`Medianinkomst, tkr` %>% first(),0)
+
+# Län 65+
+medianinkomst_man_max_65 <- round(forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "män",ålder == "65+ år") %>% .$`Medianinkomst, tkr`,0)
+medianinkomst_kvinna_max_65 <- round(forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "kvinnor",ålder == "65+ år") %>% .$`Medianinkomst, tkr`,0)
+medianinkomst_man_forandring_65 <- round((forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "män",ålder == "65+ år") %>% .$`Medianinkomst, tkr`/forvarvsinkomst_df %>% filter(region == "Dalarna", år == min(år),kön == "män",ålder == "65+ år") %>% .$`Medianinkomst, tkr`-1)*100,0)
+medianinkomst_kvinna_forandring_65 <- round((forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "kvinnor",ålder == "65+ år") %>% .$`Medianinkomst, tkr`/forvarvsinkomst_df %>% filter(region == "Dalarna", år == min(år),kön == "kvinnor",ålder == "65+ år") %>% .$`Medianinkomst, tkr`-1)*100,0)
+
 # Etablering på arbetsmarknaden
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diag_etableringstid_kon_lan_tidsserie_KvMa_IntRap.R")
 #source(here("skript/","etablering_kon_utbildningsniva.R"))
