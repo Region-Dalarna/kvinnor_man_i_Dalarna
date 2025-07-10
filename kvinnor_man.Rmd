@@ -848,110 +848,26 @@ Samtidigt har bilden förbättrats inom offentlig sektor och inom politiken gene
 
 ## Politisk representation
 
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\n Bearbetning: Samhällsanalys, Region Dalarna."
-
-riksdagsval_summering_df <- riksdagsval_df %>%
-      filter(region=="Totalt för riket") %>%
-        group_by(kön,valår) %>%
-          summarise("Antal" = sum(Antal))
-
-diagramtitel <- paste0("Riksdagsledamöter per valår")
-diagramfilnamn <- paste0("Riksdagsledamöter",".png")
-
-riksdag_fig <- SkapaStapelDiagram(skickad_df = riksdagsval_summering_df,
-                                 skickad_x_var = "valår",
-                                 skickad_y_var = "Antal",
-                                 skickad_x_grupp = "kön",
-                                 x_axis_lutning = 0,
-                                 manual_color = diagramfarger("kon"),
-                                 diagram_titel = diagramtitel,
-                                 diagram_capt =  diagram_capt,
-                                 stodlinjer_avrunda_fem = TRUE,
-                                 diagram_facet = FALSE,
-                                 berakna_index = FALSE,
-                                 output_mapp = outputmapp,
-                                 filnamn_diagram = diagramfilnamn,
-                                 skriv_till_diagramfil = spara_figur)
-
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-regionval_summering_df <- regionval_df %>%
-      group_by(kön,valår) %>%
-        summarise("Antal" = sum(Antal))
-
-diagramtitel <- "Regionfullmäktigeledamöter per valår i Dalarna"
-diagramfilnamn <- "regionfullmaktige.png"
-
-regionval_fig <- SkapaStapelDiagram(skickad_df = regionval_summering_df,
-                                   skickad_x_var = "valår",
-                                   skickad_y_var = "Antal",
-                                   skickad_x_grupp = "kön",
-                                   x_axis_lutning = 0,
-                                   #skickad_filter_OR_var = "region",
-                                   manual_color = diagramfarger("kon"),
-                                   diagram_titel = diagramtitel,
-                                   diagram_capt =  diagram_capt,
-                                   stodlinjer_avrunda_fem = TRUE,
-                                   diagram_facet = FALSE,
-                                   berakna_index = FALSE,
-                                   output_mapp = outputmapp,
-                                   filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = spara_figur)
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-# Summerar riksdagsledamöter på år
-kommunval_summering_df <- kommunval_df %>%
- filter(valår==max(valår))%>%
-  group_by(region,kön) %>%
-    summarise("Antal" = sum(`Antal`))
-
-diagramtitel <- paste0("Kommunfullmäktigeledamöter i Dalarna ",max(kommunval_df$valår))
-diagramfilnamn <- "kommunfullmäktige_.png"
-
-kommunval_fig <- SkapaStapelDiagram(skickad_df = kommunval_summering_df,
-                                    skickad_x_var = "region",
-                                    skickad_y_var = "Antal",
-                                    skickad_x_grupp = "kön",
-                                    manual_x_axis_text_vjust = 1,
-                                    manual_x_axis_text_hjust = 1,
-                                    #skickad_filter_OR_var = "region",
-                                    manual_color = diagramfarger("kon"),
-                                    diagram_titel = diagramtitel,
-                                    diagram_capt =  diagram_capt,
-                                    stodlinjer_avrunda_fem = TRUE,
-                                    diagram_facet = FALSE,
-                                    berakna_index = FALSE,
-                                    output_mapp = outputmapp,
-                                    filnamn_diagram = diagramfilnamn,
-                                    skriv_till_diagramfil = spara_figur)
-
-```
-
-Den politiska sfären har historiskt varit mansdominerad och avsevärt färre kvinnor har haft tunga politiska uppdrag. Det första diagrammet i det
-här avsnittet visar könsfördelningen bland riksdagsledamöter från valet
-1973 till `r max(riksdagsval_summering_df$valår)`. Riksdagens könsfördelning har under den här tidsperioden genomgått en stor förändring och utveckling. Vid riksdagsvalet 1973 var en övervägande majoritet av de folkvalda ledamöterna män. Endast drygt 70 kvinnor återfanns på bänkarna i Riksdagen under den här mandatperioden. `r as.numeric(max(riksdagsval_summering_df$valår)) -  as.numeric(min(riksdagsval_summering_df$valår)) ` år senare är männen fortfarande fler än kvinnorna, men skillnaden mellan könen är bara `r riksdagsval_summering_df %>% filter(valår == max(valår),kön =="män") %>% .$Antal - riksdagsval_summering_df %>% filter(valår == max(valår),kön =="kvinnor") %>% .$Antal ` stycken ledamöter. Den mest jämställda Riksdagen i Sverige var mandatperioden som tog sin början `r riksdagsval_summering_df %>% filter(kön == "kvinnor",Antal == max(Antal)) %>% .$valår ` då antalet kvinnor
-var `r riksdagsval_summering_df %>% filter(kön == "kvinnor",Antal == max(Antal)) %>% .$Antal`.
+Den politiska sfären har historiskt varit mansdominerad och avsevärt färre kvinnor har haft tunga politiska uppdrag. Diagrammet nedan visar könsfördelningen bland riksdagsledamöter från valet `r riksdagsval_ar_min` till `r riksdagsval_ar_max`. Riksdagens könsfördelning har under den här tidsperioden genomgått en stor förändring och utveckling. Vid riksdagsvalet `r riksdagsval_ar_min` var en övervägande majoritet av de folkvalda ledamöterna män. Endast `r riksdagsval_min_ar_antal_kvinnor` kvinnor återfanns på bänkarna i Riksdagen under den här mandatperioden. `r antal_ar_mellan_min_max ` år senare är männen fortfarande fler än kvinnorna, men skillnaden mellan könen är bara `r riksdagsval_max_ar_skillnad ` stycken ledamöter. Den mest jämställda Riksdagen i Sverige var mandatperioden som tog sin början `r mest_jamnstalld_ar ` då antalet kvinnor
+var `r mest_jamnstalld_antal_kvinnor`.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-riksdag_fig
+gg_ledamoter_val$Riksdagsledamoter
 ```
 
-Den positiva trenden om en mer jämställd representation bland de folkvalda på nationell nivå syns även på regional nivå. Vid landstingsvalet 1982 i Dalarna var antalet ledamöter i regionfullmäktige övervägande män, medan könsfördelningen vid regionvalet 2014 i princip var helt jämställd med ett nästan jämnt antal män och kvinnor bland folkvalda i regionens fullmäktige. Efter valet 2018 syns däremot återigen en ökning av andelen män i regionfullmäktige och sedan det senaste valet (`r max(regionval_summering_df$valår)`) sitter `r regionval_summering_df %>% filter(valår == max(valår),kön =="män") %>% .$Antal - regionval_summering_df %>% filter(valår == max(valår),kön =="kvinnor") %>% .$Antal ` fler män än kvinnor i regionfullmäktige.
+Den positiva trenden om en mer jämställd representation bland de folkvalda på nationell nivå syns även på regional nivå. Vid landstingsvalet `r regionval_ar_min` i Dalarna var antalet ledamöter i regionfullmäktige övervägande män, medan könsfördelningen vid regionvalet 2014 i princip var helt jämställd med ett nästan jämnt antal män och kvinnor bland folkvalda i regionens fullmäktige. Efter valet 2018 syns däremot återigen en ökning av andelen män i regionfullmäktige och sedan det senaste valet (`r regionval_ar_max`) sitter `r regionval_max_ar_skillnad ` fler män än kvinnor i regionfullmäktige.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-regionval_fig
+gg_ledamoter_val$Regionfullaktigeledamoter
 ```
 
-På lokal nivå i Dalarna finns det stora skillnader mellan kommunerna. Efter valet 2022 var Avesta och Smedjebacken de enda kommuner i länet där kvinnorna i fullmäktige översteg antalet män (med en person i respektive fullmäktige). Borlänge, Gagnef, Mora och Vansbro har istället en majoritet män, dvs mer än 60 procent, bland deras folkvalda ledamöter.
+På lokal nivå i Dalarna finns det stora skillnader mellan kommunerna. Efter valet `r kommunval_ar_max` var `r kommunval_kommuner_fler_kvinnor_man` de enda kommuner i länet där kvinnorna i fullmäktige översteg antalet män. `r kommunval_kommuner_ojamnlik` har istället en majoritet män, dvs mer än 60 procent, bland deras folkvalda ledamöter.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-kommunval_fig
+gg_ledamoter_val$Kommunfullmaktigeledamoter
 ```
 
 ## Chefspositioner

@@ -366,14 +366,40 @@ langtidsarbetsloshet_kvinnor_max = gsub("\\.",",",round(långtidsarbetslöshet %
 langtidsarbetsloshet_man_min = gsub("\\.",",",round(långtidsarbetslöshet %>% filter(kon=="män",ar==min(ar)) %>%  .$varde,1))
 langtidsarbetsloshet_man_max = gsub("\\.",",",round(långtidsarbetslöshet %>% filter(kon=="män",ar==max(ar)) %>%  .$varde,1))
 
-# # Överrepresentation av kvinnor
+# Ledamöter i olika politiska instanser
+source(here("Skript","diagram_ledamoter_val_kon_kommun_kv_man.R"))
+gg_ledamoter_val <- diag_ledamoter_val(outputmapp = output_mapp_figur,
+                                       spara_dataframe_till_global_environment = TRUE,
+                                       spara_figur = TRUE,
+                                       typ_av_val = c("riksdag","region","kommun"))
+
+# Riksdagsval
+riksdagsval_ar_min <- min(riksdagsval_df$valår)
+riksdagsval_ar_max <- max(riksdagsval_df$valår)
+antal_ar_mellan_min_max <- as.numeric(max(riksdagsval_df$valår))- as.numeric(min(riksdagsval_df$valår))
+riksdagsval_max_ar_skillnad <- riksdagsval_df %>% filter(valår == max(valår),kön =="män") %>% .$Antal - riksdagsval_df %>% filter(valår == max(valår),kön =="kvinnor") %>% .$Antal
+mest_jamnstalld_ar <- riksdagsval_df %>% filter(kön == "kvinnor") %>% filter(Antal == max(Antal)) %>% .$valår
+mest_jamnstalld_antal_kvinnor <- riksdagsval_df %>% filter(kön == "kvinnor") %>% filter(Antal == max(Antal)) %>% .$Antal
+riksdagsval_min_ar_antal_kvinnor <- riksdagsval_df %>% filter(kön == "kvinnor", valår == min(valår)) %>% .$Antal
+
+# Regionval
+regionval_ar_min <- min(regionval_df$valår)
+regionval_ar_max <- max(regionval_df$valår)
+regionval_max_ar_skillnad <- regionval_df %>% filter(valår == max(valår),kön =="män") %>% .$Antal - regionval_df %>% filter(valår == max(valår),kön =="kvinnor") %>% .$Antal
+
+# Kommunval
+kommunval_ar_max <- max(kommunval_df$valår)
+kommunval_kommuner_fler_kvinnor_man <- kommunval_df %>% pivot_wider(names_from = kön, values_from = Antal) %>%  filter(kvinnor > män) %>% .$region %>% glue_collapse(sep = ", ", last = " och ")
+kommunval_kommuner_ojamnlik <- kommunval_df %>% pivot_wider(names_from = kön, values_from = Antal) %>%  filter((män/(kvinnor+män))>0.6) %>% .$region %>% glue_collapse(sep = ", ", last = " och ")
+
+# Överrepresentation av kvinnor
 source("https://raw.githubusercontent.com/Region-Dalarna/socioekonomisk_analys_nms/refs/heads/main/skript/socioek_overrep.R")
 gg_overrep = skapa_overrep_diagram(spara_diagrambildfil = TRUE,
-                             mapp = here("Diagram/") %>% paste0(., "/"),
-                             returnera_dataframe_global_environment = TRUE,
-                             diagramtitel = "Överrepresentation av manliga chefer i Dalarna",
-                             ta_bort_titel = FALSE,
-                             ta_bort_caption = FALSE)
+                                   mapp = here("Diagram/") %>% paste0(., "/"),
+                                   returnera_dataframe_global_environment = TRUE,
+                                   diagramtitel = "Överrepresentation av manliga chefer i Dalarna",
+                                   ta_bort_titel = FALSE,
+                                   ta_bort_caption = FALSE)
 
 overrep_max_ar = overrep_df$Ar %>% max()
 overrep_min_ar = overrep_df$Ar %>% min()
