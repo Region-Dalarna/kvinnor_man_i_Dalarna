@@ -10,7 +10,8 @@ if(uppdatera_data == TRUE){
 
 
 if (!require("pacman")) install.packages("pacman")
-p_load(here)
+p_load(here,
+       tidyverse)
 
 output_mapp_figur = here("Diagram","/")
 
@@ -157,6 +158,15 @@ gg_sjukfall_stress <- diag_sjukfall_stress (region_vekt = "20",
 andel_kvinnor_stress <- round(stress_df %>% filter(Kön=="Kvinnor",År==max(.$År)) %>% 
                                 .$Antal_medel/stress_df %>% filter(Kön=="Kvinnor och män",År==max(.$År)) %>% 
                                 .$Antal_medel,2)*100
+
+# Sjukfall på branschnivå - kräver att data laddas hem manuellt. För mer info, se diagramskriptet
+source(here("Skript","diagram_sjukfall_bransch.R"))
+gg_sjukfall_bransch <- diag_sjukfall_bransch(output_mapp = output_mapp_figur,
+                                             spara_figur = TRUE,
+                                             spara_dataframe_till_global_environment = TRUE)
+
+bransch_max_kvinnor <- tolower(startade_sjukfall_bransch_df %>% filter(Kon == "Kvinnor") %>% filter(Antal_startade_sjukfall == max(Antal_startade_sjukfall)) %>% .$SNI2007 %>%  glue_collapse(sep = ", ", last = " och "))
+bransch_max_man <- tolower(startade_sjukfall_bransch_df %>% filter(Kon == "Män") %>% filter(Antal_startade_sjukfall == max(Antal_startade_sjukfall)) %>% .$SNI2007 %>%  glue_collapse(sep = ", ", last = " och "))
 
 # source(here("Skript","diagram_arbesloshet_tidsserie_BAS.R"))
 # gg_arbetsloshet_tidsserie_bas <- diag_arbetsloshet_tidsserie(spara_diagrambildfil = FALSE,

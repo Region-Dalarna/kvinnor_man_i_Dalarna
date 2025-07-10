@@ -103,12 +103,12 @@ diag_disponibelinkomst(spara_data = TRUE,
 # diag_matchning(spara_data = TRUE,
 #                output_mapp = Output_mapp)
 
-# Skuldsatta (Kronofogden) - Sannolikt saknas även anslutning till Kronofogden
+# Skuldsatta (Kronofogden) - Funkar inte för tillfället
 source(here("Skript","skuldsatta.R"), encoding="UTF-8")
 diag_kronofogden(spara_data = TRUE,
                  output_mapp = Output_mapp)
 
-# Skuldsatta andel (Kronofogden) - Sannolikt saknas även anslutning till Kronofogden
+# Skuldsatta andel (Kronofogden) - Funkar, men enbart för att jag läst in en Excel-fil där hämtning av data fungerat
 source(here("Skript","skuldsatta_andel.R"), encoding="UTF-8")
 diag_kronofogden_andel(spara_data = TRUE,
                        output_mapp = Output_mapp)
@@ -134,16 +134,16 @@ diag_chefer(spara_data = TRUE,
 # diag_ohalsa(spara_data = TRUE,
 #             output_mapp = Output_mapp)
 
-# Startade sjukfall stress - Har uppdaterat (inklusive markdown-skript)
-source(here("Skript","sjukfall_stress.R"), encoding="UTF-8")
-diag_stress(spara_data = TRUE,
-            output_mapp = Output_mapp)
+# Startade sjukfall stress - Har uppdaterat (inklusive markdown-skript) - Numer ett diagramskript
+# source(here("Skript","sjukfall_stress.R"), encoding="UTF-8")
+# diag_stress(spara_data = TRUE,
+#             output_mapp = Output_mapp)
 
-# Startade sjukfall bransch. Försäkringskassan, Excel hemsida. senast uppdaterad 2024-11-13 - Ingen ny data förrän juni 2025
-# Finns inte att hämta via dataportal
-source(here("Skript","startade_sjukfall_bransch.R"), encoding="UTF-8")
-diag_sjukfall_bransch(spara_data = TRUE,
-                      output_mapp = Output_mapp)
+# Startade sjukfall bransch. - Numer ett diagramskript
+# # Finns inte att hämta via dataportal
+# source(here("Skript","startade_sjukfall_bransch.R"), encoding="UTF-8")
+# diag_sjukfall_bransch(spara_data = TRUE,
+#                       output_mapp = Output_mapp)
 
 
 

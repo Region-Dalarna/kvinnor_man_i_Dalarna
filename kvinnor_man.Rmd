@@ -65,7 +65,7 @@ regionval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet =
 kommunval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 3)
 chefer_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/chefer.xlsx")
 # OBS! UPPDATERAS MANUELLT
-startade_sjukfall_bransch_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/startade_sjukfall_bransch_bearbetad_2025_jul_03.xlsx")
+#startade_sjukfall_bransch_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/startade_sjukfall_bransch_bearbetad_2025_jul_03.xlsx")
 gymnasieantagning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasieantagning.xlsx")
 gymnasiet_genomstromning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasie_genomströmning.xlsx")
 ```
@@ -832,42 +832,11 @@ gg_sjukfall_stress$Antal_stress_Dalarna
 ## Sjukfall i olika branscher
 Generellt är det stora skillnader i antalet startade sjukfall (per
 1 000 förvärvsarbetande) mellan olika branscher. För kvinnor är antalet
-störst i typiskt kvinnodominerade yrken som vård och omsorg, vilket kan vara en förklaring till att kvinnor är sjukskrivna i större utsträckning än män. För män är det istället inom transportbranschen, en mansdominerad bransch, som antalet startade sjukfall är högst. Oavsett kön, är antal startade sjukfall lägst inom klassiska kontorsarbeten som ekonomi, finans och IT. Notera även att antalet startade sjukfall (per 1 000 förvärvsarbetande) är högre för kvinnor än för män i samtliga branscher i diagrammet nedan.
+störst i typiskt kvinnodominerade yrken som `r bransch_max_kvinnor`, vilket kan vara en förklaring till att kvinnor är sjukskrivna i större utsträckning än män. För män är det istället inom `r bransch_max_man`, en mansdominerad bransch, som antalet startade sjukfall är högst. Oavsett kön, är antal startade sjukfall lägst inom klassiska kontorsarbeten som ekonomi, finans och IT. Notera även att antalet startade sjukfall (per 1 000 förvärvsarbetande) är högre för kvinnor än för män i samtliga branscher i diagrammet nedan.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="80%"}
-diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
-
-diagramtitel <- paste0("Antal startade sjukfall per 1000 förvärvsarbetande i Sverige år ",max(startade_sjukfall_bransch_df$År))
-diagramtitel <- str_wrap(diagramtitel,60)
-diagramfilnamn <- paste0("Startade_sjukfall_bransch.png")
-
-sjukfall_bransch_fig <- SkapaStapelDiagram(skickad_df = startade_sjukfall_bransch_df,
-                                           skickad_x_var = "SNI2007",
-                                           skickad_y_var = "Antal_startade_sjukfall",
-                                           skickad_x_grupp = "Kon",
-                                           manual_color = diagramfarger("kon"),
-                                           diagram_titel = diagramtitel,
-                                           diagram_capt =  diagram_capt,
-                                           diagram_facet = FALSE,
-                                           manual_x_axis_text_vjust = 1,
-                                           manual_x_axis_text_hjust = 1,
-                                           facet_grp="Kon",
-                                           manual_y_axis_title = "",
-                                           diagram_liggande = FALSE,
-                                           x_axis_sort_value = TRUE,
-                                           x_axis_lutning = 45,
-                                           stodlinjer_avrunda_fem = TRUE,
-                                           facet_scale = "fixed",
-                                           berakna_index = FALSE,
-                                           output_mapp = outputmapp,
-                                           filnamn_diagram = diagramfilnamn,
-                                           skriv_till_diagramfil = spara_figur)
-
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-sjukfall_bransch_fig
+gg_sjukfall_bransch$Startade_sjukfall_bransch
 ```
 
 # Makt och politik
