@@ -113,10 +113,10 @@ source(here("Skript","skuldsatta_andel.R"), encoding="UTF-8")
 diag_kronofogden_andel(spara_data = TRUE,
                        output_mapp = Output_mapp)
 
-# Val (riksdag, region och kommun)
-source(here("Skript","val.R"), encoding="UTF-8")
-diag_val(spara_data = TRUE,
-         output_mapp = Output_mapp)
+# Val (riksdag, region och kommun) - Numer ett diagramskript
+# source(here("Skript","val.R"), encoding="UTF-8")
+# diag_val(spara_data = TRUE,
+#          output_mapp = Output_mapp)
 
 # Chefer - Samma som Etablering,
 source(here("Skript","Chefer.R"), encoding="UTF-8")
