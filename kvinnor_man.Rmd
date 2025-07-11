@@ -54,18 +54,12 @@ spara_figur = FALSE
 
 # Läser in data
 utbildning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/utbildningsniva.xlsx")
-forvarvsarbetande_bransch <- read.xlsx("G:/skript/projekt/data/kvinnor_man/forvarvsarbetande_bransch.xlsx")
 arbetsloshet_tidsserie <- read.xlsx("G:/skript/projekt/data/kvinnor_man/arbetslöshet_08_senastear_bearbetad.xlsx",sheet = 1)
 disponibel_inkomst_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/disponibel_inkomst.xlsx")
 langsiktiga_skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx",sheet = 1)
 skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx", sheet = 2)
 skulder_andel_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta_andel.xlsx")
-riksdagsval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 1)
-regionval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 2)
-kommunval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 3)
-chefer_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/chefer.xlsx")
 # OBS! UPPDATERAS MANUELLT
-#startade_sjukfall_bransch_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/startade_sjukfall_bransch_bearbetad_2025_jul_03.xlsx")
 gymnasieantagning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasieantagning.xlsx")
 gymnasiet_genomstromning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasie_genomströmning.xlsx")
 ```
