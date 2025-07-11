@@ -878,77 +878,19 @@ chefer_just_df <- chefer_df %>%
 ```
 
 Ett annat mått på makt är den ställning individen har på arbetsplatsen
-och i yrkeslivet. I diagrammet nedan visas andelen chefer uppdelade efter kön och för olika utbildningsnivåer. I samtliga grupper i Dalarna är en större andel av männen sysselsatta i någon form av chefsposition jämfört med
-motsvarande grupp kvinnor. Andelen chefer är även tydligt kopplad till
-utbildningsnivå där högre utbildning är associerad med en högre andel
-individer i chefspositioner. Bland gruppen sysselsatta män i Dalarna med
-eftergymnasial utbildning innehar cirka `r round(chefer_just_df %>% filter(år == max(år),utbildningsnivå == "eftergymnasial utbildning", kön == "män") %>% .$Andel,0) ` procent någon form av chefsställning. Bland kvinnor med eftergymnasial utbildning är motsvarande siffra ungefär `r round(chefer_just_df %>% filter(år == max(år),utbildningsnivå == "eftergymnasial utbildning", kön == "kvinnor") %>% .$Andel,0) ` procent.
-
-<br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-  diagram_capt <- c("Källa: SCB:s öppna statistikdatabas, BAS\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Andel chefer av sysselsatta med ett klassificerat yrke (20-65 år) uppdelat på utbildningsnivå",
-                    "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Förändring i andelen chefer av sysselsatta med ett klassificerat yrke för samtliga utbildningsnivåer.\nFram till och med 2021, 20-64 år och data från RAMS. Från 2022, 20-65 år och data från BAS.")
-diagramtitel <- paste0("Andel chefer år ",max(chefer_just_df$år)," i Dalarna")
-diagramfilnamn <- paste0("andel_chefer.png")
-
-chefer_fig <- SkapaStapelDiagram(skickad_df = chefer_just_df %>% 
-                               filter(år == max(år),
-                                      utbildningsnivå != "utbildningsnivå: uppgift saknas"),
-                             skickad_x_var = "utbildningsnivå",
-                             skickad_y_var = "Andel",
-                             skickad_x_grupp = "kön",
-                             manual_x_axis_text_vjust=1,
-                             manual_x_axis_text_hjust=1,
-                             manual_color = diagramfarger("kon"),
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt[1],
-                             stodlinjer_avrunda_fem = TRUE,
-                             diagram_facet = FALSE,
-                             x_axis_sort_value = TRUE,
-                             manual_y_axis_title="procent",
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = spara_figur)
-
-```
+och i yrkeslivet. I diagrammet nedan visas andelen chefer uppdelade efter kön och för olika utbildningsnivåer. I samtliga grupper i Dalarna är en större andel av männen sysselsatta i någon form av chefsposition jämfört med motsvarande grupp kvinnor. Andelen chefer är även tydligt kopplad till utbildningsnivå där högre utbildning är associerad med en högre andel individer i chefspositioner. Bland gruppen sysselsatta män i Dalarna med eftergymnasial utbildning innehar cirka `r andel_chefer_man ` procent någon form av chefsställning. Bland kvinnor med eftergymnasial utbildning är motsvarande siffra ungefär `r andel_chefer_kvinnor ` procent.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-chefer_fig
+gg_andel_chefer$andel_chefer_Dalarna
 ```
 
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-  diagramtitel <- paste0("Förändring i andel chefer i Dalarna")
-  diagramfilnamn <- paste0("andel_chefer_linje.png")
-
-  chefer_linje_fig <- SkapaLinjeDiagram(skickad_df =chefer_just_df %>% 
-                                filter(år >"2000",
-                                       utbildningsnivå == "samtliga utbildningsnivåer"),
-                              skickad_x_var = "år",
-                              skickad_y_var = "Andel",
-                              skickad_x_grupp = "kön",
-                              x_axis_lutning = 45,
-                              manual_color = diagramfarger("kon"),
-                              diagram_titel = diagramtitel,
-                              diagram_capt =  diagram_capt[2],
-                              stodlinjer_avrunda_fem = TRUE,
-                              diagram_facet = FALSE,
-                              berakna_index = TRUE,
-                              output_mapp = outputmapp,
-                              filnamn_diagram = diagramfilnamn,
-                              skriv_till_diagramfil = spara_figur)
-
-
-```
-
-I diagrammet nedan ser vi utveckling över tid. Andelen kvinnor i
-chefsposition i Dalarna har fördubblats under en
-tjugoårsperiod, och under samma period är andelen män i chefspositioner mer
+I diagrammet nedan ser vi utveckling över tid. Andelen kvinnor i chefsposition i Dalarna har fördubblats under en tjugoårsperiod, och under samma period är andelen män i chefspositioner mer
 eller mindre oförändrat. Det betyder att antalet chefspositioner har ökat i antal, men totalt sett så går utvecklingen över tid ändå i en mer jämställd riktning, även om situationen på arbetsmarknaden fortsatt får anses vara ojämställd.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-chefer_linje_fig
+gg_andel_chefer$andel_chefer_linje_Dalarna
 ```
 
 Ett annat mått på makt är den ställning individen har på arbetsplatsen och i yrkeslivet. I diagrammet nedan visas över-/underrepresentation av manliga chefer inom olika branscher i Dalarna. Ett värde på 0 indikerar att andelen manliga chefer är proportionerligt mot andelen anställda män i branschen, medan ett värde över/under 0 visar på en över-/underrepresentation av manliga chefer.

@@ -392,6 +392,20 @@ kommunval_ar_max <- max(kommunval_df$valår)
 kommunval_kommuner_fler_kvinnor_man <- kommunval_df %>% pivot_wider(names_from = kön, values_from = Antal) %>%  filter(kvinnor > män) %>% .$region %>% glue_collapse(sep = ", ", last = " och ")
 kommunval_kommuner_ojamnlik <- kommunval_df %>% pivot_wider(names_from = kön, values_from = Antal) %>%  filter((män/(kvinnor+män))>0.6) %>% .$region %>% glue_collapse(sep = ", ", last = " och ")
 
+# Andel chefer
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diagram_andel_chefer_utb_kv_man.R")
+gg_andel_chefer <- diag_chefer(region_vekt = "20", # Enbart på län, max 1 åt gången
+                               output_mapp = output_mapp_figur,
+                               diag_senaste_ar = TRUE,
+                               diag_linje = TRUE,
+                               returnera_data = TRUE,
+                               spara_figur = TRUE)
+
+chefer_ar_max <- max(chefer_df$år)
+andel_chefer_man <- round(chefer_df %>% filter(år == max(år),utbildningsnivå == "eftergymnasial utbildning", kön == "män") %>% .$Andel,0)
+andel_chefer_kvinnor <- round(chefer_df %>% filter(år == max(år),utbildningsnivå == "eftergymnasial utbildning", kön == "kvinnor") %>% .$Andel,0)
+
+
 # Överrepresentation av kvinnor
 source("https://raw.githubusercontent.com/Region-Dalarna/socioekonomisk_analys_nms/refs/heads/main/skript/socioek_overrep.R")
 gg_overrep = skapa_overrep_diagram(spara_diagrambildfil = TRUE,
