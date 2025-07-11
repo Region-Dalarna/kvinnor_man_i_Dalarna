@@ -297,42 +297,13 @@ gym_genom
 ## Yrken och branscher
 Många arbetsuppgifter och yrken har historiskt varit könsuppdelade. Med könsuppdelningen har även värderingar om vad som räknats som formellt respektive informellt arbete synliggjorts, och hur dessa arbeten värderats i pengar. Politiska beslut har på flera sätt påverkat detta. Innan exempelvis reformerna som etablerade barn- och äldreomsorg på den reguljära arbetsmarknaden utförde kvinnor detta omsorgsarbete obetalt eller på annat sätt utanför ordinarie arbetsmarknad. När dessa arbetsuppgifter övergick till formellt arbete medförde det många positiva effekter för både kvinnor och män, men det blev på många sätt naturligt att framförallt kvinnor befolkade dessa tjänster. Dessvärre har det bidragit till en bestående könssegregering på arbetsmarknaden, som förefaller svår att förändra.
 
-Sedan många år har kvinnor och män haft likvärdig tillgång till utbildning och möjlighet att fritt välja yrke. Trots detta består många av könsskillnaderna i arbetslivet (se figuren nedan) och de yngre generationerna tycks inte göra mindre könsstereotypa val, som redovisats ovan. Många branscher i länet idag har en tydlig övervikt av det ena eller det andra könet, exempelvis byggbranschen som omfattar yrken inom bland annat el och VVS, och där kvinnor bara utgör ungefär `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Bygg") %>% .$andel` procent av de förvärvsarbetande. Även om det har skett en ökning av andelen kvinnor inom byggbranschen är denna ökning ännu liten i sammanhanget. Inom vård och omsorg är bilden densamma men med motsatt könsfördelning. Här utgör kvinnor cirka `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Vård och omsorg") %>% .$andel` procent av de förvärvsarbetande.
+Sedan många år har kvinnor och män haft likvärdig tillgång till utbildning och möjlighet att fritt välja yrke. Trots detta består många av könsskillnaderna i arbetslivet (se figuren nedan) och de yngre generationerna tycks inte göra mindre könsstereotypa val, som redovisats ovan. Många branscher i länet idag har en tydlig övervikt av det ena eller det andra könet, exempelvis byggbranschen som omfattar yrken inom bland annat el och VVS, och där kvinnor bara utgör ungefär `r forvarvsarbetande_bygg_andel` procent av de förvärvsarbetande. Även om det har skett en ökning av andelen kvinnor inom byggbranschen är denna ökning ännu liten i sammanhanget. Inom vård och omsorg är bilden densamma men med motsatt könsfördelning. Här utgör kvinnor cirka `r forvarvsarbetande_vard_andel` procent av de förvärvsarbetande.
 
 Att åstadkomma en förändring i närtid av balansen mellan män och kvinnor inom de könssegregerade branscherna förefaller inte vara inom räckhåll då ungdomars studieval som visats ovan är så pass könsstereotypa.
 
 <br>
-```{r, echo=FALSE,fig.width=10, fig.align='center', out.width="90%"}
-
-diagram_capt <- "Källa: BAS i SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: 16-74 år"
-
-diagramtitel <- paste0("Antal förvärvsarbetande per bransch i Dalarna i ",unique(forvarvsarbetande_bransch$månad_år))
-diagramfil <- "forvarvsarbetande_bransch.png"
-
-forvarvsarbetande_kon_fig <- SkapaStapelDiagram(skickad_df <- forvarvsarbetande_bransch %>% 
-                                                  filter(bransch != "Okänt"), 
-                                               skickad_x_var = "bransch", 
-                                               skickad_y_var = "antal", 
-                                               skickad_x_grupp = "kön",
-                                               diagram_liggande=FALSE,
-                                               manual_x_axis_text_vjust=1,
-                                               manual_x_axis_text_hjust=1,
-                                               manual_y_axis_title = "",
-                                               x_axis_lutning = 45,
-                                               x_axis_sort_value=TRUE,
-                                               manual_color = diagramfarger("kon"),
-                                               stodlinjer_avrunda_fem = TRUE,
-                                               diagram_titel = diagramtitel,
-                                               diagram_capt =  diagram_capt,
-                                               facet_legend_bottom=TRUE,
-                                               berakna_index = FALSE,
-                                               output_mapp = outputmapp,
-                                               filnamn_diagram = diagramfil,
-                                               skriv_till_diagramfil = spara_figur)
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-forvarvsarbetande_kon_fig
+gg_antal_forv$antal_per_bransch
 ```
 
 Skillnader mellan kvinnor och män föreligger således fortfarande på yrkesnivå. Den största yrkesgruppen för män i Dalarna är kategorin som inkluderar

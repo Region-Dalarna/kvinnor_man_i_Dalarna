@@ -118,10 +118,10 @@ diag_kronofogden_andel(spara_data = TRUE,
 # diag_val(spara_data = TRUE,
 #          output_mapp = Output_mapp)
 
-# Chefer - Samma som Etablering,
-source(here("Skript","Chefer.R"), encoding="UTF-8")
-diag_chefer(spara_data = TRUE,
-            output_mapp = Output_mapp)
+# Chefer - Samma som Etablering, - Numer ett diagramskript
+# source(here("Skript","Chefer.R"), encoding="UTF-8")
+# diag_chefer(spara_data = TRUE,
+#             output_mapp = Output_mapp)
 
 # Föräldrapenning och VAB - Är numer ett diagramskript
 # source(here("Skript","foraldrapenning.R"), encoding="UTF-8")

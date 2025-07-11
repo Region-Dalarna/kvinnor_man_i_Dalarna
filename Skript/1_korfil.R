@@ -54,6 +54,19 @@ butikspersonal_man <- format(plyr::round_any(storsta_yrken_per_geografi_df %>% f
 tio_storsta_sum_kvinnor <- format(plyr::round_any(storsta_yrken_per_geografi_df %>% filter(kön == "kvinnor") %>%  .$Antal %>% sum(),100),big.mark=" ")
 tio_storsta_sum_man <- format(plyr::round_any(storsta_yrken_per_geografi_df %>% filter(kön == "män") %>%  .$Antal %>% sum(),100),big.mark=" ")
 
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_andel_forvarvsarbetande_bransch.R", encoding="UTF-8")
+gg_antal_forv <- diag_sysselsatta_andel(output_mapp_figur = output_mapp_figur,
+                                        returnera_figur = TRUE,
+                                        spara_figur = TRUE, 
+                                        diag_lan = FALSE, 
+                                        diag_kommun = FALSE,
+                                        diag_lan_antal = TRUE, # Antal för länet, uppdelat på kvinnor och män
+                                        returnera_data = TRUE)
+
+forvarvsarbetande_bygg_andel <- antal_forvarvsarbetande_bransch %>% filter(bransch=="Bygg") %>% pivot_wider(names_from = kön, values_from = Antal) %>%  mutate(andel= (kvinnor/(män+kvinnor))*100) %>% .$andel %>% round(0)
+forvarvsarbetande_vard_andel <- antal_forvarvsarbetande_bransch %>% filter(bransch=="Vård och omsorg") %>% pivot_wider(names_from = kön, values_from = Antal) %>%  mutate(andel= (kvinnor/(män+kvinnor))*100) %>% .$andel %>% round(0)
+
+
 # Inkomst c("20-64 år","65+ år")
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diagram_inkomst_region_aldersgrupper_kv_man.R")
 gg_inkomst <- diag_inkomst_scb(regionvekt = "20", # Enbart ett i taget. går även att välja kommuner, men då genereras inget kommundiagram
