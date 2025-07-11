@@ -37,25 +37,13 @@ options(dplyr.summarise.inform = FALSE)
 # Här läggs figurerna
 outputmapp = here("Diagram","/")
 
-# Om man vill uppdatera data sätts denna variabel till TRUE
-#uppdatera_data = FALSE
-#
 # Om man vill spara figurer sätts denna variabel till TRUE
 spara_figur = FALSE
 
-# if(skapa_lista == TRUE){
-# source(here("master_kvinnor_man.R"), encoding = "utf-8", echo = FALSE)
-# lista_figurer=c(lista_figurer,hamta_figurer(skapa_ppt=FALSE))
-# }
-# 
-# if(uppdatera_data == TRUE){
-# source(here("Skript","1_hamta_data.R"), encoding="UTF-8")
-# }
 
 # Läser in data
 utbildning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/utbildningsniva.xlsx")
 arbetsloshet_tidsserie <- read.xlsx("G:/skript/projekt/data/kvinnor_man/arbetslöshet_08_senastear_bearbetad.xlsx",sheet = 1)
-disponibel_inkomst_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/disponibel_inkomst.xlsx")
 langsiktiga_skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx",sheet = 1)
 skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx", sheet = 2)
 skulder_andel_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta_andel.xlsx")
@@ -157,14 +145,6 @@ diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsan
                                                                                     "gymnasial utbildning, 3 år","gymnasial utbildning, högst 2 år","förgymnasial utbildning, 9 (10) år",
                                                                                     "förgymnasial utbildning kortare än 9 år")[6:1])
 
-# Tar bort uppgift saknas och beräknar hur stor andel som har en viss utbildning
-# Ändrat från befolkning till antal
-# utbildning_85_utskrift<-utbildning_85_df %>%
-#     group_by(år,region,kön,utb_niva) %>%
-#       summarize(antal=sum(Antal)) %>%
-#         mutate(andel=(antal/sum(antal))*100) %>% 
-#           filter(utb_niva!="Uppgift saknas") 
-
   diagramtitel_senaste <- paste0("Utbildningsnivåer (25-64 år) i Dalarna år ",max(utbildning_df$år))
   diagramtitel <- "Andel av befolkningen (25-64 år) i Dalarna med minst 3 års eftergymnasial utbildning"
   diagramfilnamn <- paste0("utbildningsniva_Dalarnas län.png")
@@ -186,22 +166,6 @@ diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsan
                                        output_mapp = outputmapp,
                                        filnamn_diagram = diagramfilnamn,
                                        skriv_till_diagramfil = spara_figur)
-# 
-#   utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
-#                               filter(år%in%c("1985","1990","1995","2000","2005","2010","2015",max(utbildning_85_utskrift$år))) %>%
-#                                 filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer"),
-#                              skickad_x_var = "år",
-#                              skickad_y_var = "andel",
-#                              skickad_x_grupp = "kön",
-#                              manual_color = diagramfarger("kon"),
-#                              diagram_titel = diagramtitel,
-#                              diagram_capt =  diagram_capt,
-#                              x_axis_lutning = 0,
-#                              stodlinjer_avrunda_fem = TRUE,
-#                              manual_y_axis_title="procent",
-#                              output_mapp = outputmapp,
-#                              filnamn_diagram = diagramfilnamn,
-#                              skriv_till_diagramfil = spara_figur)
 
 ```
 
@@ -363,49 +327,14 @@ gg_inkomst$Medianinkomst_65_Dalarna_tid
 gg_inkomst$Medianinkomst_65_Dalarna_tid_linje
 ```
 
-Utöver inkomster är det även relevant att jämföra den disponibla inkomsten, dvs. summan av alla inkomster och transfereringar (exempelvis bostadsbidrag och barnbidrag) efter avdragen slutlig skatt. I figuren nedan är det tydligt att den disponibla inkomsten varierar mellan olika grupper. En generell trend för alla grupper är att den disponibla inkomsten, utan att justera för inflation, har ökat mellan `r paste0(min(disponibel_inkomst_df$år),"-",max(disponibel_inkomst_df$år))`.
+Utöver inkomster är det även relevant att jämföra den disponibla inkomsten, dvs. summan av alla inkomster och transfereringar (exempelvis bostadsbidrag och barnbidrag) efter avdragen slutlig skatt. I figuren nedan är det tydligt att den disponibla inkomsten varierar mellan olika grupper. En generell trend för alla grupper är att den disponibla inkomsten, utan att justera för inflation, har ökat mellan `r disponibel_inkomst_min_ar` och `r disponibel_inkomst_max_ar`
 
 Det är tydligt att sammanboende, med eller utan barn, har en högre disponibel inkomst än ensamstående. Sammanboende med barn har också en högre disponibel inkomst än sammanboende utan barn. På andra sidan av skalan återfinns gruppen ensamstående kvinnor utan barn som har lägst
 disponibel inkomst. Diagrammet visar också på att det finns tydliga skillnader mellan könen. Bland ensamstående har män, med eller utan barn, högre disponibel inkomst än kvinnor i motsvarande grupp.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
-
-  # Filtrerar dataset på de grupper och år vi vill fokusera på
-  disponibel_inkomst_utvalda_df <- disponibel_inkomst_df %>%
-    filter(hushållstyp %in% c("ensamstående kvinnor utan barn","ensamstående kvinnor med barn 0-19 år","ensamstående män utan barn","ensamstående män med barn 0-19 år","sammanboende utan barn","sammanboende med barn 0-19 år")) %>%
-      filter(ålder=="18+ år",
-             år %in% c(min(år),max(år)))
-
-  diagramtitel <- paste0("Disponibel inkomst (18+ år) i Dalarna")
-  diagramfilnamn <- paste0("disponibel_inkomst.png")
-
-  # Skapar diagram för disponibel inkomst i Dalarna där män jämförs med kvinnor.
-  disp_ink_fig <- SkapaStapelDiagram(skickad_df = disponibel_inkomst_utvalda_df,
-                                     skickad_x_var = "hushållstyp",
-                                     skickad_y_var = "Medianvärde,.tkr",
-                                     skickad_x_grupp = "år",
-                                     # manual_x_axis_text_vjust=0.5,
-                                     x_axis_lutning = 0,
-                                     manual_color = diagramfarger("rus_sex"),
-                                     diagram_titel = diagramtitel,
-                                     diagram_capt =  diagram_capt,
-                                     stodlinjer_avrunda_fem = TRUE,
-                                     diagram_liggande = TRUE,
-                                     output_mapp = outputmapp,
-                                     filnamn_diagram = diagramfilnamn,
-                                     skriv_till_diagramfil = spara_figur)
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-disp_ink_fig
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%", include = FALSE}
-#lista_figurer$`ekonomiskt_bistandDalarnas län`
-knitr::include_graphics(here("Diagram","ekonomiskt_bistandDalarnas län.png"))
+gg_disponibel_inkomst$disponibel_inkomst_18
 ```
 
 ## Sysselsättning och arbetslöshet
@@ -507,33 +436,11 @@ arbetsloshet_08_fig
 Hur långt ifrån arbetsmarknaden som en individ befinner sig beror delvis
 på hur länge personen har varit utan anställning. En person som har
 varit arbetslös länge har ofta svårare att ta sig tillbaka in på
-arbetsmarknaden. Som långtidsarbetslös räknas den som har varit öppet arbetslös eller i program med aktivitetsstöd i minst sex månader. År `r langtidsarbetsloshet_ar_min` noterades `r langtidsarbetsloshet_kvinnor_min` procent av länets kvinnor i åldern 25-64 år som långtidsarbetslösa, medan motsvarande siffra för männen var `r langtidsarbetsloshet_man_min` procent. Under 2010-talet gick långtidsarbetslösheten såväl upp som ned, innan den nådde sin topp i samband med pandemin 2020-2021. På senare år har långtidsarbetslösheten minskat tydligt och var år `r langtidsarbetsloshet_ar_max` i Dalarna något högre för män, men något lägre för kvinnor jämfört med 2011. Långtidsarbetslösheten i Sverige är högre än i Dalarna för båda könen. En generell orsak till långtidsarbetslöshet är strukturarbetslöshet som innebär att de arbetssökande saknar rätt kompetens för de arbeten som finns tillgängliga.
+arbetsmarknaden. Som långtidsarbetslös räknas den som har varit öppet arbetslös eller i program med aktivitetsstöd i minst sex månader. År `r langtidsarbetsloshet_ar_min` noterades `r langtidsarbetsloshet_kvinnor_min` procent av länets kvinnor i åldern 25-64 år som långtidsarbetslösa, medan motsvarande siffra för männen var `r langtidsarbetsloshet_man_min` procent. Under 2010-talet gick långtidsarbetslösheten såväl upp som ned, innan den nådde sin topp i samband med pandemin 2020-2021. På senare år har långtidsarbetslösheten minskat tydligt och var år `r langtidsarbetsloshet_ar_max` i Dalarna lägre för såväl kvinnor som män jämfört med `r langtidsarbetsloshet_ar_min`. Långtidsarbetslösheten i Sverige är högre än i Dalarna för båda könen. En generell orsak till långtidsarbetslöshet är strukturarbetslöshet som innebär att de arbetssökande saknar rätt kompetens för de arbeten som finns tillgängliga.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt <- "Källa: Arbetsförmedlingen (via Kolada)\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Antal invånare 25-64 år (årsmedelvärde år T) som varit öppet arbetslösa eller i program med aktivitetsstöd i minst sex månader,\ndividerat med antal invånare 25-64 år den 31/12 år T-1."
-
-diagramtitel <- "Långtidsarbetslöshet 25-64 år i Dalarna"
-diagramfilnamn <- "langtidsarbetsloshet_kolada.png"
-
-  arb1 <- SkapaStapelDiagram(skickad_df = långtidsarbetslöshet,
-                             skickad_x_var = "ar",
-                             skickad_y_var = "varde",
-                             skickad_x_grupp = "kon",
-                             diagram_titel = diagramtitel,
-                             diagram_capt = diagram_capt,
-                             manual_y_axis_title = "procent",
-                             x_axis_lutning = 0,
-                             manual_color=diagramfarger("kon"),
-                             lagg_pa_logga = FALSE,
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = spara_figur)
-
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-arb1
+gg_langtidsarbetsloshet$langtidsarbetsloshet_kolada_Dalarna
 ```
 
 ## Arbetsmarknadsetablering för invandrade

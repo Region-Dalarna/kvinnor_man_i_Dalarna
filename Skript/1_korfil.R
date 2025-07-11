@@ -107,6 +107,16 @@ medianinkomst_kvinna_max_65 <- round(forvarvsinkomst_df %>% filter(region == "Da
 medianinkomst_man_forandring_65 <- round((forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "män",ålder == "65+ år") %>% .$`Medianinkomst, tkr`/forvarvsinkomst_df %>% filter(region == "Dalarna", år == min(år),kön == "män",ålder == "65+ år") %>% .$`Medianinkomst, tkr`-1)*100,0)
 medianinkomst_kvinna_forandring_65 <- round((forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "kvinnor",ålder == "65+ år") %>% .$`Medianinkomst, tkr`/forvarvsinkomst_df %>% filter(region == "Dalarna", år == min(år),kön == "kvinnor",ålder == "65+ år") %>% .$`Medianinkomst, tkr`-1)*100,0)
 
+source(here("skript/","diagram_disponibelinkomst.R"))
+gg_disponibel_inkomst <- diag_disponibelinkomst(region_vekt = "20", 
+                                               output_mapp = output_mapp_figur,
+                                               returnera_data = TRUE,
+                                               spara_figur = TRUE,
+                                               alder = "18+ år") 
+
+disponibel_inkomst_min_ar <- min(disponibel_inkomst_df$år)
+disponibel_inkomst_max_ar <- max(disponibel_inkomst_df$år)
+
 # Etablering på arbetsmarknaden
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diag_etableringstid_kon_lan_tidsserie_KvMa_IntRap.R")
 #source(here("skript/","etablering_kon_utbildningsniva.R"))
@@ -365,12 +375,18 @@ arblosthet_inrikes_kvinna_min_varde <- gsub("\\.",",",arbetsmarknadsstatus_kommu
                                            filter(variabel == "arbetslöshet" ) %>% filter(varde ==min(varde)) %>%  .$varde) %>% first()
 
 
-# Hämtar data för långtidsarbetslöshet
-långtidsarbetslöshet <- hamta_kolada_df(kpi_id = c("N03926"),
-                                        valda_kommuner = "20",
-                                        valda_ar = 2011:2100,
-                                        konsuppdelat = TRUE) %>% 
-  mutate(kon = tolower(kon))
+# Långtidsarbetslöshet - Kolada
+# långtidsarbetslöshet <- hamta_kolada_df(kpi_id = c("N03926"),
+#                                         valda_kommuner = "20",
+#                                         valda_ar = 2011:2100,
+#                                         konsuppdelat = TRUE) %>% 
+#   mutate(kon = tolower(kon))
+source(here("Skript","diagram_langtidsarbetsloshet_tidsserie.R"))
+gg_langtidsarbetsloshet <- diag_langtidsarbetsloshet(region_vekt = "20", 
+                                                     output_mapp = output_mapp_figur,
+                                                     returnera_data = TRUE,
+                                                     startar = 2010, # Finns från 2010
+                                                     spara_figur = TRUE)
 
 langtidsarbetsloshet_ar_min = långtidsarbetslöshet$ar %>% min()
 langtidsarbetsloshet_ar_max = långtidsarbetslöshet$ar %>% max()
