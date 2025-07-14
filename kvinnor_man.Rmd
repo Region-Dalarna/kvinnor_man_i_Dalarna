@@ -42,7 +42,6 @@ spara_figur = FALSE
 
 
 # Läser in data
-arbetsloshet_tidsserie <- read.xlsx("G:/skript/projekt/data/kvinnor_man/arbetslöshet_08_senastear_bearbetad.xlsx",sheet = 1)
 langsiktiga_skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx",sheet = 1)
 skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx", sheet = 2)
 skulder_andel_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta_andel.xlsx")
@@ -84,7 +83,7 @@ För Dalarna är de regionala målen manifesterade i [Dalastrategin 2030 - Tills
 
 Alla offentliga verksamheter i Dalarna så som Region Dalarna, Länsstyrelsen Dalarna, länets kommuner och lärosäte arbetar på olika sätt aktivt för att efterleva den regionala och nationella jämställdhetpolitiken och respektive organisations särskilt uppsatta mål för jämställdhet. Följande rapport är tänkt att ge en bild av hur jämställdheten utvecklas i Dalarna baserat på den statistik som finns tillgänglig på regional och kommunal nivå. I rapporten diskuteras även läget i relation till nationella trender och utmaningar.
 
-Region Dalarna har tidigare publicerat uppföljningar av läget i Dalarna på webben, år 2022, 2023 och 2024, och en fördjupande uppföljning av jämställdhet i länet år 2019 [Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv](https://www.regiondalarna.se/contentassets/d845727dbc9f49c3b7b09a2c60456497/jamstalldhetsrapport.pdf){target="_blank"}^[Region Dalarna, Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv.] som togs fram inom projektet Jämställd regional tillväxt.
+Region Dalarna har tidigare publicerat uppföljningar av läget i Dalarna på webben, år 2022, 2023, 2024 och, samt en fördjupande uppföljning av jämställdhet i länet år 2019 [Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv](https://www.regiondalarna.se/contentassets/d845727dbc9f49c3b7b09a2c60456497/jamstalldhetsrapport.pdf){target="_blank"}^[Region Dalarna, Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv.] som togs fram inom projektet Jämställd regional tillväxt.
 
 Det görs även nationella uppföljningar av jämställdhetspolitiken. För mer information om dessa, klicka på rutan nedan:
 
@@ -361,47 +360,11 @@ gg_diagram_arbetsmarknadsstatus_kommun$arbetslosthet_senastear
 Arbetslösheten i Dalarna för inrikes och utrikes födda visar på skillnader över tid. För gruppen inrikes födda syns en nedgång i andelen arbetslösa från 2010 och framåt, med ett litet avbrott i trendlinjen under pandemiåren 2020-2021. Gruppen utrikes födda har två trendlinjer i diagrammet nedan. Från 2006 till 2017 ökade arbetslösheten bland utrikes födda till relativt höga nivåer jämfört med början på tidsperioden. Arbetslösheten bland utrikes födda män i Dalarna var också konsekvent högre än för utrikes födda kvinnor och betydligt högre år 2015 och åren därefter då Sverige hade mycket stor flyktinginvandring. Från 2017 och framåt har arbetslösheten bland gruppen utrikes födda minskat från toppnivåerna och utrikes födda kvinnor är idag i något högre utsträckning arbetslösa jämfört med utrikes födda män. Värt att understryka är att en högre arbetslöshet kan förklaras med att fler aktivt söker arbete, tidigare har en större andel personer varit varken arbetssökande eller i arbete.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-# Text till diagram
-  diagram_capt <- "Källa: Arbetsförmedlingen.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Månadsdata. Diagrammet visar medelvärdet för året"
-
-diagramtitel <- paste0("Arbetslöshet (16-64 år) i Dalarna")
-diagramfilnamn <- paste0("arbetsloshet_tidsserie_bakgrund.png")
-
-arbetsloshet_08_fig <- SkapaStapelDiagram(skickad_df = arbetsloshet_tidsserie, 
-                                         skickad_x_var = "Ar",
-                                         skickad_y_var = "Arbetslöshet",
-                                         skickad_x_grupp = "Kon",
-                                         manual_x_axis_text_vjust=1,
-                                         manual_x_axis_text_hjust=1,
-                                         manual_color = diagramfarger("kon"),
-                                         diagram_titel = diagramtitel,
-                                         diagram_capt =  diagram_capt,
-                                         diagram_facet = TRUE,
-                                         facet_legend_bottom = TRUE,
-                                         stodlinjer_avrunda_fem = TRUE,
-                                         facet_grp = "Grupp",
-                                         facet_scale = "fixed",
-                                         x_axis_lutning = 45,
-                                         diagram_liggande = FALSE,
-                                         legend_vand_ordning=FALSE,
-                                         manual_y_axis_title = "procent",
-                                         geom_position_stack = FALSE,
-                                         berakna_index = FALSE,
-                                         output_mapp = "",
-                                         filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = FALSE)
-
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-arbetsloshet_08_fig
+gg_arbetsloshet_af$arbetsloshet_tidsserie_bakgrund_Dalarna
 ```
 
-Hur långt ifrån arbetsmarknaden som en individ befinner sig beror delvis
-på hur länge personen har varit utan anställning. En person som har
-varit arbetslös länge har ofta svårare att ta sig tillbaka in på
-arbetsmarknaden. Som långtidsarbetslös räknas den som har varit öppet arbetslös eller i program med aktivitetsstöd i minst sex månader. År `r langtidsarbetsloshet_ar_min` noterades `r langtidsarbetsloshet_kvinnor_min` procent av länets kvinnor i åldern 25-64 år som långtidsarbetslösa, medan motsvarande siffra för männen var `r langtidsarbetsloshet_man_min` procent. Under 2010-talet gick långtidsarbetslösheten såväl upp som ned, innan den nådde sin topp i samband med pandemin 2020-2021. På senare år har långtidsarbetslösheten minskat tydligt och var år `r langtidsarbetsloshet_ar_max` i Dalarna lägre för såväl kvinnor som män jämfört med `r langtidsarbetsloshet_ar_min`. Långtidsarbetslösheten i Sverige är högre än i Dalarna för båda könen. En generell orsak till långtidsarbetslöshet är strukturarbetslöshet som innebär att de arbetssökande saknar rätt kompetens för de arbeten som finns tillgängliga.
+Hur långt ifrån arbetsmarknaden som en individ befinner sig beror delvis på hur länge personen har varit utan anställning. En person som har varit arbetslös länge har ofta svårare att ta sig tillbaka in på arbetsmarknaden. Som långtidsarbetslös räknas den som har varit öppet arbetslös eller i program med aktivitetsstöd i minst sex månader. År `r langtidsarbetsloshet_ar_min` noterades `r langtidsarbetsloshet_kvinnor_min` procent av länets kvinnor i åldern 25-64 år som långtidsarbetslösa, medan motsvarande siffra för männen var `r langtidsarbetsloshet_man_min` procent. Under 2010-talet gick långtidsarbetslösheten såväl upp som ned, innan den nådde sin topp i samband med pandemin 2020-2021. På senare år har långtidsarbetslösheten minskat tydligt och var år `r langtidsarbetsloshet_ar_max` i Dalarna lägre för såväl kvinnor som män jämfört med `r langtidsarbetsloshet_ar_min`. Långtidsarbetslösheten i Sverige är högre än i Dalarna för båda könen. En generell orsak till långtidsarbetslöshet är strukturarbetslöshet som innebär att de arbetssökande saknar rätt kompetens för de arbeten som finns tillgängliga.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -655,7 +618,7 @@ gg_ohalsotal_sjp$sjukpenningtal_kommun_Dalarna
 
 ## Stressrelaterade sjukfall 
 
-Antalet sjukfall kopplade till stressrelaterade symptom  har ökat dramatiskt sedan 2010. Även för dessa sjukfall ses en trend där antalet minskade tydligt under en period fram till 2010, för att sedan öka. Kvinnor står för cirka `r andel_kvinnor_stress` procent av dessa sjukskrivningar. Trots den stora skillnaden i antal mellan kvinnor och män, så är ökningen relativt likvärdig. Antalet pågående sjukfall kopplade till stress ökade markant för respektive grupp mellan 2010 och 2016, innan det skedde en viss minskning under åren innan och under pandemin. Därefter har det pågående sjukfallen kopplade till stress återigen börjat öka tydligt för såväl kvinnor som män. 
+Antalet sjukfall kopplade till stressrelaterade symptom  har ökat dramatiskt sedan 2010. Även för dessa sjukfall ses en trend där antalet minskade tydligt under en period fram till 2010, för att sedan öka. Kvinnor står för cirka `r andel_kvinnor_stress` procent av dessa sjukskrivningar. Trots den stora skillnaden i antal mellan kvinnor och män, så är ökningen relativt likvärdig. Antalet pågående sjukfall kopplade till stress ökade markant för respektive grupp mellan 2010 och 2016, innan det skedde en viss minskning under åren innan och under pandemin. Därefter har det pågående sjukfallen kopplade till stress ökat tydligt för såväl kvinnor som män. 
 
 Att utröna vad det ökade antalet sjukfall beror på är svårt, men det finns ett väl belagt samband mellan psykiatriska diagnoser (såsom svår stress) och den
 psykosociala arbetsmiljön [(Försäkringskassan, 2016)](<https://www.forsakringskassan.se/download/18.3a5418591814e228e4413b2/1661267958656/psykisk-ohalsa-korta-analyser-2016-2.pdf>){target="_blank"}^[Försäkringskassan, Korta analyser 2016:2, "Sjukskrivning för reaktioner på svår stress ökar mest."]. Kvinnors större ohälsa kan även kopplas till en högre grad av dubbelarbete bland kvinnor och bristande jämställdhet i nära relationer. För en fördjupad diskussion runt detta ämne, se Försäkringskassans rapport från november 2024: ["Psykisk ohälsa i dagens arbetsliv "](https://www.forsakringskassan.se/download/18.22814c2e194887717f99d/1738569517962/psykisk-ohalsa-i-dagens-arbetsliv-forsakringskassans-lagesrapport-2024-1.pdf){target="_blank"}^[Försäkringskassans lägesrapport (2024) - "Psykisk ohälsa i dagens arbetsliv"].

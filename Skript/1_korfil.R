@@ -1,7 +1,7 @@
 
 # Skall data uppdateras? Annars läses data in från en sparad global environment-fil.
 # Notera dock att ett flertal diagram skapas via Excelfiler (se skriptet hamta_data). Uppdatera data i detta fall åsyftar enbart de diagram-funktioner som körs nedan
-uppdatera_data = TRUE
+uppdatera_data = FALSE
 
 if(uppdatera_data == TRUE){
   
@@ -80,6 +80,7 @@ gg_antal_forv <- diag_sysselsatta_andel(output_mapp_figur = output_mapp_figur,
                                         spara_figur = TRUE, 
                                         diag_lan = FALSE, 
                                         diag_kommun = FALSE,
+                                        caption = "Källa: BAS i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna",
                                         diag_lan_antal = TRUE, # Antal för länet, uppdelat på kvinnor och män
                                         returnera_data = TRUE)
 
@@ -394,6 +395,11 @@ arblosthet_inrikes_kvinna_min_kommun <- arbetsmarknadsstatus_kommun_df %>% filte
 arblosthet_inrikes_kvinna_min_varde <- gsub("\\.",",",arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "inrikes född") %>%
                                            filter(variabel == "arbetslöshet" ) %>% filter(varde ==min(varde)) %>%  .$varde) %>% first()
 
+# Arbetslöshet, tidsserie Arbetsförmedlingen
+source(here("Skript","diagram_arbetsloshet_AF_bakgrund.R"))
+gg_arbetsloshet_af <- diag_arbetsloshet_2008_senastear(output_mapp = output_mapp_figur,
+                                                       spara_figur = TRUE,
+                                                       returnera_data = FALSE)
 
 # Långtidsarbetslöshet - Kolada
 # långtidsarbetslöshet <- hamta_kolada_df(kpi_id = c("N03926"),
