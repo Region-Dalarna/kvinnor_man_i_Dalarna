@@ -42,7 +42,6 @@ spara_figur = FALSE
 
 
 # Läser in data
-utbildning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/utbildningsniva.xlsx")
 arbetsloshet_tidsserie <- read.xlsx("G:/skript/projekt/data/kvinnor_man/arbetslöshet_08_senastear_bearbetad.xlsx",sheet = 1)
 langsiktiga_skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx",sheet = 1)
 skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx", sheet = 2)
@@ -128,51 +127,18 @@ En strukturell faktor som kan bidra till könsskillnaden i utbildningsnivå är 
 
 Utbildningsnivån påverkar inte bara livsinkomsten utan även medellivslängden. För personer som uppnått 65 års ålder skiljer mer än tre år i medellivslängd mellan dem som har förgymnasial utbildning och dem med eftergymnasial utbildning. Skillnaden mellan könen är genomgående cirka två år, vilket innebär att kvinnor i respektive utbildningsgrupp lever i genomsnitt två år längre än män i samma utbildningsgrupp. Samtidigt visar det sig att boenderelationer också påverkar medellivslängden, och särskilt för män. Män med förgymnasial utbildning som är sammanboende lever i genomsnitt längre än ensamstående män med eftergymnasial utbildning. Sämst utsikter, genomsnittligt, för ett långt liv har således ensamstående män med låg utbildningsnivå [(SCB)](https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__BE__BE0701/LivslUtbHushtyp/){target="_blank"}.
 
-Utbildningsnivån inom åldersgruppen 25-64 år i Dalarna år `r max(utbildning_df$år)` enligt figuren nedan visar på stora skillnader mellan könen. En betydligt större andel kvinnor i länet har en högre utbildning i jämförelse med andelen män med högre utbildning. Bland kvinnor i Dalarna är den vanligaste, med `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel,0)` procent, utbildningsnivån "`r utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$utbildningsnivå`". Motsvarande andel bland män i Dalarna är `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer")  %>% .$andel,0)` procent. Bland män i Dalarna är i stället den vanligast förekommande utbildningskategorin "`r utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$utbildningsnivå`". Ungefär `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$andel,0)` procent av männen i Dalarna återfinns inom denna kategori.
+Utbildningsnivån inom åldersgruppen 25-64 år i Dalarna år `r utbildning_senaste` enligt figuren nedan visar på stora skillnader mellan könen. En betydligt större andel kvinnor i länet har en högre utbildning i jämförelse med andelen män med högre utbildning. Bland kvinnor i Dalarna är den vanligaste, med `r vanligast_kvinnor_andel` procent, utbildningsnivån "`r vanligast_kvinnor_utbildning`". Motsvarande andel bland män i Dalarna är `r eftergym_andel_man` procent. Bland män i Dalarna är i stället den vanligast förekommande utbildningskategorin "`r vanligast_man_utbildning`". Ungefär `r vanligast_man_andel` procent av männen i Dalarna återfinns inom denna kategori.
 
-Räknas alla typer av eftergymnasial utbildning samman är det totalt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "eftergymnasial utbildning, mindre än 3 år")  %>% .$andel,0)` procent av kvinnorna i Dalarna som har någon form av eftergymnasial utbildning och bland män i länet är motsvarande siffra cirka `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män", utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, mindre än 3 år")  %>% .$andel,0)` procent.
+Räknas alla typer av eftergymnasial utbildning samman är det totalt `r eftergym_tot_kvinnor` procent av kvinnorna i Dalarna som har någon form av eftergymnasial utbildning och bland män i länet är motsvarande siffra cirka `r eftergym_tot_man` procent.
 
-Även inom utbildningsnivån gymnasieutbildning om högst 2 år är en större andel män än kvinnor, `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av männen har en gymnasieutbildning om högst 2 år, medan `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av kvinnorna har en gymnasieutbildning om högst 2 år.
+Även inom utbildningsnivån gymnasieutbildning om högst 2 år är en större andel män än kvinnor, `r gym_max_2_ar_man` procent av männen har en gymnasieutbildning om högst 2 år, medan `r gym_max_2_ar_kvinnor` procent av kvinnorna har en gymnasieutbildning om högst 2 år.
 
-Sammantaget innebär detta att ungefär `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män", utbildningsnivå == "gymnasial utbildning, 3 år") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av alla män i Dalarna har en gymnasieutbildning som högsta utbildning. Bland kvinnor är motsvarande andel i Dalarna `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor", utbildningsnivå == "gymnasial utbildning, 3 år") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent.
-
-```{r, echo=FALSE}
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna"
-
-  # Skapar en faktorvariabel som styr vilken ordning som utbildningsgrupper visas
-  utbildning_df$utbildningsnivå <- factor(utbildning_df$utbildningsnivå, levels = c("eftergymnasial utbildning, 3 år eller mer","eftergymnasial utbildning, mindre än 3 år",
-                                                                                    "gymnasial utbildning, 3 år","gymnasial utbildning, högst 2 år","förgymnasial utbildning, 9 (10) år",
-                                                                                    "förgymnasial utbildning kortare än 9 år")[6:1])
-
-  diagramtitel_senaste <- paste0("Utbildningsnivåer (25-64 år) i Dalarna år ",max(utbildning_df$år))
-  diagramtitel <- "Andel av befolkningen (25-64 år) i Dalarna med minst 3 års eftergymnasial utbildning"
-  diagramfilnamn <- paste0("utbildningsniva_Dalarnas län.png")
-
-  utbildning_fig <- SkapaStapelDiagram(skickad_df <- utbildning_df %>%
-                                         filter(region == "Dalarna", utbildningsnivå != "uppgift om utbildningsnivå saknas"), 
-                                       skickad_x_var = "utbildningsnivå", 
-                                       skickad_y_var = "andel", 
-                                       skickad_x_grupp = "kön",
-                                       x_axis_lutning = 0,
-                                       diagram_liggande = TRUE,
-                                       x_axis_sort_value=FALSE,
-                                       manual_color = diagramfarger("kon"),
-                                       manual_y_axis_title = "procent",
-                                       diagram_titel = diagramtitel_senaste,
-                                       diagram_capt =  diagram_capt,
-                                       stodlinjer_avrunda_fem = TRUE,
-                                       berakna_index = FALSE,
-                                       output_mapp = outputmapp,
-                                       filnamn_diagram = diagramfilnamn,
-                                       skriv_till_diagramfil = spara_figur)
-
-```
+Sammantaget innebär detta att ungefär `r gym_tot_man` procent av alla män i Dalarna har en gymnasieutbildning som högsta utbildning. Bland kvinnor är motsvarande andel i Dalarna `r gym_tot_kvinnor` procent.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-utbildning_fig
+gg_utb_niva_senaste$utbildningsniva_Dalarna_senaste_ar
 ```
-<br>
 
 ## Gymnasieutbildning och examen
 

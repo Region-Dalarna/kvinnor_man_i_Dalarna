@@ -30,10 +30,10 @@ Output_mapp_figur <- here("Diagram","/")
 # data_befolkning_alder(spara_data = TRUE,
 #                       output_mapp = Output_mapp)
 
-# Utbildningsnivå för senaste år (används för att skapa två figurer: utbildningsnivåer i Dalarna och länsjämförelse)
-source(here("Skript","utbildningsniva_senastear.R"), encoding="UTF-8")
-data_utbildningsniva(spara_data = TRUE,
-                     output_mapp = Output_mapp)
+# Utbildningsnivå för senaste år (används för att skapa två figurer: utbildningsnivåer i Dalarna och länsjämförelse) - numer ett diagramskript
+# source(here("Skript","utbildningsniva_senastear.R"), encoding="UTF-8")
+# data_utbildningsniva(spara_data = TRUE,
+#                      output_mapp = Output_mapp)
 
 # Utbildningsnivå från 85 och framåt uppdelat på kön - Numer ett diagramskript
 # source(here("Skript","utbildningsniva_85.R"), encoding="UTF-8")

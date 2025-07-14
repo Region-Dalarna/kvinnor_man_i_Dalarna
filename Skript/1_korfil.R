@@ -1,7 +1,7 @@
 
 # Skall data uppdateras? Annars läses data in från en sparad global environment-fil.
 # Notera dock att ett flertal diagram skapas via Excelfiler (se skriptet hamta_data). Uppdatera data i detta fall åsyftar enbart de diagram-funktioner som körs nedan
-uppdatera_data = FALSE
+uppdatera_data = TRUE
 
 if(uppdatera_data == TRUE){
   
@@ -35,6 +35,26 @@ utbildning_85_df <- gg_utbniva_85$hogutb_andel_ar20_1985_2024$data
 utb_85_senaste_ar <- max(utbildning_85_df$år)
 utb_85_senaste_andel_kv <- round(utbildning_85_df %>% filter(kön == "kvinnor",år == utb_85_senaste_ar) %>% .$total,0)
 utb_85_senaste_andel_man <- round(utbildning_85_df %>% filter(kön == "män",år == utb_85_senaste_ar) %>% .$total,0)
+
+# Utbildningsnivå, senaste år, flera kategorier
+source(here("skript/","diagram_utb_niva_senaste_ar.R"))
+gg_utb_niva_senaste <- diag_utbniva_senaste(region_vekt = "20", 
+                                            output_mapp = output_mapp_figur,
+                                            spara_figur = TRUE,
+                                            returnera_data = TRUE)
+
+utbildning_senaste <- max(utbildning_df$år)
+vanligast_kvinnor_andel <- round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel,0)
+vanligast_kvinnor_utbildning <- utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$utbildningsnivå
+eftergym_andel_man <- round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer")  %>% .$andel,0)
+vanligast_man_andel <- round(utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$andel,0)
+vanligast_man_utbildning <- utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$utbildningsnivå
+eftergym_tot_kvinnor <- round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "eftergymnasial utbildning, mindre än 3 år")  %>% .$andel,0)
+eftergym_tot_man <- round(utbildning_df %>% filter(region == "Dalarna",kön == "män", utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, mindre än 3 år")  %>% .$andel,0)
+gym_max_2_ar_kvinnor <- round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)
+gym_max_2_ar_man <- round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)
+gym_tot_kvinnor <- round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor", utbildningsnivå == "gymnasial utbildning, 3 år") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)
+gym_tot_man <- round(utbildning_df %>% filter(region == "Dalarna",kön == "män", utbildningsnivå == "gymnasial utbildning, 3 år") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)
 
 # De tio största yrkena för män respektive kvinnor
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_yrke_ssyk3_storsta_per_geografi.R")
