@@ -1,7 +1,7 @@
 
 # Skall data uppdateras? Annars läses data in från en sparad global environment-fil.
 # Notera dock att ett flertal diagram skapas via Excelfiler (se skriptet hamta_data). Uppdatera data i detta fall åsyftar enbart de diagram-funktioner som körs nedan
-uppdatera_data = FALSE
+uppdatera_data = TRUE
 
 if(uppdatera_data == TRUE){
   
@@ -445,7 +445,8 @@ regionval_max_ar_skillnad <- regionval_df %>% filter(valår == max(valår),kön 
 # Kommunval
 kommunval_ar_max <- max(kommunval_df$valår)
 kommunval_kommuner_fler_kvinnor_man <- kommunval_df %>% pivot_wider(names_from = kön, values_from = Antal) %>%  filter(kvinnor > män) %>% .$region %>% glue_collapse(sep = ", ", last = " och ")
-kommunval_kommuner_ojamnlik <- kommunval_df %>% pivot_wider(names_from = kön, values_from = Antal) %>%  filter((män/(kvinnor+män))>0.6) %>% .$region %>% glue_collapse(sep = ", ", last = " och ")
+kommunval_kommuner_ojamnlik <- kommunval_df %>% pivot_wider(names_from = kön, values_from = Antal) %>%  filter((män/(kvinnor+män))>0.60) %>% .$region %>% glue_collapse(sep = ", ", last = " och ")
+antal_ojamlik <- length(unlist(strsplit(gsub(" och ", ", ", kommunval_kommuner_ojamnlik), ",\\s*")))
 
 # Andel chefer
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diagram_andel_chefer_utb_kv_man.R")

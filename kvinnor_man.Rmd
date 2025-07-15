@@ -71,7 +71,7 @@ Det övergripande målet för jämställdhetspolitiken är att kvinnor och män 
 
 <li>Kvinnors ohälsa mätt genom frånvaro från arbetsplatsen är betydligt mer omfattande än mäns. Skillnaden gäller oavsett bransch, och är tydligast när det gäller stressrelaterade symtom.</li>
 
-<li>Inom politiken har representationen av kvinnor och män på förtroendeposter under de senaste årtiondena jämnats ut. Det råder dock fortfarande stora skillnader på lokal nivå och fyra av Dalarnas kommuner har en övervikt (mer än 60 %) av män i fullmäktige. </li>
+<li>Inom politiken har representationen av kvinnor och män på förtroendeposter under de senaste årtiondena jämnats ut. Det råder dock fortfarande stora skillnader på lokal nivå och `r antal_ojamlik` av Dalarnas kommuner har en övervikt (mer än 60 %) av män i fullmäktige. </li>
     
 
 # Introduktion {-}

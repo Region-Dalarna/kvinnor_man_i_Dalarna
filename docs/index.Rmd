@@ -22,6 +22,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 # Nödvändiga paket
 if (!require("pacman")) install.packages("pacman")
 p_load(here,
+       glue,
        tidyverse,
        openxlsx,
        stringi)
@@ -36,59 +37,14 @@ options(dplyr.summarise.inform = FALSE)
 # Här läggs figurerna
 outputmapp = here("Diagram","/")
 
-# Om man vill uppdatera data sätts denna variabel till TRUE
-#uppdatera_data = FALSE
-#
 # Om man vill spara figurer sätts denna variabel till TRUE
 spara_figur = FALSE
 
-# if(skapa_lista == TRUE){
-# source(here("master_kvinnor_man.R"), encoding = "utf-8", echo = FALSE)
-# lista_figurer=c(lista_figurer,hamta_figurer(skapa_ppt=FALSE))
-# }
-# 
-# if(uppdatera_data == TRUE){
-# source(here("Skript","1_hamta_data.R"), encoding="UTF-8")
-# }
 
 # Läser in data
-# befolkning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/befolkning.xlsx",sheet = 1)
-# befolkning_df_for <- read.xlsx("G:/skript/projekt/data/kvinnor_man/befolkning.xlsx",sheet = 2)
-utbildning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/utbildningsniva.xlsx")
-utbildning_85_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/utbildningsniva_85.xlsx")
-forvarvsarbetande_bransch <- read.xlsx("G:/skript/projekt/data/kvinnor_man/forvarvsarbetande_bransch.xlsx")
-#yrke_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/yrke.xlsx")
-arbetsmarknadsstatus_lan_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/arbetsmarknadsstatus_senastear.xlsx",sheet = 1)
-arbetsmarknadsstatus_kommun_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/arbetsmarknadsstatus_senastear.xlsx",sheet = 2)
-arbetsloshet_tidsserie <- read.xlsx("G:/skript/projekt/data/kvinnor_man/arbetslöshet_08_senastear_bearbetad.xlsx",sheet = 1)
-#langtidsarbetsloshet_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/långtidsarbetslöshet_bearbetad.xlsx",sheet = 1)
-#langtidsarbetsloshet_utbildning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/långtidsarbetslöshet_bearbetad.xlsx",sheet = 2)
-#etablering_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/etableringstid.xlsx") 
-medianinkomst_df <-  read.xlsx("G:/skript/projekt/data/kvinnor_man/medianinkomst.xlsx") %>% 
-  rename(medianinkomst = `Medianinkomst,.tkr`)
-medianinkomst_65plus_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/medianinkomst_65.xlsx") %>% 
-  rename(medianinkomst = `Medianinkomst,.tkr`)
-disponibel_inkomst_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/disponibel_inkomst.xlsx")
 langsiktiga_skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx",sheet = 1)
 skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx", sheet = 2)
 skulder_andel_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta_andel.xlsx")
-riksdagsval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 1)
-regionval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 2)
-kommunval_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/val.xlsx", sheet = 3)
-chefer_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/chefer.xlsx")
-foraldrapenning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/foraldrapenning.xlsx",sheet = 1) %>% 
-  mutate(Kommun = ifelse(Kommun == "20 Dalarnas län", "Samtliga kommuner",  Kommun))
-vab_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/foraldrapenning.xlsx",sheet = 2) %>% 
-  mutate(Kommun = ifelse(Kommun == "20 Dalarnas län", "Samtliga kommuner",  Kommun))
-ohalsotal_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/ohalsotal_sjukpenningtal.xlsx",sheet = 1) %>% 
-  mutate(Kommun = ifelse(Kommun == "20 Dalarnas län", "Samtliga kommuner",  Kommun)) %>% 
-    filter(Ålder == "Samtliga 16-64 år")
-sjukpenningtal_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/ohalsotal_sjukpenningtal.xlsx",sheet = 2)%>% 
-  mutate(Kommun = ifelse(Kommun == "20 Dalarnas län", "Samtliga kommuner",  Kommun)) %>% 
-    filter(Ålder == "Samtliga 16-64 år")
-stress_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/sjukfall_stress.xlsx")
-# OBS! UPPDATERAS MANUELLT
-startade_sjukfall_bransch_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/startade_sjukfall_bransch_bearbetad_2025_jul_03.xlsx")
 gymnasieantagning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasieantagning.xlsx")
 gymnasiet_genomstromning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasie_genomströmning.xlsx")
 ```
@@ -115,7 +71,7 @@ Det övergripande målet för jämställdhetspolitiken är att kvinnor och män 
 
 <li>Kvinnors ohälsa mätt genom frånvaro från arbetsplatsen är betydligt mer omfattande än mäns. Skillnaden gäller oavsett bransch, och är tydligast när det gäller stressrelaterade symtom.</li>
 
-<li>Inom politiken har representationen av kvinnor och män på förtroendeposter under de senaste årtiondena jämnats ut. Det råder dock fortfarande stora skillnader på lokal nivå och fyra av Dalarnas kommuner har en övervikt (mer än 60 %) av män i fullmäktige. </li>
+<li>Inom politiken har representationen av kvinnor och män på förtroendeposter under de senaste årtiondena jämnats ut. Det råder dock fortfarande stora skillnader på lokal nivå och `r antal_ojamlik` av Dalarnas kommuner har en övervikt (mer än 60 %) av män i fullmäktige. </li>
     
 
 # Introduktion {-}
@@ -127,7 +83,7 @@ För Dalarna är de regionala målen manifesterade i [Dalastrategin 2030 - Tills
 
 Alla offentliga verksamheter i Dalarna så som Region Dalarna, Länsstyrelsen Dalarna, länets kommuner och lärosäte arbetar på olika sätt aktivt för att efterleva den regionala och nationella jämställdhetpolitiken och respektive organisations särskilt uppsatta mål för jämställdhet. Följande rapport är tänkt att ge en bild av hur jämställdheten utvecklas i Dalarna baserat på den statistik som finns tillgänglig på regional och kommunal nivå. I rapporten diskuteras även läget i relation till nationella trender och utmaningar.
 
-Region Dalarna har tidigare publicerat uppföljningar av läget i Dalarna på webben, år 2022, 2023 och 2024, och en fördjupande uppföljning av jämställdhet i länet år 2019 [Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv](https://www.regiondalarna.se/contentassets/d845727dbc9f49c3b7b09a2c60456497/jamstalldhetsrapport.pdf){target="_blank"}^[Region Dalarna, Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv.] som togs fram inom projektet Jämställd regional tillväxt.
+Region Dalarna har tidigare publicerat uppföljningar av läget i Dalarna på webben, år 2022, 2023, 2024 och, samt en fördjupande uppföljning av jämställdhet i länet år 2019 [Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv](https://www.regiondalarna.se/contentassets/d845727dbc9f49c3b7b09a2c60456497/jamstalldhetsrapport.pdf){target="_blank"}^[Region Dalarna, Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv.] som togs fram inom projektet Jämställd regional tillväxt.
 
 Det görs även nationella uppföljningar av jämställdhetspolitiken. För mer information om dessa, klicka på rutan nedan:
 
@@ -150,77 +106,18 @@ Både kvinnor och män vidareutbildar sig efter gymnasiet i högre utsträckning
 
 ## Utbildningsnivåer
 
-```{r, echo=FALSE, include=TRUE, fig.width=5, fig.align='center', out.width="90%"}
-
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
-
-# Tar bort uppgift saknas och beräknar hur stor andel som har en viss utbildning
-utbildning_85_utskrift<-utbildning_85_df %>%
-  filter(utb_niva!="Uppgift saknas") %>%
-    group_by(år,region,kön,utb_niva) %>%
-      summarize(antal=sum(Antal)) %>%
-        mutate(andel=(antal/sum(antal))*100)
-
-diagramtitel <- paste0("Andel av befolkningen (25-64 år) med minst 3 års eftergymnasial utbildning i ",unique(utbildning_85_utskrift$region))
-diagramtitel <- str_wrap(diagramtitel)
-diagramfilnamn <- paste0("utbildningsniva_85_21_kon.png")
-
-utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
-                              filter(år%in%c("1985","1990","1995","2000","2005","2010","2015",max(utbildning_85_utskrift$år))) %>%
-                                filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer"),
-                             skickad_x_var = "år",
-                             skickad_y_var = "andel",
-                             skickad_x_grupp = "kön",
-                             manual_color = diagramfarger("kon"),
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             x_axis_lutning = 0,
-                             stodlinjer_avrunda_fem = TRUE,
-                             manual_y_axis_title="procent",
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = spara_figur)
-
-```
-
-De senaste decennierna har utbildningsnivån bland befolkningen i Dalarna ökat generellt och särskilt andelen med högre utbildning. I mitten av 1980-talet hade bara drygt sju procent av befolkningen en högre utbildning. År `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` hade den andelen ökat till knappt `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "kvinnor") %>% .$andel,0)` procent för kvinnor och knappt `r round(utbildning_85_utskrift %>% filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer",år %in% max(.$år),kön == "män") %>% .$andel,0)` procent för män. Anmärkningsvärt är dock att skillnaden i utbildningsnivå mellan könen har ökat avsevärt genom åren.
-I mitten av 1980-talet var andelen högutbildade ungefär lika stor bland kvinnor och män. År `r unique(utbildning_85_utskrift %>% filter(år %in% max(.$år)) %>% .$år)` var nästan dubbelt så stor andel kvinnor som män högutbildade i Dalarna.
+De senaste decennierna har utbildningsnivån bland befolkningen i Dalarna ökat generellt och särskilt andelen med högre utbildning. I mitten av 1980-talet hade bara drygt sju procent av befolkningen en högre utbildning. År `r utb_85_senaste_ar` hade den andelen ökat till ungefär `r utb_85_senaste_andel_kv` procent för kvinnor och ca `r utb_85_senaste_andel_man` procent för män. Anmärkningsvärt är dock att skillnaden i utbildningsnivå mellan könen har ökat avsevärt genom åren.
+I mitten av 1980-talet var andelen högutbildade ungefär lika stor bland kvinnor och män, men `r utb_85_senaste_ar` var nästan dubbelt så stor andel kvinnor som män högutbildade i Dalarna.
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-utb_85_fig
+gg_utbniva_85$hogutb_andel_ar20_1985_2024
 ```
 <br>
-I nationell jämförelse har Dalarna en relativt låg andel personer med högre utbildning. I hela riket har 38 procent av kvinnorna och 24 procent av männen i åldersgruppen 25-64 år minst 3 års eftergymnasial utbildning, medan andelen kvinnor i Dalarna med en högre utbildning om minst 3 år `r unique(utbildning_df$år)` är ungefär `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Dalarna",kön == "kvinnor") %>% .$andel,0) ` procent och motsvarande siffra för män i länet är cirka `r round(utbildning_df %>% filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer", region == "Dalarna",kön == "män") %>% .$andel,0) ` procent. Detta utfall placerar Dalarna sämst i landet tillsammans med Gävleborgs, Kalmars och Södermanlands län som har liknande låga siffror.
+I nationell jämförelse har Dalarna en relativt låg andel personer med högre utbildning. Andelen kvinnor i Dalarna med en högre utbildning om minst 3 år `r utb_85_senaste_ar` är ungefär `r utb_85_senaste_andel_kv ` procent och motsvarande siffra för män i länet är cirka `r utb_85_senaste_andel_man ` procent. Detta utfall placerar Dalarna sämst i landet tillsammans med Gävleborgs, Kalmars och Södermanlands län som har liknande låga siffror.
 
 <br>
-```{r, echo=FALSE}
-  
-diagramtitel <-paste0("Andel av befolkningen (25-64 år) med minst 3 års eftergymnasial utbildning år ", unique(utbildning_df$år))
-diagramtitel <- str_wrap(diagramtitel,50)
-diagramfilnamn <- paste0("utbildningsniva_jmf_lan_kon.png")
-
-utbildning_lan_fig <- SkapaStapelDiagram(skickad_df <- utbildning_df %>%
-                                           filter(utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer"), 
-                                         skickad_x_var = "region", 
-                                         skickad_y_var = "andel", 
-                                         skickad_x_grupp = "kön",
-                                         diagram_liggande=FALSE,
-                                         manual_x_axis_text_vjust=1,
-                                         manual_x_axis_text_hjust=1,
-                                         x_axis_lutning = 45,
-                                         x_axis_sort_value=TRUE,
-                                         manual_color = diagramfarger("kon"),
-                                         manual_y_axis_title="procent",
-                                         diagram_titel = diagramtitel,
-                                         diagram_capt =  diagram_capt,
-                                         stodlinjer_avrunda_fem = TRUE,
-                                         output_mapp = outputmapp,
-                                         filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = spara_figur)
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-utbildning_lan_fig
+gg_utbniva_85$hogutb_andel_ar_2024
 ```
 <br>
 Generellt tenderar regioner med större urbana center att både ha en yngre och en mer välutbildad befolkning jämfört med mer glest befolkade län som Dalarna. Skillnaden är störst bland män, där andelen högutbildade män i Stockholms län är mer än dubbelt så hög som motsvarande andel i Dalarnas län.
@@ -229,75 +126,18 @@ En strukturell faktor som kan bidra till könsskillnaden i utbildningsnivå är 
 
 Utbildningsnivån påverkar inte bara livsinkomsten utan även medellivslängden. För personer som uppnått 65 års ålder skiljer mer än tre år i medellivslängd mellan dem som har förgymnasial utbildning och dem med eftergymnasial utbildning. Skillnaden mellan könen är genomgående cirka två år, vilket innebär att kvinnor i respektive utbildningsgrupp lever i genomsnitt två år längre än män i samma utbildningsgrupp. Samtidigt visar det sig att boenderelationer också påverkar medellivslängden, och särskilt för män. Män med förgymnasial utbildning som är sammanboende lever i genomsnitt längre än ensamstående män med eftergymnasial utbildning. Sämst utsikter, genomsnittligt, för ett långt liv har således ensamstående män med låg utbildningsnivå [(SCB)](https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__BE__BE0701/LivslUtbHushtyp/){target="_blank"}.
 
-Utbildningsnivån inom åldersgruppen 25-64 år i Dalarna år `r max(utbildning_df$år)` enligt figuren nedan visar på stora skillnader mellan könen. En betydligt större andel kvinnor i länet har en högre utbildning i jämförelse med andelen män med högre utbildning. Bland kvinnor i Dalarna är den vanligaste, med `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel,0)` procent, utbildningsnivån "`r utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$utbildningsnivå`". Motsvarande andel bland män i Dalarna är `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer")  %>% .$andel,0)` procent. Bland män i Dalarna är i stället den vanligast förekommande utbildningskategorin "`r utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$utbildningsnivå`". Ungefär `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$andel,0)` procent av männen i Dalarna återfinns inom denna kategori.
+Utbildningsnivån inom åldersgruppen 25-64 år i Dalarna år `r utbildning_senaste` enligt figuren nedan visar på stora skillnader mellan könen. En betydligt större andel kvinnor i länet har en högre utbildning i jämförelse med andelen män med högre utbildning. Bland kvinnor i Dalarna är den vanligaste, med `r vanligast_kvinnor_andel` procent, utbildningsnivån "`r vanligast_kvinnor_utbildning`". Motsvarande andel bland män i Dalarna är `r eftergym_andel_man` procent. Bland män i Dalarna är i stället den vanligast förekommande utbildningskategorin "`r vanligast_man_utbildning`". Ungefär `r vanligast_man_andel` procent av männen i Dalarna återfinns inom denna kategori.
 
-Räknas alla typer av eftergymnasial utbildning samman är det totalt `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "eftergymnasial utbildning, mindre än 3 år")  %>% .$andel,0)` procent av kvinnorna i Dalarna som har någon form av eftergymnasial utbildning och bland män i länet är motsvarande siffra cirka `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män", utbildningsnivå == "eftergymnasial utbildning, 3 år eller mer") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "eftergymnasial utbildning, mindre än 3 år")  %>% .$andel,0)` procent.
+Räknas alla typer av eftergymnasial utbildning samman är det totalt `r eftergym_tot_kvinnor` procent av kvinnorna i Dalarna som har någon form av eftergymnasial utbildning och bland män i länet är motsvarande siffra cirka `r eftergym_tot_man` procent.
 
-Även inom utbildningsnivån gymnasieutbildning om högst 2 år är en större andel män än kvinnor, `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av männen har en gymnasieutbildning om högst 2 år, medan `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av kvinnorna har en gymnasieutbildning om högst 2 år.
+Även inom utbildningsnivån gymnasieutbildning om högst 2 år är en större andel män än kvinnor, `r gym_max_2_ar_man` procent av männen har en gymnasieutbildning om högst 2 år, medan `r gym_max_2_ar_kvinnor` procent av kvinnorna har en gymnasieutbildning om högst 2 år.
 
-Sammantaget innebär detta att ungefär `r round(utbildning_df %>% filter(region == "Dalarna",kön == "män", utbildningsnivå == "gymnasial utbildning, 3 år") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent av alla män i Dalarna har en gymnasieutbildning som högsta utbildning. Bland kvinnor är motsvarande andel i Dalarna `r round(utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor", utbildningsnivå == "gymnasial utbildning, 3 år") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "kvinnor",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)` procent.
-
-```{r, echo=FALSE}
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna"
-
-  # Skapar en faktorvariabel som styr vilken ordning som utbildningsgrupper visas
-  utbildning_df$utbildningsnivå <- factor(utbildning_df$utbildningsnivå, levels = c("eftergymnasial utbildning, 3 år eller mer","eftergymnasial utbildning, mindre än 3 år",
-                                                                                    "gymnasial utbildning, 3 år","gymnasial utbildning, högst 2 år","förgymnasial utbildning, 9 (10) år",
-                                                                                    "förgymnasial utbildning kortare än 9 år")[6:1])
-
-# Tar bort uppgift saknas och beräknar hur stor andel som har en viss utbildning
-# Ändrat från befolkning till antal
-utbildning_85_utskrift<-utbildning_85_df %>%
-    group_by(år,region,kön,utb_niva) %>%
-      summarize(antal=sum(Antal)) %>%
-        mutate(andel=(antal/sum(antal))*100) %>% 
-          filter(utb_niva!="Uppgift saknas") 
-
-  diagramtitel_senaste <- paste0("Utbildningsnivåer (25-64 år) i Dalarna år ",max(utbildning_df$år))
-  diagramtitel <- "Andel av befolkningen (25-64 år) i Dalarna med minst 3 års eftergymnasial utbildning"
-  diagramfilnamn <- paste0("utbildningsniva_Dalarnas län.png")
-
-  utbildning_fig <- SkapaStapelDiagram(skickad_df <- utbildning_df %>%
-                                         filter(region == "Dalarna", utbildningsnivå != "uppgift om utbildningsnivå saknas"), 
-                                       skickad_x_var = "utbildningsnivå", 
-                                       skickad_y_var = "andel", 
-                                       skickad_x_grupp = "kön",
-                                       x_axis_lutning = 0,
-                                       diagram_liggande = TRUE,
-                                       x_axis_sort_value=FALSE,
-                                       manual_color = diagramfarger("kon"),
-                                       manual_y_axis_title = "procent",
-                                       diagram_titel = diagramtitel_senaste,
-                                       diagram_capt =  diagram_capt,
-                                       stodlinjer_avrunda_fem = TRUE,
-                                       berakna_index = FALSE,
-                                       output_mapp = outputmapp,
-                                       filnamn_diagram = diagramfilnamn,
-                                       skriv_till_diagramfil = spara_figur)
-
-  utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
-                              filter(år%in%c("1985","1990","1995","2000","2005","2010","2015",max(utbildning_85_utskrift$år))) %>%
-                                filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer"),
-                             skickad_x_var = "år",
-                             skickad_y_var = "andel",
-                             skickad_x_grupp = "kön",
-                             manual_color = diagramfarger("kon"),
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             x_axis_lutning = 0,
-                             stodlinjer_avrunda_fem = TRUE,
-                             manual_y_axis_title="procent",
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = spara_figur)
-
-```
+Sammantaget innebär detta att ungefär `r gym_tot_man` procent av alla män i Dalarna har en gymnasieutbildning som högsta utbildning. Bland kvinnor är motsvarande andel i Dalarna `r gym_tot_kvinnor` procent.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-utbildning_fig
+gg_utb_niva_senaste$utbildningsniva_Dalarna_senaste_ar
 ```
-<br>
 
 ## Gymnasieutbildning och examen
 
@@ -379,110 +219,13 @@ gym_genom
 ## Yrken och branscher
 Många arbetsuppgifter och yrken har historiskt varit könsuppdelade. Med könsuppdelningen har även värderingar om vad som räknats som formellt respektive informellt arbete synliggjorts, och hur dessa arbeten värderats i pengar. Politiska beslut har på flera sätt påverkat detta. Innan exempelvis reformerna som etablerade barn- och äldreomsorg på den reguljära arbetsmarknaden utförde kvinnor detta omsorgsarbete obetalt eller på annat sätt utanför ordinarie arbetsmarknad. När dessa arbetsuppgifter övergick till formellt arbete medförde det många positiva effekter för både kvinnor och män, men det blev på många sätt naturligt att framförallt kvinnor befolkade dessa tjänster. Dessvärre har det bidragit till en bestående könssegregering på arbetsmarknaden, som förefaller svår att förändra.
 
-Sedan många år har kvinnor och män haft likvärdig tillgång till utbildning och möjlighet att fritt välja yrke. Trots detta består många av könsskillnaderna i arbetslivet (se figuren nedan) och de yngre generationerna tycks inte göra mindre könsstereotypa val, som redovisats ovan. Många branscher i länet idag har en tydlig övervikt av det ena eller det andra könet, exempelvis byggbranschen som omfattar yrken inom bland annat el och VVS, och där kvinnor bara utgör ungefär `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Bygg") %>% .$andel` procent av de förvärvsarbetande. Även om det har skett en ökning av andelen kvinnor inom byggbranschen är denna ökning ännu liten i sammanhanget. Inom vård och omsorg är bilden densamma men med motsatt könsfördelning. Här utgör kvinnor cirka `r forvarvsarbetande_bransch %>% filter(kön=="kvinnor",bransch=="Vård och omsorg") %>% .$andel` procent av de förvärvsarbetande.
+Sedan många år har kvinnor och män haft likvärdig tillgång till utbildning och möjlighet att fritt välja yrke. Trots detta består många av könsskillnaderna i arbetslivet (se figuren nedan) och de yngre generationerna tycks inte göra mindre könsstereotypa val, som redovisats ovan. Många branscher i länet idag har en tydlig övervikt av det ena eller det andra könet, exempelvis byggbranschen som omfattar yrken inom bland annat el och VVS, och där kvinnor bara utgör ungefär `r forvarvsarbetande_bygg_andel` procent av de förvärvsarbetande. Även om det har skett en ökning av andelen kvinnor inom byggbranschen är denna ökning ännu liten i sammanhanget. Inom vård och omsorg är bilden densamma men med motsatt könsfördelning. Här utgör kvinnor cirka `r forvarvsarbetande_vard_andel` procent av de förvärvsarbetande.
 
 Att åstadkomma en förändring i närtid av balansen mellan män och kvinnor inom de könssegregerade branscherna förefaller inte vara inom räckhåll då ungdomars studieval som visats ovan är så pass könsstereotypa.
 
 <br>
-```{r, echo=FALSE,fig.width=10, fig.align='center', out.width="90%"}
-
-diagram_capt <- "Källa: BAS i SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: 16-74 år"
-
-diagramtitel <- paste0("Antal förvärvsarbetande per bransch i Dalarna i ",unique(forvarvsarbetande_bransch$månad_år))
-diagramfil <- "forvarvsarbetande_bransch.png"
-
-forvarvsarbetande_kon_fig <- SkapaStapelDiagram(skickad_df <- forvarvsarbetande_bransch %>% 
-                                                  filter(bransch != "Okänt"), 
-                                               skickad_x_var = "bransch", 
-                                               skickad_y_var = "antal", 
-                                               skickad_x_grupp = "kön",
-                                               diagram_liggande=FALSE,
-                                               manual_x_axis_text_vjust=1,
-                                               manual_x_axis_text_hjust=1,
-                                               manual_y_axis_title = "",
-                                               x_axis_lutning = 45,
-                                               x_axis_sort_value=TRUE,
-                                               manual_color = diagramfarger("kon"),
-                                               stodlinjer_avrunda_fem = TRUE,
-                                               diagram_titel = diagramtitel,
-                                               diagram_capt =  diagram_capt,
-                                               facet_legend_bottom=TRUE,
-                                               berakna_index = FALSE,
-                                               output_mapp = outputmapp,
-                                               filnamn_diagram = diagramfil,
-                                               skriv_till_diagramfil = spara_figur)
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-forvarvsarbetande_kon_fig
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-# source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_yrke_ssyk3_storsta_per_geografi.R")
-# 
-# yrken_konsfordelning <- diag_storsta_yrke_per_geografi(facet_ovanpa_varandra = TRUE, storre_text = TRUE)
-
-
-  # diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: 16-64 år"
-  # 
-  # yrke_man <- yrke_df %>% 
-  #   filter(kön=='män',Yrke!="yrke okänt") %>%
-  #     slice_max(Antal,n=10)
-  #   
-  #   diagram_titel <- paste0("Yrken med högst antal förvärvsarbetande män i Dalarnas län ",unique(yrke_df$år))
-  #   diagram_titel <- str_wrap(diagram_titel,60)
-  #   diagramfil="yrken_man.png"
-  #   
-  #   yrken_man_fig <- SkapaStapelDiagram(skickad_df = yrke_man, 
-  #                                skickad_x_var = "Yrke", 
-  #                                skickad_y_var = "Antal",
-  #                                manual_y_axis_title = "Antal förvärvsarbetande",
-  #                                manual_color = diagramfarger("rus_sex")[1],
-  #                                x_axis_sort_value = TRUE,
-  #                                stodlinjer_avrunda_fem = TRUE,
-  #                                diagram_titel = diagram_titel,
-  #                                diagram_capt = diagram_capt,
-  #                                x_axis_lutning = 0,
-  #                                diagram_liggande = TRUE,
-  #                                output_mapp = outputmapp,
-  #                                filnamn_diagram = diagramfil,
-  #                                skriv_till_diagramfil = spara_figur)
-  # 
-
-
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-  # diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: 16-64 år"
-  # 
-  # yrke_kvinnor <- yrke_df %>% 
-  #   filter(kön=='kvinnor',Yrke!="yrke okänt") %>%
-  #     slice_max(Antal,n=10) %>% 
-  #       mutate(Yrke = ifelse(Yrke == "Undersköterskor, hemtjänst, hemsjukvård och äldreboende","Undersköterskor m.fl.",Yrke))
-  #   
-  #   diagram_titel <- paste0("Yrken med högst antal förvärvsarbetande kvinnor i Dalarnas län ",unique(yrke_df$år))
-  #   diagram_titel <- str_wrap(diagram_titel,60)
-  #   diagramfil="yrken_kvinnor.png"
-  #   
-  #   yrken_kvinnor_fig <- SkapaStapelDiagram(skickad_df = yrke_kvinnor, 
-  #                                skickad_x_var = "Yrke", 
-  #                                skickad_y_var = "Antal",
-  #                                manual_y_axis_title = "Antal förvärvsarbetande",
-  #                                manual_color = diagramfarger("rus_sex")[1],
-  #                                x_axis_sort_value = TRUE,
-  #                                diagram_titel = diagram_titel,
-  #                                diagram_capt = diagram_capt,
-  #                                x_axis_lutning = 0,
-  #                                stodlinjer_avrunda_fem = TRUE,
-  #                                diagram_liggande = TRUE,
-  #                                output_mapp = outputmapp,
-  #                                filnamn_diagram = diagramfil,
-  #                                skriv_till_diagramfil = spara_figur)
-  # 
-
-
+gg_antal_forv$antal_per_bransch
 ```
 
 Skillnader mellan kvinnor och män föreligger således fortfarande på yrkesnivå. Den största yrkesgruppen för män i Dalarna är kategorin som inkluderar
@@ -513,469 +256,119 @@ Vid pensionering finns det numera många som fortsätter att arbeta hel- eller d
 ## Inkomst
 En egen inkomst är en av förutsättningarna för ett ekonomiskt självständigt liv. Livsinkomsten påverkar även vilken pension personen kommer att få vid pensionering. 
 
-En jämförelse mellan löner för kvinnor och män i arbetsför ålder (20-64 år) i Dalarna visar på stora skillnader och dessa har hållit i sig över tid. Medianinkomsten för en man i Dalarna var `r max(medianinkomst_df$år)` cirka `r round(medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "män") %>% .$medianinkomst,0)` tusen kronor före skatt, medan en kvinna hade en medianinkomst på ungefär `r round(medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "kvinnor") %>% .$medianinkomst,0)` tusen kronor. I den andra figuren nedan syns även en positiv utveckling i form av att den relativa skillnaden i inkomst mellan könen har minskat sedan millennieskiftet. Diagrammet visar att kvinnors medianinkomst har ökat med `r round((medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "kvinnor") %>% .$medianinkomst/medianinkomst_df %>% filter(region == "Dalarnas län", år == min(år),kön == "kvinnor") %>% .$medianinkomst-1)*100,0)` procent sedan slutet på 1990-talet, medan mäns har ökat med ungefär `r round((medianinkomst_df %>% filter(region == "Dalarnas län", år == max(år),kön == "män") %>% .$medianinkomst/medianinkomst_df %>% filter(region == "Dalarnas län", år == min(år),kön == "män") %>% .$medianinkomst-1)*100,0)` procent. Det är dock viktigt att notera att figurerna nedan endast redovisar kvinnors och mäns skilda ekonomiska förutsättningar, medan det kan finnas flera förklaringar till skillnaden. En faktor är att kvinnor i högre grad arbetar deltid, och därför kan ha en lägre årsinkomst. Som vi också sett i ett flertal tidigare figurer finns det stora skillnader mellan könen kopplat till bland annat yrke och utbildning, vilket ytterligare kan förklara en del av skillnaden. 
+En jämförelse mellan löner för kvinnor och män i arbetsför ålder (20-64 år) i Dalarna visar på stora skillnader och dessa har hållit i sig över tid. Medianinkomsten för en man i Dalarna var `r inkomst_max_ar` cirka `r medianinkomst_man_max_20_64` tusen kronor före skatt, medan en kvinna hade en medianinkomst på ungefär `r medianinkomst_kvinna_max_20_64` tusen kronor. I den andra figuren nedan syns även en positiv utveckling i form av att den relativa skillnaden i inkomst mellan könen har minskat sedan millennieskiftet. Diagrammet visar att kvinnors medianinkomst har ökat med `r medianinkomst_kvinna_forandring_20_64` procent sedan slutet millennieskiftet, medan mäns har ökat med ungefär `r medianinkomst_man_forandring_20_64` procent. Det är dock viktigt att notera att figurerna nedan endast redovisar kvinnors och mäns skilda ekonomiska förutsättningar, medan det kan finnas flera förklaringar till skillnaden. En faktor är att kvinnor i högre grad arbetar deltid, och därför kan ha en lägre årsinkomst. Som vi också sett i ett flertal tidigare figurer finns det stora skillnader mellan könen kopplat till bland annat yrke och utbildning, vilket ytterligare kan förklara en del av skillnaden. 
 
 På nationell nivå har SCB jämfört den standardvägda lönen, dvs. lönen när hänsyn tas till bland annat ålder och utbildningsnivå, för att synliggöra om det kan finnas en diskrimineringsaspekt i lönenivån. Slutsatsen blev att kvinnors standardvägda lön är ungefär 95 procent av männens standardvägda lön, det vill säga det finns en oförklarad löneskillnad mellan kvinnor och män [(SCB)](<https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__AM__AM0110__AM0110B/LonStandVagdYrkA/>){target="_blank"}.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas. Bearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Sammaräknad förvärvsinkomst, dvs. alla skattepliktiga inkomster före skatt (dock ej kapitalinkomster)."
-
-medianinkomst_df$region <- skapa_kortnamn_lan(medianinkomst_df$region,byt_ut_riket_mot_sverige = TRUE) 
-
-diagramtitel <- paste0("Medianinkomst (20-64 år) i Dalarna")
-diagramfilnamn <- paste0("medianinkomst_Dalarana_tid.png")
-
-medianinkomst_tid_fig <- SkapaStapelDiagram(skickad_df =medianinkomst_df %>%
-                                               filter(kön != "totalt",
-                                                      region == "Dalarna"),
-                                         skickad_x_var = "år", 
-                                         skickad_y_var = "medianinkomst",
-                                         skickad_x_grupp = "kön",
-                                         manual_color = diagramfarger("kon"),
-                                         diagram_titel = diagramtitel,
-                                         diagram_capt =  diagram_capt,
-                                         manual_x_axis_text_vjust=1,
-                                         manual_x_axis_text_hjust=1,
-                                         diagram_facet = FALSE,
-                                         facet_scale = "fixed",
-                                         stodlinjer_avrunda_fem = TRUE,
-                                         vand_sortering = TRUE,
-                                         x_axis_lutning = 45,
-                                         manual_y_axis_title = "",
-                                         output_mapp = outputmapp,
-                                         filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = spara_figur)
-
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-medianinkomst_tid_fig
+gg_inkomst$Medianinkomst_20_64_Dalarna_tid
 ```
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagramtitel <- paste0("Förändring i medianinkomst (20-64 år) i Dalarna")
-diagramfilnamn <- paste0("medianinkomst_Dalarana_tid_linje.png")
-
-# Skapar diagram för medianinkomst i valt län vs riket (ej uppdelat på kön)
-medianinkomst_linje_fig <- SkapaLinjeDiagram(skickad_df = medianinkomst_df %>%
-                                               filter(kön != "totalt",
-                                                      region == "Dalarna"),
-                                            skickad_x_var = "år",
-                                            skickad_y_var = "medianinkomst",
-                                            skickad_x_grupp = "kön",
-                                            #skickad_filter_OR_var = "region",
-                                            x_axis_lutning = 45,
-                                            manual_color = diagramfarger("kon"),
-                                            diagram_titel = diagramtitel,
-                                            diagram_capt =  diagram_capt,
-                                            stodlinjer_avrunda_fem = TRUE,
-                                            diagram_facet = FALSE,
-                                            berakna_index = TRUE,
-                                            output_mapp = outputmapp,
-                                            filnamn_diagram = diagramfilnamn,
-                                            skriv_till_diagramfil = spara_figur)
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
-medianinkomst_linje_fig
+gg_inkomst$Medianinkomst_20_64_Dalarna_tid_linje
 ```
 
-I samtliga av Dalarnas kommuner har männen högre medianinkomst än kvinnorna. Skillnaderna mellan kommunerna är relativt små. Kvinnor har högst medianinkomst i `r medianinkomst_df %>% filter(kön == "kvinnor", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == max(medianinkomst)) %>%  .$region ` och män i `r medianinkomst_df %>% filter(kön == "män", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == max(medianinkomst)) %>%  .$region `. Lägst medianinkomst har kvinnor i `r medianinkomst_df %>% filter(kön == "kvinnor", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == min(medianinkomst)) %>%  .$region `, medan män har lägst medianinkomst i `r medianinkomst_df %>% filter(kön == "män", år == max(år),!(region %in% c("Sverige","Dalarna"))) %>% filter(medianinkomst == min(medianinkomst)) %>%  .$region `.
+I samtliga av Dalarnas kommuner har männen högre medianinkomst än kvinnorna. Skillnaderna mellan kommunerna är relativt små. Kvinnor har högst medianinkomst i `r medianinkomst_kommun_max_kvinnor ` och män i `r medianinkomst_kommun_max_man `. Lägst medianinkomst har kvinnor i `r medianinkomst_kommun_min_kvinnor `, medan män har lägst medianinkomst i `r medianinkomst_kommun_min_man `.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-diagramtitel <- paste0("Medianinkomst (20-64 år) år ",max(medianinkomst_df$år))
-diagramfilnamn <- paste0("medianinkomst_kommun.png")
-    
-medianinkomst_kommun_fig <- SkapaStapelDiagram(skickad_df =medianinkomst_df %>%
-                                               filter(kön != "totalt",
-                                                      år == max(år)),
-                                         skickad_x_var = "region", 
-                                         skickad_y_var = "medianinkomst",
-                                         skickad_x_grupp = "kön",
-                                         manual_color = diagramfarger("kon"),
-                                         diagram_titel = diagramtitel,
-                                         diagram_capt =  diagram_capt,
-                                         manual_x_axis_text_vjust=1,
-                                         manual_x_axis_text_hjust=1,
-                                         diagram_facet = FALSE,
-                                         facet_scale = "fixed",
-                                         x_axis_sort_value = TRUE,
-                                         x_axis_sort_grp = 1,
-                                         stodlinjer_avrunda_fem = TRUE,
-                                         vand_sortering = TRUE,
-                                         x_axis_lutning = 45, 
-                                         manual_y_axis_title = "",
-                                         output_mapp = outputmapp,
-                                         filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = spara_figur)
-
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-medianinkomst_kommun_fig
+gg_inkomst$Medianinkomst_20_64_Dalarna_kommun
 ```
 
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
+Personer 65 år och äldre har en lägre medianinkomsten än personer i arbetsför ålder (20-64 år). I Dalarna var medianinkomsten år `r inkomst_max_ar` för män 65 år och äldre `r medianinkomst_man_max_65` tusen kronor före skatt, medan en kvinna i samma åldersgrupp hade en medianinkomst på `r medianinkomst_kvinna_max_65` tusen kronor. Att inkomsterna är lägre för personer 65 år och äldre är rimligt eftersom många i den åldern har gått i pension och då har lägre inkomster än de hade när de förvärvsarbetade.
 
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas. Bearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Sammaräknad förvärvsinkomst, dvs. alla skattepliktiga inkomster före skatt (dock ej kapitalinkomster)."
+I den andra figuren nedan syns dock att den relativa skillnaden i inkomst mellan könen har minskat mer sedan millennieskiftet för personer äldre än 65 år, jämfört med de i arbetsför ålder (20-64 år). Diagrammet visar att kvinnors medianinkomst har ökat med `r medianinkomst_kvinna_forandring_65` procent medan mäns har ökat med ungefär `r medianinkomst_man_forandring_65` procent.
 
-medianinkomst_65plus_df$region <- skapa_kortnamn_lan(medianinkomst_65plus_df$region,byt_ut_riket_mot_sverige = TRUE) 
-
-diagramtitel <- paste0("Medianinkomst (65+ år) i Dalarna")
-diagramfilnamn <- paste0("medianinkomst_65plus_Dalarna_tid.png")
-
-medianinkomst_65plus_tid_fig <- SkapaStapelDiagram(skickad_df =medianinkomst_65plus_df %>%
-                                               filter(kön != "totalt",
-                                                      region == "Dalarna"),
-                                         skickad_x_var = "år", 
-                                         skickad_y_var = "medianinkomst",
-                                         skickad_x_grupp = "kön",
-                                         manual_color = diagramfarger("kon"),
-                                         diagram_titel = diagramtitel,
-                                         diagram_capt =  diagram_capt,
-                                         manual_x_axis_text_vjust=1,
-                                         manual_x_axis_text_hjust=1,
-                                         diagram_facet = FALSE,
-                                         facet_scale = "fixed",
-                                         stodlinjer_avrunda_fem = TRUE,
-                                         vand_sortering = TRUE,
-                                         x_axis_lutning = 45,
-                                         manual_y_axis_title = "",
-                                         output_mapp = outputmapp,
-                                         filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = spara_figur)
-
-```
-
-Personer 65 år och äldre har en lägre medianinkomsten än personer i arbetsför ålder (20-64 år). I Dalarna var medianinkomsten år `r max(medianinkomst_65plus_df$år)` för män 65 år och äldre `r round(medianinkomst_65plus_df %>% filter(region == "Dalarna", år == max(år),kön == "män") %>% .$medianinkomst,0)` tusen kronor före skatt, medan en kvinna i samma åldersgrupp hade en medianinkomst på `r round(medianinkomst_65plus_df %>% filter(region == "Dalarna", år == max(år),kön == "kvinnor") %>% .$medianinkomst,0)` tusen kronor. Att inkomsterna är lägre för personer 65 år och äldre är rimligt eftersom många i den åldern har gått i pension och då har lägre inkomster än de hade när de förvärvsarbetade.
-
-I den andra figuren nedan syns dock att den relativa skillnaden i inkomst mellan könen har minskat mer sedan slutet på 1990-talet för personer äldre än 65 år, jämfört med de i arbetsför ålder (20-64 år). Diagrammet visar att kvinnors medianinkomst har ökat med `r round((medianinkomst_65plus_df %>% filter(region == "Dalarna", år == max(år),kön == "kvinnor") %>% .$medianinkomst/medianinkomst_65plus_df %>% filter(region == "Dalarna", år == min(år),kön == "kvinnor") %>% .$medianinkomst-1)*100,0)` procent medan mäns har ökat med ungefär `r round((medianinkomst_65plus_df %>% filter(region == "Dalarna", år == max(år),kön == "män") %>% .$medianinkomst/medianinkomst_65plus_df %>% filter(region == "Dalarna", år == min(år),kön == "män") %>% .$medianinkomst-1)*100,0)` procent.
-
+<br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-medianinkomst_65plus_tid_fig
+gg_inkomst$Medianinkomst_65_Dalarna_tid
 ```
 
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagramtitel <- paste0("Förändring i medianinkomst (65+ år) i Dalarna")
-diagramfilnamn <- paste0("medianinkomst_65plus_Dalarna_tid_linje.png")
-
-# Skapar diagram för medianinkomst i valt län vs riket (ej uppdelat på kön)
-medianinkomst_65plus_linje_fig <- SkapaLinjeDiagram(skickad_df = medianinkomst_65plus_df %>%
-                                               filter(kön != "totalt",
-                                                      region == "Dalarna"),
-                                            skickad_x_var = "år",
-                                            skickad_y_var = "medianinkomst",
-                                            skickad_x_grupp = "kön",
-                                            #skickad_filter_OR_var = "region",
-                                            x_axis_lutning = 45,
-                                            manual_color = diagramfarger("kon"),
-                                            diagram_titel = diagramtitel,
-                                            diagram_capt =  diagram_capt,
-                                            stodlinjer_avrunda_fem = TRUE,
-                                            diagram_facet = FALSE,
-                                            berakna_index = TRUE,
-                                            output_mapp = outputmapp,
-                                            filnamn_diagram = diagramfilnamn,
-                                            skriv_till_diagramfil = spara_figur)
-```
-
+<br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
-medianinkomst_65plus_linje_fig
+gg_inkomst$Medianinkomst_65_Dalarna_tid_linje
 ```
 
-Utöver inkomster är det även relevant att jämföra den disponibla inkomsten, dvs. summan av alla inkomster och transfereringar (exempelvis bostadsbidrag och barnbidrag) efter avdragen slutlig skatt. I figuren nedan är det tydligt att den disponibla inkomsten varierar mellan olika grupper. En generell trend för alla grupper är att den disponibla inkomsten, utan att justera för inflation, har ökat mellan `r paste0(min(disponibel_inkomst_df$år),"-",max(disponibel_inkomst_df$år))`.
+Utöver inkomster är det även relevant att jämföra den disponibla inkomsten, dvs. summan av alla inkomster och transfereringar (exempelvis bostadsbidrag och barnbidrag) efter avdragen slutlig skatt. I figuren nedan är det tydligt att den disponibla inkomsten varierar mellan olika grupper. En generell trend för alla grupper är att den disponibla inkomsten, utan att justera för inflation, har ökat mellan `r disponibel_inkomst_min_ar` och `r disponibel_inkomst_max_ar`
 
 Det är tydligt att sammanboende, med eller utan barn, har en högre disponibel inkomst än ensamstående. Sammanboende med barn har också en högre disponibel inkomst än sammanboende utan barn. På andra sidan av skalan återfinns gruppen ensamstående kvinnor utan barn som har lägst
 disponibel inkomst. Diagrammet visar också på att det finns tydliga skillnader mellan könen. Bland ensamstående har män, med eller utan barn, högre disponibel inkomst än kvinnor i motsvarande grupp.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
-
-  # Filtrerar dataset på de grupper och år vi vill fokusera på
-  disponibel_inkomst_utvalda_df <- disponibel_inkomst_df %>%
-    filter(hushållstyp %in% c("ensamstående kvinnor utan barn","ensamstående kvinnor med barn 0-19 år","ensamstående män utan barn","ensamstående män med barn 0-19 år","sammanboende utan barn","sammanboende med barn 0-19 år")) %>%
-      filter(ålder=="18+ år",
-             år %in% c(min(år),max(år)))
-
-  diagramtitel <- paste0("Disponibel inkomst (18+ år) i Dalarna")
-  diagramfilnamn <- paste0("disponibel_inkomst.png")
-
-  # Skapar diagram för disponibel inkomst i Dalarna där män jämförs med kvinnor.
-  disp_ink_fig <- SkapaStapelDiagram(skickad_df = disponibel_inkomst_utvalda_df,
-                                     skickad_x_var = "hushållstyp",
-                                     skickad_y_var = "Medianvärde,.tkr",
-                                     skickad_x_grupp = "år",
-                                     # manual_x_axis_text_vjust=0.5,
-                                     x_axis_lutning = 0,
-                                     manual_color = diagramfarger("rus_sex"),
-                                     diagram_titel = diagramtitel,
-                                     diagram_capt =  diagram_capt,
-                                     stodlinjer_avrunda_fem = TRUE,
-                                     diagram_liggande = TRUE,
-                                     output_mapp = outputmapp,
-                                     filnamn_diagram = diagramfilnamn,
-                                     skriv_till_diagramfil = spara_figur)
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-disp_ink_fig
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%", include = FALSE}
-#lista_figurer$`ekonomiskt_bistandDalarnas län`
-knitr::include_graphics(here("Diagram","ekonomiskt_bistandDalarnas län.png"))
+gg_disponibel_inkomst$disponibel_inkomst_18
 ```
 
 ## Sysselsättning och arbetslöshet
 
-Sysselsättningsgraden, det vill säga i vilken utsträckning människor i arbetsför ålder (20-64 år) arbetar, skiljer sig inte märkbart åt mellan könen bland inrikes födda som ses i det vänstra diagrammet nedan. Sverige ligger långt fram i en internationell jämförelse när det gäller att ge kvinnor och män likvärdiga möjligheter att yrkesarbeta, och det återspeglas i sysselsättningsgraden som för båda könen är ungefär lika hög, cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "inrikes född",region == "Sverige") %>% .$sysselsättningsgrad,0)` procent. Variationen i sysselsättningsgrad mellan länen är därför också relativt liten.
+Sysselsättningsgraden, det vill säga i vilken utsträckning människor i arbetsför ålder (20-64 år) arbetar, skiljer sig inte märkbart åt mellan könen bland inrikes födda som ses i det vänstra diagrammet nedan. Sverige ligger långt fram i en internationell jämförelse när det gäller att ge kvinnor och män likvärdiga möjligheter att yrkesarbeta, och det återspeglas i sysselsättningsgraden som för båda könen är ungefär lika hög, `r syssgrad_inrikes_kvinna_Sverige` procent för kvinnor och `r syssgrad_inrikes_man_Sverige` procent för män. Variationen i sysselsättningsgrad mellan länen är därför också relativt liten.
 
 Däremot skiljer sig sysselsättningsgraden åt mellan inrikes och utrikes födda. För utrikes födda (det högra diagrammet nedan) är sysselsättningsgraden lägre än sysselsättningsgraden för inrikes födda i samtliga svenska län. Det finns även skillnader mellan kvinnor och män. 
 
-Utrikes födda män har en högre sysselsättningsgrad än utrikes födda kvinnor i samtliga län förutom Norrbotten. I Dalarna var sysselsättningsgraden bland utrikes födda män ungefär `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad,0)` procent, vilket
-är cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad-arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad,0) ` procentenheter mer än för utrikes födda kvinnor i Dalarna.
+Utrikes födda män har en högre sysselsättningsgrad än utrikes födda kvinnor i samtliga län förutom Norrbotten. I Dalarna var sysselsättningsgraden bland utrikes födda män `r syssgrad_utrikes_man_Dalarna` procent, vilket
+är cirka `r syssgrad_utrikes_skillnad_Dalarna ` procentenheter mer än för utrikes födda kvinnor i Dalarna.
 
 Något att ta hänsyn till när man analyserar sysselsättningsgrad och arbetslöshet bland utrikes födda är hur lång tid individen har varit i Sverige. Vistelsetid i Sverige har ett starkt samband med sysselsättningsgrad och arbetslöshet och därmed kommer andelen nyligen invandrade i gruppen utrikes födda att påverka nivån på dessa variabler, se rubrik 2.3.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-  diagram_capt <- c("Källa: SCB:s öppna statistikdatabas, befolkningens arbetsmarknadsstatus (BAS).\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Andelen av befolkningen som är sysselsatt (sysselsättningsgrad).")
-
-  diagramtitel <- paste0("Sysselsättningsgrad i åldersgruppen 20-64 år i ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$manad_long)," ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$ar))
-  diagramfilnamn <- paste0("sysselsättningsgrad","_lan",".png")
-
-syss_lan_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_lan_df %>% 
-                                   filter(kön != "totalt",födelseregion != "totalt"), 
-                                 skickad_x_var = "region", 
-                                 skickad_y_var = "sysselsättningsgrad", 
-                                 skickad_x_grupp = "kön",
-                                 manual_y_axis_title = "procent",
-                                 manual_x_axis_text_vjust=1,
-                                 manual_x_axis_text_hjust=1,
-                                 manual_color = diagramfarger("kon"),
-                                 diagram_titel = diagramtitel,
-                                 diagram_capt =  diagram_capt,
-                                 diagram_facet = TRUE,
-                                 y_axis_100proc = TRUE,
-                                 facet_grp = "födelseregion",
-                                 facet_scale = "fixed",
-                                 facet_legend_bottom = TRUE,
-                                 x_axis_sort_value = TRUE,
-                                 x_axis_lutning = 45,
-                                 output_mapp = outputmapp,
-                                 filnamn_diagram = diagramfilnamn,
-                                 skriv_till_diagramfil = spara_figur)  
-
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-syss_lan_fig
+gg_diagram_arbetsmarknadsstatus_lan$sysselsattningsgrad_senastear
 ```
 
-Sysselsättningsgraden i respektive kommun i Dalarna visar ett liknande mönster som länen på nationell nivå. Gruppen inrikes födda har en högre sysselsättningsgrad i samtliga kommuner i Dalarna jämfört med utrikes födda. Även här är sysselsättningsgraden för inrikes födda kvinnor och män ungefär lika hög. För utrikes födda är det däremot stora skillnader mellan kvinnor och män, också mellan olika kommuner. I linje med den nationella bilden är sysselsättningsgraden högre för gruppen utrikes födda män i jämförelse med utrikes födda kvinnor i de allra flesta kommuner. Sysselsättningsgraden för utrikes födda män skiljer sig dock åt mellan kommuner där den högsta sysselsättningsgraden finns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$region` (knappt `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)` procent) och den lägsta i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$region` (ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)` procent).
+Sysselsättningsgraden i respektive kommun i Dalarna visar ett liknande mönster som länen på nationell nivå. Gruppen inrikes födda har en högre sysselsättningsgrad i samtliga kommuner i Dalarna jämfört med utrikes födda. Även här är sysselsättningsgraden för inrikes födda kvinnor och män ungefär lika hög. För utrikes födda är det däremot stora skillnader mellan kvinnor och män, också mellan olika kommuner. I linje med den nationella bilden är sysselsättningsgraden högre för gruppen utrikes födda män i jämförelse med utrikes födda kvinnor i de flesta kommuner. Sysselsättningsgraden för utrikes födda män skiljer sig dock åt mellan kommuner där den högsta sysselsättningsgraden finns i `r syssgrad_utrikes_man_max_kommun` (`r syssgrad_utrikes_man_max_varde` procent) och den lägsta i `r syssgrad_utrikes_man_min_kommun` (`r syssgrad_utrikes_man_min_varde` procent).
 
-`r arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$region` har den högsta sysselsättningsgraden för gruppen utrikes födda kvinnor i Dalarna, ca `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)` procent, och ligger klart över genomsnittet för länet (ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(region == "Dalarna") %>% .$sysselsättningsgrad,0)` procent). Samtidigt är sysselsättningsgraden i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$region` kommun bland utrikes födda kvinnor bara ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)` procent. 
+`r syssgrad_utrikes_kvinna_max_kommun` har den högsta sysselsättningsgraden för gruppen utrikes födda kvinnor i Dalarna, `r syssgrad_utrikes_kvinna_max_varde` procent, och ligger klart över genomsnittet för länet. Samtidigt är sysselsättningsgraden i `r syssgrad_utrikes_kvinna_min_kommun` kommun bland utrikes födda kvinnor bara `r syssgrad_utrikes_kvinna_min_varde` procent. 
 
-Värt att notera är att en del av skillnaden i utrikes föddas sysselsättningsgrad mellan kommunerna sannolikt kan förklaras av skillnader i antalet personer som invandrade under åren runt 2015 då invandringen till Sverige var mycket stor. Exempelvis var Avesta, Ludvika och Hedemora de tre kommuner som hade högst invandring i förhållande till folkmängd under 2015, 2016 och 2017. Detta verkar i första hand gälla för utrikes födda kvinnor, då både Hedemora och Ludvika har relativt hög sysselsättningsgrad för utrikes födda män, medan den är klart lägre för utrikes födda kvinnor. I Ludvika är skillnaden mellan könen i sysselsättningsgrad ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Ludvika") %>% .$sysselsättningsgrad-arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Ludvika") %>% .$sysselsättningsgrad,0)` procentenheter, vilket är den största skillnaden i länet.
+Värt att notera är att en del av skillnaden i utrikes föddas sysselsättningsgrad mellan kommunerna sannolikt kan förklaras av skillnader i antalet personer som invandrade under åren runt 2015 då invandringen till Sverige var mycket stor. Exempelvis var Avesta, Ludvika och Hedemora de tre kommuner som hade högst invandring i förhållande till folkmängd under 2015-2017. Detta förefaller i första hand gälla för utrikes födda kvinnor, då både Hedemora och Ludvika har relativt hög sysselsättningsgrad för utrikes födda män, medan den är klart lägre för utrikes födda kvinnor. I Ludvika är skillnaden mellan könen i sysselsättningsgrad ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Ludvika",variabel == "sysselsättningsgrad") %>% .$varde-arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Ludvika",variabel == "sysselsättningsgrad") %>% .$varde,0)` procentenheter, vilket är den största skillnaden i länet.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-  diagram_capt <- c("Källa: SCB:s öppna statistikdatabas, befolkningens arbetsmarknadsstatus (BAS).\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Andelen av befolkningen som är sysselsatt (sysselsättningsgrad).")
-
-  diagramtitel <- paste0("Sysselsättningsgrad i åldersgruppen 20-64 år i ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$manad_long)," ",unique(arbetsmarknadsstatus_lan_df %>%      filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$ar))
-  diagramfilnamn <- paste0("sysselsättningsgrad","_kommun",".png")
-
-syss_kommun_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_kommun_df %>% 
-                                       filter(kön != "totalt",födelseregion != "totalt"), 
-                                     skickad_x_var = "region", 
-                                     skickad_y_var = "sysselsättningsgrad", 
-                                     skickad_x_grupp = "kön",
-                                     manual_y_axis_title = "procent",
-                                     manual_x_axis_text_vjust=1,
-                                     manual_x_axis_text_hjust=1,
-                                     manual_color = diagramfarger("kon"),
-                                     diagram_titel = diagramtitel,
-                                     diagram_capt =  diagram_capt,
-                                     diagram_facet = TRUE,
-                                     y_axis_100proc = TRUE,
-                                     facet_grp = "födelseregion",
-                                     facet_scale = "fixed",
-                                     facet_legend_bottom = TRUE,
-                                     x_axis_sort_value = TRUE,
-                                     x_axis_lutning = 45,
-                                     output_mapp = outputmapp,
-                                     filnamn_diagram = diagramfilnamn,
-                                     skriv_till_diagramfil = spara_figur)  
-
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-syss_kommun_fig
+gg_diagram_arbetsmarknadsstatus_kommun$sysselsattningsgrad_senastear
 ```
 
 Bilden av arbetsmarknaden kompletteras genom att titta på arbetslösheten som visar hur många av de aktivt arbetssökande som inte har ett arbete. En jämförelse av arbetslösheten bland utrikes respektive inrikes födda åskådliggör ett antal viktiga skillnader.
 
-Arbetslösheten är generellt högre för utrikes födda än för inrikes födda. Arbetslösheten för inrikes födda i Dalarna ligger något lägre än rikets, drygt `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "kvinnor",födelseregion == "inrikes född") %>% .$arbetslöshet,0)` procent bland kvinnor och drygt `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "män",födelseregion == "inrikes född") %>% .$arbetslöshet,0)` procent bland män (se diagrammet nedan). 
+Arbetslösheten är generellt högre för utrikes födda än för inrikes födda. Arbetslösheten för inrikes födda i Dalarna var i `r arbetsloshesstatus_manad` `r arbetsloshesstatus_ar`  lägre än rikets, `r arblosthet_inrikes_kvinna_Dalarna` procent bland kvinnor och `r arblosthet_inrikes_man_Dalarna` procent bland män (se diagrammet nedan).
 
-Arbetslösheten bland utrikes födda är däremot betydligt högre i samtliga av Sveriges län. I Dalarna är skillnaden i arbetslöshet mellan utrikes och inrikes födda cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "kvinnor",födelseregion == "utrikes född") %>% .$arbetslöshet - arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "kvinnor",födelseregion == "inrikes född") %>% .$arbetslöshet,0)` procentenheter för kvinnor och cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "män",födelseregion == "utrikes född") %>% .$arbetslöshet - arbetsmarknadsstatus_lan_df %>% filter(region == "Dalarna",kön == "män",födelseregion == "inrikes född") %>% .$arbetslöshet,0)` procentenheter för män. Vidare är arbetslösheten bland gruppen utrikes födda kvinnor klart högre än i gruppen utrikes födda män i samtliga av Sveriges län. 
+Arbetslösheten bland utrikes födda är däremot betydligt högre i samtliga av Sveriges län. I Dalarna är skillnaden i arbetslöshet mellan utrikes och inrikes födda cirka `r arblosthet_kvinnor_utrikes_inrikes_skillnad_Dalarna` procentenheter för kvinnor och cirka `r arblosthet_man_utrikes_inrikes_skillnad_Dalarna` procentenheter för män. Vidare är arbetslösheten bland gruppen utrikes födda kvinnor klart högre än i gruppen utrikes födda män i samtliga av Sveriges län, förutom på Gotland där den är lika hög.
 
-I figuren nedan framgår också att det finns avsevärda skillnader mellan länen. `r arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "utrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .[1,] %>% .$region ` har den lägsta arbetslösheten för utrikes födda med
-ungefär `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "utrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .[1,] %>% .$arbetslöshet,0)` procent totalt (både kvinnor och män), medan arbetslösheten är cirka `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .[1,] %>% .$arbetslöshet,0)` procent i `r arbetsmarknadsstatus_lan_df %>% filter(kön == "totalt",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .[1,] %>% .$region `. Dalarnas län har ungefär samma arbetslöshet som riksgenomsnittet.
+I figuren nedan framgår också att det finns avsevärda skillnader mellan länen. `r arblosthet_utrikes_man_min_lan ` har den lägsta arbetslösheten för såväl utrikes födda män som kvinnor  med `r arblosthet_utrikes_man_min_varde` respektive `r arblosthet_utrikes_kvinna_min_varde` procent, medan `r arblosthet_utrikes_man_max_lan` har den högsta arbetslösheten med `r arblosthet_utrikes_man_max_varde` procent för män och `r arblosthet_utrikes_kvinna_max_varde` procent för kvinnor. Dalarnas arbetslöshet bland utrikes födda är ungefär som riksgenomsnittet.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt <- c("Källa: SCB:s öppna statistikdatabas, befolkningens arbetsmarknadsstatus (BAS).\nBearbetning: Samhällsanalys, Region Dalarna.")
-
-  diagramtitel <- paste0("Arbetslöshet i åldersgruppen 20-64 år i ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$manad_long)," ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$ar))
-  diagramfilnamn <- paste0("arbetslöshet","_lan",".png")
-
-arb_lan_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_lan_df %>% 
-                                   filter(kön != "totalt",födelseregion != "totalt"), 
-                                 skickad_x_var = "region", 
-                                 skickad_y_var = "arbetslöshet", 
-                                 skickad_x_grupp = "kön",
-                                 manual_y_axis_title = "procent",
-                                 manual_x_axis_text_vjust=1,
-                                 manual_x_axis_text_hjust=1,
-                                 manual_color = diagramfarger("kon"),
-                                 diagram_titel = diagramtitel,
-                                 diagram_capt =  diagram_capt,
-                                 diagram_facet = TRUE,
-                                 facet_grp = "födelseregion",
-                                 facet_scale = "fixed",
-                                 facet_legend_bottom = TRUE,
-                                 x_axis_sort_value = TRUE,
-                                 stodlinjer_avrunda_fem = TRUE,
-                                 x_axis_lutning = 45,
-                                 output_mapp = outputmapp,
-                                 filnamn_diagram = diagramfilnamn,
-                                 skriv_till_diagramfil = spara_figur)  
-
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-arb_lan_fig
+gg_diagram_arbetsmarknadsstatus_lan$arbetslosthet_senastear
 ```
 
-Precis som var fallet med sysselsättningsgrad tidigare, så uppvisar Dalarnas kommuner ett liknande mönster som på nationell nivå. Bland inrikes födda är arbetslösheten låg och något fler män än kvinnor är arbetslösa. Högst arbetslöshet bland inrikes födda (totalt) i Dalarna finns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "totalt",födelseregion == "inrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$region %>% .[1] ` och `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "totalt",födelseregion == "inrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$region %>% .[2]` , men skillnaden gentemot genomsnittet i länet är relativt liten. Lägst arbetslöshet återfinns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "totalt",födelseregion == "inrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .$region `.
+Precis som var fallet med sysselsättningsgrad tidigare, så uppvisar Dalarnas kommuner ett liknande mönster som på nationell nivå. Bland inrikes födda är arbetslösheten låg och något fler män än kvinnor är arbetslösa. Högst arbetslöshet bland inrikes födda män i Dalarna finns i `r arblosthet_inrikes_man_max_kommun ` med `r arblosthet_inrikes_man_max_varde` procent,  medan den högsta arbetslösheten för inrikes födda kvinnor finns i `r arblosthet_inrikes_kvinna_max_kommun` med `r arblosthet_inrikes_kvinna_max_varde` procent.
 
-Bland utrikes födda är arbetslösheten avsevärt mycket högre för både kvinnor och män. Genomsnittet i Dalarnas län ligger på ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna") %>% .$arbetslöshet,0)` procent
-bland utrikes födda kvinnor och cirka `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$arbetslöshet,0)` procent bland utrikes födda män. Den högsta arbetslösheten bland utrikes födda kvinnor återfinns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$region ` där den ligger på cirka `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$arbetslöshet,0)` procent. `r last(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$region)` redovisar den högsta arbetslöshetssiffran bland utrikes födda män med `r unique(round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(arbetslöshet == max(arbetslöshet)) %>% .$arbetslöshet,0)) ` procent.
-Lägst arbetslöshet bland utrikes födda män återfinns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .$region ` kommun, medan `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(arbetslöshet == min(arbetslöshet)) %>% .$region ` har lägst arbetslöshet bland utrikes födda kvinnor.
+Lägst arbetslöshet för inrikes födda kvinnor återfinns i `r arblosthet_inrikes_kvinna_min_kommun ` med `r arblosthet_inrikes_kvinna_min_varde` procent, medan den lägsta arbetslösheten för inrikes födda män finns i `r arblosthet_inrikes_man_min_kommun` med `r arblosthet_inrikes_man_min_varde` procent.
+
+Bland utrikes födda är arbetslösheten avsevärt mycket högre för både kvinnor och män. Genomsnittet i Dalarnas län ligger på `r arblosthet_utrikes_kvinna_Dalarna` procent
+bland utrikes födda kvinnor och `r arblosthet_utrikes_man_Dalarna` procent bland utrikes födda män. Den högsta arbetslösheten bland utrikes födda kvinnor återfinns i `r arblosthet_utrikes_kvinna_max_kommun ` där den ligger på `r arblosthet_utrikes_kvinna_kommun_max_varde` procent. `r arblosthet_utrikes_man_max_kommun` redovisar den högsta arbetslöshetssiffran bland utrikes födda män med `r arblosthet_utrikes_man_kommun_max_varde ` procent.
+
+Lägst arbetslöshet bland utrikes födda män återfinns i `r arblosthet_utrikes_man_min_kommun ` kommun, medan `r arblosthet_utrikes_kvinna_min_kommun ` har lägst arbetslöshet bland utrikes födda kvinnor.
 
 Det är återigen värt att notera att de skillnader i arbetslöshet som diskuterades i stycket om sysselsättningsgrad ovan, sannolikt delvis kan förklaras av skillnader i antalet personer och när i tid som de invandrat till olika kommuner.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt <- c("Källa: SCB:s öppna statistikdatabas, befolkningens arbetsmarknadsstatus (BAS).\nBearbetning: Samhällsanalys, Region Dalarna.")
-
-diagramtitel <- paste0("Arbetslöshet i åldersgruppen 20-64 i ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$manad_long)," ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$ar))
-diagramfilnamn <- paste0("arbetslöshet","_kommun",".png")
-
-arb_kommun_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_kommun_df %>% 
-                                       filter(kön != "totalt",födelseregion != "totalt"), 
-                                     skickad_x_var = "region", 
-                                     skickad_y_var = "arbetslöshet", 
-                                     skickad_x_grupp = "kön",
-                                     manual_y_axis_title = "procent",
-                                     manual_x_axis_text_vjust=1,
-                                     manual_x_axis_text_hjust=1,
-                                     manual_color = diagramfarger("kon"),
-                                     diagram_titel = diagramtitel,
-                                     diagram_capt =  diagram_capt,
-                                     diagram_facet = TRUE,
-                                     facet_grp = "födelseregion",
-                                     facet_scale = "fixed",
-                                     facet_legend_bottom = TRUE,
-                                     x_axis_sort_value = TRUE,
-                                     x_axis_lutning = 45,
-                                     stodlinjer_avrunda_fem = TRUE,
-                                     output_mapp = outputmapp,
-                                     filnamn_diagram = diagramfilnamn,
-                                     skriv_till_diagramfil = spara_figur)  
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-arb_kommun_fig
+gg_diagram_arbetsmarknadsstatus_kommun$arbetslosthet_senastear
 ```
 
 Arbetslösheten i Dalarna för inrikes och utrikes födda visar på skillnader över tid. För gruppen inrikes födda syns en nedgång i andelen arbetslösa från 2010 och framåt, med ett litet avbrott i trendlinjen under pandemiåren 2020-2021. Gruppen utrikes födda har två trendlinjer i diagrammet nedan. Från 2006 till 2017 ökade arbetslösheten bland utrikes födda till relativt höga nivåer jämfört med början på tidsperioden. Arbetslösheten bland utrikes födda män i Dalarna var också konsekvent högre än för utrikes födda kvinnor och betydligt högre år 2015 och åren därefter då Sverige hade mycket stor flyktinginvandring. Från 2017 och framåt har arbetslösheten bland gruppen utrikes födda minskat från toppnivåerna och utrikes födda kvinnor är idag i något högre utsträckning arbetslösa jämfört med utrikes födda män. Värt att understryka är att en högre arbetslöshet kan förklaras med att fler aktivt söker arbete, tidigare har en större andel personer varit varken arbetssökande eller i arbete.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-# Text till diagram
-  diagram_capt <- "Källa: Arbetsförmedlingen.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Månadsdata. Diagrammet visar medelvärdet för året"
-
-diagramtitel <- paste0("Arbetslöshet (16-64 år) i Dalarna")
-diagramfilnamn <- paste0("arbetsloshet_tidsserie_bakgrund.png")
-
-arbetsloshet_08_fig <- SkapaStapelDiagram(skickad_df = arbetsloshet_tidsserie, 
-                                         skickad_x_var = "Ar",
-                                         skickad_y_var = "Arbetslöshet",
-                                         skickad_x_grupp = "Kon",
-                                         manual_x_axis_text_vjust=1,
-                                         manual_x_axis_text_hjust=1,
-                                         manual_color = diagramfarger("kon"),
-                                         diagram_titel = diagramtitel,
-                                         diagram_capt =  diagram_capt,
-                                         diagram_facet = TRUE,
-                                         facet_legend_bottom = TRUE,
-                                         stodlinjer_avrunda_fem = TRUE,
-                                         facet_grp = "Grupp",
-                                         facet_scale = "fixed",
-                                         x_axis_lutning = 45,
-                                         diagram_liggande = FALSE,
-                                         legend_vand_ordning=FALSE,
-                                         manual_y_axis_title = "procent",
-                                         geom_position_stack = FALSE,
-                                         berakna_index = FALSE,
-                                         output_mapp = "",
-                                         filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = FALSE)
-
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-arbetsloshet_08_fig
+gg_arbetsloshet_af$arbetsloshet_tidsserie_bakgrund_Dalarna
 ```
 
-Hur långt ifrån arbetsmarknaden som en individ befinner sig beror delvis
-på hur länge personen har varit utan anställning. En person som har
-varit arbetslös länge har ofta svårare att ta sig tillbaka in på
-arbetsmarknaden. Som långtidsarbetslös räknas den som har varit öppet arbetslös eller i program med aktivitetsstöd i minst sex månader. År `r langtidsarbetsloshet_ar_min` noterades `r langtidsarbetsloshet_kvinnor_min` procent av länets kvinnor i åldern 25-64 år som långtidsarbetslösa, medan motsvarande siffra för männen var `r langtidsarbetsloshet_man_min` procent. Under 2010-talet gick långtidsarbetslösheten såväl upp som ned, innan den nådde sin topp i samband med pandemin 2020-2021. På senare år har långtidsarbetslösheten minskat tydligt och var år `r langtidsarbetsloshet_ar_max` i Dalarna något högre för män, men något lägre för kvinnor jämfört med 2011. Långtidsarbetslösheten i Sverige är högre än i Dalarna för båda könen. En generell orsak till långtidsarbetslöshet är strukturarbetslöshet som innebär att de arbetssökande saknar rätt kompetens för de arbeten som finns tillgängliga.
+Hur långt ifrån arbetsmarknaden som en individ befinner sig beror delvis på hur länge personen har varit utan anställning. En person som har varit arbetslös länge har ofta svårare att ta sig tillbaka in på arbetsmarknaden. Som långtidsarbetslös räknas den som har varit öppet arbetslös eller i program med aktivitetsstöd i minst sex månader. År `r langtidsarbetsloshet_ar_min` noterades `r langtidsarbetsloshet_kvinnor_min` procent av länets kvinnor i åldern 25-64 år som långtidsarbetslösa, medan motsvarande siffra för männen var `r langtidsarbetsloshet_man_min` procent. Under 2010-talet gick långtidsarbetslösheten såväl upp som ned, innan den nådde sin topp i samband med pandemin 2020-2021. På senare år har långtidsarbetslösheten minskat tydligt och var år `r langtidsarbetsloshet_ar_max` i Dalarna lägre för såväl kvinnor som män jämfört med `r langtidsarbetsloshet_ar_min`. Långtidsarbetslösheten i Sverige är högre än i Dalarna för båda könen. En generell orsak till långtidsarbetslöshet är strukturarbetslöshet som innebär att de arbetssökande saknar rätt kompetens för de arbeten som finns tillgängliga.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt <- "Källa: Arbetsförmedlingen (via Kolada)\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Antal invånare 25-64 år (årsmedelvärde år T) som varit öppet arbetslösa eller i program med aktivitetsstöd i minst sex månader,\ndividerat med antal invånare 25-64 år den 31/12 år T-1."
-
-diagramtitel <- "Långtidsarbetslöshet 25-64 år i Dalarna"
-diagramfilnamn <- "langtidsarbetsloshet_kolada.png"
-
-  arb1 <- SkapaStapelDiagram(skickad_df = långtidsarbetslöshet,
-                             skickad_x_var = "ar",
-                             skickad_y_var = "varde",
-                             skickad_x_grupp = "kon",
-                             diagram_titel = diagramtitel,
-                             diagram_capt = diagram_capt,
-                             manual_y_axis_title = "procent",
-                             x_axis_lutning = 0,
-                             manual_color=diagramfarger("kon"),
-                             lagg_pa_logga = FALSE,
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = spara_figur)
-
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-arb1
+gg_langtidsarbetsloshet$langtidsarbetsloshet_kolada_Dalarna
 ```
 
 ## Arbetsmarknadsetablering för invandrade
@@ -1142,110 +535,22 @@ Antalet mottagare av föräldrapenning ökade från ungefär 13 000 i slutet av 
 En minskning i antalet föräldrapenningdagar syntes under pandemiåren och åren därefter, vilket sannolikt beror på att uttaget av tillfällig föräldrapenning (vab) då ökade kraftigt (se avsnitt 3.2 nedan). Antalet uttagna dagar har ökat för såväl kvinnor som män, men den relativa skillnaden i uttag mellan könen har minskat.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
-diagramtitel <- "Antal mottagare av föräldrapenning i Dalarna"
-diagramfilnamn <- "Foraldrapenning_antal.png"
-
-fp_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df %>%
-                               filter(Kommun == "Samtliga kommuner",
-                                      Kön != "Kvinnor och män") %>% 
-                                mutate(Kön = tolower(Kön),
-                                       Antal_mottagare = as.numeric(Antal_mottagare)), 
-                             skickad_x_var = "År", 
-                             skickad_y_var = "Antal_mottagare", 
-                             skickad_x_grupp = "Kön",
-                             x_axis_lutning = 45,
-                             manual_x_axis_text_vjust=1,
-                             manual_x_axis_text_hjust=1,
-                             manual_y_axis_title = "Antal mottagare",
-                             manual_color = diagramfarger("kon"),
-                             stodlinjer_avrunda_fem = TRUE,
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             diagram_facet = FALSE,
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = spara_figur)
-    
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-fp_fig
+gg_fp_vab$Foraldrapenning_antal_Dalarna
 ```
 
 Fördelningen av dagar mellan vårdnadshavarna har jämnats ut något sedan slutet av 1990-talet då runt 85-90 procent av föräldrapenningdagarna togs ut av mammorna. Sedan dess har först en (1995), sedan två (2002) och även tre månader (2016) reserverats åt respektive vårdnadshavare (också kallade "pappamånader"). Detta har bidragit till ett jämnare uttag men utvecklingen får ändå sägas gå relativt trögt, då kvinnors andel endast har minskat till runt `r round(as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Kvinnor", År == max(År)) %>% .$Andel),0)` procent `r max(foraldrapenning_df$År)`. Svenska vårdnadshavare är således långt ifrån att ge sina barn en jämställd tillgång till sina föräldrar. Skillnaden i uttag påverkar också den disponibla inkomsten, som beskrivits under rubriken Ekonomisk jämställdhet. Skillnaden är som störst mellan sammanboende kvinnor och män när det yngsta barnet är 0–3 år [(Regeringen, 2022)](<https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf>){target="_blank"}.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
-diagramtitel <- "Andel nettodagar per kön i Dalarna"
-diagramfilnamn <- "Foraldrapenning_andel.png"
-
-fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
-                               filter(Kommun == "Samtliga kommuner",
-                                      Kön != "Kvinnor och män") %>% 
-                                mutate(Kön = tolower(Kön),
-                                       Andel = as.numeric(Andel)), 
-                             skickad_x_var = "År", 
-                             skickad_y_var = "Andel", 
-                             skickad_x_grupp = "Kön",
-                             x_axis_lutning = 45,
-                             manual_x_axis_text_vjust=1,
-                             manual_x_axis_text_hjust=1,
-                             manual_color = diagramfarger("kon"),
-                             stodlinjer_avrunda_fem = TRUE,
-                             manual_y_axis_title = "",
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             diagram_facet = FALSE,
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = spara_figur)
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-fp_andel_fig
+gg_fp_vab$Foraldrapenning_andel_Dalarna
 ```
 
-Hur vårdnadshavare fördelar föräldrapenningen mellan sig är relativt olika i Dalarnas kommuner. I `r stri_extract_last(first(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun), regex='\\S+')` och Orsa är uttaget  mest jämställt relativt sett, där drygt `r round(as.numeric(first(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel)),0)` procent av föräldrapenningdagarna togs ut av männen. Minst jämställd är fördelningen i `r stri_extract_last(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun, regex='\\S+')`, där motsvarande uttag är cirka `r round(as.numeric(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel),0)` procent.
+Hur vårdnadshavare fördelar föräldrapenningen mellan sig är relativt olika i Dalarnas kommuner. I `r first(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun)` är uttaget  mest jämställt relativt sett, där ungefär `r round(as.numeric(first(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel)),0)` procent av föräldrapenningdagarna togs ut av männen. Minst jämställd är fördelningen i `r foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun`, där motsvarande uttag är cirka `r round(as.numeric(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel),0)` procent.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
-diagramtitel <- paste0("Andel nettodagar per kön i Dalarna år ",max(foraldrapenning_df$År))
-diagramfilnamn <- "Foraldrapenning_andel_kommun.png"
-
-fp_andel_fig <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
-                               filter(Kommun != "Samtliga kommuner",
-                                      Kön != "Kvinnor och män",
-                                      År == max(År)) %>% 
-                                mutate(Kön = tolower(Kön),
-                                       Andel = as.numeric(Andel),
-                                       Kommun = stri_extract_last(Kommun, regex='\\S+')), 
-                             skickad_x_var = "Kommun", 
-                             skickad_y_var = "Andel", 
-                             skickad_x_grupp = "Kön",
-                             x_axis_lutning = 45,
-                             manual_color = diagramfarger("kon"),
-                             manual_y_axis_title = "",
-                             manual_x_axis_text_vjust=1,
-                             manual_x_axis_text_hjust=1,
-                             x_axis_sort_value = TRUE,
-                             stodlinjer_avrunda_fem = TRUE,
-                             x_axis_sort_grp = 1,
-                             vand_sortering = FALSE,
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             diagram_facet = FALSE,
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = spara_figur)
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-fp_andel_fig
+gg_fp_vab$Foraldrapenning_andel_kommun_Dalarna
 ```
 
 Antalet uttagna nettodagar av föräldrapenning är inte jämnt fördelade över året. Mest benägna är såväl kvinnor som män att ta ut dagar i juli och augusti, sannolikt för att ha möjlighet att vara hemma med barnen under deras skollov på sommaren. Även januari är en populär månad, troligtvis fokuserat i början av månaden när barnen är lediga från förskola och skola. 
@@ -1259,379 +564,79 @@ gg_forsakringskassan$foraldrapenning_manad
 
 ## Tillfällig föräldrapenning
 Tillfällig föräldrapenning ges för vård av sjukt barn och är det som i folkmun kallas vab. Sett över tidsperioden minskade antalet uttagna nettodagar något mellan 2006 och 2009, för att därefter öka stadigt fram till 2022. På senare år har uttaget av tillfällig föräldrapenning/vab för såväl kvinnor som män minskat, men ligger fortfarande på högre nivåer än innan pandemin. Även för vård av sjukt barn tar kvinnor ut betydligt fler dagar än män, fördelningen ligger precis utanför spannet för vad som antas som statistisk jämställdhet, där kvinnor tar ut cirka `r round(vab_df %>% filter(Kommun == "Samtliga kommuner",Kön == "Kvinnor",År == max(År)) %>% .$Andel,0)` procent av dagarna. 
+
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
-diagramtitel <- "Vård av barn, antal uttagna nettodagar i Dalarna"
-diagramfilnamn <- "vab_antal.png"
-
-# tidigare  Delförmån == "Vård av barn"
-tfp_fig <- SkapaStapelDiagram(skickad_df = vab_df%>%
-                               filter(Kommun == "Samtliga kommuner",
-                                      Kön != "Kvinnor och män") %>% 
-                                mutate(Kön = tolower(Kön),
-                                       Antal_nettodagar = as.numeric(Antal_nettodagar)), 
-                             skickad_x_var = "År", 
-                             skickad_y_var = "Antal_nettodagar", 
-                             skickad_x_grupp = "Kön",
-                             x_axis_lutning = 45,
-                             manual_x_axis_text_vjust=1,
-                             manual_x_axis_text_hjust=1,
-                             manual_y_axis_title = "",
-                             manual_color = diagramfarger("kon"),
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             stodlinjer_avrunda_fem = TRUE,
-                             diagram_facet = FALSE,
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = spara_figur)
-    
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-tfp_fig
+gg_fp_vab$vab_antal_Dalarna
 ```
 
 Till skillnad från trenden för föräldrapenning har fördelningen av vab-dagar hållt sig jämnare de senaste decennierna (under pandemin verkar män ha ökat sitt uttag något jämfört med kvinnor).
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-diagramtitel <- "Vård av barn, förändring i antal uttagna nettodagar i Dalarna"
-diagramfilnamn <- "Vab_antal_linje.png"
-# tidigare: Delförmån == "Vård av barn"
-tfp_fig_linje <- SkapaLinjeDiagram(skickad_df = vab_df%>%
-                                     filter(Kommun == "Samtliga kommuner",
-                                            Kön != "Kvinnor och män") %>% 
-                                      mutate(Kön = tolower(Kön),
-                                             `Antal nettodagar` = as.numeric(Antal_nettodagar),
-                                             "år" = År), 
-                                   skickad_x_var = "år", 
-                                   skickad_y_var = "Antal nettodagar", 
-                                   skickad_x_grupp = "Kön",
-                                   manual_color = diagramfarger("kon"),
-                                   berakna_index = TRUE,
-                                   x_axis_lutning = 45,
-                                   diagram_titel = diagramtitel,
-                                   diagram_capt =  diagram_capt,
-                                   stodlinjer_avrunda_fem = TRUE,
-                                   diagram_facet = FALSE,
-                                   output_mapp = outputmapp,
-                                   filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = spara_figur)
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-tfp_fig_linje
+gg_fp_vab$Vab_antal_linjeDalarna
 ```
 
 # Hälsa och ohälsa
 Jämställd hälsa är det femte jämställdhetspolitiska delmålet. Kvinnor och män, flickor och pojkar ska ha samma förutsättningar för en god hälsa och erbjudas vård och omsorg på lika villkor. Idag finns det stora skillnader i hälsa och ohälsa mellan kvinnor och män. Flickor och kvinnor är sjukskrivna för symptom som är kopplade till psykisk ohälsa i betydligt högre utsträckning än män, samtidigt dör fler män än kvinnor i suicid (självmord), i arbetsplatsolyckor, i hjärt- och kärlsjukdomar och av cancer. Förklaringar kan bland annat kopplas till brister i arbetsmiljön, att inte söka vård i tid och skillnader i vårdens bemötande.
 
 ## Ohälsotalet 
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-senaste_manad <- ohalsotal_df %>% mutate(månad_namn = format(as.Date(paste0(År,"-", Månad, "-01")), "%B")) %>% .$månad_namn %>% unique() %>% first()
-
-ohalsotal_df_utskrift <- ohalsotal_df %>%
-  filter(Ålder == "Samtliga 16-64 år") %>%
-    mutate(Ohälsotalet = as.numeric(Ohälsotalet)) %>% 
-      group_by(År,Län,Kommun,Kön) %>% 
-        summarize(Ohälsotalet_medel=mean(Ohälsotalet))
-
-diagram_capt_ohälsa <- glue("Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Ohälsotalet: hur många dagar under en tolvmånadersperiod\nFörsäkringskassan betalar ut ersättning för nedsatt arbetsförmåga\ni förhållande till antalet försäkrade i åldrarna 16-64 år. Data för {max(ohalsotal_df$År)} till och med {senaste_manad}.")
-
-diagramtitel <- "Genomsnittligt ohälsotal (16-64 år) per år i Dalarna"
-diagramfilnamn <- "ohalsotal.png"
-
-ohalsotal_fig <- SkapaStapelDiagram(skickad_df = ohalsotal_df_utskrift %>%
-                                     filter(Kommun == "Samtliga kommuner",
-                                            Kön != "Kvinnor och män") %>% 
-                                      mutate(Kön = tolower(Kön)), 
-                                   skickad_x_var = "År", 
-                                   skickad_y_var = "Ohälsotalet_medel", 
-                                   skickad_x_grupp = "Kön",
-                                   x_axis_lutning = 45,
-                                   manual_color = diagramfarger("kon"),
-                                   manual_y_axis_title = "",
-                                   diagram_titel = diagramtitel,
-                                   diagram_capt =  diagram_capt_ohälsa,
-                                   stodlinjer_avrunda_fem = TRUE,
-                                   diagram_facet = FALSE,
-                                   berakna_index = FALSE,
-                                   output_mapp = outputmapp,
-                                   filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = spara_figur)
-
-# ohalsotal_df_alt <- ohalsotal_df %>%
-#   filter(Ålder == "Samtliga 16-64 år") %>%
-#     mutate(Ohälsotalet = as.numeric(Ohälsotalet),
-#            månad_namn = format(as.Date(paste0(År,"-", Månad, "-01")), "%B")) %>%
-#       mutate(tid = paste0(månad_namn, " ", År)) %>%
-#         mutate(tid = factor(tid, levels = rev(unique(tid))))
-
-      # group_by(År,Län,Kommun,Kön) %>%
-      #   summarize(Ohälsotalet_medel=mean(Ohälsotalet))
-
-# diagram_capt_ohälsa <- paste0("Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Ohälsotalet: hur många dagar under en tolvmånadersperiod\nFörsäkringskassan betalar ut ersättning för nedsatt arbetsförmåga\ni förhållande till antalet försäkrade i åldrarna 16-64 år. Data för ",max(ohalsotal_df_alt$År)," till och med ",first(ohalsotal_df_alt$månad_namn))
-
-# ohalsotal_fig_alt <- SkapaLinjeDiagram(skickad_df = ohalsotal_df_alt %>%
-#                                      filter(Kommun == "Samtliga kommuner",
-#                                             Kön != "Kvinnor och män",
-#                                             År>2004) %>%
-#                                       mutate(Kön = tolower(Kön)),
-#                                    skickad_x_var = "tid",
-#                                    skickad_y_var = "Ohälsotalet",
-#                                    skickad_x_grupp = "Kön",
-#                                    x_axis_lutning = 45,
-#                                    manual_color = diagramfarger("kon"),
-#                                    manual_y_axis_title = "",
-#                                    diagram_titel = "diagramtitel",
-#                                    diagram_capt =  diagram_capt_ohälsa,
-#                                    stodlinjer_avrunda_fem = TRUE,
-#                                    x_axis_visa_var_xe_etikett = 6,
-#                                    inkludera_sista_vardet_var_xe_etikett = TRUE,
-#                                    output_mapp = "outputmapp",
-#                                    filnamn_diagram = "diagramfilnamn",
-#                                    skriv_till_diagramfil = FALSE)
-# 
-#  g_test <- ohalsotal_fig_alt+ geom_segment(aes(xend = Date, y = 0, yend = Cases))
-
-```
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-```
-
 Ohälsotalet^[Ohälsotalet: hur många dagar under en tolvmånadersperiod
     Försäkringskassan betalar ut ersättning för nedsatt arbetsförmåga i
     förhållande till antalet försäkrade i åldersgruppen 16-64 år] mäter i vilken utsträckning personer är borta från arbetet på grund av nedsatt arbetsförmåga, mätt under ett års tid. Ohälsotalet varierar över tid och var relativt högt under början av 2000-talet. Därefter syns en klart nedåtgående trend, även om ohälsotalet har ökat något de senaste åren. Under hela tidsperioden har ohälsotalet varit högre för kvinnor än för män, även om skillnaden mellan könen har minskat något över tid.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-ohalsotal_fig
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-# diagram_capt_ohälsa <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Ohälsotalet: hur många dagar under en tolvmånadersperiod\nFörsäkringskassan betalar ut ersättning för nedsatt arbetsförmåga\ni förhållande till antalet försäkrade i åldrarna 16-64 år. "
-
-diagramtitel <- paste0("Genomsnittligt ohälsotal (16-64 år) i Dalarna år ",max(ohalsotal_df_utskrift$År))
-diagramfilnamn <- "ohalsotal_kommun.png"
-
-ohalsotal_kommun_fig <- SkapaStapelDiagram(skickad_df = ohalsotal_df_utskrift %>%
-                                     filter(Kommun != "Samtliga kommuner",
-                                            Kön != "Kvinnor och män",
-                                            År == max(.$År)) %>% 
-                                      mutate(Kön = tolower(Kön),
-                                             Kommun = stri_extract_last(Kommun, regex='\\S+')), 
-                                   skickad_x_var = "Kommun", 
-                                   skickad_y_var = "Ohälsotalet_medel", 
-                                   skickad_x_grupp = "Kön",
-                                   manual_x_axis_text_vjust = 1,
-                                   manual_x_axis_text_hjust = 1,
-                                   x_axis_lutning = 45,
-                                   x_axis_sort_value = TRUE,
-                                   x_axis_sort_grp = 1,
-                                   vand_sortering = TRUE,
-                                   manual_color = diagramfarger("kon"),
-                                   manual_y_axis_title = "",
-                                   diagram_titel = diagramtitel,
-                                   diagram_capt =  diagram_capt_ohälsa,
-                                   stodlinjer_avrunda_fem = TRUE,
-                                   diagram_facet = FALSE,
-                                   berakna_index = FALSE,
-                                   output_mapp = outputmapp,
-                                   filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = spara_figur)
-
+gg_ohalsotal_sjp$ohalsotal_Dalarna
 ```
 
 Ohälsotalet för Dalarnas befolkning visar att det finns skillnader mellan länets
-kommuner. För män är ohälsotalet år `r max(ohalsotal_df_utskrift$År)` högst i `r stri_extract_last(ohalsotal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Ohälsotalet_medel == max(.$Ohälsotalet_medel)) %>% .$Kommun, regex='\\S+')` och lägst i `r stri_extract_last(ohalsotal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$Kommun, regex='\\S+')`. För
-kvinnor är ohälsotalet högst i `r stri_extract_last(ohalsotal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Ohälsotalet_medel == max(.$Ohälsotalet_medel)) %>% .$Kommun, regex='\\S+')` och lägst i `r stri_extract_last(ohalsotal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$Kommun, regex='\\S+')`. För att fastställa orsaken till skillnaderna mellan kommuner behövs djupare studier och analyser. Potentiella faktorer kan vara att branschstrukturen skiljer sig mellan kommunerna och att det är olika hög sjukfrånvaro i olika branscher, men även att socioekonomiska förutsättningar skiljer sig åt mellan kommunerna i Dalarna.
+kommuner. För män är ohälsotalet år `r max(ohalsotal_df$År)` högst i `r ohalsotal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Ohälsotalet_medel == max(.$Ohälsotalet_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")` och lägst i `r ohalsotal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")`. För
+kvinnor är ohälsotalet högst i `r ohalsotal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Ohälsotalet_medel == max(.$Ohälsotalet_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")` och lägst i `r ohalsotal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")`. För att fastställa orsaken till skillnaderna mellan kommuner behövs djupare studier och analyser. Potentiella faktorer kan vara att branschstrukturen skiljer sig mellan kommunerna och att det är olika hög sjukfrånvaro i olika branscher, men även att socioekonomiska förutsättningar skiljer sig åt mellan kommunerna i Dalarna.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-ohalsotal_kommun_fig
+gg_ohalsotal_sjp$ohalsotal_kommun_Dalarna
 ```
 
 ## Sjukpenningtalet
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-senaste_manad <- sjukpenningtal_df %>% mutate(månad_namn = format(as.Date(paste0(År,"-", Månad, "-01")), "%B")) %>% .$månad_namn %>% unique() %>% first()
-
-diagram_capt_sjukpenning<- glue("Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring:Sjukpenningtalet är antalet dagar med sjukpenning och rehabiliteringspenning\nsom har betalats ut under en 12-månaders period. Den summan delas med antalet försäkrade i\nSverige som är i åldrarna 16–64 år. Data för {max(sjukpenningtal_df$År)} till och med {senaste_manad}.")
-
-sjukpenningtal_df_utskrift <-sjukpenningtal_df %>%
-  filter(Ålder == "Samtliga 16-64 år") %>%
-    mutate(Sjukpenningtal = as.numeric(`Sjukpenningtal.1.0`)) %>% 
-      group_by(År,Län,Kommun,Kön) %>% 
-        summarize(Sjukpenningtal_medel=mean(Sjukpenningtal))
-
-diagramtitel <- "Genomsnittligt sjukpenningtal (16-64 år) per år i Dalarna"
-diagramfilnamn <- "sjukpenningtal.png"
-
-sjukpenningtal_fig <- SkapaStapelDiagram(skickad_df = sjukpenningtal_df_utskrift %>%
-                                         filter(Kommun == "Samtliga kommuner",
-                                                Kön != "Kvinnor och män") %>% 
-                                          mutate(Kön = tolower(Kön)), 
-                                       skickad_x_var = "År", 
-                                       skickad_y_var = "Sjukpenningtal_medel", 
-                                       skickad_x_grupp = "Kön",
-                                       x_axis_lutning = 45,
-                                       manual_color = diagramfarger("kon"),
-                                       manual_y_axis_title = "",
-                                       diagram_titel = diagramtitel,
-                                       diagram_capt =  diagram_capt_sjukpenning,
-                                       stodlinjer_avrunda_fem = TRUE,
-                                       diagram_facet = FALSE,
-                                       berakna_index = FALSE,
-                                       output_mapp = outputmapp,
-                                       filnamn_diagram = diagramfilnamn,
-                                       skriv_till_diagramfil =spara_figur)
-```
 
 I likhet med ohälsotalet tenderar sjukpenningtalet, som enbart innefattar sjukpenning och rehabiliteringspenning, att variera kraftigt över tiden. I början av 2000-talet var talet högt för både kvinnor och män, för att därefter minska rejält fram till 2010. Därefter har sjukpenningtalet både gått upp och ned, men på senare år kan en ökning återigen skönjas. Kvinnor är sjukskrivna i större utsträckning än män, vilket återspeglas i sjukpenningtalet. Att talet förändras över tid behöver inte nödvändigtvis bero på att människor blir mer eller mindre sjuka. Det kan snarare bero på en mer eller mindre restriktiv syn på vad som krävs för att bli sjukskriven, något som ofta är politiskt styrt. Exempelvis beror den kraftiga nedgången i sjukpenningtalet mellan 2002 och 2010 sannolikt inte främst på att arbetstagare var mindre sjuka, utan på att bedömningen av vad som berättigar en sjukskrivning var hårdare.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-sjukpenningtal_fig
+gg_ohalsotal_sjp$sjukpenningtal_Dalarna
 ```
 
 Även när det kommer till sjukpenningtalet finns det skillnader mellan
-Dalarnas kommuner. För både kvinnor och män är talet högst i `r stri_extract_last(sjukpenningtal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Sjukpenningtal_medel == max(.$Sjukpenningtal_medel)) %>% .$Kommun, regex='\\S+')`. Sjukpenningtalet är en delmängd av ohälsotalet och därför samvarierar resultaten mellan kommunerna i stort. Talet är lägst för både kvinnor och män i `r stri_extract_last(sjukpenningtal_df_utskrift %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Sjukpenningtal_medel == min(.$Sjukpenningtal_medel)) %>% .$Kommun, regex='\\S+')`.
+Dalarnas kommuner. För både kvinnor och män är talet högst i `r sjukpenningtal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Sjukpenningtal_medel == max(.$Sjukpenningtal_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")`. Sjukpenningtalet är en delmängd av ohälsotalet och därför samvarierar resultaten mellan kommunerna i stort. Talet är lägst för både kvinnor och män i `r sjukpenningtal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Sjukpenningtal_medel == min(.$Sjukpenningtal_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")`.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-diagramtitel <- paste0("Genomsnittligt sjukpenningtal (16-64 år) i Dalarna år ",max(sjukpenningtal_df_utskrift$År))
-diagramfilnamn <- "sjukpenningtal_kommun.png"
-
-sjukpenningtal_kommun_fig <- SkapaStapelDiagram(skickad_df = sjukpenningtal_df_utskrift %>%
-                                     filter(Kommun != "Samtliga kommuner",
-                                            Kön != "Kvinnor och män",
-                                            År == max(.$År)) %>% 
-                                      mutate(Kön = tolower(Kön),
-                                             Kommun = stri_extract_last(Kommun, regex='\\S+')), 
-                                   skickad_x_var = "Kommun", 
-                                   skickad_y_var = "Sjukpenningtal_medel", 
-                                   skickad_x_grupp = "Kön",
-                                   manual_x_axis_text_vjust = 1,
-                                   manual_x_axis_text_hjust = 1,
-                                   x_axis_lutning = 45,
-                                   x_axis_sort_value = TRUE,
-                                   x_axis_sort_grp = 1,
-                                   vand_sortering = TRUE,
-                                   manual_color = diagramfarger("kon"),
-                                   stodlinjer_avrunda_fem = TRUE,
-                                   manual_y_axis_title = "",
-                                   diagram_titel = diagramtitel,
-                                   diagram_capt =  diagram_capt_sjukpenning,
-                                   diagram_facet = FALSE,
-                                   berakna_index = FALSE,
-                                   output_mapp = outputmapp,
-                                   filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = spara_figur)
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-sjukpenningtal_kommun_fig
+gg_ohalsotal_sjp$sjukpenningtal_kommun_Dalarna
 ```
 
 ## Stressrelaterade sjukfall 
 
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-
-senaste_manad <- stress_df %>% mutate(månad_namn = format(as.Date(paste0(År,"-", Månad, "-01")), "%B")) %>% .$månad_namn %>% unique() %>% first()
-
-
-diagram_capt<-glue("Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Data för {max(stress_df$År)} till och med {senaste_manad}.")
-
-# Tidigare: filter(Kommun == "Samtliga kommuner") %>% 
-
-stress_df_utskrift <- stress_df %>%
-  filter(Kommun == "20 Dalarnas län") %>% 
-    mutate(Antal = as.numeric(Antal)) %>% 
-      group_by(År,Län,Kön) %>% 
-        summarize(Antal_medel=mean(Antal))
-
-diagramtitel <- paste0("Genomsnittligt antal pågående sjukfall kopplade till stress i Dalarna")
-diagramtitel <- str_wrap(diagramtitel,60)
-diagramfilnamn <- paste0("Antal_stress.png")
-
-stress_fig <- SkapaStapelDiagram(skickad_df = stress_df_utskrift %>% 
-                               filter(Kön != "Kvinnor och män") %>% 
-                                mutate(Kön = tolower(Kön)), 
-                             skickad_x_var = "År", 
-                             skickad_y_var ="Antal_medel", 
-                             skickad_x_grupp = "Kön",
-                             x_axis_lutning = 45,
-                             manual_x_axis_text_hjust = 1,
-                             manual_x_axis_text_vjust = 1,
-                             manual_y_axis_title = "",
-                             manual_color = diagramfarger("kon"),
-                             stodlinjer_avrunda_fem = TRUE,
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             diagram_facet = FALSE,
-                             berakna_index = FALSE,
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = spara_figur)
-```
-
-Antalet sjukfall kopplade till stressrelaterade symptom  har ökat dramatiskt sedan 2010. Även för dessa sjukfall ses en trend där antalet minskade tydligt under en period fram till 2010, för att sedan öka. Kvinnor står för cirka `r round(stress_df_utskrift %>% filter(Kön=="Kvinnor",År==max(.$År)) %>% .$Antal_medel/stress_df_utskrift %>% filter(Kön=="Kvinnor och män",År==max(.$År)) %>% .$Antal_medel,2)*100` procent av dessa sjukskrivningar. Trots den stora skillnaden i antal mellan kvinnor och män, så är ökningen relativt likvärdig. Antalet pågående sjukfall kopplade till stress ökade markant för respektive grupp mellan 2010 och 2016, innan det skedde en viss minskning under åren innan och under pandemin. Därefter har det pågående sjukfallen kopplade till stress återigen börjat öka tydligt för såväl kvinnor som män. 
+Antalet sjukfall kopplade till stressrelaterade symptom  har ökat dramatiskt sedan 2010. Även för dessa sjukfall ses en trend där antalet minskade tydligt under en period fram till 2010, för att sedan öka. Kvinnor står för cirka `r andel_kvinnor_stress` procent av dessa sjukskrivningar. Trots den stora skillnaden i antal mellan kvinnor och män, så är ökningen relativt likvärdig. Antalet pågående sjukfall kopplade till stress ökade markant för respektive grupp mellan 2010 och 2016, innan det skedde en viss minskning under åren innan och under pandemin. Därefter har det pågående sjukfallen kopplade till stress ökat tydligt för såväl kvinnor som män. 
 
 Att utröna vad det ökade antalet sjukfall beror på är svårt, men det finns ett väl belagt samband mellan psykiatriska diagnoser (såsom svår stress) och den
 psykosociala arbetsmiljön [(Försäkringskassan, 2016)](<https://www.forsakringskassan.se/download/18.3a5418591814e228e4413b2/1661267958656/psykisk-ohalsa-korta-analyser-2016-2.pdf>){target="_blank"}^[Försäkringskassan, Korta analyser 2016:2, "Sjukskrivning för reaktioner på svår stress ökar mest."]. Kvinnors större ohälsa kan även kopplas till en högre grad av dubbelarbete bland kvinnor och bristande jämställdhet i nära relationer. För en fördjupad diskussion runt detta ämne, se Försäkringskassans rapport från november 2024: ["Psykisk ohälsa i dagens arbetsliv "](https://www.forsakringskassan.se/download/18.22814c2e194887717f99d/1738569517962/psykisk-ohalsa-i-dagens-arbetsliv-forsakringskassans-lagesrapport-2024-1.pdf){target="_blank"}^[Försäkringskassans lägesrapport (2024) - "Psykisk ohälsa i dagens arbetsliv"].
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-stress_fig
+gg_sjukfall_stress$Antal_stress_Dalarna
 ```
 
 
 ## Sjukfall i olika branscher
 Generellt är det stora skillnader i antalet startade sjukfall (per
 1 000 förvärvsarbetande) mellan olika branscher. För kvinnor är antalet
-störst i typiskt kvinnodominerade yrken som vård och omsorg, vilket kan vara en förklaring till att kvinnor är sjukskrivna i större utsträckning än män. För män är det istället inom transportbranschen, en mansdominerad bransch, som antalet startade sjukfall är högst. Oavsett kön, är antal startade sjukfall lägst inom klassiska kontorsarbeten som ekonomi, finans och IT. Notera även att antalet startade sjukfall (per 1 000 förvärvsarbetande) är högre för kvinnor än för män i samtliga branscher i diagrammet nedan.
+störst i typiskt kvinnodominerade yrken som `r bransch_max_kvinnor`, vilket kan vara en förklaring till att kvinnor är sjukskrivna i större utsträckning än män. För män är det istället inom `r bransch_max_man`, en mansdominerad bransch, som antalet startade sjukfall är högst. Oavsett kön, är antal startade sjukfall lägst inom klassiska kontorsarbeten som ekonomi, finans och IT. Notera även att antalet startade sjukfall (per 1 000 förvärvsarbetande) är högre för kvinnor än för män i samtliga branscher i diagrammet nedan.
 
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="80%"}
-diagram_capt <- "Källa: Försäkringskassan.\nBearbetning: Samhällsanalys, Region Dalarna."
-
-diagramtitel <- paste0("Antal startade sjukfall per 1000 förvärvsarbetande i Sverige år ",max(startade_sjukfall_bransch_df$År))
-diagramtitel <- str_wrap(diagramtitel,60)
-diagramfilnamn <- paste0("Startade_sjukfall_bransch.png")
-
-sjukfall_bransch_fig <- SkapaStapelDiagram(skickad_df = startade_sjukfall_bransch_df,
-                                           skickad_x_var = "SNI2007",
-                                           skickad_y_var = "Antal_startade_sjukfall",
-                                           skickad_x_grupp = "Kon",
-                                           manual_color = diagramfarger("kon"),
-                                           diagram_titel = diagramtitel,
-                                           diagram_capt =  diagram_capt,
-                                           diagram_facet = FALSE,
-                                           manual_x_axis_text_vjust = 1,
-                                           manual_x_axis_text_hjust = 1,
-                                           facet_grp="Kon",
-                                           manual_y_axis_title = "",
-                                           diagram_liggande = FALSE,
-                                           x_axis_sort_value = TRUE,
-                                           x_axis_lutning = 45,
-                                           stodlinjer_avrunda_fem = TRUE,
-                                           facet_scale = "fixed",
-                                           berakna_index = FALSE,
-                                           output_mapp = outputmapp,
-                                           filnamn_diagram = diagramfilnamn,
-                                           skriv_till_diagramfil = spara_figur)
-
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-sjukfall_bransch_fig
+gg_sjukfall_bransch$Startade_sjukfall_bransch
 ```
 
 # Makt och politik
@@ -1643,110 +648,26 @@ Samtidigt har bilden förbättrats inom offentlig sektor och inom politiken gene
 
 ## Politisk representation
 
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\n Bearbetning: Samhällsanalys, Region Dalarna."
-
-riksdagsval_summering_df <- riksdagsval_df %>%
-      filter(region=="Totalt för riket") %>%
-        group_by(kön,valår) %>%
-          summarise("Antal" = sum(Antal))
-
-diagramtitel <- paste0("Riksdagsledamöter per valår")
-diagramfilnamn <- paste0("Riksdagsledamöter",".png")
-
-riksdag_fig <- SkapaStapelDiagram(skickad_df = riksdagsval_summering_df,
-                                 skickad_x_var = "valår",
-                                 skickad_y_var = "Antal",
-                                 skickad_x_grupp = "kön",
-                                 x_axis_lutning = 0,
-                                 manual_color = diagramfarger("kon"),
-                                 diagram_titel = diagramtitel,
-                                 diagram_capt =  diagram_capt,
-                                 stodlinjer_avrunda_fem = TRUE,
-                                 diagram_facet = FALSE,
-                                 berakna_index = FALSE,
-                                 output_mapp = outputmapp,
-                                 filnamn_diagram = diagramfilnamn,
-                                 skriv_till_diagramfil = spara_figur)
-
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-regionval_summering_df <- regionval_df %>%
-      group_by(kön,valår) %>%
-        summarise("Antal" = sum(Antal))
-
-diagramtitel <- "Regionfullmäktigeledamöter per valår i Dalarna"
-diagramfilnamn <- "regionfullmaktige.png"
-
-regionval_fig <- SkapaStapelDiagram(skickad_df = regionval_summering_df,
-                                   skickad_x_var = "valår",
-                                   skickad_y_var = "Antal",
-                                   skickad_x_grupp = "kön",
-                                   x_axis_lutning = 0,
-                                   #skickad_filter_OR_var = "region",
-                                   manual_color = diagramfarger("kon"),
-                                   diagram_titel = diagramtitel,
-                                   diagram_capt =  diagram_capt,
-                                   stodlinjer_avrunda_fem = TRUE,
-                                   diagram_facet = FALSE,
-                                   berakna_index = FALSE,
-                                   output_mapp = outputmapp,
-                                   filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = spara_figur)
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-# Summerar riksdagsledamöter på år
-kommunval_summering_df <- kommunval_df %>%
- filter(valår==max(valår))%>%
-  group_by(region,kön) %>%
-    summarise("Antal" = sum(`Antal`))
-
-diagramtitel <- paste0("Kommunfullmäktigeledamöter i Dalarna ",max(kommunval_df$valår))
-diagramfilnamn <- "kommunfullmäktige_.png"
-
-kommunval_fig <- SkapaStapelDiagram(skickad_df = kommunval_summering_df,
-                                    skickad_x_var = "region",
-                                    skickad_y_var = "Antal",
-                                    skickad_x_grupp = "kön",
-                                    manual_x_axis_text_vjust = 1,
-                                    manual_x_axis_text_hjust = 1,
-                                    #skickad_filter_OR_var = "region",
-                                    manual_color = diagramfarger("kon"),
-                                    diagram_titel = diagramtitel,
-                                    diagram_capt =  diagram_capt,
-                                    stodlinjer_avrunda_fem = TRUE,
-                                    diagram_facet = FALSE,
-                                    berakna_index = FALSE,
-                                    output_mapp = outputmapp,
-                                    filnamn_diagram = diagramfilnamn,
-                                    skriv_till_diagramfil = spara_figur)
-
-```
-
-Den politiska sfären har historiskt varit mansdominerad och avsevärt färre kvinnor har haft tunga politiska uppdrag. Det första diagrammet i det
-här avsnittet visar könsfördelningen bland riksdagsledamöter från valet
-1973 till `r max(riksdagsval_summering_df$valår)`. Riksdagens könsfördelning har under den här tidsperioden genomgått en stor förändring och utveckling. Vid riksdagsvalet 1973 var en övervägande majoritet av de folkvalda ledamöterna män. Endast drygt 70 kvinnor återfanns på bänkarna i Riksdagen under den här mandatperioden. `r as.numeric(max(riksdagsval_summering_df$valår)) -  as.numeric(min(riksdagsval_summering_df$valår)) ` år senare är männen fortfarande fler än kvinnorna, men skillnaden mellan könen är bara `r riksdagsval_summering_df %>% filter(valår == max(valår),kön =="män") %>% .$Antal - riksdagsval_summering_df %>% filter(valår == max(valår),kön =="kvinnor") %>% .$Antal ` stycken ledamöter. Den mest jämställda Riksdagen i Sverige var mandatperioden som tog sin början `r riksdagsval_summering_df %>% filter(kön == "kvinnor",Antal == max(Antal)) %>% .$valår ` då antalet kvinnor
-var `r riksdagsval_summering_df %>% filter(kön == "kvinnor",Antal == max(Antal)) %>% .$Antal`.
+Den politiska sfären har historiskt varit mansdominerad och avsevärt färre kvinnor har haft tunga politiska uppdrag. Diagrammet nedan visar könsfördelningen bland riksdagsledamöter från valet `r riksdagsval_ar_min` till `r riksdagsval_ar_max`. Riksdagens könsfördelning har under den här tidsperioden genomgått en stor förändring och utveckling. Vid riksdagsvalet `r riksdagsval_ar_min` var en övervägande majoritet av de folkvalda ledamöterna män. Endast `r riksdagsval_min_ar_antal_kvinnor` kvinnor återfanns på bänkarna i Riksdagen under den här mandatperioden. `r antal_ar_mellan_min_max ` år senare är männen fortfarande fler än kvinnorna, men skillnaden mellan könen är bara `r riksdagsval_max_ar_skillnad ` stycken ledamöter. Den mest jämställda Riksdagen i Sverige var mandatperioden som tog sin början `r mest_jamnstalld_ar ` då antalet kvinnor
+var `r mest_jamnstalld_antal_kvinnor`.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-riksdag_fig
+gg_ledamoter_val$Riksdagsledamoter
 ```
 
-Den positiva trenden om en mer jämställd representation bland de folkvalda på nationell nivå syns även på regional nivå. Vid landstingsvalet 1982 i Dalarna var antalet ledamöter i regionfullmäktige övervägande män, medan könsfördelningen vid regionvalet 2014 i princip var helt jämställd med ett nästan jämnt antal män och kvinnor bland folkvalda i regionens fullmäktige. Efter valet 2018 syns däremot återigen en ökning av andelen män i regionfullmäktige och sedan det senaste valet (`r max(regionval_summering_df$valår)`) sitter `r regionval_summering_df %>% filter(valår == max(valår),kön =="män") %>% .$Antal - regionval_summering_df %>% filter(valår == max(valår),kön =="kvinnor") %>% .$Antal ` fler män än kvinnor i regionfullmäktige.
+Den positiva trenden om en mer jämställd representation bland de folkvalda på nationell nivå syns även på regional nivå. Vid landstingsvalet `r regionval_ar_min` i Dalarna var antalet ledamöter i regionfullmäktige övervägande män, medan könsfördelningen vid regionvalet 2014 i princip var helt jämställd med ett nästan jämnt antal män och kvinnor bland folkvalda i regionens fullmäktige. Efter valet 2018 syns däremot återigen en ökning av andelen män i regionfullmäktige och sedan det senaste valet (`r regionval_ar_max`) sitter `r regionval_max_ar_skillnad ` fler män än kvinnor i regionfullmäktige.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-regionval_fig
+gg_ledamoter_val$Regionfullaktigeledamoter
 ```
 
-På lokal nivå i Dalarna finns det stora skillnader mellan kommunerna. Efter valet 2022 var Avesta och Smedjebacken de enda kommuner i länet där kvinnorna i fullmäktige översteg antalet män (med en person i respektive fullmäktige). Borlänge, Gagnef, Mora och Vansbro har istället en majoritet män, dvs mer än 60 procent, bland deras folkvalda ledamöter.
+På lokal nivå i Dalarna finns det stora skillnader mellan kommunerna. Efter valet `r kommunval_ar_max` var `r kommunval_kommuner_fler_kvinnor_man` de enda kommuner i länet där kvinnorna i fullmäktige översteg antalet män. `r kommunval_kommuner_ojamnlik` har istället en majoritet män, dvs mer än 60 procent, bland deras folkvalda ledamöter.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-kommunval_fig
+gg_ledamoter_val$Kommunfullmaktigeledamoter
 ```
 
 ## Chefspositioner
@@ -1757,77 +678,19 @@ chefer_just_df <- chefer_df %>%
 ```
 
 Ett annat mått på makt är den ställning individen har på arbetsplatsen
-och i yrkeslivet. I diagrammet nedan visas andelen chefer uppdelade efter kön och för olika utbildningsnivåer. I samtliga grupper i Dalarna är en större andel av männen sysselsatta i någon form av chefsposition jämfört med
-motsvarande grupp kvinnor. Andelen chefer är även tydligt kopplad till
-utbildningsnivå där högre utbildning är associerad med en högre andel
-individer i chefspositioner. Bland gruppen sysselsatta män i Dalarna med
-eftergymnasial utbildning innehar cirka `r round(chefer_just_df %>% filter(år == max(år),utbildningsnivå == "eftergymnasial utbildning", kön == "män") %>% .$Andel,0) ` procent någon form av chefsställning. Bland kvinnor med eftergymnasial utbildning är motsvarande siffra ungefär `r round(chefer_just_df %>% filter(år == max(år),utbildningsnivå == "eftergymnasial utbildning", kön == "kvinnor") %>% .$Andel,0) ` procent.
-
-<br>
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-  diagram_capt <- c("Källa: SCB:s öppna statistikdatabas, BAS\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Andel chefer av sysselsatta med ett klassificerat yrke (20-65 år) uppdelat på utbildningsnivå",
-                    "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Förändring i andelen chefer av sysselsatta med ett klassificerat yrke för samtliga utbildningsnivåer.\nFram till och med 2021, 20-64 år och data från RAMS. Från 2022, 20-65 år och data från BAS.")
-diagramtitel <- paste0("Andel chefer år ",max(chefer_just_df$år)," i Dalarna")
-diagramfilnamn <- paste0("andel_chefer.png")
-
-chefer_fig <- SkapaStapelDiagram(skickad_df = chefer_just_df %>% 
-                               filter(år == max(år),
-                                      utbildningsnivå != "utbildningsnivå: uppgift saknas"),
-                             skickad_x_var = "utbildningsnivå",
-                             skickad_y_var = "Andel",
-                             skickad_x_grupp = "kön",
-                             manual_x_axis_text_vjust=1,
-                             manual_x_axis_text_hjust=1,
-                             manual_color = diagramfarger("kon"),
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt[1],
-                             stodlinjer_avrunda_fem = TRUE,
-                             diagram_facet = FALSE,
-                             x_axis_sort_value = TRUE,
-                             manual_y_axis_title="procent",
-                             output_mapp = outputmapp,
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = spara_figur)
-
-```
+och i yrkeslivet. I diagrammet nedan visas andelen chefer uppdelade efter kön och för olika utbildningsnivåer. I samtliga grupper i Dalarna är en större andel av männen sysselsatta i någon form av chefsposition jämfört med motsvarande grupp kvinnor. Andelen chefer är även tydligt kopplad till utbildningsnivå där högre utbildning är associerad med en högre andel individer i chefspositioner. Bland gruppen sysselsatta män i Dalarna med eftergymnasial utbildning innehar cirka `r andel_chefer_man ` procent någon form av chefsställning. Bland kvinnor med eftergymnasial utbildning är motsvarande siffra ungefär `r andel_chefer_kvinnor ` procent.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-chefer_fig
+gg_andel_chefer$andel_chefer_Dalarna
 ```
 
-```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="90%"}
-  diagramtitel <- paste0("Förändring i andel chefer i Dalarna")
-  diagramfilnamn <- paste0("andel_chefer_linje.png")
-
-  chefer_linje_fig <- SkapaLinjeDiagram(skickad_df =chefer_just_df %>% 
-                                filter(år >"2000",
-                                       utbildningsnivå == "samtliga utbildningsnivåer"),
-                              skickad_x_var = "år",
-                              skickad_y_var = "Andel",
-                              skickad_x_grupp = "kön",
-                              x_axis_lutning = 45,
-                              manual_color = diagramfarger("kon"),
-                              diagram_titel = diagramtitel,
-                              diagram_capt =  diagram_capt[2],
-                              stodlinjer_avrunda_fem = TRUE,
-                              diagram_facet = FALSE,
-                              berakna_index = TRUE,
-                              output_mapp = outputmapp,
-                              filnamn_diagram = diagramfilnamn,
-                              skriv_till_diagramfil = spara_figur)
-
-
-```
-
-I diagrammet nedan ser vi utveckling över tid. Andelen kvinnor i
-chefsposition i Dalarna har fördubblats under en
-tjugoårsperiod, och under samma period är andelen män i chefspositioner mer
+I diagrammet nedan ser vi utveckling över tid. Andelen kvinnor i chefsposition i Dalarna har fördubblats under en tjugoårsperiod, och under samma period är andelen män i chefspositioner mer
 eller mindre oförändrat. Det betyder att antalet chefspositioner har ökat i antal, men totalt sett så går utvecklingen över tid ändå i en mer jämställd riktning, även om situationen på arbetsmarknaden fortsatt får anses vara ojämställd.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-chefer_linje_fig
+gg_andel_chefer$andel_chefer_linje_Dalarna
 ```
 
 Ett annat mått på makt är den ställning individen har på arbetsplatsen och i yrkeslivet. I diagrammet nedan visas över-/underrepresentation av manliga chefer inom olika branscher i Dalarna. Ett värde på 0 indikerar att andelen manliga chefer är proportionerligt mot andelen anställda män i branschen, medan ett värde över/under 0 visar på en över-/underrepresentation av manliga chefer.
