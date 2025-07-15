@@ -266,7 +266,7 @@ gg_inkomst$Medianinkomst_20_64_Dalarna_tid
 ```
 
 <br>
-```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_inkomst$Medianinkomst_20_64_Dalarna_tid_linje
 ```
 
@@ -287,7 +287,7 @@ gg_inkomst$Medianinkomst_65_Dalarna_tid
 ```
 
 <br>
-```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_inkomst$Medianinkomst_65_Dalarna_tid_linje
 ```
 

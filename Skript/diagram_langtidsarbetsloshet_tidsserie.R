@@ -28,7 +28,7 @@ diag_langtidsarbetsloshet<-function(region_vekt = "20",
     assign("långtidsarbetslöshet", långtidsarbetslöshet, envir = .GlobalEnv)
   }
   
-  diagram_capt <- "Källa: Arbetsförmedlingen (via Kolada)\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Antal invånare 25-64 år (årsmedelvärde år T) som varit öppet arbetslösa eller i program med aktivitetsstöd i minst sex månader,\ndividerat med antal invånare 25-64 år den 31/12 år T-1."
+  diagram_capt <- "Källa: Arbetsförmedlingen (via Kolada)\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Antal invånare 25-64 år (årsmedelvärde år T) som varit öppet arbetslösa eller i program\nmed aktivitetsstöd i minst sex månader,dividerat med antal invånare 25-64 år den 31/12 år T-1."
   diagramtitel <- paste0("Långtidsarbetslöshet 25-64 år i ",unique(långtidsarbetslöshet$region))
   diagramfilnamn <- paste0("langtidsarbetsloshet_kolada_",unique(långtidsarbetslöshet$region),".png")
   
