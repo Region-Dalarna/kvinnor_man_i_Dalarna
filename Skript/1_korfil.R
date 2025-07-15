@@ -1,7 +1,7 @@
 
 # Skall data uppdateras? Annars läses data in från en sparad global environment-fil.
 # Notera dock att ett flertal diagram skapas via Excelfiler (se skriptet hamta_data). Uppdatera data i detta fall åsyftar enbart de diagram-funktioner som körs nedan
-uppdatera_data = TRUE
+uppdatera_data = FALSE
 
 if(uppdatera_data == TRUE){
   
@@ -142,7 +142,7 @@ disponibel_inkomst_max_ar <- max(disponibel_inkomst_df$år)
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diag_etableringstid_kon_lan_tidsserie_KvMa_IntRap.R")
 #source(here("skript/","etablering_kon_utbildningsniva.R"))
 gg_etablering <- diag_etablering_utb_kon_scb(output_mapp = output_mapp_figur,
-                                             utbildningsniva_jmf = c("utbildningsnivå: förgymnasial utbildning","utbildningsnivå: gymnasial utbildning" ,"utbildningsnivå: eftergymnasial utbildning"), # Finns även "samtliga utbildningsnivåer", "utbildningsnivå: förgymnasial utbildning", Skriv i den ordning de skall visas i diagram
+                                             utbildningsniva_jmf = rev(c("utbildningsnivå: förgymnasial utbildning","utbildningsnivå: gymnasial utbildning" ,"utbildningsnivå: eftergymnasial utbildning")), # Finns även "samtliga utbildningsnivåer", "utbildningsnivå: förgymnasial utbildning", Skriv i den ordning de skall visas i diagram
                                              facet_kolumner = 2,# Välj antalet kolumner som skall visas i Facet-diagramet (diag_utbildning)
                                              skriv_diagrambildfil = TRUE,
                                              returnera_data_rmarkdown = TRUE)
