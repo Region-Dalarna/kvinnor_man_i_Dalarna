@@ -1,7 +1,7 @@
 
 # Skall data uppdateras? Annars läses data in från en sparad global environment-fil. Därefter kan man knitta rapporten baserat på de data som fanns vid senaste uppdatering av data.
 # Detta är bra om man exempelvis vill ändra slarvfel eller liknande, utan att data skall uppdateras.
-# Notera dock att ett flertal diagram skapas via Excelfiler (se skriptet hamta_data). Uppdatera data i detta fall åsyftar enbart de diagram-funktioner som körs nedan
+# Uppdatering av data tar cirka 5-6 minuter.
 uppdatera_data = FALSE
 
 if(uppdatera_data == TRUE){
