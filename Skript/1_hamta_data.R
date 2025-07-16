@@ -65,10 +65,10 @@ diag_genomstromning(spara_data = TRUE,
 # diag_arbetsmarknadsstatus(skapa_fil = TRUE,
 #                           output_mapp = Output_mapp)
 
-# Arbetslöshet, bakgrund. 2008 - senaste år. Arbetsförmedlingen, Excel från hemsida
-source(here("Skript","arbetsloshet_2008_senastear.R"), encoding="UTF-8")
-diag_arbetsloshet_2008_senastear(spara_data = TRUE,
-                                output_mapp = Output_mapp)
+# Arbetslöshet, bakgrund. 2008 - senaste år. Arbetsförmedlingen, Excel från hemsida - Numer ett diagramskript
+# source(here("Skript","arbetsloshet_2008_senastear.R"), encoding="UTF-8")
+# diag_arbetsloshet_2008_senastear(spara_data = TRUE,
+#                                 output_mapp = Output_mapp)
 
 # Långtidsarbetslöshet - Från Supercross (Excel) - numer ett diagramskript med data från Kolada
 # source(here("Skript","långtidsarbetslöshet.R"), encoding="UTF-8")
@@ -103,15 +103,15 @@ diag_arbetsloshet_2008_senastear(spara_data = TRUE,
 # diag_matchning(spara_data = TRUE,
 #                output_mapp = Output_mapp)
 
-# Skuldsatta (Kronofogden) - Funkar inte för tillfället
-source(here("Skript","skuldsatta.R"), encoding="UTF-8")
-diag_kronofogden(spara_data = TRUE,
-                 output_mapp = Output_mapp)
+# Skuldsatta (Kronofogden) - Funkar inte för tillfället - Numer ett diagramskript
+# source(here("Skript","skuldsatta.R"), encoding="UTF-8")
+# diag_kronofogden(spara_data = TRUE,
+#                  output_mapp = Output_mapp)
 
-# Skuldsatta andel (Kronofogden) - Funkar, men enbart för att jag läst in en Excel-fil där hämtning av data fungerat
-source(here("Skript","skuldsatta_andel.R"), encoding="UTF-8")
-diag_kronofogden_andel(spara_data = TRUE,
-                       output_mapp = Output_mapp)
+# Skuldsatta andel (Kronofogden) - Funkar, men enbart för att jag läst in en Excel-fil där hämtning av data fungerat - Numer ett diagramskript
+# source(here("Skript","skuldsatta_andel.R"), encoding="UTF-8")
+# diag_kronofogden_andel(spara_data = TRUE,
+#                        output_mapp = Output_mapp)
 
 # Val (riksdag, region och kommun) - Numer ett diagramskript
 # source(here("Skript","val.R"), encoding="UTF-8")

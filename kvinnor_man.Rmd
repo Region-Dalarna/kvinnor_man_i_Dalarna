@@ -42,9 +42,6 @@ spara_figur = FALSE
 
 
 # Läser in data
-langsiktiga_skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx",sheet = 1)
-skulder_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta.xlsx", sheet = 2)
-skulder_andel_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/skuldsatta_andel.xlsx")
 gymnasieantagning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasieantagning.xlsx")
 gymnasiet_genomstromning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasie_genomströmning.xlsx")
 ```
