@@ -138,6 +138,40 @@ gg_disponibel_inkomst <- diag_disponibelinkomst(region_vekt = "20",
 disponibel_inkomst_min_ar <- min(disponibel_inkomst_df$år)
 disponibel_inkomst_max_ar <- max(disponibel_inkomst_df$år)
 
+# Skuldsatta
+source(here("skript","diagram_skuldsatta_kronofogden.R"))
+gg_skuldsatta <- diag_kronofogden(output_mapp = output_mapp_figur,
+                                  diag_langsiktiga_skulder = TRUE, # Om diagram för långsiktigt skuldsatta ska skapas
+                                  diag_skulder = TRUE, # Om diagram för skuldsatta ska skapas,
+                                  diag_andel_skuldsatta = TRUE,
+                                  spara_figur =TRUE,
+                                  returnera_data = TRUE)
+
+# Antal skuldsatta
+antal_skuldsatta_totalt <- format(plyr::round_any(skulder_df_sum %>% filter(Kön == "kvinnor",År == max(.$År)) %>% .$Antal_skuldsatta + skulder_df_sum %>% filter(Kön == "män",År == max(.$År)) %>% .$Antal_skuldsatta,100),big.mark=" ") 
+antal_skuldsatta_kvinnor <- skulder_df_sum %>% filter(Kön == "kvinnor",År == max(.$År)) %>% .$Antal_skuldsatta
+antal_skuldsatta_man <- skulder_df_sum %>% filter(Kön == "män",År == max(.$År)) %>% .$Antal_skuldsatta
+andel_skuldsatta_man <- round((antal_skuldsatta_man/(antal_skuldsatta_kvinnor+antal_skuldsatta_man))*100,0)
+andel_skuldsatta_kvinnor = 100- andel_skuldsatta_man
+
+# Åldersintervall
+andel_skulder_max_ar <- max(skulder_andel_df$År)
+hogst_andel_alder_grupp <- skulder_andel_df %>% filter(kön == "kvinnor") %>% filter(skulder_andel_proc==max(skulder_andel_proc)) %>% .$Ålder
+hogst_andel_alder_varde_man <- gsub("\\.",",",round(skulder_andel_df %>% filter(kön == "män") %>% filter(skulder_andel_proc==max(skulder_andel_proc)) %>% .$skulder_andel_proc,1))
+hogst_andel_alder_varde_kvinna <- gsub("\\.",",",round(skulder_andel_df %>% filter(kön == "kvinnor") %>% filter(Ålder==hogst_andel_alder_grupp) %>% .$skulder_andel_proc,1))
+
+# Långsiktigt skuldsatta
+langsiktiga_ar_min <- min(langsiktiga_skulder_df_sum$År)
+langsiktiga_ar_max <- max(langsiktiga_skulder_df_sum$År)
+
+lansiktiga_antal_min_man <- langsiktiga_skulder_df_sum %>% filter(År==min(.$År),Kön=="män") %>% .$Antal_skuldsatta
+lansiktiga_antal_max_man <- langsiktiga_skulder_df_sum %>% filter(År==max(.$År),Kön=="män") %>% .$Antal_skuldsatta
+forandring_man <- round((1-(lansiktiga_antal_max_man/lansiktiga_antal_min_man))*100,0)
+
+lansiktiga_antal_min_kvinna <- langsiktiga_skulder_df_sum %>% filter(År==min(.$År),Kön=="kvinnor") %>% .$Antal_skuldsatta
+lansiktiga_antal_max_kvinna <- langsiktiga_skulder_df_sum %>% filter(År==max(.$År),Kön=="kvinnor") %>% .$Antal_skuldsatta
+forandring_kvinna <- round(((lansiktiga_antal_max_kvinna/lansiktiga_antal_min_kvinna)-1)*100,0)
+
 # Etablering på arbetsmarknaden
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diag_etableringstid_kon_lan_tidsserie_KvMa_IntRap.R")
 #source(here("skript/","etablering_kon_utbildningsniva.R"))
