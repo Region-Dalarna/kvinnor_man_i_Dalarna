@@ -1,7 +1,13 @@
+# Skript som hämtar data och skapar figurer/variabler som används för att skapa markdown-rapporten. Det finns två alternativ för skriptet:
 
-# Skall data uppdateras? Annars läses data in från en sparad global environment-fil. Därefter kan man knitta rapporten baserat på de data som fanns vid senaste uppdatering av data.
-# Detta är bra om man exempelvis vill ändra slarvfel eller liknande, utan att data skall uppdateras.
-# Uppdatering av data tar cirka 5-6 minuter.
+# 1: Kör skriptet utan att uppdatera data - sätt variabeln uppdatera_data till FALSE. Då läses den senast sparade versionen av R-studio global environment in.
+# Detta är ett bra alternativ om man enbart vill ändra text eller liknande, men inte uppdatera data.
+
+# 2: Uppdatera data - sätt variabeln uppdatera_data till FALSE. Då uppdateras data, alla figurer skapas på nytt och en ny enviroment sparas.
+# Tar längre tid (ett par minuter) och medför en risk att text inte längre är aktuell då figurer har ändrats.
+
+# Notera att två variabler gymnasieantagning och genomströmning inte har gjort om till funktioner ännu, så dessa måste uppdateras manuellt i skriptet hamta_data
+
 uppdatera_data = FALSE
 
 if(uppdatera_data == TRUE){
