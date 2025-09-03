@@ -42,8 +42,8 @@ spara_figur = FALSE
 
 
 # Läser in data
-gymnasieantagning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasieantagning.xlsx")
-gymnasiet_genomstromning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasie_genomströmning.xlsx")
+# gymnasieantagning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasieantagning.xlsx")
+# gymnasiet_genomstromning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/gymnasie_genomströmning.xlsx")
 ```
 
 <p style = "font-size:12px">
@@ -60,7 +60,7 @@ Det övergripande målet för jämställdhetspolitiken är att kvinnor och män 
 
 <li>Andelen högutbildade ökar bland både kvinnor och män, men andelen kvinnor ökar i högre takt. Idag är nästan dubbelt så många kvinnor som män i Dalarna högutbildade. </li>
 
-<li>Obalansen mellan tjejers och killars val till gymnasieprogrammen består. Endast fem program av tjugo har en jämn representation av tjejer och killar.</li>
+<li>Obalansen mellan tjejers och killars val till gymnasieprogrammen består. Endast `r antal_jamlik_gymant` program av `r antal_program_totalt`  har en jämn representation av tjejer och killar.</li>
 
 <li>I likhet med riket som helhet har kvinnor i Dalarna en avsevärt lägre medianinkomst än män, även om kvinnors inkomster har ökat i något högre takt än mäns de senaste decennierna.</li>
 
@@ -138,79 +138,79 @@ gg_utb_niva_senaste$utbildningsniva_Dalarna_senaste_ar
 
 ## Gymnasieutbildning och examen
 
-En utmaning för länet är den obalans som råder i antalet antagna killar och tjejer till gymnasieprogrammen i Dalarna. Av totalt 20 gymnasieprogram i länet kan endast fem sägas vara jämställda, dvs. de har en könsfördelning där andelen antagna är mellan 40 och 60 procent för både killar och tjejer. De program som har en jämställd representation vid antagningen är international baccalaurate, naturvetenskapsprogrammet, ekonomiprogrammet, introduktionsprogram samt restaurang och livsmedelsprogrammet. Sex program har en övervikt av killar, där VVS- och fastighetsprogrammet har den största obalansen, följt av el- och energiprogrammet samt industritekniska programmet. Resterande nio program har en övervikt av tjejer, där vård- och omsorgsprogrammet är det mest obalanserade programmet följt av hantverksprogrammet och det humanistiska programmet.
+En utmaning för länet är den obalans som råder i antalet antagna killar och tjejer till gymnasieprogrammen i Dalarna. Av totalt `r antal_program_totalt` gymnasieprogram i länet kan endast `r antal_jamlik_gymant` sägas vara jämställda, dvs. de har en könsfördelning där andelen antagna är mellan 40 och 60 procent för både killar och tjejer. De program som har en jämställd representation vid antagningen är `r gymnasientagning_jamlik`. `r antal_fler_man_gymant` program har en övervikt av killar, där `r tolower(max_man)` har den största obalansen. Resterande `r antal_fler_kvinnor_gymant` program har en övervikt av tjejer, där `r tolower(max_kvinna)` är det mest obalanserade programmet.
 
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='center', out.width="150%"}
-diagram_capt <- "Källa: Gymnasieantagningen, Dalarnas kommunförbund\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Antagna i början av september"
-
-gym_sum <- gymnasieantagning_df %>% 
-  group_by(ar,program) %>% 
-    mutate(andel = (Antagna/sum(Antagna))*100-0.001)
-
-diagram_titel <- paste0("Antagna gymnasieelever i Dalarna ", max(gymnasieantagning_df$ar)," per program")
-diagramfil <- "gymnasieantagning_alla.png"
-
-gymnasieantagning_fig <- SkapaStapelDiagram(skickad_df = gym_sum%>%
-                                             filter(ar == max(.$ar)),
-                                           skickad_x_var = "program",
-                                           skickad_y_var = "andel",
-                                           skickad_x_grupp = "Kon",
-                                           manual_color = diagramfarger("kon"),
-                                           diagram_titel = diagram_titel,
-                                           x_axis_sort_value = TRUE,
-                                           x_axis_sort_grp = 2,
-                                           fokusera_varden = list(list(geom = "rect", ymin=40, ymax=60, xmin=0, xmax=Inf, alpha=0.2, fill="grey20")),
-                                           diagram_capt = diagram_capt,
-                                           #procent_0_100_10intervaller = TRUE,
-                                           manual_y_axis_title = "procent",
-                                           x_axis_lutning = 0,
-                                           diagram_liggande = TRUE,
-                                           geom_position_stack = TRUE,
-                                           berakna_index = FALSE,
-                                           output_mapp = outputmapp,
-                                           filnamn_diagram = diagramfil,
-                                           skriv_till_diagramfil = spara_figur)
+# diagram_capt <- "Källa: Gymnasieantagningen, Dalarnas kommunförbund\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Antagna i början av september"
+# 
+# gym_sum <- gymnasieantagning_df %>% 
+#   group_by(ar,program) %>% 
+#     mutate(andel = (Antagna/sum(Antagna))*100-0.001)
+# 
+# diagram_titel <- paste0("Antagna gymnasieelever i Dalarna ", max(gymnasieantagning_df$ar)," per program")
+# diagramfil <- "gymnasieantagning_alla.png"
+# 
+# gymnasieantagning_fig <- SkapaStapelDiagram(skickad_df = gym_sum%>%
+#                                              filter(ar == max(.$ar)),
+#                                            skickad_x_var = "program",
+#                                            skickad_y_var = "andel",
+#                                            skickad_x_grupp = "Kon",
+#                                            manual_color = diagramfarger("kon"),
+#                                            diagram_titel = diagram_titel,
+#                                            x_axis_sort_value = TRUE,
+#                                            x_axis_sort_grp = 2,
+#                                            fokusera_varden = list(list(geom = "rect", ymin=40, ymax=60, xmin=0, xmax=Inf, alpha=0.2, fill="grey20")),
+#                                            diagram_capt = diagram_capt,
+#                                            #procent_0_100_10intervaller = TRUE,
+#                                            manual_y_axis_title = "procent",
+#                                            x_axis_lutning = 0,
+#                                            diagram_liggande = TRUE,
+#                                            geom_position_stack = TRUE,
+#                                            berakna_index = FALSE,
+#                                            output_mapp = outputmapp,
+#                                            filnamn_diagram = diagramfil,
+#                                            skriv_till_diagramfil = spara_figur)
 
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-gymnasieantagning_fig
+gg_gymnasiet_ant_genom$gymnasieantagning_alla
 ```
 
-I diagrammet nedan visas genomströmningen i gymnasieskolan genom andelen med studiebevis alternativt examen 4 år efter påbörjat gymnasium. Tidigare var det generella mönstret att cirka 80 procent av tjejerna klarat av gymnasiet inom 4 år, medan andelen bland pojkarna har varit lägre (runt 75 procent). Under pandemiåren 2020 och 2021 försämrades genomströmningen, men därefter har andelen med studiebevis ökat för båda könen, men extra mycket för killarna. År 2024 var andelen med studiebevis ungefär `r round(gymnasiet_genomstromning_df %>% filter(year==max(year),kon == "Kvinnor") %>% .$value,0)` procent bland tjejer och `r round(gymnasiet_genomstromning_df %>% filter(year==max(year),kon == "Män") %>% .$value,0)` procent bland killar.
+I diagrammet nedan visas genomströmningen i gymnasieskolan genom andelen med studiebevis alternativt examen 4 år efter påbörjat gymnasium. Tidigare var det generella mönstret att cirka 80 procent av tjejerna klarat av gymnasiet inom 4 år, medan andelen bland pojkarna har varit lägre (runt 75 procent). Under pandemiåren 2020 och 2021 försämrades genomströmningen, men därefter har andelen med studiebevis ökat för båda könen, men extra mycket för killarna. År `r genomstromning_max_ar` var andelen med studiebevis ungefär `r genomstromning_kvinnor` procent bland tjejer och `r genomstromning_man` procent bland killar.
 
 ```{r, echo=FALSE}
-
-diagram_capt = "Källa: Skolverket (via Kolada)\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Antal folkbokförda elever i regionen som började på gymnasium för fyra år sedan\nsom fått examen eller studiebevis inom fyra år,inkl. IM dividerat med antal folkbokförda elever i länet\nsom började på gymnasium för fyra år sedan, inkl. IM."
-
-diagramtitel <- "Andel gymnasieelever med examen eller studiebevis inom 4 år i Dalarna"
-diagramtitel <- str_wrap(diagramtitel,50)
-diagramfilnamn <- paste0("utbildningsniva_85_21_kon.png")
-
-gym_genom <- SkapaStapelDiagram(skickad_df = gymnasiet_genomstromning_df %>% 
-                                  mutate(Ar =as.character(year)) %>% 
-                                    filter(kon!="Totalt"),
-                                skickad_x_var = "Ar",
-                                skickad_y_var = "value",
-                                skickad_x_grupp = "kon",
-                                diagram_titel = diagramtitel,
-                                diagram_capt = diagram_capt,
-                                x_axis_lutning = 0,
-                                manual_color = diagramfarger("kon"),
-                                manual_y_axis_title = "procent",
-                                manual_x_axis_title = "",
-                                procent_0_100_10intervaller = TRUE,
-                                stodlinjer_avrunda_fem = TRUE,
-                                output_mapp = outputmapp,
-                                filnamn_diagram = diagramfilnamn,
-                                skriv_till_diagramfil = spara_figur)
+# 
+# diagram_capt = "Källa: Skolverket (via Kolada)\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Antal folkbokförda elever i regionen som började på gymnasium för fyra år sedan\nsom fått examen eller studiebevis inom fyra år,inkl. IM dividerat med antal folkbokförda elever i länet\nsom började på gymnasium för fyra år sedan, inkl. IM."
+# 
+# diagramtitel <- "Andel gymnasieelever med examen eller studiebevis inom 4 år i Dalarna"
+# diagramtitel <- str_wrap(diagramtitel,50)
+# diagramfilnamn <- paste0("utbildningsniva_85_21_kon.png")
+# 
+# gym_genom <- SkapaStapelDiagram(skickad_df = gymnasiet_genomstromning_df %>% 
+#                                   mutate(Ar =as.character(year)) %>% 
+#                                     filter(kon!="Totalt"),
+#                                 skickad_x_var = "Ar",
+#                                 skickad_y_var = "value",
+#                                 skickad_x_grupp = "kon",
+#                                 diagram_titel = diagramtitel,
+#                                 diagram_capt = diagram_capt,
+#                                 x_axis_lutning = 0,
+#                                 manual_color = diagramfarger("kon"),
+#                                 manual_y_axis_title = "procent",
+#                                 manual_x_axis_title = "",
+#                                 procent_0_100_10intervaller = TRUE,
+#                                 stodlinjer_avrunda_fem = TRUE,
+#                                 output_mapp = outputmapp,
+#                                 filnamn_diagram = diagramfilnamn,
+#                                 skriv_till_diagramfil = spara_figur)
 
 ```
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-gym_genom
+gg_gymnasiet_ant_genom$genomstromning_Dalarna
 ```
 
 ## Yrken och branscher
