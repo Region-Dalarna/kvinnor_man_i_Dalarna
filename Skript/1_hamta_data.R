@@ -6,8 +6,6 @@
 # 2: Uppdatera data - sätt variabeln uppdatera_data till FALSE. Då uppdateras data, alla figurer skapas på nytt och en ny enviroment sparas.
 # Tar längre tid (ett par minuter) och medför en risk att text inte längre är aktuell då figurer har ändrats.
 
-# Notera att två variabler gymnasieantagning och genomströmning inte har gjort om till funktioner ännu, så dessa måste uppdateras manuellt i skriptet hamta_data
-
 uppdatera_data = FALSE
 
 if(uppdatera_data == TRUE){
