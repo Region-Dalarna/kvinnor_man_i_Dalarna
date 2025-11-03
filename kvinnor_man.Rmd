@@ -109,7 +109,7 @@ Det första av de jämställdhetspolitiska delmålen lyder "en jämn fördelning
 
 <blockquote>Näringsliv, högre utbildningar och organisationer med mindre insyn har få kvinnor på höga positioner.</blockquote> 
 
-Samtidigt har representationen förbättrats inom både offentlig sektor och inom politiken de senaste decennierna.
+Samtidigt har representationen förbättrats inom både offentlig sektor och inom politiken de senaste decennierna. I följande avsnitt redovisas läget för den politiska representationen samt kvinnor och män på chefspositioner, i relation till utbildningsnivå och inom olika branscher.
 
 ## Politisk representation
 
@@ -171,7 +171,7 @@ gg_overrep$overrep
 
 Ekonomisk jämställdhet är ett av de sex jämställdhetspolitiska delmålen och syftar till att kvinnor och män ska ges samma möjligheter och villkor i fråga om betalt arbete för att säkerställa ekonomisk självständighet livet ut. Målet utgår således ifrån ett livscykelperspektiv och understryker betydelsen av att det avlönade arbetet ska ge ekonomisk trygghet och självständighet även under pensionsåren. 
 
-Ekonomisk jämställdhet analyseras genom flera olika inkomstflöden och variabler. En central förutsättning för en inkomst och egen försörjning är anknytning till och förutsättningar på arbetsmarknaden, därför redogörs här även för sysselsättningsgrad och arbetslöshet samt etableringstid på arbetsmarknaden för invandrade.  
+Ekonomisk jämställdhet analyseras genom flera olika inkomstflöden och variabler. En central förutsättning för en inkomst och egen försörjning är anknytning till och förutsättningar på arbetsmarknaden, därför redogörs här även för sysselsättningsgrad och arbetslöshet, etableringstid på arbetsmarknaden för invandrade, samt hur stor andel av befolkningen som har skulder till Kronofogden.
 
 Inkomst av arbete utgör merparten av en individs försörjning, men både lönenivå och huruvida personen arbetar hel- eller deltid påverkar inkomsten och sedemera pensionen. Därtill finns kapitalinkomster och offentliga bidrag så som exempelvis sjukpenning, föräldrapenning och bostadsbidrag, som gör att ett centralt mått för att fånga en individs ekonomiska standard är beräkningen av den disponibla inkomsten. Disponibel inkomst innebär den summa pengar som ett hushåll eller en person har att röra sig med efter att alla ekonomiska inkomster är sammanräknade (lön, avkastning, bidrag etc.) och skatter och avgifter är betalda.
 
@@ -305,6 +305,13 @@ Som diskuterats tidigare är sysselsättningsgraden lägre bland utrikes
 födda generellt, och för invandrade kvinnor tar det betydligt längre tid än för invandrade män att etablera sig på arbetsmarknaden. För utrikesfödda kvinnor som befunnit sig i Sverige i upp till 2 år (0-1 år i grafen nedan) är det bara ungefär `r round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "samtliga utbildningsnivåer") %>% .$andel,0)` procent i arbetsför ålder (20-65 år) som arbetar. För
 motsvarande grupp av män är ungefär `r round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "samtliga utbildningsnivåer") %>% .$andel,0)` procent i arbete inom 2 år. Över tid tenderar ändå etableringsgraden att öka avsevärt och efter mer än tio år i Sverige är det över 70 procent av invandrade såväl män som kvinnor som arbetar.
 
+
+Hur snabbt en invandrad person etablerar sig på arbetsmarknaden har förändrats avsevärt över tid, vilket åskådliggörs i diagrammet nedan. Från början av 2000-talet fram till mitten av 2010-talet låg etableringstiden relativt stabil, där ungefär 20 procent av de 20-64 åringar som varit i Sverige i upp till 2 år (0-1 år i figuren nedan) förvärvsarbetade och ungefär 50-60 procent av de 20-64 åringar som varit i Sverige mellan 4 och 10 år (4-9 år i figuren nedan) förvärvsarbetade. Efter den stora flyktinginvandringen i mitten av 2010-talet verkar dock någonting ha hänt och framförallt personer med kort vistelsetid (upp till 2 år) kommer i arbete betydligt snabbare. Mellan 2015 och `r max(etablering_df$år)` ökade andelen förvärvsarbetande av de 20-64 åringar som varit i Sverige i upp till 2 år (0-1 år i figuren nedan) från ungefär `r round(etablering_df %>% filter(bakgrundsvariabel == "0-1 år",utbildningsnivå == "samtliga utbildningsnivåer",kön == "män och kvinnor",år == min(år)) %>% .$andel,0)` procent till cirka `r round(etablering_df %>% filter(bakgrundsvariabel == "0-1 år",utbildningsnivå == "samtliga utbildningsnivåer",kön == "män och kvinnor",år == max(år)) %>% .$andel,0)`  procent, en remarkabel förbättring. Under samma tidsperiod har även arbetslösheten för gruppen utrikes födda minskat betydligt, vilket illustrerats i ett tidigare diagram. Värt att notera är att det i diagrammet nedan är andelen förvärvsarbetande i åldersgruppen 20-64 år som redovisas mellan 1997 och 2021, medan det är andelen förvärvsarbetande i åldergruppen 20-65 år som redovisas åren därefter. 
+
+<br>
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
+gg_etablering$etablering_tid
+```
 Skillnaden mellan utrikes födda kvinnor och utrikes födda män kan bland annat förklaras med att kvinnor som invandrat från ett utomeuropeiskt land i majoriteten av fallen har gjort det som anhörig, antingen till en person med svenskt medborgarskap eller till en person med permanent uppehållstillstånd. Att vara anhörig till arbetskraftsinvandrare är även vanligt förekommande. Givet dessa skäl för invandring är det vanligt att kvinnor invandrar med små barn eller har ett högt barnafödande de första åren i landet. Det har visat sig att kvinnorna sedan tar ett betydligt större omsorgsansvar för barn än barnens fäder, vilket bidrar till att deras inträde på arbetsmarknaden sker betydligt senare än för män i motsvarande situation. Exempelvis är användningen av föräldrapenning mycket ojämställd bland nyligen invandrade föräldrar. Se exempelvis [Expertgruppen för studier i offentlig ekonomi (2021)](https://eso.expertgrupp.se/wp-content/uploads/2020/03/ESO-2021_7_forsorjning-med-fordrojning_webb.pdf){target="_blank"}^[Expertgruppen för studier i offentlig ekonomi (2021)] och [Jämställdhetsmyndigheten (2022)](https://jamstalldhetsmyndigheten.se/media/s5wdbimq/rapport-sta-rkta-mo-jligheter-genom-samverkan.pdf){target="_blank"}^[Jämställdhetsmyndigheten (2022)].
 
 Att vara anhöriginvandrare sätter också kvinnan i fråga i en särskild beroendeställning till sin respektive anhörige i jämförelse med om hon invandrat/flytt på egna premisser. Detta i kombination med ofta låg utbildning och brist på arbetslivserfarenhet från hemlandet blir också hinder för att delta i integrationsinsatser, utbildning och arbetssökande. Se exempelvis [Expertgruppen för studier i offentlig ekonomi (2021)](https://eso.expertgrupp.se/wp-content/uploads/2020/03/ESO-2021_7_forsorjning-med-fordrojning_webb.pdf){target="_blank"} och [Regeringen (2023)](<https://www.regeringen.se/contentassets/aaae962745b74fa4abc01f7926bb5adc/sou-2023_24_pdf-a_webb.pdf>){target="_blank"}^[Etablering för fler – jämställda möjligheter till integration (SOU 2023:24)].
@@ -315,7 +322,7 @@ Regeringen har under år 2023 satt fokus på insatser som ska få utrikes födda
 gg_etablering$etablering_lan_kon
 ```
 
-Hur snabbt en nyligen invandrad person etableras på arbetsmarknaden är också nära kopplat till vilken utbildningsnivå personen har. För dem med högst utbildning har det visat sig att processen tenderar att gå relativt snabbt och cirka `r eftergym_0_1_kvinna` procent av kvinnorna och `r eftergym_0_1_man` procent av männen arbetar innan de varit i Sverige i 2 år (0-1 år i figuren nedan). Sedan ökar etableringsgraden över tid och efter 10 år och längre är `r eftergym_10_kvinna` procent av kvinnorna mellan 20 och 65 år sysselsatta, vilket är i linje med sysselsättningsgraden för inrikes födda kvinnor i samma åldersgrupp. För dem med gymnasial utbildning är situationen delvis annorlunda. I den gruppen arbetar ungefär `r gym_0_1_kvinna` procent av de utrikesfödda kvinnor, och cirka `r gym_0_1_man` procent av de utrikesfödda männen, inom 2 år efter att de kommit till Sverige. Över tid ökar andelen etablerade snabbt på arbetsmarknaden, särskilt för gymnasialt utbildade. 
+Hur snabbt en invandrad person etableras på arbetsmarknaden är också nära kopplat till vilken utbildningsnivå personen har. För dem med högst utbildning har det visat sig att processen tenderar att gå relativt snabbt och cirka `r eftergym_0_1_kvinna` procent av kvinnorna och `r eftergym_0_1_man` procent av männen arbetar innan de varit i Sverige i 2 år (0-1 år i figuren nedan). Sedan ökar etableringsgraden över tid och efter 10 år och längre är `r eftergym_10_kvinna` procent av kvinnorna mellan 20 och 65 år sysselsatta, vilket är i linje med sysselsättningsgraden för inrikes födda kvinnor i samma åldersgrupp. För dem med gymnasial utbildning är situationen delvis annorlunda. I den gruppen arbetar ungefär `r gym_0_1_kvinna` procent av de utrikesfödda kvinnor, och cirka `r gym_0_1_man` procent av de utrikesfödda männen, inom 2 år efter att de kommit till Sverige. Över tid ökar andelen etablerade snabbt på arbetsmarknaden, särskilt för gymnasialt utbildade. 
 
 För de med lägst utbildningsnivå (förgymnasialt utbildade) är relativt få etablerade på arbetsmarknaden. I den gruppen arbetar bara ungefär `r forgym_0_1_kvinna` procent av de utrikesfödda kvinnor, och cirka `r forgym_0_1_man` procent av de utrikesfödda männen, inom 2 år efter att de kommit till Sverige. Andelen etablerade ökar sedan med vistelsetiden, men är på klart lägre nivåer än för grupper med högre utbildningsvivåer. Även bland inrikes födda är det en klart lägre andel med förgymnasial utbildning som är etablerade på arbetsmarknaden.
 
@@ -325,16 +332,13 @@ För de med lägst utbildningsnivå (förgymnasialt utbildade) är relativt få 
 gg_etablering$etablering_lan_utb
 ```
 
-Hur snabbt en nyligen invandrad person etablerar sig på arbetsmarknaden har förändrats avsevärt över tid, vilket åskådliggörs i diagrammet nedan. Från början av 2000-talet fram till mitten av 2010-talet låg etableringstiden relativt stabil, där ungefär 20 procent av de 20-64 åringar som varit i Sverige i upp till 2 år (0-1 år i figuren nedan) förvärvsarbetade och ungefär 50-60 procent av de 20-64 åringar som varit i Sverige mellan 4 och 10 år (4-9 år i figuren nedan) förvärvsarbetade. Efter den stora flyktinginvandringen i mitten av 2010-talet verkar dock någonting ha hänt och framförallt personer med kort vistelsetid (upp till 2 år) kommer i arbete betydligt snabbare. Mellan 2015 och `r max(etablering_df$år)` ökade andelen förvärvsarbetande av de 20-64 åringar som varit i Sverige i upp till 2 år (0-1 år i figuren nedan) från ungefär `r round(etablering_df %>% filter(bakgrundsvariabel == "0-1 år",utbildningsnivå == "samtliga utbildningsnivåer",kön == "män och kvinnor",år == min(år)) %>% .$andel,0)` procent till cirka `r round(etablering_df %>% filter(bakgrundsvariabel == "0-1 år",utbildningsnivå == "samtliga utbildningsnivåer",kön == "män och kvinnor",år == max(år)) %>% .$andel,0)`  procent, en remarkabel förbättring. Under samma tidsperiod har även arbetslösheten för gruppen utrikes födda minskat betydligt, vilket illustrerats i ett tidigare diagram. Värt att notera är att det i diagrammet nedan är andelen förvärvsarbetande i åldersgruppen 20-64 år som redovisas mellan 1997 och 2021, medan det är andelen förvärvsarbetande i åldergruppen 20-65 år som redovisas åren därefter. 
+## Bidragsberoendet
+Samtidigt som fler kvinnor än män mottar transfereringar i form av föräldrapenning etc. så går andra typer av bidrag i högre utsträckning till män som grupp. Andel män och median-belopp över ett kalenderår/12 månaders-period. 
 
-<br>
-```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-gg_etablering$etablering_tid
-```
 <br>
 
 ## Skulder hos Kronofogden
-Ytterligare en aspekt av ekonomisk status är att ha skulder hos Kronofogden, vilket både är bekymmer för individen och orsakar stora kostnader för samhället. I det första diagrammet nedan redovisas antalet personer i Dalarna som har skulder under indrivning hos Kronofogden. Två trender är tydliga.
+Ytterligare en aspekt som speglar ekonomiska livsvillkor är skulder hos Kronofogden, vilket både är bekymmer för individen och orsakar stora kostnader för samhället. I det första diagrammet nedan redovisas antalet personer i Dalarna som har skulder under indrivning hos Kronofogden. Två trender är tydliga.
 
 Sedan 2010 har antalet med skulder hos Kronofogden minskat från ungefär 10 300 personer till cirka `r antal_skuldsatta_totalt` i Dalarnas län. Av dessa är ungefär `r andel_skuldsatta_man` procent män och `r andel_skuldsatta_kvinnor` procent kvinnor, en fördelning som inte har förändrats över tid. Det är således avsevärt fler män än kvinnor i länet som har skulder hos Kronofogden. Värt att notera är dock att antalet har börjat öka på senare år, vilket kan vara en effekt av högre bolåneräntor och ökad inflation, något som bland annat fått till följd att matpriserna stigit avsevärt [(SVT)](https://www.svt.se/nyheter/ekonomi/nara-tre-ar-med-hog-inflation-sa-dyr-blev-maten){target="_blank"}.
 
@@ -360,7 +364,7 @@ gg_skuldsatta$Antal_langsiktigt_skuldsatta_Dalarna
 ```
 
 
-# Jämställd utbildning för ett jämställt yrkesliv
+# Jämställd utbildning, och yrkesliv
 
 Det jämställdhetspolitiska delmålet för utbildningsområdet innebär att kvinnor och män, tjejer och killar, ska ha samma möjligheter och villkor när det gäller utbildning, studieval och personlig utveckling.
 
@@ -479,7 +483,7 @@ gg_gymnasiet_ant_genom$genomstromning_Dalarna
 ```
 
 ## Yrken och branscher
-Många arbetsuppgifter och yrken har historiskt varit könsuppdelade. Med könsuppdelningen har även värderingar om vad som räknats som formellt respektive informellt arbete synliggjorts, och hur dessa arbeten värderats i pengar. Politiska beslut har på flera sätt påverkat detta. Innan exempelvis reformerna som etablerade barn- och äldreomsorg på den reguljära arbetsmarknaden utförde kvinnor detta omsorgsarbete obetalt eller på annat sätt utanför ordinarie arbetsmarknad. När dessa arbetsuppgifter övergick till formellt arbete medförde det många positiva effekter för både kvinnor och män, men det blev på många sätt naturligt att framförallt kvinnor befolkade dessa tjänster. Dessvärre har det bidragit till en bestående könssegregering på arbetsmarknaden, som förefaller svår att förändra.
+Många arbetsuppgifter och yrken har historiskt varit könsuppdelade. Med könsuppdelningen har även värderingar om vad som räknats som formellt respektive informellt arbete synliggjorts, och hur dessa arbeten värderats i pengar. Politiska beslut har på flera sätt påverkat detta. Innan exempelvis reformerna som etablerade barn- och äldreomsorg på den reguljära arbetsmarknaden utförde kvinnor detta omsorgsarbete obetalt eller på annat sätt utanför ordinarie arbetsmarknad. När dessa arbetsuppgifter övergick till formellt arbete medförde det många positiva effekter för både kvinnor och män, men det blev på många sätt naturligt att framförallt kvinnor befolkade dessa tjänster. Dessvärre verkar det ha bidragit till en bestående könssegregering på arbetsmarknaden, som förefaller svår att förändra.
 
 Sedan många år har kvinnor och män haft likvärdig tillgång till utbildning och möjlighet att fritt välja yrke. Trots detta består många av könsskillnaderna i arbetslivet (se figuren nedan) och de yngre generationerna tycks inte göra mindre könsstereotypa val, som redovisats i tidigare avsnitt. Många branscher i länet har idag en tydlig övervikt av det ena eller det andra könet, exempelvis byggbranschen som omfattar yrken inom bland annat el och VVS, och där kvinnor bara utgör ungefär `r forvarvsarbetande_bygg_andel` procent av de förvärvsarbetande. Även om det har skett en ökning av andelen kvinnor inom byggbranschen är denna ökning ännu liten i sammanhanget. Inom vård och omsorg är bilden densamma men med motsatt könsfördelning. Här utgör kvinnor cirka `r forvarvsarbetande_vard_andel` procent av de förvärvsarbetande.
 
@@ -494,9 +498,9 @@ Skillnader mellan kvinnor och män föreligger således fortfarande på yrkesniv
 `r tolower(yrke_storst_man)`, följd av `r yrke_nast_storst_man`. 
 Bland kvinnor är det istället vård- och utbildningsyrken som är vanligast. Här finns exempelvis `r tolower(yrke_storst_kvinnor)` och `r yrke_nast_storst_kvinnor`. Diagrammen nedan visar de yrken i länet som flest kvinnor respektive män arbetar inom.
 
-Ett yrke av tio återkommer både bland både kvinnor och män; butikspersonal. Yrket är tydligt kvinnodominerat, med ungefär `r butikspersonal_kvinnor` kvinnor och `r butikspersonal_man` män sysselsatta som butikspersonal.
+Ett yrke av tio återkommer bland både kvinnor och män; butikspersonal, men detta till trots så är yrket tydligt kvinnodominerat, med ungefär `r butikspersonal_kvinnor` kvinnor och `r butikspersonal_man` män sysselsatta som butikspersonal.
 
-Diagrammen visar också att de 10 största yrkena bland kvinnor omfattar ungefär `r tio_storsta_sum_kvinnor` anställda medan de 10 största yrkena bland män omfattar ca `r tio_storsta_sum_man` anställda, det vill säga, vissa kvinnodominerade yrken omfattar en stor del av de anställda, vilket kan bidra till svårigheten med att bryta den könsuppdelade arbetsmarknaden.
+Diagrammen visar också att de 10 största yrkena bland kvinnor omfattar ungefär `r tio_storsta_sum_kvinnor` anställda medan de 10 största yrkena bland män omfattar ca `r tio_storsta_sum_man` anställda, det vill säga, vissa kvinnodominerade yrken är också dominerande till mängd på arbetsmarknaden, vilket kan bidra till svårigheten med att bryta den könsuppdelade arbetsmarknaden.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -567,6 +571,8 @@ Fylla på med info om närståendpenning här, samt ett diagram.
 
 # Hälsa och ohälsa
 Jämställd hälsa är det femte jämställdhetspolitiska delmålet. Kvinnor och män, flickor och pojkar ska ha samma förutsättningar för en god hälsa och erbjudas vård och omsorg på lika villkor. Idag finns det stora skillnader i hälsa och ohälsa mellan kvinnor och män. Flickor och kvinnor är sjukskrivna för symptom som är kopplade till psykisk ohälsa i betydligt högre utsträckning än män, samtidigt dör fler män än kvinnor i suicid (självmord), i arbetsplatsolyckor, i hjärt- och kärlsjukdomar och av cancer. Förklaringar kan bland annat kopplas till brister i arbetsmiljön, att inte söka vård i tid och skillnader i vårdens bemötande.
+
+NY: Diagram livslängd, utbildning/ensamstående?
 
     
 Ohälsa kan följas upp på flera sätt. I följande avsnitt redovisas utfallet av de aggregerade nivåerna för ohälsotalet och sjukpenningtalet, och en fördjupning ges i stressrelaterade sjukfall och hur sjukfall fördelas över olika branscher.
