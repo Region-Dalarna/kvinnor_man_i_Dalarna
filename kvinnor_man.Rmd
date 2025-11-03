@@ -175,7 +175,7 @@ Ekonomisk jämställdhet analyseras genom flera olika inkomstflöden och variabl
 
 Inkomst av arbete utgör merparten av en individs försörjning, men både lönenivå och huruvida personen arbetar hel- eller deltid påverkar inkomsten och sedemera pensionen. Därtill finns kapitalinkomster och offentliga bidrag så som exempelvis sjukpenning, föräldrapenning och bostadsbidrag, som gör att ett centralt mått för att fånga en individs ekonomiska standard är beräkningen av den disponibla inkomsten. Disponibel inkomst innebär den summa pengar som ett hushåll eller en person har att röra sig med efter att alla ekonomiska inkomster är sammanräknade (lön, avkastning, bidrag etc.) och skatter och avgifter är betalda.
 
-Det finns många faktorer som bidrar till ojämställdhet på arbetsmarknaden och som sedan medför en ojämställd livsinkomst, men familjebildningen är den faktor som i högst grad bidrar till ojämställda villkor. Ett exempel med nationella siffror som synliggör hur familjelivet skapar skillnader är att gapet i disponibel inkomst mellan kvinnor och män är som störst för sammanboende, 35 procent, när det yngsta barnet är 0–3 år [(Regeringen, 2022)](<https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf>){target="_blank"}^[Regeringen (2022) Prop. 2022/23:1 Bilaga 3 Ekonomisk jämställdhet 2022].
+Det finns många faktorer som bidrar till ojämställdhet på arbetsmarknaden och som sedan medför en ojämställd livsinkomst, men familjebildningen är den faktor som i högst grad bidrar till ojämställd ekonomi. Ett exempel med nationella siffror som synliggör hur familjelivet skapar skillnader är att gapet i disponibel inkomst mellan kvinnor och män är som störst för sammanboende, 35 procent, när det yngsta barnet är 0–3 år [(Regeringen, 2022)](<https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf>){target="_blank"}^[Regeringen (2022) Prop. 2022/23:1 Bilaga 3 Ekonomisk jämställdhet 2022].
 
 Men, även löneskillnader mellan könen inverkar på livsinkomsten och börjar i praktiken i relativt ung ålder. Redan vid 29 års ålder har män i genomsnitt 20 procent högre medianinkomst än kvinnor, nationellt. En del av skillnaden kan förklaras av skillnader i utbildningsval, då fler kvinnor väljer att studera och då kommer ut senare i arbetslivet. Trots en högre utbildningsnivå kvarstår dock gapet i lön mellan könen [(Jämställdhetsmyndigheten, 2025)](https://jamstalldhetsmyndigheten.se/media/llefhgq1/kunskapssammanst%C3%A4llning-ungas-ekonomi-2025-1.pdf){target="_blank"}^[Jämställdhetsmyndigheten (2025) En tid av förväntan, väntan och osäkerhet]. 
 
@@ -239,7 +239,7 @@ Däremot skiljer sig sysselsättningsgraden åt mellan inrikes och utrikes född
 Utrikes födda män har en högre sysselsättningsgrad än utrikes födda kvinnor i samtliga län förutom Norrbotten. I Dalarna var sysselsättningsgraden bland utrikes födda män `r syssgrad_utrikes_man_Dalarna` procent, vilket
 är cirka `r syssgrad_utrikes_skillnad_Dalarna ` procentenheter mer än för utrikes födda kvinnor i Dalarna.
 
-Något att ta hänsyn till när man analyserar sysselsättningsgrad och arbetslöshet bland utrikes födda är hur lång tid individen har varit i Sverige. Vistelsetid i Sverige har ett starkt samband med sysselsättningsgrad och arbetslöshet och därmed kommer andelen nyligen invandrade i gruppen utrikes födda att påverka nivån på dessa variabler, se rubrik 2.3.
+Något att ta hänsyn till när man analyserar sysselsättningsgrad och arbetslöshet bland utrikes födda är hur lång tid individen har varit i Sverige. Vistelsetid i Sverige har ett starkt samband med sysselsättningsgrad och arbetslöshet och därmed kommer andelen nyligen invandrade i gruppen utrikes födda att påverka nivån på dessa variabler, se rubrik XX.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -360,11 +360,11 @@ gg_skuldsatta$Antal_langsiktigt_skuldsatta_Dalarna
 ```
 
 
-# Utbildning och yrken
+# Jämställd utbildning för ett jämställt yrkesliv
 
 Det jämställdhetspolitiska delmålet för utbildningsområdet innebär att kvinnor och män, tjejer och killar, ska ha samma möjligheter och villkor när det gäller utbildning, studieval och personlig utveckling.
 
-Både kvinnor och män vidareutbildar sig efter gymnasiet i högre utsträckning idag än föregående generationer, men betydligt fler kvinnor än män studerar vid universitet och högskola. Att skillnaderna i vidareutbildning ökar mellan könen är negativt för samhällsutvecklingen, då det riskerar att medföra att olika former av könssegregerade miljöer skapas eller upprätthålls. Det medför även skilda förutsättningar på arbetsmarknaden mellan gruppen kvinnor och gruppen män, då eftergymnasial utbildning ger större chans till arbete och möjlighet till högre inkomst.
+Både kvinnor och män vidareutbildar sig efter gymnasiet i högre utsträckning idag än föregående generationer, men betydligt fler kvinnor än män studerar vid universitet och högskola. Att skillnaderna i vidareutbildning ökar mellan könen är negativt för samhällsutvecklingen, då det riskerar att medföra att olika former av könssegregerade miljöer skapas eller upprätthålls. Det medför även skilda förutsättningar på arbetsmarknaden mellan gruppen kvinnor och gruppen män. Eftergymnasial utbildning ger vanligtvis större chans till arbete och möjlighet till högre inkomst.
 
 ## Utbildningsnivåer
 
@@ -401,7 +401,7 @@ Sammantaget innebär detta att ungefär `r gym_tot_man` procent av alla män i D
 gg_utb_niva_senaste$utbildningsniva_Dalarna_senaste_ar
 ```
 
-## Gymnasieutbildning och examen
+## Gymnasieval och avklarad examen
 
 En utmaning för länet är den obalans som råder i antalet antagna killar och tjejer till gymnasieprogrammen i Dalarna. Av totalt `r antal_program_totalt` gymnasieprogram i länet kan endast `r antal_jamlik_gymant` sägas vara jämställda, dvs. de har en könsfördelning där andelen antagna är mellan 40 och 60 procent för både killar och tjejer. De program som har en jämställd representation vid antagningen är `r gymnasientagning_jamlik`. `r antal_fler_man_gymant` program har en övervikt av killar, där `r tolower(max_man)` har den största obalansen. Resterande `r antal_fler_kvinnor_gymant` program har en övervikt av tjejer, där `r tolower(max_kvinna)` är det mest obalanserade programmet.
 
@@ -443,7 +443,7 @@ En utmaning för länet är den obalans som råder i antalet antagna killar och 
 gg_gymnasiet_ant_genom$gymnasieantagning_alla
 ```
 
-I diagrammet nedan visas genomströmningen i gymnasieskolan genom andelen med studiebevis alternativt examen 4 år efter påbörjat gymnasium. Tidigare var det generella mönstret att cirka 80 procent av tjejerna klarat av gymnasiet inom 4 år, medan andelen bland pojkarna har varit lägre (runt 75 procent). Under pandemiåren 2020 och 2021 försämrades genomströmningen, men därefter har andelen med studiebevis ökat för båda könen, men extra mycket för killarna. År `r genomstromning_max_ar` var andelen med studiebevis ungefär `r genomstromning_kvinnor` procent bland tjejer och `r genomstromning_man` procent bland killar.
+I diagrammet nedan visas genomströmningen i gymnasieskolan genom andelen med studiebevis alternativt examen 4 år efter påbörjat gymnasium. Tidigare var det generella mönstret att cirka 80 procent av tjejerna klarat av gymnasiet inom 4 år och andelen bland pojkarna något lägre, runt 75 procent. Under pandemiåren 2020 och 2021 försämrades genomströmningen, men därefter har andelen med studiebevis ökat för båda könen, men extra mycket för killarna. År `r genomstromning_max_ar` var andelen med studiebevis ungefär `r genomstromning_kvinnor` procent bland tjejer och `r genomstromning_man` procent bland killar.
 
 ```{r, echo=FALSE}
 # 
@@ -481,7 +481,7 @@ gg_gymnasiet_ant_genom$genomstromning_Dalarna
 ## Yrken och branscher
 Många arbetsuppgifter och yrken har historiskt varit könsuppdelade. Med könsuppdelningen har även värderingar om vad som räknats som formellt respektive informellt arbete synliggjorts, och hur dessa arbeten värderats i pengar. Politiska beslut har på flera sätt påverkat detta. Innan exempelvis reformerna som etablerade barn- och äldreomsorg på den reguljära arbetsmarknaden utförde kvinnor detta omsorgsarbete obetalt eller på annat sätt utanför ordinarie arbetsmarknad. När dessa arbetsuppgifter övergick till formellt arbete medförde det många positiva effekter för både kvinnor och män, men det blev på många sätt naturligt att framförallt kvinnor befolkade dessa tjänster. Dessvärre har det bidragit till en bestående könssegregering på arbetsmarknaden, som förefaller svår att förändra.
 
-Sedan många år har kvinnor och män haft likvärdig tillgång till utbildning och möjlighet att fritt välja yrke. Trots detta består många av könsskillnaderna i arbetslivet (se figuren nedan) och de yngre generationerna tycks inte göra mindre könsstereotypa val, som redovisats ovan. Många branscher i länet idag har en tydlig övervikt av det ena eller det andra könet, exempelvis byggbranschen som omfattar yrken inom bland annat el och VVS, och där kvinnor bara utgör ungefär `r forvarvsarbetande_bygg_andel` procent av de förvärvsarbetande. Även om det har skett en ökning av andelen kvinnor inom byggbranschen är denna ökning ännu liten i sammanhanget. Inom vård och omsorg är bilden densamma men med motsatt könsfördelning. Här utgör kvinnor cirka `r forvarvsarbetande_vard_andel` procent av de förvärvsarbetande.
+Sedan många år har kvinnor och män haft likvärdig tillgång till utbildning och möjlighet att fritt välja yrke. Trots detta består många av könsskillnaderna i arbetslivet (se figuren nedan) och de yngre generationerna tycks inte göra mindre könsstereotypa val, som redovisats i tidigare avsnitt. Många branscher i länet har idag en tydlig övervikt av det ena eller det andra könet, exempelvis byggbranschen som omfattar yrken inom bland annat el och VVS, och där kvinnor bara utgör ungefär `r forvarvsarbetande_bygg_andel` procent av de förvärvsarbetande. Även om det har skett en ökning av andelen kvinnor inom byggbranschen är denna ökning ännu liten i sammanhanget. Inom vård och omsorg är bilden densamma men med motsatt könsfördelning. Här utgör kvinnor cirka `r forvarvsarbetande_vard_andel` procent av de förvärvsarbetande.
 
 Att åstadkomma en förändring i närtid av balansen mellan män och kvinnor inom de könssegregerade branscherna förefaller inte vara inom räckhåll då ungdomars studieval som visats ovan är så pass könsstereotypa.
 
@@ -496,7 +496,7 @@ Bland kvinnor är det istället vård- och utbildningsyrken som är vanligast. H
 
 Ett yrke av tio återkommer både bland både kvinnor och män; butikspersonal. Yrket är tydligt kvinnodominerat, med ungefär `r butikspersonal_kvinnor` kvinnor och `r butikspersonal_man` män sysselsatta som butikspersonal.
 
-Diagrammen visar också att de 10 största yrkena bland kvinnor omfattar ungefär `r tio_storsta_sum_kvinnor` anställda medan de 10 största yrkena bland män omfattar ca `r tio_storsta_sum_man` anställda, det vill säga, vissa kvinnodominerade yrken är väldigt omfattande i storlek, vilket kan bidra till svårigheten med att bryta den könsuppdelade arbetsmarknaden.
+Diagrammen visar också att de 10 största yrkena bland kvinnor omfattar ungefär `r tio_storsta_sum_kvinnor` anställda medan de 10 största yrkena bland män omfattar ca `r tio_storsta_sum_man` anställda, det vill säga, vissa kvinnodominerade yrken omfattar en stor del av de anställda, vilket kan bidra till svårigheten med att bryta den könsuppdelade arbetsmarknaden.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -508,6 +508,8 @@ En jämn ansvarsfördelning för obetalt hem- och omsorgsarbete är det fjärde 
 <blockquote>Kvinnor tar fortfarande i hög grad ansvar för det obetalda hem- och omsorgsarbetet. De tar ut mer av föräldraförsäkringen och lägger mer tid på att ta hand om barn. Kvinnor och män ger omsorg, men på olika sätt. Kvinnors omsorgsarbete tycks dock påverka dem mer negativt än män. I hemmet är det främst kvinnor som städar, lagar mat och tvättar medan män klipper gräset, tar hand om bilen och sköter ekonomin.</blockquote>
 
 Ett större ansvar för det obetalda arbetet minskar ofta utrymmet för inkomstbringande arbete och påverkar på så sätt individernas livsinkomster. Det kan också skapa ett beroende till en partner med en högre inkomst. 
+
+Det obetalda omsorgsarbetet kan mätas genom hur män och kvinnor tar ut föräldrapenning, tillfällig föräldrapenning (vab), samt närståendepenning.
 
 ## Föräldrapenning
 Antalet mottagare av föräldrapenning ökade från ungefär 13 000 i slutet av 1990-talet till över 22 000 år 2018. Givet att den absoluta majoriteten av dessa barn har två vårdnadshavare är det värt att notera att det varje år är cirka 10 procent av fäderna som inte tar ut några föräldrapenningdagar alls.
@@ -557,8 +559,17 @@ Till skillnad från trenden för föräldrapenning har fördelningen av vab-daga
 gg_fp_vab$Vab_antal_linjeDalarna
 ```
 
+## Närståendepenning
+Fylla på med info om närståendpenning här, samt ett diagram.
+
+
+
+
 # Hälsa och ohälsa
 Jämställd hälsa är det femte jämställdhetspolitiska delmålet. Kvinnor och män, flickor och pojkar ska ha samma förutsättningar för en god hälsa och erbjudas vård och omsorg på lika villkor. Idag finns det stora skillnader i hälsa och ohälsa mellan kvinnor och män. Flickor och kvinnor är sjukskrivna för symptom som är kopplade till psykisk ohälsa i betydligt högre utsträckning än män, samtidigt dör fler män än kvinnor i suicid (självmord), i arbetsplatsolyckor, i hjärt- och kärlsjukdomar och av cancer. Förklaringar kan bland annat kopplas till brister i arbetsmiljön, att inte söka vård i tid och skillnader i vårdens bemötande.
+
+    
+Ohälsa kan följas upp på flera sätt. I följande avsnitt redovisas utfallet av de aggregerade nivåerna för ohälsotalet och sjukpenningtalet, och en fördjupning ges i stressrelaterade sjukfall och hur sjukfall fördelas över olika branscher.
 
 ## Ohälsotalet 
 Ohälsotalet^[Ohälsotalet: hur många dagar under en tolvmånadersperiod
@@ -618,6 +629,12 @@ störst i typiskt kvinnodominerade yrken som `r bransch_max_kvinnor`, vilket kan
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_sjukfall_bransch$Startade_sjukfall_bransch
 ```
+
+# Mäns våld mot kvinnor ska upphöra
+Jämställdhetsmyndigheten beskriver delmålet som att "(K)vinnor och män, flickor och pojkar ska ha samma rätt och möjlighet till kroppslig integritet. Delmålet omfattar alla yttringar av fysiskt och psykiskt, inklusive sexualiserat, våld och hot om våld samt hedersrelaterat våld och förtryck och prostitution och handel med människor för sexuella ändamål. Delmålet har även ett särskilt fokus på kopplingen mellan maskulinitet och våld." (https://jamstalldhetsmyndigheten.se/om-jamstalldhetsmyndigheten/uppfoljning-av-jamstalldhetspolitiken/)
+
+Delmålet följs upp genom....
+
 
 
 # Referenser {-}
