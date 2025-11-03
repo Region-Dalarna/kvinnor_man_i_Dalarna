@@ -105,11 +105,11 @@ De sex jämställdhetspolitiska delmålen:
 
 
 # Makt och politik
-Det första av de jämställdhetspolitiska delmålen lyder "en jämn fördelning av makt och inflytande". Detta mäts bland annat genom kvinnors och mäns representation på maktpositioner i både politik, offentlig sektor och näringsliv. Historiskt har män befolkat dessa positioner och kvinnor i undantagsfall, men dessvärre visar nuläget att många traditionella mönster består. Ju högre upp i hierarkin, desto fler män på positionerna. [Jämställdhetsmyndigheten](<https://jamstalldhetsmyndigheten.se/jamstalldhet-i-sverige/delmal-1-jamn-fordelning-av-makt-och-inflytande/>){target="_blank"} skriver att: 
+Det första av de jämställdhetspolitiska delmålen lyder "en jämn fördelning av makt och inflytande". Detta mäts bland annat genom kvinnors och mäns representation på maktpositioner i politik, offentlig sektor och näringsliv. Historiskt har män befolkat dessa positioner och kvinnor i undantagsfall, men dessvärre visar nuläget att många traditionella mönster består. Generellt visar siffrorna på att ju högre upp i hierarkin, desto fler män befolkar positionerna. [Jämställdhetsmyndigheten](<https://jamstalldhetsmyndigheten.se/jamstalldhet-i-sverige/delmal-1-jamn-fordelning-av-makt-och-inflytande/>){target="_blank"} skriver att: 
 
 <blockquote>Näringsliv, högre utbildningar och organisationer med mindre insyn har få kvinnor på höga positioner.</blockquote> 
 
-Samtidigt har bilden förbättrats inom offentlig sektor och inom politiken generellt de senaste decennierna.
+Samtidigt har representationen förbättrats inom både offentlig sektor och inom politiken de senaste decennierna.
 
 ## Politisk representation
 
@@ -121,7 +121,7 @@ var `r mest_jamnstalld_antal_kvinnor`.
 gg_ledamoter_val$Riksdagsledamoter
 ```
 
-Den positiva trenden om en mer jämställd representation bland de folkvalda på nationell nivå syns även på regional nivå. Vid landstingsvalet (numera regionval) `r regionval_ar_min` i Dalarna var antalet ledamöter i fullmäktige övervägande män, medan könsfördelningen vid valet 2014 i princip var helt jämställd med ett nästan jämnt antal män och kvinnor bland folkvalda i fullmäktige. Efter valet 2018 syns däremot återigen en ökning av andelen män i fullmäktige och sedan det senaste valet (`r regionval_ar_max`) sitter `r regionval_max_ar_skillnad ` fler män än kvinnor i det som nu heter regionfullmäktige.
+Den positiva trenden om en mer jämställd representation bland de folkvalda på nationell nivå syns även på regional nivå. Vid landstingsvalet (från 2022 regionval) `r regionval_ar_min` i Dalarna var antalet ledamöter i fullmäktige övervägande män, medan könsfördelningen vid valet 2014 i princip var helt jämställd med ett nästan jämnt antal män och kvinnor bland folkvalda i fullmäktige. Efter valet 2018 syns däremot återigen en ökning av andelen män i fullmäktige och sedan det senaste valet (`r regionval_ar_max`) sitter `r regionval_max_ar_skillnad ` fler män än kvinnor i det som nu heter regionfullmäktige.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -150,8 +150,7 @@ och i yrkeslivet. I diagrammet nedan visas andelen chefer av de sysselsatta uppd
 gg_andel_chefer$andel_chefer_Dalarna
 ```
 
-I diagrammet nedan ser vi utveckling över tid. Andelen kvinnor i chefsposition i Dalarna har fördubblats under en tjugoårsperiod, och under samma period är andelen män i chefspositioner mer
-eller mindre oförändrad. Det betyder att antalet chefspositioner har ökat i antal, och det är kvinnor som bemannat dessa. Totalt sett så gör det att utvecklingen över tid ändå går i en mer jämställd riktning, även om situationen på arbetsmarknaden fortsatt får anses vara ojämställd.
+I diagrammet nedan ser vi utveckling över tid. Andelen kvinnor i chefsposition i Dalarna har fördubblats under en tjugoårsperiod, och under samma period är andelen män i chefspositioner mer eller mindre oförändrad. Det betyder att antalet chefspositioner har ökat i antal, och det är kvinnor som bemannat dessa. Totalt sett så gör det att utvecklingen över tid ändå går i en mer jämställd riktning, även om situationen på arbetsmarknaden fortsatt får anses vara ojämställd.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
