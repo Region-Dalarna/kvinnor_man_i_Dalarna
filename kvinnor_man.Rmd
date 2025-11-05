@@ -568,10 +568,24 @@ gg_fp_vab$Vab_antal_linjeDalarna
 ```
 
 ## Närståendepenning
+
+<details>
+
+  <summary>Mer information om statistiken</summary>
+
+<div title="Källa: Försäkringskassan">Närståendepenning finns för att personer som har ett livshotande tillstånd ska kunna få stöd av till exempel en anhörig, vän eller granne. För mer info, se [Försäkringskassan](https://www.forsakringskassan.se/privatperson/sjuk-eller-skadad/stodja-en-svart-sjuk-narstaende){target="_blank"}. </div>
+ 
+</details>
+
 Fylla på med info om närståendpenning här, samt ett diagram.
 
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
+gg_narstaendepenning$narstaendepenning_antal_vardare_Dalarna
+```
 
-
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
+gg_narstaendepenning$narstaendepenning_nettodagar_Dalarna
+```
 
 # Hälsa och ohälsa
 Jämställd hälsa är det femte jämställdhetspolitiska delmålet. Kvinnor och män, flickor och pojkar ska ha samma förutsättningar för en god hälsa och erbjudas vård och omsorg på lika villkor. Idag finns det stora skillnader i hälsa och ohälsa mellan kvinnor och män. Flickor och kvinnor är sjukskrivna för symptom som är kopplade till psykisk ohälsa i betydligt högre utsträckning än män, samtidigt dör fler män än kvinnor i suicid (självmord), i arbetsplatsolyckor, i hjärt- och kärlsjukdomar och av cancer. Förklaringar kan bland annat kopplas till brister i arbetsmiljön, att inte söka vård i tid och skillnader i vårdens bemötande.

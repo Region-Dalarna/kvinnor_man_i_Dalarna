@@ -250,6 +250,16 @@ gg_forsakringskassan <- diag_foraldrapenning_manad(region_vekt = "20",
                                                    spara_diagrambildfil = TRUE,
                                                    spara_dataframe_till_global_environment = TRUE)
 
+# Närståendepenning
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diagram_narstaendepenning_forsakringskassan_kv_man.R")
+gg_narstaendepenning <- diag_narstaendepenning(region_vekt = "20",
+                                                 output_mapp = output_mapp_figur,
+                                                 spara_diagrambildfil = TRUE,
+                                                 diag_stapel = TRUE,
+                                                 diag_forandring = FALSE,
+                                                 variabel = c("Antal vårdare","Nettodagar"), # Finns även "Antal sjuka", "Belopp","Nettodagar" Går att välja flera
+                                                 spara_dataframe_till_global_environment = TRUE)
+
 # Sjukpenningtal och ohälsotal
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diagram_ohalsotal_sjukpenningtal_kv_man.R")
 gg_ohalsotal_sjp <- diag_ohalsotal_sjukpenningtal (region_vekt = "20",
@@ -537,7 +547,7 @@ gg_overrep = skapa_overrep_diagram(spara_diagrambildfil = TRUE,
                                    returnera_dataframe_global_environment = TRUE,
                                    diagramtitel = "Överrepresentation av manliga chefer i Dalarna",
                                    ta_bort_titel = FALSE,
-                                   ta_bort_caption = FALSE)
+                                   ta_bort_caption = TRUE)
 
 overrep_max_ar = overrep_df$Ar %>% max()
 overrep_min_ar = overrep_df$Ar %>% min()

@@ -1,8 +1,3 @@
-## =================================================================================================================
-# Skript som laddar hem data för pågående föräldrapenning och tillfällig föräldrapenning på månadsbasis från Försäkringskassan
-# Källa: https://www.dataportal.se/datasets/547_12671
-# Källa: https://www.dataportal.se/datasets/547_12364
-# =================================================================================================================
 diag_foraldrapenning_manad<-function(region_vekt = "20", 
                                      diag_foraldrapenning = TRUE,
                                      diag_vab = TRUE,
@@ -10,7 +5,12 @@ diag_foraldrapenning_manad<-function(region_vekt = "20",
                                      spara_diagrambildfil = FALSE,
                                      spara_dataframe_till_global_environment = FALSE){
   
-  # =============================================== Uttag ===============================================
+  ## =================================================================================================================
+  # Skript som laddar hem data för pågående föräldrapenning och tillfällig föräldrapenning på månadsbasis från Försäkringskassan
+  # Källa: https://www.dataportal.se/datasets/547_12671
+  # Källa: https://www.dataportal.se/datasets/547_12364
+  # Ny adress VAB - https://www.dataportal.se/datasets/547_14635
+  # =============================================== Uttag ============================================================
   
   # # Läser in nödvändiga bibliotek med pacman
   if (!require("pacman")) install.packages("pacman")
@@ -23,8 +23,10 @@ diag_foraldrapenning_manad<-function(region_vekt = "20",
   
   # Adresser till data
   #path = c("https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/fp-antal-mottagare-nettodagar-belopp-manad/FPAntalDagarBeloppManadLan.xlsx","https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/tfp-utb-ers/TfpVabErsUtbLanKommun.xlsx")
-  path = c("https://www.forsakringskassan.se/api/sprstatistikrapportera/public/v1/fp-antal-mottagare-nettodagar-belopp-manad/FPAntalDagarBeloppManadLan.xlsx","https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/tfp-utb-ers/TfpVabErsUtbLanKommun.xlsx")
-  
+  #path = c("https://www.forsakringskassan.se/api/sprstatistikrapportera/public/v1/fp-antal-mottagare-nettodagar-belopp-manad/FPAntalDagarBeloppManadLan.xlsx","https://www.forsakringskassan.se/fk_apps/MEKAREST/public/v1/tfp-utb-ers/TfpVabErsUtbLanKommun.xlsx")
+  # Fk verkar ha bytt adress 2025-10-27
+  path = c("https://www.forsakringskassan.se/api/sprstatistikrapportera/public/v1/fp-antal-mottagare-nettodagar-belopp-manad/FPAntalDagarBeloppManadLan.xlsx","https://www.forsakringskassan.se/api/sprstatistikrapportera/public/v1/tfp-utb-ers/TfpVabErsUtbLanKommun.xlsx")
+
   # Med Peters nya skript
   flik_lista = list()
   
@@ -81,6 +83,7 @@ diag_foraldrapenning_manad<-function(region_vekt = "20",
                                            manual_color = c(diagramfarger("rus_sex")),
                                            manual_x_axis_text_vjust = 1,
                                            manual_x_axis_text_hjust = 1,
+                                           legend_rader = 1,
                                            facet_legend_bottom = TRUE,
                                            #berakna_index = TRUE,
                                            x_axis_lutning = 45,
@@ -147,6 +150,7 @@ diag_foraldrapenning_manad<-function(region_vekt = "20",
                                       manual_color = diagramfarger("rus_sex"),
                                       manual_x_axis_text_vjust = 1,
                                       manual_x_axis_text_hjust = 1,
+                                      legend_rader = 1,
                                       facet_legend_bottom = TRUE,
                                       #berakna_index = TRUE,
                                       x_axis_lutning = 45,
