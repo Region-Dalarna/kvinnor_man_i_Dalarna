@@ -510,7 +510,9 @@ Diagrammen visar också att de 10 största yrkena bland kvinnor omfattar ungefä
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 yrken_konsfordelning[[1]]
 ```
+
 # Obetalt hem- och omsorgsarbete
+
 En jämn ansvarsfördelning för obetalt hem- och omsorgsarbete är det fjärde jämställdhetspolitiska delmålet. Jämställdhetsmyndigheten har sammanfattat nuläget för delmålet nationellt. De skriver på sin [hemsida](https://jamstalldhetsmyndigheten.se/jamstalldhet-i-sverige/delmal-4-jamn-fordelning-av-det-obetalda-hem-och-omsorgsarbetet/){target="_blank"}:
 
 <blockquote>Kvinnor tar fortfarande i hög grad ansvar för det obetalda hem- och omsorgsarbetet. De tar ut mer av föräldraförsäkringen och lägger mer tid på att ta hand om barn. Kvinnor och män ger omsorg, men på olika sätt. Kvinnors omsorgsarbete tycks dock påverka dem mer negativt än män. I hemmet är det främst kvinnor som städar, lagar mat och tvättar medan män klipper gräset, tar hand om bilen och sköter ekonomin.</blockquote>
