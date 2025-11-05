@@ -107,11 +107,11 @@ Policy-uppföljningar av jämställdhetspolitiken görs av bland andra Jämstäl
 
 
 # Makt och politik
-Det första av de jämställdhetspolitiska delmålen lyder "en jämn fördelning av makt och inflytande". Detta mäts bland annat genom kvinnors och mäns representation på maktpositioner i politik, offentlig sektor och näringsliv. Historiskt har män befolkat dessa positioner och kvinnor i undantagsfall, men dessvärre visar nuläget att många traditionella mönster består. Generellt visar siffrorna på att ju högre upp i hierarkin, desto fler män befolkar positionerna. [Jämställdhetsmyndigheten](<https://jamstalldhetsmyndigheten.se/jamstalldhet-i-sverige/delmal-1-jamn-fordelning-av-makt-och-inflytande/>){target="_blank"} skriver att: 
+Det första av de jämställdhetspolitiska delmålen lyder "en jämn fördelning av makt och inflytande". Detta mäts bland annat genom kvinnors och mäns representation på maktpositioner i politik, och chefspositioner i arbetslivet, både offentlig sektor och näringsliv. Historiskt har män befolkat dessa positioner och kvinnor i undantagsfall. Dessvärre visar nuläget att många traditionella mönster består. Generellt visar siffrorna på att ju högre upp i hierarkin man kommer, desto fler män befolkar positionerna. [Jämställdhetsmyndigheten](<https://jamstalldhetsmyndigheten.se/jamstalldhet-i-sverige/delmal-1-jamn-fordelning-av-makt-och-inflytande/>){target="_blank"} skriver att: 
 
 <blockquote>Näringsliv, högre utbildningar och organisationer med mindre insyn har få kvinnor på höga positioner.</blockquote> 
 
-Samtidigt har representationen förbättrats inom både offentlig sektor och inom politiken de senaste decennierna. I följande avsnitt redovisas läget för den politiska representationen samt kvinnor och män på chefspositioner, i relation till utbildningsnivå och inom olika branscher.
+Samtidigt har representationen förbättrats inom både offentlig sektor och inom politiken de senaste decennierna. I följande avsnitt redovisas läget för den politiska representationen samt andelen kvinnor och män på chefspositioner, i relation till utbildningsnivå och inom olika branscher.
 
 ## Politisk representation
 
@@ -137,7 +137,7 @@ På lokal nivå i Dalarna finns det stora skillnader mellan kommunerna. Efter va
 gg_ledamoter_val$Kommunfullmaktigeledamoter
 ```
 
-## Chefspositioner
+## Representation på chefspositioner
 
 ```{r,echo=FALSE}
 chefer_just_df <- chefer_df %>%
@@ -171,9 +171,9 @@ gg_overrep$overrep
 
 # Ekonomisk jämställdhet
 
-Ekonomisk jämställdhet är ett av de sex jämställdhetspolitiska delmålen och syftar till att kvinnor och män ska ges samma möjligheter och villkor i fråga om betalt arbete för att säkerställa ekonomisk självständighet livet ut. Målet utgår således ifrån ett livscykelperspektiv och understryker betydelsen av att det avlönade arbetet ska ge ekonomisk trygghet och självständighet även under pensionsåren. 
+Ekonomisk jämställdhet syftar till att kvinnor och män ska ges samma möjligheter och villkor i fråga om betalt arbete för att säkerställa ekonomisk självständighet livet ut. Målet utgår således ifrån ett livscykelperspektiv och understryker betydelsen av att det avlönade arbetet ska ge ekonomisk trygghet och självständighet även under pensionsåren. 
 
-Ekonomisk jämställdhet analyseras genom flera olika inkomstflöden och variabler. En central förutsättning för en inkomst och egen försörjning är anknytning till och förutsättningar på arbetsmarknaden, därför redogörs här även för sysselsättningsgrad och arbetslöshet, etableringstid på arbetsmarknaden för invandrade, samt hur stor andel av befolkningen som har skulder till Kronofogden.
+Ekonomisk jämställdhet analyseras genom flera olika inkomstflöden och variabler. En central förutsättning för en inkomst och egen försörjning är anknytning till och förutsättningar på arbetsmarknaden, därför redogörs här även för sysselsättningsgrad och arbetslöshet, tillsammans med etableringstid på arbetsmarknaden för invandrade, bidragsmottagare, samt hur stor andel av befolkningen som har skulder till Kronofogden.
 
 Inkomst av arbete utgör merparten av en individs försörjning, men både lönenivå och huruvida personen arbetar hel- eller deltid påverkar inkomsten och sedemera pensionen. Därtill finns kapitalinkomster och offentliga bidrag så som exempelvis sjukpenning, föräldrapenning och bostadsbidrag, som gör att ett centralt mått för att fånga en individs ekonomiska standard är beräkningen av den disponibla inkomsten. Disponibel inkomst innebär den summa pengar som ett hushåll eller en person har att röra sig med efter att alla ekonomiska inkomster är sammanräknade (lön, avkastning, bidrag etc.) och skatter och avgifter är betalda.
 
@@ -252,7 +252,7 @@ Sysselsättningsgraden i respektive kommun i Dalarna visar ett liknande mönster
 
 `r syssgrad_utrikes_kvinna_max_kommun` har den högsta sysselsättningsgraden för gruppen utrikes födda kvinnor i Dalarna, `r syssgrad_utrikes_kvinna_max_varde` procent, och ligger klart över genomsnittet för länet. Samtidigt är sysselsättningsgraden i `r syssgrad_utrikes_kvinna_min_kommun` kommun bland utrikes födda kvinnor bara `r syssgrad_utrikes_kvinna_min_varde` procent. 
 
-Värt att notera är att en del av skillnaden i utrikes föddas sysselsättningsgrad mellan kommunerna sannolikt kan förklaras av skillnader i antalet personer som invandrade under åren runt 2015 då invandringen till Sverige var mycket stor. Exempelvis var Avesta, Ludvika och Hedemora de tre kommuner som hade högst invandring i förhållande till folkmängd under 2015-2017. Detta förefaller i första hand gälla för utrikes födda kvinnor, då både Hedemora och Ludvika har relativt hög sysselsättningsgrad för utrikes födda män, medan den är klart lägre för utrikes födda kvinnor. I Ludvika är skillnaden mellan könen i sysselsättningsgrad ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Ludvika",variabel == "sysselsättningsgrad") %>% .$varde-arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Ludvika",variabel == "sysselsättningsgrad") %>% .$varde,0)` procentenheter, vilket är den största skillnaden i länet.
+Värt att notera är att en del av skillnaden i utrikes föddas sysselsättningsgrad mellan kommunerna sannolikt kan förklaras av skillnader i antalet personer som invandrade under åren runt 2015 då invandringen till Sverige var mycket stor. Exempelvis var Avesta, Ludvika och Hedemora de tre kommuner som tog emot flest invandrare i förhållande till folkmängd under 2015-2017. Detta förefaller i första hand gälla för utrikes födda kvinnor, då både Hedemora och Ludvika har relativt hög sysselsättningsgrad för utrikes födda män, medan den är klart lägre för utrikes födda kvinnor. I Ludvika är skillnaden mellan könen i sysselsättningsgrad ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Ludvika",variabel == "sysselsättningsgrad") %>% .$varde-arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Ludvika",variabel == "sysselsättningsgrad") %>% .$varde,0)` procentenheter, vilket är den största skillnaden i länet.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -334,8 +334,10 @@ För de med lägst utbildningsnivå (förgymnasialt utbildade) är relativt få 
 gg_etablering$etablering_lan_utb
 ```
 
-## Bidragsberoendet
-Samtidigt som fler kvinnor än män mottar transfereringar i form av föräldrapenning etc. så går andra typer av bidrag i högre utsträckning till män som grupp. Andel män och median-belopp över ett kalenderår/12 månaders-period. 
+## Bidragsmottagare 
+Samtidigt som fler kvinnor än män mottar transfereringar i form av föräldrapenning etc. så går andra typer av bidrag i högre utsträckning till män som grupp. 
+
+Fördelning män/kvinnor och median-belopp över ett kalenderår/12 månaders-period.
 
 <br>
 
@@ -366,7 +368,7 @@ gg_skuldsatta$Antal_langsiktigt_skuldsatta_Dalarna
 ```
 
 
-# Jämställd utbildning, och yrkesliv
+# Jämställd utbildning och jämställt yrkesliv
 
 Det jämställdhetspolitiska delmålet för utbildningsområdet innebär att kvinnor och män, tjejer och killar, ska ha samma möjligheter och villkor när det gäller utbildning, studieval och personlig utveckling.
 
@@ -574,7 +576,7 @@ Fylla på med info om närståendpenning här, samt ett diagram.
 # Hälsa och ohälsa
 Jämställd hälsa är det femte jämställdhetspolitiska delmålet. Kvinnor och män, flickor och pojkar ska ha samma förutsättningar för en god hälsa och erbjudas vård och omsorg på lika villkor. Idag finns det stora skillnader i hälsa och ohälsa mellan kvinnor och män. Flickor och kvinnor är sjukskrivna för symptom som är kopplade till psykisk ohälsa i betydligt högre utsträckning än män, samtidigt dör fler män än kvinnor i suicid (självmord), i arbetsplatsolyckor, i hjärt- och kärlsjukdomar och av cancer. Förklaringar kan bland annat kopplas till brister i arbetsmiljön, att inte söka vård i tid och skillnader i vårdens bemötande.
 
-NY: Diagram livslängd, utbildning/ensamstående?
+NY: Diagram återstående livslängd, utbildning/ensamstående?
 
     
 Ohälsa kan följas upp på flera sätt. I följande avsnitt redovisas utfallet av de aggregerade nivåerna för ohälsotalet och sjukpenningtalet, och en fördjupning ges i stressrelaterade sjukfall och hur sjukfall fördelas över olika branscher.
