@@ -368,7 +368,7 @@ gg_skuldsatta$Antal_langsiktigt_skuldsatta_Dalarna
 ```
 
 
-# Jämställd utbildning och jämställt yrkesliv
+# Utbildning och yrkesliv
 
 Det jämställdhetspolitiska delmålet för utbildningsområdet innebär att kvinnor och män, tjejer och killar, ska ha samma möjligheter och villkor när det gäller utbildning, studieval och personlig utveckling.
 
@@ -570,16 +570,19 @@ gg_fp_vab$Vab_antal_linjeDalarna
 ```
 
 ## Närståendepenning
+En del i människors behov av omsorg är när någon drabbas av ett allvarligt sjukdomstillstånd. I en sådan situation finns det stöd att få för anhörig eller närstående som avstår från förvärvsarbete för att kunna hjälpa till med vardagsomsorg om den svårt sjuke. I dessa fall ges närståendepenning.
 
 <details>
 
   <summary>Mer information om statistiken</summary>
 
-<div title="Källa: Försäkringskassan">Närståendepenning finns för att personer som har ett livshotande tillstånd ska kunna få stöd av till exempel en anhörig, vän eller granne. För mer info, se [Försäkringskassan](https://www.forsakringskassan.se/privatperson/sjuk-eller-skadad/stodja-en-svart-sjuk-narstaende){target="_blank"}. </div>
+<div title="Källa: Försäkringskassan">Närståendepenning finns för att personer som har ett livshotande tillstånd ska kunna få stöd av till exempel en anhörig, vän eller granne. Men, här ingår exempelvis inte stöd till anhöriga som vårdar barn. För mer info, se [Försäkringskassan](https://www.forsakringskassan.se/privatperson/sjuk-eller-skadad/stodja-en-svart-sjuk-narstaende){target="_blank"}. </div>
  
 </details>
 
-Fylla på med info om närståendpenning här, samt ett diagram.
+I digrammen över närståendepenning ses både antalet vårdare, dvs antalet mottagare av närståendepenning, och antalet nettodagar per grupp kvinnor respektive män sedan år 1999. Siffrorna visar att antalet vårdare och antalet nettodagar har lite mer än fördubblats bland både kvinnor och män under tidsperioden. Det är också tydligt att nivåerna fluktuerar mellan åren. Stödets utformning påverkas vissa mandatperioder av förändringar i politikens styrning, vilket kan påverka utfallet.
+
+Sammantaget visar trenden på ett ökande behov, och det kan delvis samspela med att antalet äldre i befolkningen i Dalarna ökat över denna tidsperiod.
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_narstaendepenning$narstaendepenning_antal_vardare_Dalarna
