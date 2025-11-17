@@ -58,7 +58,7 @@ Jämställdhetspolitikens mål handlar om är att kvinnor och män ska ha samma 
 
 <ul>
 
-<li>Inom politiken har representationen av kvinnor och män på förtroendeposter under de senaste årtiondena jämnats ut. Det råder dock fortfarande stora skillnader på lokal nivå och `r antal_ojamlik` av Dalarnas kommuner har en övervikt (mer än 60 %) av män i fullmäktige. </li>
+<li>Inom politiken har representationen av kvinnor och män på förtroendeposter under de senaste årtiondena jämnats ut. Det råder dock fortfarande stora skillnader på lokal nivå och `r antal_ojamlik` av Dalarnas 15 kommuner har en övervikt (mer än 60 %) av män i fullmäktige. </li>
 
 <li>I likhet med riket som helhet har kvinnor i Dalarna en avsevärt lägre medianinkomst än män, även om kvinnors inkomster har ökat i något högre takt än mäns de senaste decennierna.</li>
 
@@ -70,7 +70,7 @@ Jämställdhetspolitikens mål handlar om är att kvinnor och män ska ha samma 
 
 <li>Kvinnors ohälsa mätt genom frånvaro från arbetsplatsen är betydligt mer omfattande än mäns. Skillnaden gäller oavsett bransch, och är tydligast när det gäller stressrelaterade symtom.</li>
 
-<li>Samtidigt som män i genomsnitt har bättre livsvillkor än kvinnor, är det också en grupp män som har det sämst ställt med utanförskap, dålig ekonomi och ohälsa, vilket bidrar till i en kortare medellivslängd.</li>
+<li>Samtidigt som män i genomsnitt har bättre livsvillkor än kvinnor, är det också en grupp män som har det sämst ställt med utanförskap, dålig ekonomi och ohälsa, vilket bidrar till att de har en kortare medellivslängd.</li>
     
 
 # Introduktion {-}
@@ -660,8 +660,55 @@ gg_sjukfall_bransch$Startade_sjukfall_bransch
 # Mäns våld mot kvinnor ska upphöra
 Jämställdhetsmyndigheten beskriver delmålet som att "(K)vinnor och män, flickor och pojkar ska ha samma rätt och möjlighet till kroppslig integritet. Delmålet omfattar alla yttringar av fysiskt och psykiskt, inklusive sexualiserat, våld och hot om våld samt hedersrelaterat våld och förtryck och prostitution och handel med människor för sexuella ändamål. Delmålet har även ett särskilt fokus på kopplingen mellan maskulinitet och våld." (https://jamstalldhetsmyndigheten.se/om-jamstalldhetsmyndigheten/uppfoljning-av-jamstalldhetspolitiken/)
 
-Delmålet följs upp genom....
+Delmålet följs upp genom den Nationella Trygghetsundersökningen som går att bryta ner per kön och län. Det finns statistik över anmälda brott som går att bryta ner till kategorier som överensstämmer bättre med delmålets formuleringar och vi tänker oss fördjupade analyser av den typen av data i framtiden. Det bör dock lyftas att det kan finnas en problematik med att vissa brott inte anmäls, och ibland görs särskilda insatser inom Polisen för att stävja kriminalitet för vissa specifika brott vilket kan ge en ökning av antalet anmälningar utan att antalet brott i sig behöver öka. 
 
+I denna uppföljning läggs fokus på övergripande frågor kring misshandel, sexualbrott, hot samt oro och otrygghet för dessa brottskategorier och huruvida man avstått från någon aktivitet som en följd av oro. Självrapporterad utsatthet för misshandel är en bred kategori och i denna enkätfråga berörs inte förövarens kön vilket görs i delmålet. Frågan ger ändå en bild över utvecklingen av utsatthet för misshandel per kön över tid. 
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
+gg_bra_ntu_lista$`Självrapporterad utsatthet för misshandel`
+```
+
+Skillnaden mellan kvinnor och män är små och varierar mellan åren. Även om det skett både upp- och nedgångar mellan åren är den längre trenden en minskning av utsatthet för misshandel, för båda könen om än ännu tydligare bland män. 
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
+gg_bra_ntu_lista$`Självrapporterad utsatthet för sexualbrott`
+```
+
+Skillnaden mellan kvinnor och män vad gäller utsatthet för sexualbrott är stor, och betydligt vanligare bland kvinnor än män. Även här sker upp- och nedgångar mellan enskilda år och även här är den längre trenden glädjande nog minskande. Åtminstone bland kvinnor.
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
+gg_bra_ntu_lista$`Självrapporterad utsatthet för hot`
+```
+
+Utsatthet för hot är något större bland kvinnor än män med viss variation mellan åren, där utsattheten är större bland män vissa enstaka år. Utsattheten var särskilt stor bland kvinnor år 2017 och år 2019 men har annars legat på ungefär samma nivå alla år. 
+
+Utsatthet för brott är en kränkning i sig för den som blir utsatt, men utöver det finns individer som kanske inte har utsatts för brott men ändå känner en oro för att det ska ske. Vilket i sig kan begränsa en individs handlingsutrymme. Därför är det intressant att se huruvida oro för brott utvecklas i takt med att utsatten för samma brott förändas. Leder färre brott till en mindre oro och vice versa. 
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
+gg_bra_ntu_lista$`Oro för att utsättas för misshandel`
+```
+
+Oro för misshandel följer ungefär samma nedåtgående trend som utsattheten, även om kvinnor genomgående är mer oroliga än män. Skillnaderna är inte dramatiska och nivåerna relativt stabila över tid. 
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
+gg_bra_ntu_lista$`Oro för att utsättas för våldtäkt eller sexuella angrepp`
+```
+
+När det gäller oro för att utsättas för våldtäkt eller sexuella angrepp är könsskillnaden stor där väsentligt högre andel kvinnor en män känner en oro. De flesta år oroar sig var sjätte kvinna i befolkningen ganska eller mycket ofta över att utsättas för dessa brott. Glädjande nog är det även här en nedåtgående trend över tid där andelen kvinnor under senare år närmar sig 10 procent. För män har andelen varierat mellan en och tre procent och även för män ser vi en trend av en sjunkande oro. 
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
+gg_bra_ntu_lista$`Otrygghet vid utevistelse sent på kvällen i det egna bostadsområdet`
+```
+
+I Nationella Trygghetsundersökningen ställs också frågor om hur oro för brott påverkar otryggheten samt hur den i sin tur påverkar människors handlingar. Nästan var tredje kvinna känner ganska eller mycket otrygga i det egna bostadsområdet sent på kvällen, men det är en svagt sjunkande trend. Bland männen är det runt 15 procent de flesta år och även här är trenden svagt sjunkande. 
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
+gg_bra_ntu_lista$`Avstått från någon aktivitet på grund av oro för att utsättas för brott`
+```
+
+Strax under femton procent av kvinnorna har ganska eller mycket ofta avstått från någon aktivitet på grund av oro för att utsättas för brott. De senaste åren har andelarna sjunkit till 10-12 procent. Det har under flera år varit ungefär hälften så många män, men skillnaden mellan kvinnor och män har varit mindre de senaste två åren. 
+
+Trots att utsattheten för flera brottstyper minskar över tid kvarstår stora skillnader mellan kvinnor och män – särskilt när det gäller sexualbrott och upplevd trygghet. Kvinnor utsätts i betydligt högre grad för sexualiserat våld och upplever också en större oro, vilket i sin tur påverkar deras rörelsefrihet och vardagliga val. Samtidigt visar trenderna att både utsatthet och oro sakta minskar, även i grupper där nivåerna länge varit höga. Skillnaderna mellan könen är dock tydliga och återkommande, vilket understryker behovet av fortsatt arbete med normer, trygghet och förebyggande insatser.
 
 
 # Referenser {-}

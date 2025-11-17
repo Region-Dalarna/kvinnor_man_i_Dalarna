@@ -7,6 +7,7 @@
 # Tar längre tid (ett par minuter) och medför en risk att text inte längre är aktuell då figurer har uppdaterats med nya data.
 
 uppdatera_data = FALSE
+skriv_diagramfiler <- FALSE                   # funkar bara om uppdatera_data är TRUE
 
 if(uppdatera_data == TRUE){
   
@@ -27,7 +28,7 @@ source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main
 gg_utbniva_85 <- diag_utbniva_tidserie_och_lansjmfr (region_vekt = c("20"),
                                                      output_mapp = output_mapp_figur,
                                                      diagram_capt = "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna",
-                                                     skapa_fil = TRUE,
+                                                     skapa_fil = skriv_diagramfiler,
                                                      diag_hogutb_over_tid = TRUE,
                                                      diag_lagutb_over_tid = FALSE,
                                                      diag_andel_alla_utbnivaer = FALSE,
@@ -45,7 +46,7 @@ utb_85_senaste_andel_man <- round(utbildning_85_df %>% filter(kön == "män",år
 source(here("skript/","diagram_utb_niva_senaste_ar.R"))
 gg_utb_niva_senaste <- diag_utbniva_senaste(region_vekt = "20", 
                                             output_mapp = output_mapp_figur,
-                                            spara_figur = TRUE,
+                                            spara_figur = skriv_diagramfiler,
                                             returnera_data = TRUE)
 
 utbildning_senaste <- max(utbildning_df$år)
@@ -66,7 +67,7 @@ gym_tot_man <- round(utbildning_df %>% filter(region == "Dalarna",kön == "män"
 source(here("skript/","diagram_gymnasiet_genom_antag.R"))
 gg_gymnasiet_ant_genom <- diag_gymn_genomstromning_antagning(region_vekt = "20", 
                                                              outputmapp = output_mapp_figur,
-                                                             spara_figur = FALSE,
+                                                             spara_figur = skriv_diagramfiler,
                                                              diag_genomstromning = TRUE,
                                                              diag_gymantagning = TRUE,
                                                              returnera_data = TRUE)
@@ -111,7 +112,7 @@ tio_storsta_sum_man <- format(plyr::round_any(storsta_yrken_per_geografi_df %>% 
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_andel_forvarvsarbetande_bransch.R", encoding="UTF-8")
 gg_antal_forv <- diag_sysselsatta_andel(output_mapp_figur = output_mapp_figur,
                                         returnera_figur = TRUE,
-                                        spara_figur = TRUE, 
+                                        spara_figur = skriv_diagramfiler, 
                                         diag_lan = FALSE, 
                                         diag_kommun = FALSE,
                                         caption = "Källa: BAS i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna",
@@ -130,7 +131,7 @@ gg_inkomst <- diag_inkomst_scb(regionvekt = "20", # Enbart ett i taget. går äv
                                diag_tid = TRUE,
                                diag_linje = TRUE,
                                diag_kommun = TRUE,
-                               skriv_diagrambildfil = FALSE,                           # TRUE om diagram ska skrivas till fil, FALSE om diagram inte ska skrivas till fil
+                               skriv_diagrambildfil = skriv_diagramfiler,                           # TRUE om diagram ska skrivas till fil, FALSE om diagram inte ska skrivas till fil
                                alder_klartext = c("20-64 år","65+ år"),			 #  Finns: "20+ år", "20-64 år", "20-65 år", "65+ år", "66+ år". OBS!! Funkar ej med "*"
                                returnera_data_rmarkdown = TRUE
 )
@@ -166,7 +167,7 @@ source(here("skript/","diagram_disponibelinkomst.R"))
 gg_disponibel_inkomst <- diag_disponibelinkomst(region_vekt = "20", 
                                                output_mapp = output_mapp_figur,
                                                returnera_data = TRUE,
-                                               spara_figur = TRUE,
+                                               spara_figur = skriv_diagramfiler,
                                                alder = "18+ år") 
 
 disponibel_inkomst_min_ar <- min(disponibel_inkomst_df$år)
@@ -178,7 +179,7 @@ gg_skuldsatta <- diag_kronofogden(output_mapp = output_mapp_figur,
                                   diag_langsiktiga_skulder = TRUE, # Om diagram för långsiktigt skuldsatta ska skapas
                                   diag_skulder = TRUE, # Om diagram för skuldsatta ska skapas,
                                   diag_andel_skuldsatta = TRUE,
-                                  spara_figur =TRUE,
+                                  spara_figur =skriv_diagramfiler,
                                   returnera_data = TRUE)
 
 # Antal skuldsatta
@@ -212,7 +213,7 @@ source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main
 gg_etablering <- diag_etablering_utb_kon_scb(output_mapp = output_mapp_figur,
                                              utbildningsniva_jmf = rev(c("utbildningsnivå: förgymnasial utbildning","utbildningsnivå: gymnasial utbildning" ,"utbildningsnivå: eftergymnasial utbildning")), # Finns även "samtliga utbildningsnivåer", "utbildningsnivå: förgymnasial utbildning", Skriv i den ordning de skall visas i diagram
                                              facet_kolumner = 2,# Välj antalet kolumner som skall visas i Facet-diagramet (diag_utbildning)
-                                             skriv_diagrambildfil = TRUE,
+                                             skriv_diagrambildfil = skriv_diagramfiler,
                                              returnera_data_rmarkdown = TRUE)
 
 eftergym_0_1_kvinna <- round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: eftergymnasial utbildning") %>% .$andel,0)
@@ -228,7 +229,7 @@ forgym_0_1_man <- round(etablering_df %>% filter(kön == "män",bakgrundsvariabe
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diagram_matchning_lan_bakgrund.R")
 gg_matchning <- diag_matchning_lan(region_vekt = "20",
                                    output_mapp_figur = output_mapp_figur,
-                                   spara_figur = TRUE,
+                                   spara_figur = skriv_diagramfiler,
                                    returnera_data = TRUE,
                                    kon_klartext = "*")
 
@@ -238,7 +239,7 @@ gg_fp_vab <- diag_foraldrapenning_vab(region_vekt = "20",
                                       output_mapp = output_mapp_figur,
                                       diag_foraldrapenning = TRUE,
                                       diag_vab = TRUE,
-                                      spara_diagrambildfil = TRUE,
+                                      spara_diagrambildfil = skriv_diagramfiler,
                                       spara_dataframe_till_global_environment = TRUE)
 
 # VaB - månadsbasis
@@ -247,14 +248,14 @@ gg_forsakringskassan <- diag_foraldrapenning_manad(region_vekt = "20",
                                                    output_mapp = output_mapp_figur,
                                                    diag_foraldrapenning = TRUE,
                                                    diag_vab = FALSE,
-                                                   spara_diagrambildfil = TRUE,
+                                                   spara_diagrambildfil = skriv_diagramfiler,
                                                    spara_dataframe_till_global_environment = TRUE)
 
 # Närståendepenning
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diagram_narstaendepenning_forsakringskassan_kv_man.R")
 gg_narstaendepenning <- diag_narstaendepenning(region_vekt = "20",
                                                  output_mapp = output_mapp_figur,
-                                                 spara_diagrambildfil = TRUE,
+                                                 spara_diagrambildfil = skriv_diagramfiler,
                                                  diag_stapel = TRUE,
                                                  diag_forandring = FALSE,
                                                  variabel = c("Antal vårdare","Nettodagar"), # Finns även "Antal sjuka", "Belopp","Nettodagar" Går att välja flera
@@ -266,7 +267,7 @@ gg_ohalsotal_sjp <- diag_ohalsotal_sjukpenningtal (region_vekt = "20",
                                                    output_mapp = output_mapp_figur,
                                                    diag_ohalsotal = TRUE,
                                                    diag_sjukpenningtal = TRUE,
-                                                   spara_diagrambildfil = TRUE,
+                                                   spara_diagrambildfil = skriv_diagramfiler,
                                                    spara_dataframe_till_global_environment = TRUE)
 
 
@@ -274,7 +275,7 @@ gg_ohalsotal_sjp <- diag_ohalsotal_sjukpenningtal (region_vekt = "20",
 source(here("Skript","diagram_sjukfall_stress.R"))
 gg_sjukfall_stress <- diag_sjukfall_stress (region_vekt = "20",
                                             output_mapp = output_mapp_figur,
-                                            spara_diagrambildfil = TRUE,
+                                            spara_diagrambildfil = skriv_diagramfiler,
                                             spara_dataframe_till_global_environment = TRUE)
 
 andel_kvinnor_stress <- round(stress_df %>% filter(Kön=="Kvinnor",År==max(.$År)) %>% 
@@ -284,7 +285,7 @@ andel_kvinnor_stress <- round(stress_df %>% filter(Kön=="Kvinnor",År==max(.$Å
 # Sjukfall på branschnivå - kräver att data laddas hem manuellt. För mer info, se diagramskriptet
 source(here("Skript","diagram_sjukfall_bransch.R"))
 gg_sjukfall_bransch <- diag_sjukfall_bransch(output_mapp = output_mapp_figur,
-                                             spara_figur = TRUE,
+                                             spara_figur = skriv_diagramfiler,
                                              spara_dataframe_till_global_environment = TRUE)
 
 bransch_max_kvinnor <- tolower(startade_sjukfall_bransch_df %>% filter(Kon == "Kvinnor") %>% filter(Antal_startade_sjukfall == max(Antal_startade_sjukfall)) %>% .$SNI2007 %>%  glue_collapse(sep = ", ", last = " och "))
@@ -312,7 +313,7 @@ gg_diagram_arbetsmarknadsstatus_lan <- diagram_arbetsmarknadsstatus(region_vekt 
                                                                     fodelseregion_klartext_vekt = c("inrikes född", "utrikes född"),
                                                                     diag_arbetskraftsdeltagande = FALSE,
                                                                     returnera_data = TRUE,
-                                                                    spara_figur = FALSE,
+                                                                    spara_figur = skriv_diagramfiler,
                                                                     data_namm = "arbetsmarknadsstatus_lan_df")
 
 # Variabler sysselsättningsgrad län
@@ -386,7 +387,7 @@ gg_diagram_arbetsmarknadsstatus_kommun <- diagram_arbetsmarknadsstatus(region_ve
                                                                        fodelseregion_klartext_vekt = c("inrikes född", "utrikes född"),
                                                                        diag_arbetskraftsdeltagande = FALSE,
                                                                        returnera_data = TRUE,
-                                                                       spara_figur = FALSE,
+                                                                       spara_figur = skriv_diagramfiler,
                                                                        data_namm = "arbetsmarknadsstatus_kommun_df")
 
 # Variabler sysselsättningsgrad kommun
@@ -476,7 +477,7 @@ arblosthet_inrikes_kvinna_min_varde <- gsub("\\.",",",arbetsmarknadsstatus_kommu
 # Arbetslöshet, tidsserie Arbetsförmedlingen
 source(here("Skript","diagram_arbetsloshet_AF_bakgrund.R"))
 gg_arbetsloshet_af <- diag_arbetsloshet_2008_senastear(output_mapp = output_mapp_figur,
-                                                       spara_figur = TRUE,
+                                                       spara_figur = skriv_diagramfiler,
                                                        returnera_data = FALSE)
 
 # Långtidsarbetslöshet - Kolada
@@ -490,7 +491,7 @@ gg_langtidsarbetsloshet <- diag_langtidsarbetsloshet(region_vekt = "20",
                                                      output_mapp = output_mapp_figur,
                                                      returnera_data = TRUE,
                                                      startar = 2010, # Finns från 2010
-                                                     spara_figur = TRUE)
+                                                     spara_figur = skriv_diagramfiler)
 
 langtidsarbetsloshet_ar_min = långtidsarbetslöshet$ar %>% min()
 langtidsarbetsloshet_ar_max = långtidsarbetslöshet$ar %>% max()
@@ -533,7 +534,7 @@ gg_andel_chefer <- diag_chefer(region_vekt = "20", # Enbart på län, max 1 åt 
                                diag_senaste_ar = TRUE,
                                diag_linje = TRUE,
                                returnera_data = TRUE,
-                               spara_figur = TRUE)
+                               spara_figur = skriv_diagramfiler)
 
 chefer_ar_max <- max(chefer_df$år)
 andel_chefer_man <- round(chefer_df %>% filter(år == max(år),utbildningsnivå == "eftergymnasial utbildning", kön == "män") %>% .$Andel,0)
@@ -551,6 +552,26 @@ gg_overrep = skapa_overrep_diagram(spara_diagrambildfil = TRUE,
 
 overrep_max_ar = overrep_df$Ar %>% max()
 overrep_min_ar = overrep_df$Ar %>% min()
+
+# självrapporterad utsatthet för sexaulbrott och misshandel samt oro för att utsättas för 
+# detsamma och huruvida man avstått från aktivitet pga oro för brott
+source(here("Skript","diagram_bra_ntu_kv_man.R"))
+gg_bra_ntu_lista <- diag_bra_ntu_kv_man()
+
+# helårsekvivalenter
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_helarsekvivalenter_kon_scb.R")
+gg_helarsekvivalenter_man <- diag_helarsekvivalenter(
+  region_vekt = 20,
+  kon_klartext = "män",
+  skriv_diagramfil = skriv_diagramfiler
+  )
+
+gg_helarsekvivalenter_kvinnor <- diag_helarsekvivalenter(
+  region_vekt = 20,
+  kon_klartext = "kvinnor",
+  skriv_diagramfil = skriv_diagramfiler
+)
+
 
 save.image(file = "G:/skript/projekt/environments/kvinnor_man.RData")
 
