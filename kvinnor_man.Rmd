@@ -53,7 +53,7 @@ Senast uppdaterad: `r Sys.Date()`</i>
 
 # Sammanfattning {-}
 
-Det övergripande målet för jämställdhetspolitiken är att kvinnor och män ska ha samma makt att forma samhället och sina egna liv. Det handlar om både makt, representation och resursfördelning mellan kvinnor och män, och utvecklingen följs därför med både kvalitativa och kvantitativa mått. Denna rapport ger en bild av nuläget i Dalarna med utgångspunkt i de sex jämställdhetspolitiska delmålen som det övergripande målet är uppdelat i. Rapporten ger även en kommunal och regional fördjupning som komplement till SCB:s skrift <i>[På tal om kvinnor och män](https://www.scb.se/hitta-statistik/statistik-efter-amne/befolkning-och-levnadsforhallanden/jamstalldhet/jamstalldhetsstatistik/produktrelaterat/rapporter/lathund2024/){target="_blank"}^[Statistiska Centralbyrån, På tal om kvinnor och män.]</i>. De viktigaste trenderna och mönstren i Dalarna visar att: 
+Jämställdhetspolitikens mål handlar om är att kvinnor och män ska ha samma makt att forma samhället och sina egna liv. Det innebär att synliggöra både makt, representation och resursfördelning mellan kvinnor och män, och utvecklingen följs därför med både kvalitativa och kvantitativa mått. Denna rapport ger en kvantitativ bild av nuläget i Dalarna med utgångspunkt i de sex jämställdhetspolitiska delmålen som det övergripande målet är uppdelat i. Rapporten ger även en kommunal och regional fördjupning som komplement till SCB:s skrift <i>[På tal om kvinnor och män](https://www.scb.se/hitta-statistik/statistik-efter-amne/befolkning-och-levnadsforhallanden/jamstalldhet/jamstalldhetsstatistik/produktrelaterat/rapporter/lathund2024/){target="_blank"}^[Statistiska Centralbyrån, På tal om kvinnor och män.]</i>. De viktigaste trenderna och mönstren i Dalarna visar att: 
 <br>
 
 <ul>
@@ -62,34 +62,32 @@ Det övergripande målet för jämställdhetspolitiken är att kvinnor och män 
 
 <li>I likhet med riket som helhet har kvinnor i Dalarna en avsevärt lägre medianinkomst än män, även om kvinnors inkomster har ökat i något högre takt än mäns de senaste decennierna.</li>
 
-<li>SKRIVA OM: Män har genomsnittligt bättre livsvillkor än kvinnor, samtidigt som mäns livsvillkor är betydligt mer diversifierade än kvinnors. En grupp män har det bättre ställt, samtidigt som en större andel män har en sämre ekonomi och livssituation med utanförskap, droger och våld, och kortare medellivslängd.</li>
-
 <li>Andelen högutbildade ökar bland både kvinnor och män, men bland kvinnor är ökningstakten högre. Idag är nästan dubbelt så många kvinnor som män i Dalarna högutbildade.</li>
 
 <li>Obalansen mellan tjejers och killars val till gymnasieprogrammen består. Endast `r antal_jamlik_gymant` program av `r antal_program_totalt`  har en jämn representation av tjejer och killar.</li>
 
-<li>Föräldrapenningdagarna fördelas betydligt jämnare mellan föräldrarna nu, i jämförelse med början av 1990-talet, men fördelningen i Dalarna är fortfarande långt ifrån jämställd.</li>
+<li>Föräldrapenningdagarna fördelas betydligt jämnare mellan föräldrarna nu i jämförelse med början av 1990-talet, men fördelningen i Dalarna är fortfarande långt ifrån jämställd.</li>
 
 <li>Kvinnors ohälsa mätt genom frånvaro från arbetsplatsen är betydligt mer omfattande än mäns. Skillnaden gäller oavsett bransch, och är tydligast när det gäller stressrelaterade symtom.</li>
 
-
+<li>Samtidigt som män i genomsnitt har bättre livsvillkor än kvinnor, är det också en grupp män som har det sämst ställt med utanförskap, dålig ekonomi och ohälsa, vilket bidrar till i en kortare medellivslängd.</li>
     
 
 # Introduktion {-}
 
 
-Världsläget synliggör fundamentala utmaningar för demokratiska samhällen, samtidigt som en konstruktiv diskussion om jämställdhet i stort förefaller ha kommit i skymundan i den allmänna debatten. Att sträva efter jämställdhet är trots det en av de mer centrala insatserna för att säkerställa mänskliga rättigheter och att uppnå de 17 målen i Agenda 2030 tillsammans med nationella miljö- och demokratimål, med flera politiskt beslutade mål, för ett demokratiskt samhälle.
+Världsläget synliggör fundamentala utmaningar för demokratiska samhällen, samtidigt som en konstruktiv diskussion om jämställdhet i stort förefaller ha kommit i skymundan i den allmänna debatten. Att sträva efter jämställdhet är trots det en av de mer centrala insatserna för att säkerställa mänskliga rättigheter och att uppnå de 17 målen i Agenda 2030 tillsammans med nationella miljö- och demokratimål, med flera politiskt beslutade mål, för ett demokratiskt välfärdssamhälle.
 
-För Dalarna är de regionala målen manifesterade i den regionala utvecklingsstrategin [Dalastrategin 2030 - Tillsammans för ett hållbart Dalarna](https://www.regiondalarna.se/contentassets/699fddaa79da4978bfe14dd4bead1134/dalastrategin-2030-tillsammans-for-ett-hallbart-dalarna-dec.pdf){target="_blank"}, med övergripande målsättning om ett sammanhållet Dalarna med goda livsmiljöer där människor skapar delaktighet och engagemang, och bidrar till en hållbar utveckling. Tillsammans med regeringsuppdrag till Länsstyrelsen i Dalarnas län som sammanfattas i strategierna [Ett jämställt Dalarna](https://catalog.lansstyrelsen.se/store/26/resource/308), och [Ett Dalarna fritt från våld](https://catalog.lansstyrelsen.se/store/26/resource/266).
+För Dalarna är de regionala målen manifesterade i den regionala utvecklingsstrategin [Dalastrategin 2030 - Tillsammans för ett hållbart Dalarna](https://www.regiondalarna.se/contentassets/699fddaa79da4978bfe14dd4bead1134/dalastrategin-2030-tillsammans-for-ett-hallbart-dalarna-dec.pdf){target="_blank"}, med övergripande målsättning om ett sammanhållet Dalarna med goda livsmiljöer där människor skapar delaktighet och engagemang, och bidrar till en hållbar utveckling. Arbete för att nå målen sker i nära samverkan med Länsstyrelsen i Dalarnas län som under mandatperioden har ett par regeringsuppdrag för politikområdet sammanfattade i strategierna [Ett jämställt Dalarna](https://catalog.lansstyrelsen.se/store/26/resource/308), och [Ett Dalarna fritt från våld](https://catalog.lansstyrelsen.se/store/26/resource/266).
 
-Alla offentliga verksamheter i Dalarna så som Region Dalarna, Länsstyrelsen Dalarna, länets kommuner och lärosäte arbetar således på olika sätt aktivt för att efterleva den regionala och nationella jämställdhetpolitiken och respektive organisations särskilt uppsatta mål för jämställdhet. Följande rapport är tänkt att ge en bild av hur jämställdheten utvecklas i Dalarna baserat på den statistik som finns tillgänglig på regional och kommunal nivå. I rapporten diskuteras även läget i relation till nationella trender och utmaningar. Rapporten är strukturerad utifrån de sex delmålen för jämställdhetspolitiken:
+Alla offentliga verksamheter i Dalarna så som Region Dalarna, Länsstyrelsen Dalarna, länets kommuner och lärosäte arbetar således på olika sätt aktivt för att verkställa den regionala och nationella jämställdhetpolitiken och respektive organisations särskilt uppsatta mål för jämställdhet. Följande rapport är tänkt att ge en bild av hur jämställdheten utvecklas i Dalarna baserat på den statistik som finns tillgänglig på regional och kommunal nivå. I rapporten diskuteras även läget i relation till nationella trender och utmaningar. Rapporten är strukturerad utifrån de sex delmålen för jämställdhetspolitiken:
 
 1. En jämn fördelning av makt och inflytande
 2. Ekonomisk jämställdhet
 3. Jämställd utbildning
 4. Jämn fördelning av det obetalda hem - och omsorgsarbetet
 5. Jämställd hälsa
-6. Mäns våld mot kvinnor ska upphöra
+6. Mäns våld mot kvinnor ska upphöra (Ev. under konstruktion)
 
 Region Dalarna har tidigare publicerat jämställdhetsanalyser av läget i Dalarna på webben, år 2022, 2023, 2024, samt en fördjupande uppföljning av jämställdhet i länet år 2019 [Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv](https://www.regiondalarna.se/contentassets/d845727dbc9f49c3b7b09a2c60456497/jamstalldhetsrapport.pdf){target="_blank"}^[Region Dalarna, Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv.] som togs fram inom projektet Jämställd regional tillväxt.
 
