@@ -333,9 +333,9 @@ gg_etablering$etablering_lan_utb
 ```
 
 ## Bidragsmottagare 
-Samtidigt som fler kvinnor än män mottar transfereringar i form av föräldrapenning etc. så går andra typer av bidrag i högre utsträckning till män som grupp. 
+Samtidigt som fler kvinnor än män mottar transfereringar i form av föräldrapenning etc. så går andra typer av bidrag i högre utsträckning till män som grupp. Ett sätt att få en bra bild över helheten av sociala ersättningar och bidrag är att analysera helårsekvivalenter. Helårsekvivalenter beskriver hur många personer som under ett år försörjs helt genom sociala ersättningar och bidrag. Måttet räknas i helårspersoner, vilket innebär att flera individer med delårsvisa ersättningar kan motsvara en helårsekvivalent. Syftet är att göra olika ersättningssystem och inte minst det sammantagna bidragstagandet jämförbara över tid och mellan grupper.
 
-Fördelning män/kvinnor och median-belopp över ett kalenderår/12 månaders-period.
+Bidragstagandet ligger på historiskt låga nivåer såväl i Sverige som i Dalarna, både bland kvinnor och män men nivåerna ligger överlag högre bland kvinnor. För kvinnor dominerar sjukpenning samt sjuk- och aktivitetsersättning, som tillsammans står för en större del av försörjningen än hos män. Män har i stället en något större andel ersättning kopplad till arbetslöshet och arbetsmarknadspolitiska program.
 
 <br>
 
@@ -593,12 +593,17 @@ gg_narstaendepenning$narstaendepenning_nettodagar_Dalarna
 # Hälsa och ohälsa
 Jämställd hälsa är det femte jämställdhetspolitiska delmålet. Kvinnor och män, flickor och pojkar ska ha samma förutsättningar för en god hälsa och erbjudas vård och omsorg på lika villkor. Idag finns det stora skillnader i hälsa och ohälsa mellan kvinnor och män. Flickor och kvinnor är sjukskrivna för symptom som är kopplade till psykisk ohälsa i betydligt högre utsträckning än män, samtidigt dör fler män än kvinnor i suicid (självmord), i arbetsplatsolyckor, i hjärt- och kärlsjukdomar och av cancer. Förklaringar kan bland annat kopplas till brister i arbetsmiljön, att inte söka vård i tid och skillnader i vårdens bemötande.
 
-NY: Diagram återstående livslängd, utbildning/ensamstående?
+Att mäta återstående medellivslängd ger en tydlig och lättbegriplig bild av befolkningens övergripande hälsoläge. Måttet fångar effekterna av både livsstilsfaktorer, arbetsmiljö, sjukdomsbörda och tillgång till vård, och visar hur dessa samspelar över tid. Eftersom det kan brytas ned på grupper som kön, utbildning och region gör det också möjligt att synliggöra ojämlikheter i hälsa. Dess stabilitet över tid gör det särskilt användbart för att följa långsiktiga förändringar och bedöma om samhällets insatser leder till förbättrad folkhälsa.
 
-    
-Ohälsa kan följas upp på flera sätt. I följande avsnitt redovisas utfallet av de aggregerade nivåerna för ohälsotalet och sjukpenningtalet, och en fördjupning ges i stressrelaterade sjukfall och hur sjukfall fördelas över olika branscher.
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
+gg_aterstaende_medellivslangd$`medellivslangd_aterstaende_vid_30 år_alder_Dalarna`
+```
+
+Återstående medellivslängd vid 30 års ålder i Dalarna visar tydliga skillnader mellan både utbildningsnivåer och kön. Personer med eftergymnasial utbildning har genomgående längst återstående livslängd, medan personer med förgymnasial utbildning har kortast. Kvinnor lever längre än män i alla utbildningsgrupper, även om gapet varierar något mellan grupperna. Utvecklingen över tid präglas av en långsam men tydlig ökning av medellivslängden för både kvinnor och män, men även ökningen är ojämnt fördelad. Under den åttaårsperiod som diagrammet visar är ökningen minst i gruppen `r grupp_minst_okning$grupp` där ökningen av medellivslängden är `r round(grupp_minst_okning$absolut_okning, 2) %>% str_replace("\\.", ",")` år under perioden. Den grupp som har haft den största ökningen av återstående medellivslängd vid 30 års ålder är `r grupp_storst_okning$grupp` där ökningen är `r round(grupp_storst_okning$absolut_okning, 2) %>% str_replace("\\.", ",")` år. Skillnaden i medellivslängd mellan dessa båda grupper är `r round(skillnad_minst_storst, 2) %>% str_replace("\\.", ",")` år för den senaste mätningen år `r max(ml_df$årsintervall)`.
 
 ## Ohälsotalet 
+Ohälsa kan följas upp på flera sätt. I följande avsnitt redovisas utfallet av de aggregerade nivåerna för ohälsotalet och sjukpenningtalet, och en fördjupning ges i stressrelaterade sjukfall och hur sjukfall fördelas över olika branscher.
+
 Ohälsotalet^[Ohälsotalet: hur många dagar under en tolvmånadersperiod
     Försäkringskassan betalar ut ersättning för nedsatt arbetsförmåga i
     förhållande till antalet försäkrade i åldersgruppen 16-64 år] mäter i vilken utsträckning personer är borta från arbetet på grund av nedsatt arbetsförmåga, mätt under ett års tid. Ohälsotalet varierar över tid och var relativt högt under början av 2000-talet. Därefter syns en klart nedåtgående trend, även om ohälsotalet har ökat något de senaste åren. Under hela tidsperioden har ohälsotalet varit högre för kvinnor än för män, även om skillnaden mellan könen har minskat något över tid.

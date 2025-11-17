@@ -558,20 +558,38 @@ overrep_min_ar = overrep_df$Ar %>% min()
 source(here("Skript","diagram_bra_ntu_kv_man.R"))
 gg_bra_ntu_lista <- diag_bra_ntu_kv_man()
 
-# helårsekvivalenter
+# helårsekvivalenter per kön
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_helarsekvivalenter_kon_scb.R")
-gg_helarsekvivalenter_man <- diag_helarsekvivalenter(
-  region_vekt = 20,
-  kon_klartext = "män",
+gg_helarsekvivalenter <- diag_helarsekvivalenter(
+  region_vekt = "20",
+  kon_klartext = c("kvinnor", "män"),
   skriv_diagramfil = skriv_diagramfiler
   )
 
-gg_helarsekvivalenter_kvinnor <- diag_helarsekvivalenter(
-  region_vekt = 20,
-  kon_klartext = "kvinnor",
-  skriv_diagramfil = skriv_diagramfiler
-)
+# återstående medellivslängd per län, kön och utbildningsnivå
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_aterstaende_medellivslangd_utbniva_lan_scb.R")
+gg_aterstaende_medellivslangd <- diag_aterstaende_medellivslangd_utbniva_lan_scb()
 
+ml_df <- gg_aterstaende_medellivslangd$`medellivslangd_aterstaende_vid_30 år_alder_Dalarna`$data
+ml_forandring <- ml_df %>%
+  group_by(kön, utbildningsnivå) %>%
+  summarise(
+    first_value = first(total),
+    last_value  = last(total),
+    absolut_okning = last_value - first_value, 
+    procent_okning = (last_value - first_value) / first_value * 100,
+    .groups = "drop"
+  )
+
+grupp_minst_okning <- ml_forandring %>% 
+  filter(absolut_okning == min(absolut_okning)) %>% 
+  mutate(grupp = paste(kön, "med", utbildningsnivå))
+
+grupp_storst_okning <- ml_forandring %>% 
+  filter(absolut_okning == max(absolut_okning)) %>% 
+  mutate(grupp = paste(kön, "med", utbildningsnivå)) 
+
+skillnad_minst_storst <- grupp_storst_okning$last_value - grupp_minst_okning$last_value
 
 save.image(file = "G:/skript/projekt/environments/kvinnor_man.RData")
 
