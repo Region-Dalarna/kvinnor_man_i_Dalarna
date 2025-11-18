@@ -563,12 +563,16 @@ source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_helar
 gg_helarsekvivalenter <- diag_helarsekvivalenter(
   region_vekt = "20",
   kon_klartext = c("kvinnor", "män"),
-  skriv_diagramfil = skriv_diagramfiler
+  skriv_diagramfil = skriv_diagramfiler,
+  ggobjektfilnamn_utan_tid = TRUE
   )
 
 # återstående medellivslängd per län, kön och utbildningsnivå
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_aterstaende_medellivslangd_utbniva_lan_scb.R")
-gg_aterstaende_medellivslangd <- diag_aterstaende_medellivslangd_utbniva_lan_scb()
+gg_aterstaende_medellivslangd <- diag_aterstaende_medellivslangd_utbniva_lan_scb(
+  region_vekt = "20",
+  ggobjektfilnamn_utan_tid = TRUE
+)
 
 ml_df <- gg_aterstaende_medellivslangd$`medellivslangd_aterstaende_vid_30 år_alder_Dalarna`$data
 ml_forandring <- ml_df %>%
@@ -580,6 +584,24 @@ ml_forandring <- ml_df %>%
     procent_okning = (last_value - first_value) / first_value * 100,
     .groups = "drop"
   )
+
+ml_per_kon_ar <- ml_df %>%
+  group_by(årsintervall, utbildningsnivå) %>%
+  summarise(
+    man = total[kön == "män"],
+    kvinnor  = total[kön == "kvinnor"],
+    absolut_konsskillnad = kvinnor - man, 
+    procent_konsskillnad = (kvinnor - man) / man * 100,
+    .groups = "drop"
+  )
+
+ml_per_kon <- ml_per_kon_ar %>% 
+  group_by(utbildningsnivå) %>% 
+  summarise(man = mean(man),
+            kvinnor = mean(kvinnor),
+            absolut_konsskillnad = kvinnor - man, 
+            procent_konsskillnad = (kvinnor - man) / man * 100,
+            .groups = "drop")
 
 grupp_minst_okning <- ml_forandring %>% 
   filter(absolut_okning == min(absolut_okning)) %>% 

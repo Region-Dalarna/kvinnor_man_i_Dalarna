@@ -1,5 +1,6 @@
 
 library(tidyverse)
+library(stringi)
 
 diag_bra_ntu_kv_man <- function(sokord = c("utsatthet för misshandel", "utsatthet för sexualbrott",
                                            "utsatthet för hot", 
@@ -48,7 +49,8 @@ diag_bra_ntu_kv_man <- function(sokord = c("utsatthet för misshandel", "utsatth
                                str_remove_all(" \\(1\\)") %>%
                                str_remove(", enligt NTU \\d{4}–\\d{4}") %>%
                                str_remove(" \\d{4}–\\d{4}") %>%
-                               str_remove_all("\\(%\\) ")
+                               str_remove_all("\\(%\\) ") %>%
+                               str_replace("Självrapporterad utsatthet", "Självrapporterad utsatthet")
                              , " i Dalarnas län"),
       filnamn_diagram = paste0(diagram_namn, ".png"),
       manual_color = diagramfarger("kon"),
