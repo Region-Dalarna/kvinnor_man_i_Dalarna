@@ -70,7 +70,7 @@ Jämställdhetspolitikens mål handlar om är att kvinnor och män ska ha samma 
 
 <li>Kvinnors ohälsa mätt genom frånvaro från arbetsplatsen är betydligt mer omfattande än mäns. Skillnaden gäller oavsett bransch, och är tydligast när det gäller stressrelaterade symtom.</li>
 
-<li>Samtidigt som män i genomsnitt har bättre livsvillkor än kvinnor, är det också en grupp män som har det sämst ställt med utanförskap, dålig ekonomi och ohälsa, vilket bidrar till att de har en kortare medellivslängd.</li>
+<li>Samtidigt som män i genomsnitt har bättre livsvillkor än kvinnor, är det också en grupp män som har det sämst ställt med utanförskap, dålig ekonomi och ohälsa, vilket bland annat leder till att de har en genomsnittligt kortare medellivslängd.</li>
     
 
 # Introduktion {-}
@@ -87,7 +87,7 @@ Alla offentliga verksamheter i Dalarna så som Region Dalarna, Länsstyrelsen Da
 3. Jämställd utbildning
 4. Jämn fördelning av det obetalda hem - och omsorgsarbetet
 5. Jämställd hälsa
-6. Mäns våld mot kvinnor ska upphöra (Ev. under konstruktion)
+6. Mäns våld mot kvinnor ska upphöra
 
 Region Dalarna har tidigare publicerat jämställdhetsanalyser av läget i Dalarna på webben, år 2022, 2023, 2024, samt en fördjupande uppföljning av jämställdhet i länet år 2019 [Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv](https://www.regiondalarna.se/contentassets/d845727dbc9f49c3b7b09a2c60456497/jamstalldhetsrapport.pdf){target="_blank"}^[Region Dalarna, Kvinnor och män i Dalarna ur ett jämställdhetsperspektiv.] som togs fram inom projektet Jämställd regional tillväxt.
 
@@ -105,7 +105,7 @@ Policy-uppföljningar av jämställdhetspolitiken görs av bland andra Jämstäl
 
 
 # Makt och politik
-Det första av de jämställdhetspolitiska delmålen lyder "en jämn fördelning av makt och inflytande". Detta mäts bland annat genom kvinnors och mäns representation på maktpositioner i politik, och chefspositioner i arbetslivet, både offentlig sektor och näringsliv. Historiskt har män befolkat dessa positioner och kvinnor i undantagsfall. Dessvärre visar nuläget att många traditionella mönster består. Generellt visar siffrorna på att ju högre upp i hierarkin man kommer, desto fler män befolkar positionerna. [Jämställdhetsmyndigheten](<https://jamstalldhetsmyndigheten.se/jamstalldhet-i-sverige/delmal-1-jamn-fordelning-av-makt-och-inflytande/>){target="_blank"} skriver att: 
+Det första av de jämställdhetspolitiska delmålen lyder "en jämn fördelning av makt och inflytande". Detta mäts bland annat genom kvinnors och mäns representation på maktpositioner i politiken och chefspositioner i arbetslivet, både offentlig sektor och näringsliv. Historiskt har män befolkat dessa positioner och kvinnor i undantagsfall. Dessvärre visar nuläget att många traditionella mönster består. Generellt visar siffrorna på att ju högre upp i hierarkin man kommer, desto fler män befolkar positionerna. [Jämställdhetsmyndigheten](<https://jamstalldhetsmyndigheten.se/jamstalldhet-i-sverige/delmal-1-jamn-fordelning-av-makt-och-inflytande/>){target="_blank"} skriver att: 
 
 <blockquote>Näringsliv, högre utbildningar och organisationer med mindre insyn har få kvinnor på höga positioner.</blockquote> 
 
@@ -150,19 +150,19 @@ och i yrkeslivet. I diagrammet nedan visas andelen chefer av de sysselsatta uppd
 gg_andel_chefer$andel_chefer_Dalarna
 ```
 
-I diagrammet nedan ser vi utveckling över tid. Andelen kvinnor i chefsposition i Dalarna har fördubblats under en tjugoårsperiod, och under samma period är andelen män i chefspositioner mer eller mindre oförändrad. Det betyder att antalet chefspositioner har ökat i antal, och det är kvinnor som bemannat dessa. Totalt sett så gör det att utvecklingen över tid ändå går i en mer jämställd riktning, även om situationen på arbetsmarknaden fortsatt får anses vara ojämställd.
+I diagrammet nedan ser vi utveckling över tid. Andelen kvinnor i chefsposition i Dalarna har fördubblats under en tjugoårsperiod, och under samma period är andelen män i chefspositioner mer eller mindre oförändrad. Det betyder att antalet chefspositioner har ökat i antal, och det är kvinnor som befolkat dessa. Totalt sett så gör det att utvecklingen över tid ändå går i en mer jämställd riktning, även om situationen på arbetsmarknaden fortsatt får anses vara ojämställd.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_andel_chefer$andel_chefer_linje_Dalarna
 ```
 
-I diagrammet nedan visas över-/underrepresentation av manliga chefer inom olika branscher i Dalarna. Ett värde på 0 indikerar att andelen manliga chefer är proportionerligt mot andelen anställda män i branschen, medan ett värde över/under 0 visar på en över-/underrepresentation av manliga chefer.
+I diagrammet nedan visas över-/underrepresentation av chefer utifrån kön inom olika branscher i Dalarna. Ett värde på 0 indikerar att andelen manliga/kvinnliga chefer är proportionerligt mot andelen anställda män/kvinnor i branschen, medan ett värde över 0 visar på en överrepresentation av män på chefspositionerna, och ett värde under 0 visar på en överrepresentation av kvinnor på chefspositionerna.
 
-En överrepresentation av manliga chefer kan antas vara störst i branscher där en tydlig majoritet av de som arbetar är män, såsom bygg, tillverkning och utvinning. Men som synes i diagrammet är dock andelen män på chefspositioner i dessa branscher proportionerlig sett till andelen anställda män. Inom flera andra branscher, däribland stora branscher som handel, hotell och restaurang samt utbildning, är däremot män på chefspositioner överrepresenterade sett till könsfördelningen bland de anställda inom branschen. Samtidigt finns det totalt sett en tydlig trend mot en ökad andel kvinnor på chefspositioner. Den manliga överrepresentationen på chefsnivå har minskat inom samtliga branscher förutom jord- och skogsbruk mellan `r overrep_min_ar ` och `r overrep_max_ar `. Inom vård- och omsorgsbranschen har en tydlig manlig överrepresentation bytts mot en underrepresentation, vilken även gäller inom offentlig förvaltning.
+En överrepresentation av män på chefspositioner kan antas vara störst i branscher där en tydlig majoritet av de som arbetar är män, såsom bygg, tillverkning och utvinning. Men som synes i diagrammet är dock andelen män på chefspositioner i dessa branscher proportionerlig sett till andelen anställda män. Inom flera andra branscher, däribland stora branscher som handel, hotell och restaurang samt utbildning, är däremot män på chefspositioner överrepresenterade sett till könsfördelningen bland de anställda inom branschen. Samtidigt finns det totalt sett en tydlig trend mot en ökad andel kvinnor på chefspositioner. Den manliga överrepresentationen på chefsnivå har minskat inom samtliga branscher förutom jord- och skogsbruk mellan `r overrep_min_ar ` och `r overrep_max_ar `. Inom vård- och omsorgsbranschen har en tydlig överrepresentation av män bytts mot en underrepresentation av män, vilken även gäller inom offentlig förvaltning.
 
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
+```{r echo=FALSE, fig.align='center', fig.height=5, fig.width=8, message=FALSE, warning=FALSE}
 gg_overrep$overrep
 ```
 
@@ -177,11 +177,10 @@ Inkomst av arbete utgör merparten av en individs försörjning, men både löne
 
 Det finns många faktorer som bidrar till ojämställdhet på arbetsmarknaden och som sedan medför en ojämställd livsinkomst, men familjebildningen är den faktor som i högst grad bidrar till ojämställd ekonomi. Ett exempel med nationella siffror som synliggör hur familjelivet skapar skillnader är att gapet i disponibel inkomst mellan kvinnor och män är som störst för sammanboende, 35 procent, när det yngsta barnet är 0–3 år [(Regeringen, 2022)](<https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf>){target="_blank"}^[Regeringen (2022) Prop. 2022/23:1 Bilaga 3 Ekonomisk jämställdhet 2022].
 
-Men, även löneskillnader mellan könen inverkar på livsinkomsten och börjar i praktiken i relativt ung ålder. Redan vid 29 års ålder har män i genomsnitt 20 procent högre medianinkomst än kvinnor, nationellt. En del av skillnaden kan förklaras av skillnader i utbildningsval, då fler kvinnor väljer att studera och då kommer ut senare i arbetslivet. Trots en högre utbildningsnivå kvarstår dock gapet i lön mellan könen [(Jämställdhetsmyndigheten, 2025)](https://jamstalldhetsmyndigheten.se/media/llefhgq1/kunskapssammanst%C3%A4llning-ungas-ekonomi-2025-1.pdf){target="_blank"}^[Jämställdhetsmyndigheten (2025) En tid av förväntan, väntan och osäkerhet]. 
+Men, även löneskillnader mellan könen inverkar på livsinkomsten och börjar i praktiken i relativt ung ålder. Redan vid 29 års ålder har män i genomsnitt 20 procent högre medianinkomst än kvinnor, nationellt. En del av skillnaden kan förklaras av skillnader i utbildningsval, då fler kvinnor väljer att studera och därmed kommer ut senare i arbetslivet. Trots en högre utbildningsnivå kvarstår dock gapet i lön mellan könen [(Jämställdhetsmyndigheten, 2025)](https://jamstalldhetsmyndigheten.se/media/llefhgq1/kunskapssammanst%C3%A4llning-ungas-ekonomi-2025-1.pdf){target="_blank"}^[Jämställdhetsmyndigheten (2025) En tid av förväntan, väntan och osäkerhet]. 
 
-På nationell nivå har SCB jämfört den standardvägda lönen, dvs. lönen när hänsyn tas till bland annat ålder och utbildningsnivå, för att synliggöra om det kan finnas en diskrimineringsaspekt i lönenivån. Slutsatsen blev att kvinnors standardvägda lön är ungefär 95 procent av männens standardvägda lön, det vill säga det finns en oförklarad löneskillnad mellan kvinnor och män [(SCB)](<https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__AM__AM0110__AM0110B/LonStandVagdYrkA/>){target="_blank"}.
+På nationell nivå har SCB jämfört den standardvägda lönen, dvs. lönen när hänsyn tas till bland annat ålder och utbildningsnivå, för att synliggöra om det kan finnas en diskrimineringsaspekt i eventuella löneskillnader. Slutsatsen blev att kvinnors standardvägda lön är ungefär 95 procent av männens standardvägda lön, det vill säga det finns en oförklarad löneskillnad mellan kvinnor och män [(SCB)](<https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__AM__AM0110__AM0110B/LonStandVagdYrkA/>){target="_blank"}.
 
-Vid pensionering finns det numera många som fortsätter att arbeta hel- eller deltid, så kallade jobbonärer, dessa har relativt god ekonomi. De som har det sämst ställt efter pensionering är kvinnor som inte fortsätter att arbeta. 
  
 ## Inkomst och disponibel inkomst
 En egen inkomst är en av förutsättningarna för ett ekonomiskt självständigt liv. Livsinkomsten påverkar även vilken pension personen kommer att få vid pensionering. 
@@ -207,6 +206,8 @@ gg_inkomst$Medianinkomst_20_64_Dalarna_kommun
 ```
 
 Personer 65 år och äldre har en lägre medianinkomsten än personer i arbetsför ålder (20-64 år). I Dalarna var medianinkomsten år `r inkomst_max_ar` för män 65 år och äldre `r medianinkomst_man_max_65` tusen kronor före skatt, medan en kvinna i samma åldersgrupp hade en medianinkomst på `r medianinkomst_kvinna_max_65` tusen kronor. Att inkomsterna är lägre för personer 65 år och äldre är rimligt eftersom många i den åldern har gått i pension och då har lägre inkomster än de hade när de förvärvsarbetade.
+
+Men det finns även numera många som fortsätter att arbeta hel- eller deltid efter ordinarie pensionsålder, så kallade jobbonärer, dessa har relativt god ekonomi. De som har det sämst ställt efter pensionering är kvinnor som inte fortsätter att arbeta.
 
 I den andra figuren nedan syns dock att den relativa skillnaden i inkomst mellan könen har minskat mer sedan millennieskiftet för personer äldre än 65 år, jämfört med de i arbetsför ålder (20-64 år). Diagrammet visar att kvinnors medianinkomst har ökat med `r medianinkomst_kvinna_forandring_65` procent medan mäns har ökat med ungefär `r medianinkomst_man_forandring_65` procent.
 
@@ -239,18 +240,18 @@ Däremot skiljer sig sysselsättningsgraden åt mellan inrikes och utrikes född
 Utrikes födda män har en högre sysselsättningsgrad än utrikes födda kvinnor i samtliga län förutom Norrbotten. I Dalarna var sysselsättningsgraden bland utrikes födda män `r syssgrad_utrikes_man_Dalarna` procent, vilket
 är cirka `r syssgrad_utrikes_skillnad_Dalarna ` procentenheter mer än för utrikes födda kvinnor i Dalarna.
 
-Något att ta hänsyn till när man analyserar sysselsättningsgrad och arbetslöshet bland utrikes födda är hur lång tid individen har varit i Sverige. Vistelsetid i Sverige har ett starkt samband med sysselsättningsgrad och arbetslöshet och därmed kommer andelen nyligen invandrade i gruppen utrikes födda att påverka nivån på dessa variabler, se rubrik XX.
+Något att ta hänsyn till när man analyserar sysselsättningsgrad och arbetslöshet bland utrikes födda är hur lång tid individen har varit i Sverige. Vistelsetid i Sverige har ett starkt samband med sysselsättningsgrad och arbetslöshet och därmed kommer andelen nyligen invandrade i gruppen utrikes födda att påverka nivån på dessa variabler.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_diagram_arbetsmarknadsstatus_lan$sysselsattningsgrad_senastear
 ```
 
-Sysselsättningsgraden i respektive kommun i Dalarna visar ett liknande mönster som länen på nationell nivå. Gruppen inrikes födda har en högre sysselsättningsgrad i samtliga kommuner i Dalarna jämfört med utrikes födda. Även här är sysselsättningsgraden för inrikes födda kvinnor och män ungefär lika hög. För utrikes födda är det däremot stora skillnader mellan kvinnor och män, också mellan olika kommuner. I linje med den nationella bilden är sysselsättningsgraden högre för gruppen utrikes födda män i jämförelse med utrikes födda kvinnor i de flesta kommuner. Sysselsättningsgraden för utrikes födda män skiljer sig dock åt mellan kommuner där den högsta sysselsättningsgraden finns i `r syssgrad_utrikes_man_max_kommun` (`r syssgrad_utrikes_man_max_varde` procent) och den lägsta i `r syssgrad_utrikes_man_min_kommun` (`r syssgrad_utrikes_man_min_varde` procent).
+Sysselsättningsgraden i respektive kommun i Dalarna visar ett liknande mönster som länen på nationell nivå. Gruppen inrikes födda har en högre sysselsättningsgrad i samtliga kommuner i Dalarna jämfört med utrikes födda. Även här är sysselsättningsgraden för inrikes födda kvinnor och män ungefär lika hög. För utrikes födda är det däremot stora skillnader mellan kvinnor och män, också mellan olika kommuner. I linje med den nationella bilden är sysselsättningsgraden högre för gruppen utrikes födda män i jämförelse med utrikes födda kvinnor, i de flesta kommuner. Sysselsättningsgraden för utrikes födda män skiljer sig dock åt mellan kommuner där den högsta sysselsättningsgraden finns i `r syssgrad_utrikes_man_max_kommun` (`r syssgrad_utrikes_man_max_varde` procent) och den lägsta i `r syssgrad_utrikes_man_min_kommun` (`r syssgrad_utrikes_man_min_varde` procent).
 
 `r syssgrad_utrikes_kvinna_max_kommun` har den högsta sysselsättningsgraden för gruppen utrikes födda kvinnor i Dalarna, `r syssgrad_utrikes_kvinna_max_varde` procent, och ligger klart över genomsnittet för länet. Samtidigt är sysselsättningsgraden i `r syssgrad_utrikes_kvinna_min_kommun` kommun bland utrikes födda kvinnor bara `r syssgrad_utrikes_kvinna_min_varde` procent. 
 
-Värt att notera är att en del av skillnaden i utrikes föddas sysselsättningsgrad mellan kommunerna sannolikt kan förklaras av skillnader i antalet personer som invandrade under åren runt 2015 då invandringen till Sverige var mycket stor. Exempelvis var Avesta, Ludvika och Hedemora de tre kommuner som tog emot flest invandrare i förhållande till folkmängd under 2015-2017. Detta förefaller i första hand gälla för utrikes födda kvinnor, då både Hedemora och Ludvika har relativt hög sysselsättningsgrad för utrikes födda män, medan den är klart lägre för utrikes födda kvinnor. I Ludvika är skillnaden mellan könen i sysselsättningsgrad ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Ludvika",variabel == "sysselsättningsgrad") %>% .$varde-arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Ludvika",variabel == "sysselsättningsgrad") %>% .$varde,0)` procentenheter, vilket är den största skillnaden i länet.
+Värt att notera är att en del av skillnaden i utrikes föddas sysselsättningsgrad mellan kommunerna sannolikt kan förklaras av skillnader vilka kommuner som tog emot flest personer under åren runt 2015 då invandringen till Sverige var mycket stor. Exempelvis var Avesta, Ludvika och Hedemora de tre kommuner som tog emot flest invandrare i förhållande till folkmängd under 2015-2017. Detta förefaller i första hand gälla för utrikes födda kvinnor, då både Hedemora och Ludvika har relativt hög sysselsättningsgrad för utrikes födda män, medan den är klart lägre för utrikes födda kvinnor. I Ludvika är skillnaden mellan könen i sysselsättningsgrad ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Ludvika",variabel == "sysselsättningsgrad") %>% .$varde-arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Ludvika",variabel == "sysselsättningsgrad") %>% .$varde,0)` procentenheter, vilket är den största skillnaden i länet.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -274,12 +275,12 @@ Precis som var fallet med sysselsättningsgrad tidigare, så uppvisar Dalarnas k
 
 Lägst arbetslöshet för inrikes födda kvinnor återfinns i `r arblosthet_inrikes_kvinna_min_kommun ` med `r arblosthet_inrikes_kvinna_min_varde` procent, medan den lägsta arbetslösheten för inrikes födda män finns i `r arblosthet_inrikes_man_min_kommun` med `r arblosthet_inrikes_man_min_varde` procent.
 
-Bland utrikes födda är arbetslösheten avsevärt mycket högre för både kvinnor och män. Genomsnittet i Dalarnas län ligger på `r arblosthet_utrikes_kvinna_Dalarna` procent
+Bland utrikes födda är arbetslösheten avsevärt mycket högre för både kvinnor och män än för inrikes födda. Genomsnittet i Dalarnas län ligger på `r arblosthet_utrikes_kvinna_Dalarna` procent
 bland utrikes födda kvinnor och `r arblosthet_utrikes_man_Dalarna` procent bland utrikes födda män. Den högsta arbetslösheten bland utrikes födda kvinnor återfinns i `r arblosthet_utrikes_kvinna_max_kommun ` där den ligger på `r arblosthet_utrikes_kvinna_kommun_max_varde` procent. `r arblosthet_utrikes_man_max_kommun` redovisar den högsta arbetslöshetssiffran bland utrikes födda män med `r arblosthet_utrikes_man_kommun_max_varde ` procent.
 
 Lägst arbetslöshet bland utrikes födda män återfinns i `r arblosthet_utrikes_man_min_kommun ` kommun, medan `r arblosthet_utrikes_kvinna_min_kommun ` har lägst arbetslöshet bland utrikes födda kvinnor.
 
-Det är återigen värt att notera att de skillnader i arbetslöshet som diskuterades i stycket om sysselsättningsgrad ovan, sannolikt delvis kan förklaras av skillnader i antalet personer och när i tid som de invandrat till olika kommuner.
+Det är återigen värt att notera att de skillnader i arbetslöshet som diskuterades i stycket om sysselsättningsgrad ovan sannolikt delvis kan förklaras av skillnader i antalet personer och hur nära i tid som de invandrat till olika kommuner.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -316,7 +317,7 @@ Skillnaden mellan utrikes födda kvinnor och utrikes födda män kan bland annat
 
 Att vara anhöriginvandrare sätter också kvinnan i fråga i en särskild beroendeställning till sin respektive anhörige i jämförelse med om hon invandrat/flytt på egna premisser. Detta i kombination med ofta låg utbildning och brist på arbetslivserfarenhet från hemlandet blir också hinder för att delta i integrationsinsatser, utbildning och arbetssökande. Se exempelvis [Expertgruppen för studier i offentlig ekonomi (2021)](https://eso.expertgrupp.se/wp-content/uploads/2020/03/ESO-2021_7_forsorjning-med-fordrojning_webb.pdf){target="_blank"} och [Regeringen (2023)](<https://www.regeringen.se/contentassets/aaae962745b74fa4abc01f7926bb5adc/sou-2023_24_pdf-a_webb.pdf>){target="_blank"}^[Etablering för fler – jämställda möjligheter till integration (SOU 2023:24)].
 
-Regeringen har under år 2023 satt fokus på insatser som ska få utrikes födda kvinnor i arbete snabbare. Bland annat har länsstyrelserna ett regionalt uppdrag med detta mål.
+Regeringen har sedan år 2023 satt fokus på insatser som ska få utrikes födda kvinnor i arbete snabbare. Bland annat har länsstyrelserna ett regionalt uppdrag med detta mål.
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_etablering$etablering_lan_kon
@@ -344,7 +345,7 @@ Bidragstagandet ligger på historiskt låga nivåer såväl i Sverige som i Dala
 <br>
 
 ## Skulder hos Kronofogden
-Ytterligare en aspekt som speglar ekonomiska livsvillkor är skulder hos Kronofogden, vilket både är bekymmer för individen och orsakar stora kostnader för samhället. I det första diagrammet nedan redovisas antalet personer i Dalarna som har skulder under indrivning hos Kronofogden. Två trender är tydliga.
+Ytterligare en aspekt som speglar ekonomiska livsvillkor är individers skulder hos Kronofogden, vilket både är bekymmer för individen och orsakar stora kostnader för samhället. I det första diagrammet nedan redovisas antalet personer i Dalarna som har skulder under indrivning hos Kronofogden. Två trender är tydliga.
 
 Sedan 2010 har antalet med skulder hos Kronofogden minskat från ungefär 10 300 personer till cirka `r antal_skuldsatta_totalt` i Dalarnas län. Av dessa är ungefär `r andel_skuldsatta_man` procent män och `r andel_skuldsatta_kvinnor` procent kvinnor, en fördelning som inte har förändrats över tid. Det är således avsevärt fler män än kvinnor i länet som har skulder hos Kronofogden. Värt att notera är dock att antalet har börjat öka på senare år, vilket kan vara en effekt av högre bolåneräntor och ökad inflation, något som bland annat fått till följd att matpriserna stigit avsevärt [(SVT)](https://www.svt.se/nyheter/ekonomi/nara-tre-ar-med-hog-inflation-sa-dyr-blev-maten){target="_blank"}.
 
@@ -362,7 +363,7 @@ Störst andel skuldsatta finns i åldersintervallet `r hogst_andel_alder_grupp`,
 gg_skuldsatta$Andel_skuldsatta_Dalarna
 ```
 
-I diagrammet nedan redovisas antalet långsiktigt skuldsatta i Dalarna, vilket betyder indivder som under minst 20 års tid har haft skulder till Kronofogden. Även här finns det betydligt fler män än kvinnor till antalet. Åren 2013 - 2016 var en period med ett större antal skuldsatta i båda grupperna, men därefter har antalet minskat bland både kvinnor och män. Mätt över tidsperioden `r langsiktiga_ar_min` - `r langsiktiga_ar_max` har antalet män minskat med `r forandring_man` procent medan antalet kvinnor istället har ökat med `r forandring_kvinna` procent.
+I diagrammet nedan redovisas antalet långsiktigt skuldsatta i Dalarna, vilket betyder individer som under minst 20 års tid har haft skulder till Kronofogden. Även här finns det betydligt fler män än kvinnor till antalet. Åren 2013 - 2016 var en period med ett större antal skuldsatta i båda grupperna, men därefter har antalet minskat bland både kvinnor och män. Mätt över tidsperioden `r langsiktiga_ar_min` - `r langsiktiga_ar_max` har antalet män minskat med `r forandring_man` procent medan antalet kvinnor istället har ökat med `r forandring_kvinna` procent.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -396,7 +397,6 @@ Generellt tenderar regioner med större urbana center att både ha en yngre och 
 
 En strukturell faktor som kan bidra till könsskillnaden i utbildningsnivå är att många yrken inom kvinnodominerade sektorer så som utbildning och vård kräver högskoleutbildning, exempelvis läraryrket och sjuksköterskeyrket. Dessa yrken utgör också en stor andel av arbetstillfällena på arbetsmarknaden.
 
-Utbildningsnivån påverkar inte bara livsinkomsten utan även medellivslängden. För personer som uppnått 65 års ålder skiljer mer än tre år i medellivslängd mellan dem som har förgymnasial utbildning och dem med eftergymnasial utbildning. Skillnaden mellan könen är genomgående cirka två år, vilket innebär att kvinnor i respektive utbildningsgrupp lever i genomsnitt två år längre än män i samma utbildningsgrupp. Samtidigt visar det sig att boenderelationer också påverkar medellivslängden, och särskilt för män. Män med förgymnasial utbildning som är sammanboende lever i genomsnitt längre än ensamstående män med eftergymnasial utbildning. Sämst utsikter, genomsnittligt, för ett långt liv har således ensamstående män med låg utbildningsnivå [(SCB)](https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__BE__BE0701/LivslUtbHushtyp/){target="_blank"}.
 
 Utbildningsnivån inom åldersgruppen 25-64 år i Dalarna år `r utbildning_senaste` enligt figuren nedan visar på stora skillnader mellan könen. En betydligt större andel kvinnor i länet har en högre utbildning i jämförelse med andelen män med högre utbildning. Bland kvinnor i Dalarna är den vanligaste, med `r vanligast_kvinnor_andel` procent, utbildningsnivån "`r vanligast_kvinnor_utbildning`". Motsvarande andel bland män i Dalarna är `r eftergym_andel_man` procent. Bland män i Dalarna är i stället den vanligast förekommande utbildningskategorin "`r vanligast_man_utbildning`". Ungefär `r vanligast_man_andel` procent av männen i Dalarna återfinns inom denna kategori.
 
@@ -605,6 +605,8 @@ gg_aterstaende_medellivslangd$`medellivslangd_aterstaende_vid_30 år_alder_Dalar
 
 Återstående medellivslängd vid 30 års ålder i Dalarna visar tydliga skillnader mellan både utbildningsnivåer och kön. Personer med eftergymnasial utbildning har genomgående längst återstående medellivslängd, medan personer med förgymnasial utbildning har kortast. Kvinnor lever längre än män i alla utbildningsgrupper, även om gapet varierar något mellan grupperna. Utvecklingen över tid präglas av en långsam men tydlig ökning av medellivslängden för både kvinnor och män, men även ökningen är ojämnt fördelad. Under den åttaårsperiod som diagrammet visar är ökningen minst i gruppen `r grupp_minst_okning$grupp` där ökningen av medellivslängden är `r round(grupp_minst_okning$absolut_okning, 2) %>% str_replace("\\.", ",")` år under perioden. Den grupp som har haft den största ökningen av återstående medellivslängd vid 30 års ålder är `r grupp_storst_okning$grupp` där ökningen är `r round(grupp_storst_okning$absolut_okning, 2) %>% str_replace("\\.", ",")` år. Skillnaden i medellivslängd mellan dessa båda grupper är `r round(skillnad_minst_storst, 2) %>% str_replace("\\.", ",")` år för den senaste mätningen år `r max(ml_df$årsintervall)`.
 
+En faktor som också visat sig påverka medellivslängden men som kanske inte är så uppenbar är boenderelationer, och särskilt för män. I en nationell studie från SCB framår att män med förgymnasial utbildning som är sammanboende lever i genomsnitt längre än ensamstående män med eftergymnasial utbildning. Sämst utsikter, genomsnittligt, för ett långt liv har således ensamstående män med låg utbildningsnivå [(SCB)](https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__BE__BE0701/LivslUtbHushtyp/){target="_blank"}.
+
 ## Ohälsotalet 
 Ohälsa kan följas upp på flera sätt. I detta avsnitt redovisas utfallet av de aggregerade nivåerna för ohälsotalet och sjukpenningtalet, och en fördjupning ges i stressrelaterade sjukfall och hur sjukfall fördelas över olika branscher.
 
@@ -617,8 +619,7 @@ Ohälsotalet^[Ohälsotalet: hur många dagar under en tolvmånadersperiod
 gg_ohalsotal_sjp$ohalsotal_Dalarna
 ```
 
-Ohälsotalet för Dalarnas befolkning visar att det finns skillnader mellan länets
-kommuner. För män är ohälsotalet år `r max(ohalsotal_df$År)` högst i `r ohalsotal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Ohälsotalet_medel == max(.$Ohälsotalet_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")` och lägst i `r ohalsotal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")`. För
+Ohälsotalet för Dalarnas befolkning visar att det finns skillnader mellan länets kommuner. För män är ohälsotalet år `r max(ohalsotal_df$År)` högst i `r ohalsotal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Ohälsotalet_medel == max(.$Ohälsotalet_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")` och lägst i `r ohalsotal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")`. För
 kvinnor är ohälsotalet högst i `r ohalsotal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Ohälsotalet_medel == max(.$Ohälsotalet_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")` och lägst i `r ohalsotal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")`. För att fastställa orsaken till skillnaderna mellan kommuner behövs djupare studier och analyser. Potentiella faktorer kan vara att branschstrukturen skiljer sig mellan kommunerna och att det är olika hög sjukfrånvaro i olika branscher, men även att socioekonomiska förutsättningar skiljer sig åt mellan kommunerna i Dalarna.
 
 <br>
@@ -669,15 +670,15 @@ gg_sjukfall_bransch$Startade_sjukfall_bransch
 # Mäns våld mot kvinnor ska upphöra
 Jämställdhetsmyndigheten beskriver delmålet som att "(K)vinnor och män, flickor och pojkar ska ha samma rätt och möjlighet till kroppslig integritet. Delmålet omfattar alla yttringar av fysiskt och psykiskt, inklusive sexualiserat, våld och hot om våld samt hedersrelaterat våld och förtryck och prostitution och handel med människor för sexuella ändamål. Delmålet har även ett särskilt fokus på kopplingen mellan maskulinitet och våld." (https://jamstalldhetsmyndigheten.se/om-jamstalldhetsmyndigheten/uppfoljning-av-jamstalldhetspolitiken/)
 
-Delmålet följs upp genom den Nationella Trygghetsundersökningen som går att bryta ner per kön och län. Det finns statistik över anmälda brott som går att bryta ner till kategorier som överensstämmer bättre med delmålets formuleringar och vi tänker oss fördjupade analyser av den typen av data i framtiden. Det bör dock lyftas att det kan finnas en problematik med att vissa brott inte anmäls, och ibland görs särskilda insatser inom Polisen för att stävja kriminalitet för vissa specifika brott vilket kan ge en ökning av antalet anmälningar utan att antalet brott i sig behöver öka. 
+Delmålet följs upp genom den Nationella Trygghetsundersökningen som går att bryta ner per kön och län. Det finns statistik över anmälda brott som går att bryta ner till kategorier som överensstämmer bättre med delmålets formuleringar och vi tänker oss fördjupade analyser av den typen av data i framtiden. Det bör dock lyftas att det kan finnas en problematik med underrapportering, dvs att vissa brott inte anmäls, likväl som att Polisen ibland gör särskilda insatser för att stävja kriminalitet för vissa specifika brott vilket kan ge en ökning av antalet anmälningar utan att antalet brott i sig behöver öka. 
 
-I denna uppföljning läggs fokus på övergripande frågor kring misshandel, sexualbrott, hot samt oro och otrygghet för dessa brottskategorier och huruvida man avstått från någon aktivitet som en följd av oro. Självrapporterad utsatthet för misshandel är en bred kategori och i denna enkätfråga berörs inte förövarens kön vilket görs i delmålet. Frågan ger ändå en bild över utvecklingen av utsatthet för misshandel per kön över tid. 
+I denna uppföljning läggs fokus på övergripande frågor kring misshandel, sexualbrott och hot samt oro och otrygghet för dessa brottskategorier och huruvida man avstått från någon aktivitet som en följd av oro. Självrapporterad utsatthet för misshandel är en bred kategori och i denna enkätfråga berörs inte förövarens kön vilket görs i delmålet. Frågan ger ändå en bild över utvecklingen av utsatthet för misshandel per kön över tid. 
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_bra_ntu_lista$`Självrapporterad utsatthet för misshandel`
 ```
 
-Skillnaden mellan kvinnor och män är små och varierar mellan åren. Även om det skett både upp- och nedgångar mellan åren är den längre trenden en minskning av utsatthet för misshandel, för båda könen om än ännu tydligare bland män. 
+Skillnaden mellan kvinnor och män är små och varierar mellan åren. Även om det skett både upp- och nedgångar mellan åren visar den längre trenden en minskning av utsatthet för misshandel för båda könen, om än ännu tydligare bland män. 
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_bra_ntu_lista$`Självrapporterad utsatthet för sexualbrott`
@@ -703,19 +704,19 @@ Oro för misshandel följer ungefär samma nedåtgående trend som utsattheten, 
 gg_bra_ntu_lista$`Oro för att utsättas för våldtäkt eller sexuella angrepp`
 ```
 
-När det gäller oro för att utsättas för våldtäkt eller sexuella angrepp är könsskillnaden stor där väsentligt högre andel kvinnor en män känner en oro. De flesta år oroar sig var sjätte kvinna i befolkningen ganska eller mycket ofta över att utsättas för dessa brott. Glädjande nog är det även här en nedåtgående trend över tid där andelen kvinnor under senare år närmar sig 10 procent. För män har andelen varierat mellan en och tre procent och även för män ser vi en trend av en sjunkande oro. 
+När det gäller oro för att utsättas för våldtäkt eller sexuella övergrepp är könsskillnaden stor där en väsentligt högre andel kvinnor än män känner oro. De flesta år oroar sig var sjätte kvinna i befolkningen ganska eller mycket ofta över att utsättas för dessa brott. Glädjande nog är det även här en nedåtgående trend över tid där andelen kvinnor under senare år närmar sig 10 procent. För män har andelen varierat mellan en och tre procent och även för män ser vi en trend av en sjunkande oro. 
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_bra_ntu_lista$`Otrygghet vid utevistelse sent på kvällen i det egna bostadsområdet`
 ```
 
-I Nationella Trygghetsundersökningen ställs också frågor om hur oro för brott påverkar otryggheten samt hur den i sin tur påverkar människors handlingar. Nästan var tredje kvinna känner ganska eller mycket otrygga i det egna bostadsområdet sent på kvällen, men det är en svagt sjunkande trend. Bland männen är det runt 15 procent de flesta år och även här är trenden svagt sjunkande. 
+I Nationella Trygghetsundersökningen ställs också frågor om hur oro för brott påverkar otryggheten samt hur den i sin tur påverkar människors handlingar. Nästan var tredje kvinna känner sig ganska eller mycket otrygga i det egna bostadsområdet sent på kvällen, men det är en svagt sjunkande trend. Bland männen är det runt 15 procent de flesta år och även här är trenden svagt sjunkande. 
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_bra_ntu_lista$`Avstått från någon aktivitet på grund av oro för att utsättas för brott`
 ```
 
-Strax under femton procent av kvinnorna har ganska eller mycket ofta avstått från någon aktivitet på grund av oro för att utsättas för brott. De senaste åren har andelarna sjunkit till 10-12 procent. Det har under flera år varit ungefär hälften så många män, men skillnaden mellan kvinnor och män har varit mindre de senaste två åren. 
+Strax under femton procent av kvinnorna har ganska eller mycket ofta avstått från någon aktivitet på grund av oro för att utsättas för brott. De senaste åren har andelen sjunkit till 10-12 procent. Bland män har det under flera år varit ungefär hälften så många, men skillnaden mellan kvinnor och män har varit mindre de senaste två åren. 
 
 Trots att utsattheten för flera brottstyper minskar över tid kvarstår stora skillnader mellan kvinnor och män – särskilt när det gäller sexualbrott och upplevd trygghet. Kvinnor utsätts i betydligt högre grad för sexualiserat våld och upplever också en större oro, vilket i sin tur påverkar deras rörelsefrihet och vardagliga val. Samtidigt visar trenderna att både utsatthet och oro sakta minskar, även i grupper där nivåerna länge varit höga. Skillnaderna mellan könen är dock tydliga och återkommande, vilket understryker behovet av fortsatt arbete med normer, trygghet och förebyggande insatser.
 
