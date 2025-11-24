@@ -574,7 +574,7 @@ Till skillnad från trenden för föräldrapenning har fördelningen av vab-daga
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-gg_fp_vab$Vab_antal_linjeDalarna
+gg_fp_vab$vab_antal_linje_Dalarna
 ```
 
 ## Närståendepenning

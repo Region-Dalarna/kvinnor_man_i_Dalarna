@@ -237,8 +237,12 @@ gg_matchning <- diag_matchning_lan(region_vekt = "20",
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diagram_foraldrapenning_vab_kv_man.R")
 gg_fp_vab <- diag_foraldrapenning_vab(region_vekt = "20",
                                       output_mapp = output_mapp_figur,
-                                      diag_foraldrapenning = TRUE,
-                                      diag_vab = TRUE,
+                                      diag_foraldrapenning_mottagare = TRUE,
+                                      diag_foraldrapenning_andel_nettodagar = TRUE,
+                                      diag_foraldrapenning_andel_senaste_ar_lanets_kommuner = TRUE,
+                                      diag_foraldrapenning_antal_nettodagar = FALSE,
+                                      diag_vab_antal_nettodagar = TRUE,
+                                      diag_vab_forandring_nettodagar = TRUE,
                                       spara_diagrambildfil = skriv_diagramfiler,
                                       spara_dataframe_till_global_environment = TRUE)
 
