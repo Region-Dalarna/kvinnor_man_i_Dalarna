@@ -8,6 +8,12 @@ repo_namn <- list.files(here()) %>% .[str_detect(., ".Rproj")] %>% str_remove(".
 
 datum_tid <- format(Sys.time(), "%d %b %Y kl. %H:%M")
 
+# gör en commit och push till repositoryt
 github_commit_push(repo = repo_namn, 
+                   fran_rmarkdown = TRUE,
+                   commit_txt = paste0("Automatisk commit och push av repositoryt till github ", datum_tid))
+
+# och så skjuter vi upp till publicera rapporter
+github_commit_push(repo = "publicera_rapporter", 
                    fran_rmarkdown = TRUE,
                    commit_txt = paste0("Automatisk commit och push av repositoryt till github ", datum_tid))
