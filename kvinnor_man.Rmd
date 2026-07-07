@@ -389,14 +389,14 @@ De senaste decennierna har utbildningsnivån bland befolkningen i Dalarna ökat 
 I mitten av 1980-talet var andelen högutbildade ungefär lika stor bland kvinnor och män, men `r utb_85_senaste_ar` var nästan dubbelt så stor andel kvinnor som män högutbildade i Dalarna.
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-gg_utbniva_85$hogutb_andel_ar20_1985_2024
+gg_utbniva_85[[1]]
 ```
 <br>
 I nationell jämförelse har Dalarna en relativt låg andel personer med högre utbildning. Andelen kvinnor i Dalarna med en högre utbildning om minst 3 år `r utb_85_senaste_ar` är ungefär `r utb_85_senaste_andel_kv ` procent och motsvarande siffra för män i länet är cirka `r utb_85_senaste_andel_man ` procent. Detta utfall placerar Dalarna sämst i landet tillsammans med Gävleborgs, Kalmars och Södermanlands län som har liknande låga siffror.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-gg_utbniva_85$hogutb_andel_ar_2024
+gg_utbniva_85[[2]]
 ```
 <br>
 Generellt tenderar regioner med större urbana center att både ha en yngre och en mer välutbildad befolkning jämfört med mer glest befolkade län som Dalarna. Skillnaden är störst bland män, där andelen högutbildade män i Stockholms län är mer än dubbelt så hög som motsvarande andel i Dalarnas län.
@@ -539,14 +539,14 @@ En minskning i antalet föräldrapenningdagar syntes under pandemiåren och åre
 gg_fp_vab$Foraldrapenning_antal_Dalarna
 ```
 
-Fördelningen av dagar mellan vårdnadshavarna har jämnats ut något sedan slutet av 1990-talet då runt 85-90 procent av föräldrapenningdagarna togs ut av mammorna. Sedan dess har först en (1995), sedan två (2002) och även tre månader (2016) reserverats åt respektive vårdnadshavare (också kallade "pappamånader"). Detta har bidragit till ett jämnare uttag men utvecklingen får ändå sägas gå relativt trögt, då kvinnors andel endast har minskat till runt `r round(as.numeric(foraldrapenning_df %>% filter(Kommun == "Samtliga kommuner", Kön == "Kvinnor", År == max(År)) %>% .$Andel),0)` procent `r max(foraldrapenning_df$År)`. Svenska vårdnadshavare är således långt ifrån att ge sina barn en jämställd tillgång till sina föräldrar. Skillnaden i uttag påverkar också den disponibla inkomsten, som beskrivits under rubriken Ekonomisk jämställdhet. Skillnaden är som störst mellan sammanboende kvinnor och män när det yngsta barnet är 0–3 år [(Regeringen, 2022)](<https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf>){target="_blank"}.
+Fördelningen av dagar mellan vårdnadshavarna har jämnats ut något sedan slutet av 1990-talet då runt 85-90 procent av föräldrapenningdagarna togs ut av mammorna. Sedan dess har först en (1995), sedan två (2002) och även tre månader (2016) reserverats åt respektive vårdnadshavare (också kallade "pappamånader"). Detta har bidragit till ett jämnare uttag men utvecklingen får ändå sägas gå relativt trögt, då kvinnors andel endast har minskat till runt `r andel_fp_kvinnor_Dalarna_senaste_ar` procent `r max(foraldrapenning_df$År)`. Svenska vårdnadshavare är således långt ifrån att ge sina barn en jämställd tillgång till sina föräldrar. Skillnaden i uttag påverkar också den disponibla inkomsten, som beskrivits under rubriken Ekonomisk jämställdhet. Skillnaden är som störst mellan sammanboende kvinnor och män när det yngsta barnet är 0–3 år [(Regeringen, 2022)](<https://www.regeringen.se/contentassets/46945970585240a4a5bfd9a0f75ecf3d/ekonomisk-jamstalldhet.pdf>){target="_blank"}.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_fp_vab$Foraldrapenning_andel_Dalarna
 ```
 
-Hur vårdnadshavare fördelar föräldrapenningen mellan sig är relativt olika i Dalarnas kommuner. I `r first(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Kommun)` är uttaget  mest jämställt relativt sett, där ungefär `r round(as.numeric(first(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel)),0)` procent av föräldrapenningdagarna togs ut av männen. Minst jämställd är fördelningen i `r foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Kommun`, där motsvarande uttag är cirka `r round(as.numeric(foraldrapenning_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel),0)` procent.
+Hur vårdnadshavare fördelar föräldrapenningen mellan sig är relativt olika i Dalarnas kommuner. I `r andel_fp_man_hogst_dalarna_kommun` är uttaget  mest jämställt relativt sett, där ungefär `r andel_fp_man_hogst_dalarna_kommun_varde` procent av föräldrapenningdagarna togs ut av männen. Minst jämställd är fördelningen i `r andel_fp_man_lagst_dalarna_kommun`, där motsvarande uttag är cirka `r andel_fp_man_lagst_dalarna_kommun_varde` procent.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -563,7 +563,7 @@ gg_forsakringskassan$foraldrapenning_manad
 
 
 ## Tillfällig föräldrapenning
-Tillfällig föräldrapenning ges för vård av sjukt barn och är det som i folkmun kallas vab. Sett över tidsperioden minskade antalet uttagna nettodagar något mellan 2006 och 2009, för att därefter öka stadigt fram till 2022. På senare år har uttaget av tillfällig föräldrapenning/vab för såväl kvinnor som män minskat, men ligger fortfarande på högre nivåer än innan pandemin. Även för vård av sjukt barn tar kvinnor ut betydligt fler dagar än män, fördelningen ligger precis utanför spannet för vad som antas som statistisk jämställdhet, där kvinnor tar ut cirka `r round(vab_df %>% filter(Kommun == "Samtliga kommuner",Kön == "Kvinnor",År == max(År)) %>% .$Andel,0)` procent av dagarna. 
+Tillfällig föräldrapenning ges för vård av sjukt barn och är det som i folkmun kallas vab. Sett över tidsperioden minskade antalet uttagna nettodagar något mellan 2006 och 2009, för att därefter öka stadigt fram till 2022. På senare år har uttaget av tillfällig föräldrapenning/vab för såväl kvinnor som män minskat, men ligger fortfarande på högre nivåer än innan pandemin. Även för vård av sjukt barn tar kvinnor ut betydligt fler dagar än män, fördelningen ligger precis utanför spannet för vad som antas som statistisk jämställdhet, där kvinnor tar ut cirka `r round(vab_df %>% filter(Region == "Dalarnas län",Kön == "Kvinnor",År == max(År)) %>% .$Andel,0)` procent av dagarna. 
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
@@ -622,15 +622,15 @@ Ohälsotalet^[Ohälsotalet: hur många dagar under en tolvmånadersperiod
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-gg_ohalsotal_sjp$ohalsotal_Dalarna
+gg_ohalsotal_sjp$ohalsotal_dalarna
 ```
 
-Ohälsotalet för Dalarnas befolkning visar att det finns skillnader mellan länets kommuner. För män är ohälsotalet år `r max(ohalsotal_df$År)` högst i `r ohalsotal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Ohälsotalet_medel == max(.$Ohälsotalet_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")` och lägst i `r ohalsotal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")`. För
-kvinnor är ohälsotalet högst i `r ohalsotal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Ohälsotalet_medel == max(.$Ohälsotalet_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")` och lägst i `r ohalsotal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Kvinnor", År == max(.$År)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")`. För att fastställa orsaken till skillnaderna mellan kommuner behövs djupare studier och analyser. Potentiella faktorer kan vara att branschstrukturen skiljer sig mellan kommunerna och att det är olika hög sjukfrånvaro i olika branscher, men även att socioekonomiska förutsättningar skiljer sig åt mellan kommunerna i Dalarna.
+Ohälsotalet för Dalarnas befolkning visar att det finns skillnader mellan länets kommuner. För män är ohälsotalet år `r max(ohalsotal_df$år)` högst i `r ohalsotal_man_hogst_kommun` och lägst i `r ohalsotal_man_lagst_kommun`. För
+kvinnor är ohälsotalet högst i `r ohalsotal_kvinnor_hogst_kommun` och lägst i `r ohalsotal_man_lagst_kommun`. För att fastställa orsaken till skillnaderna mellan kommuner behövs djupare studier och analyser. Potentiella faktorer kan vara att branschstrukturen skiljer sig mellan kommunerna och att det är olika hög sjukfrånvaro i olika branscher, men även att socioekonomiska förutsättningar skiljer sig åt mellan kommunerna i Dalarna.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-gg_ohalsotal_sjp$ohalsotal_kommun_Dalarna
+gg_ohalsotal_sjp$ohalsotal_kommun_dalarna
 ```
 
 ## Sjukpenningtalet
@@ -639,15 +639,15 @@ I likhet med ohälsotalet tenderar sjukpenningtalet, som enbart innefattar sjukp
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-gg_ohalsotal_sjp$sjukpenningtal_Dalarna
+gg_ohalsotal_sjp$sjukpenningtal_dalarna
 ```
 
 Även när det kommer till sjukpenningtalet finns det skillnader mellan
-Dalarnas kommuner. För både kvinnor och män är talet högst i `r sjukpenningtal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Sjukpenningtal_medel == max(.$Sjukpenningtal_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")`. Sjukpenningtalet är en delmängd av ohälsotalet och därför samvarierar resultaten mellan kommunerna i stort. Talet är lägst för både kvinnor och män i `r sjukpenningtal_df %>% filter(Kommun != "Samtliga kommuner", Kön == "Män", År == max(.$År)) %>% filter(Sjukpenningtal_medel == min(.$Sjukpenningtal_medel)) %>% .$Kommun %>% glue_collapse(sep = ", ", last = " och ")`.
+Dalarnas kommuner. För både kvinnor och män är talet högst i `r sjukpenningtal_kvinnor_hogst_kommun`. Sjukpenningtalet är en delmängd av ohälsotalet och därför samvarierar resultaten mellan kommunerna i stort. Talet är lägst för både kvinnor och män i `r sjukpenningtal_man_lagst_kommun`.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
-gg_ohalsotal_sjp$sjukpenningtal_kommun_Dalarna
+gg_ohalsotal_sjp$sjukpenningtal_kommun_dalarna
 ```
 
 ## Stressrelaterade sjukfall 

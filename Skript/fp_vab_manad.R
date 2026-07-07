@@ -72,7 +72,7 @@ diag_foraldrapenning_manad<-function(region_vekt = "20",
         gg_obj <- SkapaStapelDiagram(skickad_df = foraldrapenning_df%>%
                                              filter(Kommun == "20 Dalarnas län",
                                                     Kön != "Kvinnor och män",
-                                                    År>"2019") %>% 
+                                                    År > max(as.integer(År))-6) %>% # För att se till att antalet år aldrig blir större än 6 (finns ej färger för mer)
                                              mutate("år" = År), 
                                            skickad_x_var = "Månad", 
                                            skickad_y_var = "Nettodagar", 

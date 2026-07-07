@@ -12,7 +12,7 @@ diag_kronofogden <-function(region_vekt = "20", # Välj ett län eller en kommun
   # Tre diagram för skuldsatta hos Kronofogden, det ena för långsiktigt skuldsatta (över 20 år), 
   # det andra för kortsiktigt
   # Källa: Kronofogden.
-  # Data hämtades senast 2025-07-15. För info om hur hämtning går till, se under respektive if-sats nedan.
+  # Data hämtades senast 2026-07-06. För info om hur hämtning går till, se under respektive if-sats nedan.
   # Förbättringspotential: När det går att komma åt Kronofogdens API direkt från R-Studio, kan latest_file
   # i read.csv2-funktionen enkelt ersättas med adressen till Kronofogdens API.
   # ======================================================================================================

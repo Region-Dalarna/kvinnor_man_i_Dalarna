@@ -6,8 +6,8 @@
 # 2: Uppdatera data - sätt variabeln uppdatera_data till TRUE. Då uppdateras data, alla figurer skapas på nytt och en ny enviroment sparas.
 # Tar längre tid (ett par minuter) och medför en risk att text inte längre är aktuell då figurer har uppdaterats med nya data.
 
-uppdatera_data = FALSE
-skriv_diagramfiler <- FALSE                   # funkar bara om uppdatera_data är TRUE
+uppdatera_data = TRUE
+skriv_diagramfiler = FALSE                   # funkar bara om uppdatera_data är TRUE
 
 if(uppdatera_data == TRUE){
   
@@ -23,7 +23,7 @@ output_mapp_figur = here("Diagram","/")
 
 source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R")
 
-# Utbildningsnivå 85 - senaste år och jämförelse mellan länen för senaste år.
+# Utbildningsnivå 85 - senaste år och jämförelse mellan länen för senaste år. Ej upp med PXweb - Kontrollera CKM?
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diag_utbniva_flera_diagram_scb.R")
 gg_utbniva_85 <- diag_utbniva_tidserie_och_lansjmfr (region_vekt = c("20"),
                                                      output_mapp = output_mapp_figur,
@@ -36,13 +36,13 @@ gg_utbniva_85 <- diag_utbniva_tidserie_och_lansjmfr (region_vekt = c("20"),
                                                      vald_utb_niva = "hogutb")
 
 # Ovan saknar ett funktion som returnerar data till global environment, så jag hämtar detta från ggplot-objektet
-utbildning_85_df <- gg_utbniva_85$hogutb_andel_ar20_1985_2024$data
+utbildning_85_df <- gg_utbniva_85[[1]]$data
 
 utb_85_senaste_ar <- max(utbildning_85_df$år)
 utb_85_senaste_andel_kv <- round(utbildning_85_df %>% filter(kön == "kvinnor",år == utb_85_senaste_ar) %>% .$total,0)
 utb_85_senaste_andel_man <- round(utbildning_85_df %>% filter(kön == "män",år == utb_85_senaste_ar) %>% .$total,0)
 
-# Utbildningsnivå, senaste år, flera kategorier
+# Utbildningsnivå, senaste år, flera kategorier - Som ovan med eventuellt CKM problem
 source(here("skript/","diagram_utb_niva_senaste_ar.R"))
 gg_utb_niva_senaste <- diag_utbniva_senaste(region_vekt = "20", 
                                             output_mapp = output_mapp_figur,
@@ -63,7 +63,7 @@ gym_tot_kvinnor <- round(utbildning_df %>% filter(region == "Dalarna",kön == "k
 gym_tot_man <- round(utbildning_df %>% filter(region == "Dalarna",kön == "män", utbildningsnivå == "gymnasial utbildning, 3 år") %>% .$andel + utbildning_df %>% filter(region == "Dalarna",kön == "män",utbildningsnivå == "gymnasial utbildning, högst 2 år")  %>% .$andel,0)
 
 
-# Gymnasieantagning och genomströmning
+# Gymnasieantagning och genomströmning - Ej pxweb
 source(here("skript/","diagram_gymnasiet_genom_antag.R"))
 gg_gymnasiet_ant_genom <- diag_gymn_genomstromning_antagning(region_vekt = "20", 
                                                              outputmapp = output_mapp_figur,
@@ -91,7 +91,7 @@ genomstromning_max_ar <- max(genomstromning_df$ar)
 genomstromning_kvinnor <- round(genomstromning_df %>% filter(ar==max(ar),kon == "Kvinnor") %>% .$varde,0)
 genomstromning_man <- round(genomstromning_df %>% filter(ar==max(ar),kon == "Män") %>% .$varde,0)
 
-# De tio största yrkena för män respektive kvinnor
+# De tio största yrkena för män respektive kvinnor - Ej uppdaterat med nya PXweb ännu. Rätt komplicerat skript (hämta data)
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_yrke_ssyk3_storsta_per_geografi.R")
 yrken_konsfordelning <- diag_storsta_yrke_per_geografi(facet_ovanpa_varandra = TRUE, storre_text = TRUE,returnera_dataframe_global_environment = TRUE,antal_yrken = 10)
 
@@ -109,6 +109,7 @@ butikspersonal_man <- format(plyr::round_any(storsta_yrken_per_geografi_df %>% f
 tio_storsta_sum_kvinnor <- format(plyr::round_any(storsta_yrken_per_geografi_df %>% filter(kön == "kvinnor") %>%  .$Antal %>% sum(),100),big.mark=" ")
 tio_storsta_sum_man <- format(plyr::round_any(storsta_yrken_per_geografi_df %>% filter(kön == "män") %>%  .$Antal %>% sum(),100),big.mark=" ")
 
+# Andel förvärvsarbetande per bransch - uppdaterat med ny version av PXweb
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_andel_forvarvsarbetande_bransch.R", encoding="UTF-8")
 gg_antal_forv <- diag_sysselsatta_andel(output_mapp_figur = output_mapp_figur,
                                         returnera_figur = TRUE,
@@ -123,7 +124,7 @@ forvarvsarbetande_bygg_andel <- antal_forvarvsarbetande_bransch %>% filter(brans
 forvarvsarbetande_vard_andel <- antal_forvarvsarbetande_bransch %>% filter(bransch=="Vård och omsorg") %>% pivot_wider(names_from = kön, values_from = Antal) %>%  mutate(andel= (kvinnor/(män+kvinnor))*100) %>% .$andel %>% round(0)
 
 
-# Inkomst c("20-64 år","65+ år")
+# Inkomst c("20-64 år","65+ år") - Uppdaterad med ny version av PXweb
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diagram_inkomst_region_aldersgrupper_kv_man.R")
 gg_inkomst <- diag_inkomst_scb(regionvekt = "20", # Enbart ett i taget. går även att välja kommuner, men då genereras inget kommundiagram
                                output_mapp = output_mapp_figur,                                  # mapp där diagram ska sparas, NA = sparas ingen fil
@@ -163,6 +164,7 @@ medianinkomst_kvinna_max_65 <- round(forvarvsinkomst_df %>% filter(region == "Da
 medianinkomst_man_forandring_65 <- round((forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "män",ålder == "65+ år") %>% .$`Medianinkomst, tkr`/forvarvsinkomst_df %>% filter(region == "Dalarna", år == min(år),kön == "män",ålder == "65+ år") %>% .$`Medianinkomst, tkr`-1)*100,0)
 medianinkomst_kvinna_forandring_65 <- round((forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "kvinnor",ålder == "65+ år") %>% .$`Medianinkomst, tkr`/forvarvsinkomst_df %>% filter(region == "Dalarna", år == min(år),kön == "kvinnor",ålder == "65+ år") %>% .$`Medianinkomst, tkr`-1)*100,0)
 
+# Disponibel inkomst - Uppdaterat med ny version av PXweb
 source(here("skript/","diagram_disponibelinkomst.R"))
 gg_disponibel_inkomst <- diag_disponibelinkomst(region_vekt = "20", 
                                                output_mapp = output_mapp_figur,
@@ -173,7 +175,7 @@ gg_disponibel_inkomst <- diag_disponibelinkomst(region_vekt = "20",
 disponibel_inkomst_min_ar <- min(disponibel_inkomst_df$år)
 disponibel_inkomst_max_ar <- max(disponibel_inkomst_df$år)
 
-# Skuldsatta
+# Skuldsatta - ej pxweb
 source(here("skript","diagram_skuldsatta_kronofogden.R"))
 gg_skuldsatta <- diag_kronofogden(output_mapp = output_mapp_figur,
                                   diag_langsiktiga_skulder = TRUE, # Om diagram för långsiktigt skuldsatta ska skapas
@@ -207,7 +209,7 @@ lansiktiga_antal_min_kvinna <- langsiktiga_skulder_df_sum %>% filter(År==min(.$
 lansiktiga_antal_max_kvinna <- langsiktiga_skulder_df_sum %>% filter(År==max(.$År),Kön=="kvinnor") %>% .$Antal_skuldsatta
 forandring_kvinna <- round(((lansiktiga_antal_max_kvinna/lansiktiga_antal_min_kvinna)-1)*100,0)
 
-# Etablering på arbetsmarknaden
+# Etablering på arbetsmarknaden - Uppdaterat med ny version av PXweb
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diag_etableringstid_kon_lan_tidsserie_KvMa_IntRap.R")
 #source(here("skript/","etablering_kon_utbildningsniva.R"))
 gg_etablering <- diag_etablering_utb_kon_scb(output_mapp = output_mapp_figur,
@@ -225,7 +227,7 @@ gym_0_1_man <-  round(etablering_df %>% filter(kön == "män",bakgrundsvariabel 
 forgym_0_1_kvinna <- round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: förgymnasial utbildning") %>% .$andel,0)
 forgym_0_1_man <- round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: förgymnasial utbildning") %>% .$andel,0)
 
-# Matchning
+# Matchning - Uppdaterad med ny version av PXweb - verkar dock inte längre användas i rapporten
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diagram_matchning_lan_bakgrund.R")
 gg_matchning <- diag_matchning_lan(region_vekt = "20",
                                    output_mapp_figur = output_mapp_figur,
@@ -233,7 +235,7 @@ gg_matchning <- diag_matchning_lan(region_vekt = "20",
                                    returnera_data = TRUE,
                                    kon_klartext = "*")
 
-# Föräldrapenning och VAB
+# Föräldrapenning och VAB - Ej PXweb
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diagram_foraldrapenning_vab_kv_man.R")
 gg_fp_vab <- diag_foraldrapenning_vab(region_vekt = "20",
                                       output_mapp = output_mapp_figur,
@@ -246,7 +248,15 @@ gg_fp_vab <- diag_foraldrapenning_vab(region_vekt = "20",
                                       spara_diagrambildfil = skriv_diagramfiler,
                                       spara_dataframe_till_global_environment = TRUE)
 
-# VaB - månadsbasis
+andel_fp_kvinnor_Dalarna_senaste_ar <- round(as.numeric(foraldrapenning_df %>% filter( Kön == "Kvinnor", År == max(År)) %>% .$Andel),0)
+andel_fp_man_hogst_dalarna_kommun <- first(foraldrapenning_lan_df %>% filter(Region != "Dalarnas län", Kön == "Män") %>% filter(Andel == max(Andel)) %>% .$Region)
+andel_fp_man_hogst_dalarna_kommun_varde <- round(foraldrapenning_lan_df %>% filter(Region == andel_fp_man_hogst_dalarna_kommun, Kön == "Män") %>% filter(Andel == max(Andel)) %>% .$Andel,0)
+
+andel_fp_man_lagst_dalarna_kommun <- first(foraldrapenning_lan_df %>% filter(Region != "Dalarnas län", Kön == "Män") %>% filter(Andel == min(Andel)) %>% .$Region)
+andel_fp_man_lagst_dalarna_kommun_varde <- round(foraldrapenning_lan_df %>% filter(Region == andel_fp_man_lagst_dalarna_kommun, Kön == "Män") %>% filter(Andel == max(Andel)) %>% .$Andel,0)
+
+
+# VaB - månadsbasis - Ej PXweb
 source(here("Skript","fp_vab_manad.R"))
 gg_forsakringskassan <- diag_foraldrapenning_manad(region_vekt = "20",
                                                    output_mapp = output_mapp_figur,
@@ -255,7 +265,7 @@ gg_forsakringskassan <- diag_foraldrapenning_manad(region_vekt = "20",
                                                    spara_diagrambildfil = skriv_diagramfiler,
                                                    spara_dataframe_till_global_environment = TRUE)
 
-# Närståendepenning
+# Närståendepenning - Ej PXweb
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diagram_narstaendepenning_forsakringskassan_kv_man.R")
 gg_narstaendepenning <- diag_narstaendepenning(region_vekt = "20",
                                                  output_mapp = output_mapp_figur,
@@ -265,7 +275,7 @@ gg_narstaendepenning <- diag_narstaendepenning(region_vekt = "20",
                                                  variabel = c("Antal vårdare","Nettodagar"), # Finns även "Antal sjuka", "Belopp","Nettodagar" Går att välja flera
                                                  spara_dataframe_till_global_environment = TRUE)
 
-# Sjukpenningtal och ohälsotal
+# Sjukpenningtal och ohälsotal - Ej PXweb
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diagram_ohalsotal_sjukpenningtal_kv_man.R")
 gg_ohalsotal_sjp <- diag_ohalsotal_sjukpenningtal (region_vekt = "20",
                                                    output_mapp = output_mapp_figur,
@@ -274,8 +284,34 @@ gg_ohalsotal_sjp <- diag_ohalsotal_sjukpenningtal (region_vekt = "20",
                                                    spara_diagrambildfil = skriv_diagramfiler,
                                                    spara_dataframe_till_global_environment = TRUE)
 
+# Ohälsotal
+ohalsotal_man_hogst_kommun <- ohalsotal_df %>% filter(region != "Dalarnas län", kön == "Män", år == max(.$år)) %>% filter(Ohälsotalet_medel == max(.$Ohälsotalet_medel)) %>% .$region %>% glue_collapse(sep = ", ", last = " och ")
+ohalsotal_man_hogst_kommun_varde <- round(first(ohalsotal_df %>% filter(region != "Dalarnas län", kön == "Män", år == max(.$år)) %>% filter(Ohälsotalet_medel == max(.$Ohälsotalet_medel)) %>% .$Ohälsotalet_medel),0)
 
-# Sjukfall kopplade till stress
+ohalsotal_kvinnor_hogst_kommun <- ohalsotal_df %>% filter(region != "Dalarnas län", kön == "Kvinnor", år == max(.$år)) %>% filter(Ohälsotalet_medel == max(.$Ohälsotalet_medel)) %>% .$region %>% glue_collapse(sep = ", ", last = " och ")
+ohalsotal_kvinnor_hogst_kommun_varde <- round(first(ohalsotal_df %>% filter(region != "Dalarnas län", kön == "Kvinnor", år == max(.$år)) %>% filter(Ohälsotalet_medel == max(.$Ohälsotalet_medel)) %>% .$Ohälsotalet_medel),0)
+
+ohalsotal_man_lagst_kommun <- ohalsotal_df %>% filter(region != "Dalarnas län", kön == "Män", år == max(.$år)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$region %>% glue_collapse(sep = ", ", last = " och ")
+ohalsotal_fp_man_lagst_kommun_varde <- round(first(ohalsotal_df %>% filter(region != "Dalarnas län", kön == "Män", år == max(.$år)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$Ohälsotalet_medel),0)
+
+ohalsotal_kvinnor_lagst_kommun <- ohalsotal_df %>% filter(region != "Dalarnas län", kön == "Kvinnor", år == max(.$år)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$region %>% glue_collapse(sep = ", ", last = " och ")
+ohalsotal_kvinnor_lagst_kommun_varde <- round(first(ohalsotal_df %>% filter(region != "Dalarnas län", kön == "Kvinnor", år == max(.$år)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$Ohälsotalet_medel),0)
+
+# Sjukpenningtal
+sjukpenningtal_man_hogst_kommun <- sjukpenningtal_df %>% filter(region != "Dalarnas län", kön == "Män", år == max(.$år)) %>% filter(Sjukpenningtal_medel == max(.$Sjukpenningtal_medel)) %>% .$region %>% glue_collapse(sep = ", ", last = " och ")
+sjukpenningtal_man_hogst_kommun_varde <- round(first(sjukpenningtal_df %>% filter(region != "Dalarnas län", kön == "Män", år == max(.$år)) %>% filter(Sjukpenningtal_medel == max(.$Sjukpenningtal_medel)) %>% .$Sjukpenningtal_medel),0)
+
+sjukpenningtal_kvinnor_hogst_kommun <- sjukpenningtal_df %>% filter(region != "Dalarnas län", kön == "Kvinnor", år == max(.$år)) %>% filter(Sjukpenningtal_medel == max(.$Sjukpenningtal_medel)) %>% .$region %>% glue_collapse(sep = ", ", last = " och ")
+sjukpenningtal_kvinnor_hogst_kommun_varde <- round(first(sjukpenningtal_df %>% filter(region != "Dalarnas län", kön == "Kvinnor", år == max(.$år)) %>% filter(Sjukpenningtal_medel == max(.$Sjukpenningtal_medel)) %>% .$Sjukpenningtal_medel),0)
+
+sjukpenningtal_man_lagst_kommun <- sjukpenningtal_df %>% filter(region != "Dalarnas län", kön == "Män", år == max(.$år)) %>% filter(Sjukpenningtal_medel == min(.$Sjukpenningtal_medel)) %>% .$region %>% glue_collapse(sep = ", ", last = " och ")
+sjukpenningtal_man_lagst_kommun_varde <- round(first(sjukpenningtal_df %>% filter(region != "Dalarnas län", kön == "Män", år == max(.$år)) %>% filter(Sjukpenningtal_medel == min(.$Sjukpenningtal_medel)) %>% .$Sjukpenningtal_medel),0)
+
+sjukpenningtal_kvinnor_lagst_kommun <- sjukpenningtal_df %>% filter(region != "Dalarnas län", kön == "Kvinnor", år == max(.$år)) %>% filter(Sjukpenningtal_medel == min(.$Sjukpenningtal_medel)) %>% .$region %>% glue_collapse(sep = ", ", last = " och ")
+sjukpenningtal_kvinnor_lagst_kommun_varde <- round(first(sjukpenningtal_df %>% filter(region != "Dalarnas län", kön == "Kvinnor", år == max(.$år)) %>% filter(Sjukpenningtal_medel == min(.$Sjukpenningtal_medel)) %>% .$Sjukpenningtal_medel),0)
+
+
+# Sjukfall kopplade till stress - Ej PXweb
 source(here("Skript","diagram_sjukfall_stress.R"))
 gg_sjukfall_stress <- diag_sjukfall_stress (region_vekt = "20",
                                             output_mapp = output_mapp_figur,
@@ -286,14 +322,14 @@ andel_kvinnor_stress <- round(stress_df %>% filter(Kön=="Kvinnor",År==max(.$Å
                                 .$Antal_medel/stress_df %>% filter(Kön=="Kvinnor och män",År==max(.$År)) %>% 
                                 .$Antal_medel,2)*100
 
-# Sjukfall på branschnivå - kräver att data laddas hem manuellt. För mer info, se diagramskriptet
-source(here("Skript","diagram_sjukfall_bransch.R"))
+# Sjukfall på branschnivå - ej PXweb
+source(here("Skript","diagram_sjukfall_bransch_ny.R"))
 gg_sjukfall_bransch <- diag_sjukfall_bransch(output_mapp = output_mapp_figur,
-                                             spara_figur = skriv_diagramfiler,
+                                             spara_diagrambildfil = skriv_diagramfiler,
                                              spara_dataframe_till_global_environment = TRUE)
 
-bransch_max_kvinnor <- tolower(startade_sjukfall_bransch_df %>% filter(Kon == "Kvinnor") %>% filter(Antal_startade_sjukfall == max(Antal_startade_sjukfall)) %>% .$SNI2007 %>%  glue_collapse(sep = ", ", last = " och "))
-bransch_max_man <- tolower(startade_sjukfall_bransch_df %>% filter(Kon == "Män") %>% filter(Antal_startade_sjukfall == max(Antal_startade_sjukfall)) %>% .$SNI2007 %>%  glue_collapse(sep = ", ", last = " och "))
+bransch_max_kvinnor <- tolower(startade_sjukfall_bransch_df %>% filter(Kön == "Kvinnor") %>% filter(Antal_startade_sjukfall == max(Antal_startade_sjukfall)) %>% .$Bransch %>%  glue_collapse(sep = ", ", last = " och "))
+bransch_max_man <- tolower(startade_sjukfall_bransch_df %>% filter(Kön == "Män") %>% filter(Antal_startade_sjukfall == max(Antal_startade_sjukfall)) %>% .$Bransch %>%  glue_collapse(sep = ", ", last = " och "))
 
 # source(here("Skript","diagram_arbesloshet_tidsserie_BAS.R"))
 # gg_arbetsloshet_tidsserie_bas <- diag_arbetsloshet_tidsserie(spara_diagrambildfil = FALSE,
@@ -302,7 +338,7 @@ bransch_max_man <- tolower(startade_sjukfall_bransch_df %>% filter(Kon == "Män"
 
 
 ##########################
-## Arbetsmarknadsstatus ##
+## Arbetsmarknadsstatus ## - Uppdaterad med ny version av PXweb
 ##########################
 
 
@@ -504,11 +540,11 @@ langtidsarbetsloshet_kvinnor_max = gsub("\\.",",",round(långtidsarbetslöshet %
 langtidsarbetsloshet_man_min = gsub("\\.",",",round(långtidsarbetslöshet %>% filter(kon=="män",ar==min(ar)) %>%  .$varde,1))
 langtidsarbetsloshet_man_max = gsub("\\.",",",round(långtidsarbetslöshet %>% filter(kon=="män",ar==max(ar)) %>%  .$varde,1))
 
-# Ledamöter i olika politiska instanser
+# Ledamöter i olika politiska instanser - Uppdaterad med ny version av PXweb
 source(here("Skript","diagram_ledamoter_val_kon_kommun_kv_man.R"))
 gg_ledamoter_val <- diag_ledamoter_val(outputmapp = output_mapp_figur,
                                        spara_dataframe_till_global_environment = TRUE,
-                                       spara_figur = TRUE,
+                                       spara_figur = skriv_diagramfiler,
                                        typ_av_val = c("riksdag","region","kommun"))
 
 # Riksdagsval
@@ -558,11 +594,11 @@ overrep_max_ar = overrep_df$Ar %>% max()
 overrep_min_ar = overrep_df$Ar %>% min()
 
 # självrapporterad utsatthet för sexaulbrott och misshandel samt oro för att utsättas för 
-# detsamma och huruvida man avstått från aktivitet pga oro för brott
+# detsamma och huruvida man avstått från aktivitet pga oro för brott - ej PXweb
 source(here("Skript","diagram_bra_ntu_kv_man.R"))
 gg_bra_ntu_lista <- diag_bra_ntu_kv_man()
 
-# helårsekvivalenter per kön
+# helårsekvivalenter per kön - ej uppdaterad med ny version av PXweb
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_helarsekvivalenter_kon_scb.R")
 gg_helarsekvivalenter <- diag_helarsekvivalenter(
   region_vekt = "20",
@@ -571,7 +607,7 @@ gg_helarsekvivalenter <- diag_helarsekvivalenter(
   ggobjektfilnamn_utan_tid = TRUE
   )
 
-# återstående medellivslängd per län, kön och utbildningsnivå
+# återstående medellivslängd per län, kön och utbildningsnivå - ej uppdaterat PXweb
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_aterstaende_medellivslangd_utbniva_lan_scb.R")
 gg_aterstaende_medellivslangd <- diag_aterstaende_medellivslangd_utbniva_lan_scb(
   region_vekt = "20",

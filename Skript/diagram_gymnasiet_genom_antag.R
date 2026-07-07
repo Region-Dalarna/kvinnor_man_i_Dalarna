@@ -73,8 +73,9 @@ diag_gymn_genomstromning_antagning <- function(outputmapp = "G:/skript/jon/Slask
   if(diag_gymantagning == TRUE){
     
     source("G:/skript/hamta_data/func_gymnasieantagningen.R", encoding = "utf-8", echo = FALSE)
-    
-    gymnasieantagning_df <- las_in_data_gymnasieantagningen()
+    gymnasieantagningen_las_in_data
+    #gymnasieantagning_df <- las_in_data_gymnasieantagningen()
+    gymnasieantagning_df <- gymnasieantagningen_las_in_data()
     
     gymnasieantagning_df <- gymnasieantagning_df %>% 
       group_by(ar,program) %>% 
