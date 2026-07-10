@@ -6,7 +6,7 @@
 # 2: Uppdatera data - sätt variabeln uppdatera_data till TRUE. Då uppdateras data, alla figurer skapas på nytt och en ny enviroment sparas.
 # Tar längre tid (ett par minuter) och medför en risk att text inte längre är aktuell då figurer har uppdaterats med nya data.
 
-uppdatera_data = TRUE
+uppdatera_data = FALSE
 skriv_diagramfiler = FALSE                   # funkar bara om uppdatera_data är TRUE
 
 if(uppdatera_data == TRUE){
@@ -22,6 +22,15 @@ p_load(here,
 output_mapp_figur = here("Diagram","/")
 
 source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R")
+
+# Funktion som kan användas för att automatgenerera text om högst/lägst på kommundata. Används för ohälsotalet/sjukpenningtalet för tilfället
+hogst_lagst_text <- function(man_kommun, kvinnor_kommun, superlativ) {
+  if (man_kommun == kvinnor_kommun) {
+    glue::glue("{superlativ} i {man_kommun} för både kvinnor och män")
+  } else {
+    glue::glue("{superlativ} i {man_kommun} för män och i {kvinnor_kommun} för kvinnor")
+  }
+}
 
 # Utbildningsnivå 85 - senaste år och jämförelse mellan länen för senaste år. Ej upp med PXweb - Kontrollera CKM?
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diag_utbniva_flera_diagram_scb.R")
@@ -164,6 +173,10 @@ medianinkomst_kvinna_max_65 <- round(forvarvsinkomst_df %>% filter(region == "Da
 medianinkomst_man_forandring_65 <- round((forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "män",ålder == "65+ år") %>% .$`Medianinkomst, tkr`/forvarvsinkomst_df %>% filter(region == "Dalarna", år == min(år),kön == "män",ålder == "65+ år") %>% .$`Medianinkomst, tkr`-1)*100,0)
 medianinkomst_kvinna_forandring_65 <- round((forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "kvinnor",ålder == "65+ år") %>% .$`Medianinkomst, tkr`/forvarvsinkomst_df %>% filter(region == "Dalarna", år == min(år),kön == "kvinnor",ålder == "65+ år") %>% .$`Medianinkomst, tkr`-1)*100,0)
 
+# Använder funktionen ovan för att skriva text kopplat till kommuner
+medianinkomst_hogst <- hogst_lagst_text(medianinkomst_kommun_max_man, medianinkomst_kommun_max_kvinnor, "högst")
+medianinkomst_lagst <- hogst_lagst_text(medianinkomst_kommun_min_man, medianinkomst_kommun_min_kvinnor, "lägst")
+
 # Disponibel inkomst - Uppdaterat med ny version av PXweb
 source(here("skript/","diagram_disponibelinkomst.R"))
 gg_disponibel_inkomst <- diag_disponibelinkomst(region_vekt = "20", 
@@ -248,7 +261,7 @@ gg_fp_vab <- diag_foraldrapenning_vab(region_vekt = "20",
                                       spara_diagrambildfil = skriv_diagramfiler,
                                       spara_dataframe_till_global_environment = TRUE)
 
-andel_fp_kvinnor_Dalarna_senaste_ar <- round(as.numeric(foraldrapenning_df %>% filter( Kön == "Kvinnor", År == max(År)) %>% .$Andel),0)
+andel_fp_kvinnor_Dalarna_senaste_ar <- plyr::round_any(as.numeric(foraldrapenning_df %>% filter( Kön == "Kvinnor", År == max(År)) %>% .$Andel),10)
 andel_fp_man_hogst_dalarna_kommun <- first(foraldrapenning_lan_df %>% filter(Region != "Dalarnas län", Kön == "Män") %>% filter(Andel == max(Andel)) %>% .$Region)
 andel_fp_man_hogst_dalarna_kommun_varde <- round(foraldrapenning_lan_df %>% filter(Region == andel_fp_man_hogst_dalarna_kommun, Kön == "Män") %>% filter(Andel == max(Andel)) %>% .$Andel,0)
 
@@ -297,6 +310,10 @@ ohalsotal_fp_man_lagst_kommun_varde <- round(first(ohalsotal_df %>% filter(regio
 ohalsotal_kvinnor_lagst_kommun <- ohalsotal_df %>% filter(region != "Dalarnas län", kön == "Kvinnor", år == max(.$år)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$region %>% glue_collapse(sep = ", ", last = " och ")
 ohalsotal_kvinnor_lagst_kommun_varde <- round(first(ohalsotal_df %>% filter(region != "Dalarnas län", kön == "Kvinnor", år == max(.$år)) %>% filter(Ohälsotalet_medel == min(.$Ohälsotalet_medel)) %>% .$Ohälsotalet_medel),0)
 
+# Använder funktion för att skriva text automatiskt (den varierar beroende på om samma kommuner är högst/lägst för kvinnor och män)
+ohalsa_hogst <- hogst_lagst_text(ohalsotal_man_hogst_kommun, ohalsotal_kvinnor_hogst_kommun, "högst")
+ohalsa_lagst <- hogst_lagst_text(ohalsotal_man_lagst_kommun, ohalsotal_kvinnor_lagst_kommun, "lägst")
+
 # Sjukpenningtal
 sjukpenningtal_man_hogst_kommun <- sjukpenningtal_df %>% filter(region != "Dalarnas län", kön == "Män", år == max(.$år)) %>% filter(Sjukpenningtal_medel == max(.$Sjukpenningtal_medel)) %>% .$region %>% glue_collapse(sep = ", ", last = " och ")
 sjukpenningtal_man_hogst_kommun_varde <- round(first(sjukpenningtal_df %>% filter(region != "Dalarnas län", kön == "Män", år == max(.$år)) %>% filter(Sjukpenningtal_medel == max(.$Sjukpenningtal_medel)) %>% .$Sjukpenningtal_medel),0)
@@ -310,6 +327,9 @@ sjukpenningtal_man_lagst_kommun_varde <- round(first(sjukpenningtal_df %>% filte
 sjukpenningtal_kvinnor_lagst_kommun <- sjukpenningtal_df %>% filter(region != "Dalarnas län", kön == "Kvinnor", år == max(.$år)) %>% filter(Sjukpenningtal_medel == min(.$Sjukpenningtal_medel)) %>% .$region %>% glue_collapse(sep = ", ", last = " och ")
 sjukpenningtal_kvinnor_lagst_kommun_varde <- round(first(sjukpenningtal_df %>% filter(region != "Dalarnas län", kön == "Kvinnor", år == max(.$år)) %>% filter(Sjukpenningtal_medel == min(.$Sjukpenningtal_medel)) %>% .$Sjukpenningtal_medel),0)
 
+# Använder funktion för att skriva text automatiskt (den varierar beroende på om samma kommuner är högst/lägst för kvinnor och män)
+sjukp_hogst <- hogst_lagst_text(sjukpenningtal_man_hogst_kommun, sjukpenningtal_kvinnor_hogst_kommun, "högst")
+sjukp_lagst <- hogst_lagst_text(sjukpenningtal_man_lagst_kommun, sjukpenningtal_kvinnor_lagst_kommun, "lägst")
 
 # Sjukfall kopplade till stress - Ej PXweb
 source(here("Skript","diagram_sjukfall_stress.R"))
