@@ -29,6 +29,8 @@ diag_langtidsarbetsloshet<-function(region_vekt = "20",
   }
   
   diagram_capt <- "Källa: Arbetsförmedlingen (via Kolada)\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Antal invånare 25-65 år (årsmedelvärde år T) som varit öppet arbetslösa eller i program\nmed aktivitetsstöd i minst sex månader,dividerat med antal invånare 25-65 år den 31/12 år T-1.\nTill och med 2022 var åldersgruppen 25-64 år."
+  diagram_capt <- "Källa: Arbetsförmedlingen (via Kolada)\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Diagrammet visar årsmedelvärdet av antalet invånare som varit öppet arbetslösa\neller deltagit i program med aktivitetsstöd i minst sex månader, dividerat med antalet invånare\nden 31 december föregående år. Till och med 2022 avser statistiken personer i åldern 25–64 år.\nFrån och med 2023 avser den personer i åldern 25–65 år."
+  
   diagramtitel <- paste0("Långtidsarbetslöshet 25-65 år i ",unique(långtidsarbetslöshet$region))
   diagramfilnamn <- paste0("langtidsarbetsloshet_kolada_",unique(långtidsarbetslöshet$region),".png")
   

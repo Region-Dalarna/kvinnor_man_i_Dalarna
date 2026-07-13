@@ -535,10 +535,16 @@ arblosthet_inrikes_kvinna_min_varde <- gsub("\\.",",",arbetsmarknadsstatus_kommu
                                            filter(variabel == "arbetslöshet" ) %>% filter(varde ==min(varde)) %>%  .$varde) %>% first()
 
 # Arbetslöshet, tidsserie Arbetsförmedlingen
-source(here("Skript","diagram_arbetsloshet_AF_bakgrund.R"))
+source(here("Skript","diagram_arbetsloshet_AF_bakgrund_ny.R"))
 gg_arbetsloshet_af <- diag_arbetsloshet_2008_senastear(output_mapp = output_mapp_figur,
                                                        spara_figur = skriv_diagramfiler,
-                                                       returnera_data = FALSE)
+                                                       returnera_data = TRUE)
+
+arblosa_af_forsta_ar <- min(arbetslosa_af_tidsserie_df$Ar)
+arblosa_af_senaste_ar <- max(arbetslosa_af_tidsserie_df$Ar)
+arblosa_af_senaste_ar_kvinnor_utrikes <- round(arbetslosa_af_tidsserie_df %>% filter(Ar == max(.$Ar), Kon == "Kvinnor",Grupp == "Utrikes födda") %>% .$Arbetslöshet,0)
+arblosa_af_senaste_ar_man_utrikes <- round(arbetslosa_af_tidsserie_df %>% filter(Ar == max(.$Ar), Kon == "Män",Grupp == "Utrikes födda") %>% .$Arbetslöshet,0)
+
 
 # Långtidsarbetslöshet - Kolada
 # långtidsarbetslöshet <- hamta_kolada_df(kpi_id = c("N03926"),
@@ -559,6 +565,45 @@ langtidsarbetsloshet_kvinnor_min = gsub("\\.",",",round(långtidsarbetslöshet %
 langtidsarbetsloshet_kvinnor_max = gsub("\\.",",",round(långtidsarbetslöshet %>% filter(kon=="kvinnor",ar==max(ar)) %>%  .$varde,1))
 langtidsarbetsloshet_man_min = gsub("\\.",",",round(långtidsarbetslöshet %>% filter(kon=="män",ar==min(ar)) %>%  .$varde,1))
 langtidsarbetsloshet_man_max = gsub("\\.",",",round(långtidsarbetslöshet %>% filter(kon=="män",ar==max(ar)) %>%  .$varde,1))
+
+# Kod nedan ändrar text baserat på senaste värden för kvinnor och män
+senaste_ar <- max(långtidsarbetslöshet$ar, na.rm = TRUE)
+
+senaste_varden <- långtidsarbetslöshet %>%
+  filter(ar == senaste_ar, kon %in% c("kvinnor", "män")) %>%
+  summarise(
+    kvinnor = varde[kon == "kvinnor"][1],
+    man     = varde[kon == "män"][1]
+  )
+
+kvinnor_text <- format(
+  round(senaste_varden$kvinnor, 1),
+  decimal.mark = ",",
+  nsmall = 1
+)
+
+man_text <- format(
+  round(senaste_varden$man, 1),
+  decimal.mark = ",",
+  nsmall = 1
+)
+
+text_langtidsarbetsloshet <- if (
+  round(senaste_varden$kvinnor, 1) == round(senaste_varden$man, 1)
+) {
+  paste0(
+    "År ", senaste_ar,
+    " var andelen cirka ", kvinnor_text,
+    " procent för både kvinnor och män."
+  )
+} else {
+  paste0(
+    "År ", senaste_ar,
+    " var andelen ", kvinnor_text,
+    " procent bland kvinnor och ", man_text,
+    " procent bland män."
+  )
+}
 
 # Ledamöter i olika politiska instanser - Uppdaterad med ny version av PXweb
 source(here("Skript","diagram_ledamoter_val_kon_kommun_kv_man.R"))

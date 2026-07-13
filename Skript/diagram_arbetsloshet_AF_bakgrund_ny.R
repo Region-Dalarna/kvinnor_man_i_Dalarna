@@ -6,12 +6,13 @@ diag_arbetsloshet_2008_senastear <- function(output_mapp = "G:/skript/jon/Slask/
   # ========================================== Info ============================================
   # Arbetslöshet från 2008 och framåt. Enbart för Dalarna (1 diagram)
   # Källa: https://arbetsformedlingen.se/statistik/sok-statistik/tidigare-statistik
-  
+  #
   # ========================================== Info ============================================
   if (!require("pacman")) install.packages("pacman")
   pacman::p_load(openxlsx,
                  here,
-                 tidyverse)
+                 tidyverse,
+                 glue)
   
   # Funktioner som behövs (hämtas från Git-Hub)
   source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_SkapaDiagram.R")
@@ -47,7 +48,7 @@ diag_arbetsloshet_2008_senastear <- function(output_mapp = "G:/skript/jon/Slask/
   inlasfil <- af_url_lankar[af_index] %>%
     paste0("https://arbetsformedlingen.se", .)
   
-  # Använder funktioner frör att hämta data från de två källorna (en gammal och en ny)
+  # Använder funktioner för att hämta data från de två källorna (en gammal och en ny)
   url_old = inlasfil[2]  # the one going up to 2023-12 (reg)
   url_new <- inlasfil[1]  # the one starting 2023-01 (bas)
   
@@ -75,7 +76,7 @@ diag_arbetsloshet_2008_senastear <- function(output_mapp = "G:/skript/jon/Slask/
   }
   
   
-  diagram_capt <- "Källa: Arbetsförmedlingen.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Månadsdata. Diagrammet visar medelvärdet för året"
+  diagram_capt <- glue("Källa: Arbetsförmedlingen.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Månadsdata. Diagrammet visar årsmedelvärden; för {max(andel_df$Ar)} visas medelvärdet för hittills\ntillgängliga månader") 
   
   diagramtitel <- paste0("Arbetslöshet 16-64 år i ",unique(andel_df$Region))
   diagramfilnamn <- paste0("arbetsloshet_tidsserie_bakgrund_",unique(andel_df$Region),".png")
