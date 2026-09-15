@@ -93,32 +93,17 @@ get_andel_data <- function(path, cache_num = 1) {
   antal_df <- antal_df %>%
     mutate(across(all_of(num_cols), as.numeric))
   
-  # Behåll enbart genuina kommunrader innan vi bygger aggregat, så att eventuella
-  # trasiga/tomma rader i råkällan (t.ex. saknad LAN/KOM) inte räknas dubbelt eller
-  # felaktigt in i läns- eller rikestotalerna nedan.
-  kommun_df <- antal_df %>%
-    filter(!is.na(LAN), !is.na(KOM))
-  
   # build a "whole län" row per PERIOD/LAN by summing the raw counts across kommuner,
   # BEFORE any division happens — KOM is set to the län name itself
-  lan_totals <- kommun_df %>%
+  lan_totals <- antal_df %>%
     group_by(PERIOD, LAN) %>%
     summarise(across(all_of(num_cols), \(x) sum(x, na.rm = TRUE)), .groups = "drop") %>% 
     mutate(KOM = LAN) %>%
     relocate(PERIOD, LAN, KOM)
   
-  # build a "whole riket" row per PERIOD by summing the raw counts across ALLA kommuner
-  # i hela landet, på samma sätt som länstotalerna ovan — annars finns ingen nationell
-  # totalrad att filtrera fram i efterhand.
-  riket_totals <- kommun_df %>%
-    group_by(PERIOD) %>%
-    summarise(across(all_of(num_cols), \(x) sum(x, na.rm = TRUE)), .groups = "drop") %>%
-    mutate(LAN = "Sverige", KOM = "Sverige") %>%
-    relocate(PERIOD, LAN, KOM)
+  antal_df <- bind_rows(antal_df, lan_totals)
   
-  antal_df <- bind_rows(kommun_df, lan_totals, riket_totals)
-  
-  # now compute Andel as before, on kommun-, läns- och rikesnivå tillsammans
+  # now compute Andel as before, on both kommun-level and län-level rows together
   andel_df <- antal_df
   
   for (i in seq_len(nrow(calc_fields))) {
