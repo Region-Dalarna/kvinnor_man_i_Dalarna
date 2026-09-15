@@ -165,13 +165,16 @@ process_url <- function(url) {
   # Hämtar de förklarande rubrikraderna längst upp i kalkylbladet (t.ex. vilket
   # åldersintervall och vilken period filen avser), så att de kan återges automatiskt
   # i diagramtexten istället för att behöva kopieras in för hand.
-  rubrik <- tryCatch(
-    readxl::read_excel(tmpfile, range = "A1:A2", col_names = FALSE, sheet = "andel") %>%
+  rubrik <- tryCatch({
+    alla_blad <- readxl::excel_sheets(tmpfile)
+    blad_andel <- alla_blad[str_detect(tolower(alla_blad), "andel")][1]
+    if (is.na(blad_andel)) stop("Hittade inget blad som matchar 'andel'")
+    
+    readxl::read_excel(tmpfile, range = "A1:A2", col_names = FALSE, sheet = blad_andel) %>%
       dplyr::pull(1) %>%
       stats::na.omit() %>%
-      as.character(),
-    error = function(e) character(0)
-  )
+      as.character()
+  }, error = function(e) character(0))
   attr(df, "rubrik") <- rubrik
   
   df
