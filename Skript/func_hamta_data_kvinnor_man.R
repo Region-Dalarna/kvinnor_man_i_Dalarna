@@ -5,7 +5,8 @@ p_load(xml2,
        purrr, 
        dplyr, 
        stringr, 
-       curl)
+       curl,
+       readxl)
 
 read_pivot_cache <- function(path, cache_num = 1) {
   tmp <- tempfile()
@@ -158,5 +159,20 @@ combine_old_new <- function(old_df, new_df, cutoff = "2022-12") {
 process_url <- function(url) {
   tmpfile <- tempfile(fileext = ".xlsx")
   curl_download(url, tmpfile)
-  get_andel_data(tmpfile, cache_num = 1)
+  
+  df <- get_andel_data(tmpfile, cache_num = 1)
+  
+  # Hämtar de förklarande rubrikraderna längst upp i kalkylbladet (t.ex. vilket
+  # åldersintervall och vilken period filen avser), så att de kan återges automatiskt
+  # i diagramtexten istället för att behöva kopieras in för hand.
+  rubrik <- tryCatch(
+    readxl::read_excel(tmpfile, range = "A1:A2", col_names = FALSE, sheet = "andel") %>%
+      dplyr::pull(1) %>%
+      stats::na.omit() %>%
+      as.character(),
+    error = function(e) character(0)
+  )
+  attr(df, "rubrik") <- rubrik
+  
+  df
 }
