@@ -151,8 +151,8 @@ inkomst_max_ar <- max(forvarvsinkomst_df$år)
 # Län 20-64 år
 medianinkomst_man_max_20_64 <- round(forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "män",ålder == "20–64 år") %>% .$`Medianinkomst, tkr`,0)
 medianinkomst_kvinna_max_20_64 <- round(forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "kvinnor",ålder == "20–64 år") %>% .$`Medianinkomst, tkr`,0)
-medianinkomst_man_forandring_20_64 <- round((forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "män",ålder == "20–64 år") %>% .$`Medianinkomst, tkr`/forvarvsinkomst_df %>% filter(region == "Dalarna", år == min(år),kön == "män",ålder == "20–64 år") %>% .$`Medianinkomst, tkr`-1)*100,0)
-medianinkomst_kvinna_forandring_20_64 <- round((forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "kvinnor",ålder == "20–64 år") %>% .$`Medianinkomst, tkr`/forvarvsinkomst_df %>% filter(region == "Dalarna", år == min(år),kön == "kvinnor",ålder == "20–64 år") %>% .$`Medianinkomst, tkr`-1)*100,0)
+medianinkomst_man_forandring_20_64 <- plyr::round_any((forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "män",ålder == "20–64 år") %>% .$`Medianinkomst, tkr`/forvarvsinkomst_df %>% filter(region == "Dalarna", år == min(år),kön == "män",ålder == "20–64 år") %>% .$`Medianinkomst, tkr`-1)*100,10)
+medianinkomst_kvinna_forandring_20_64 <- plyr::round_any((forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "kvinnor",ålder == "20–64 år") %>% .$`Medianinkomst, tkr`/forvarvsinkomst_df %>% filter(region == "Dalarna", år == min(år),kön == "kvinnor",ålder == "20–64 år") %>% .$`Medianinkomst, tkr`-1)*100,10)
 
 # Kommun 20-64 år
 # Högst
@@ -170,8 +170,8 @@ medianinkomst_kommun_min_man_varde <- round(forvarvsinkomst_df %>% filter(kön =
 # Län 65+
 medianinkomst_man_max_65 <- round(forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "män",ålder == "65+ år") %>% .$`Medianinkomst, tkr`,0)
 medianinkomst_kvinna_max_65 <- round(forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "kvinnor",ålder == "65+ år") %>% .$`Medianinkomst, tkr`,0)
-medianinkomst_man_forandring_65 <- round((forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "män",ålder == "65+ år") %>% .$`Medianinkomst, tkr`/forvarvsinkomst_df %>% filter(region == "Dalarna", år == min(år),kön == "män",ålder == "65+ år") %>% .$`Medianinkomst, tkr`-1)*100,0)
-medianinkomst_kvinna_forandring_65 <- round((forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "kvinnor",ålder == "65+ år") %>% .$`Medianinkomst, tkr`/forvarvsinkomst_df %>% filter(region == "Dalarna", år == min(år),kön == "kvinnor",ålder == "65+ år") %>% .$`Medianinkomst, tkr`-1)*100,0)
+medianinkomst_man_forandring_65 <- plyr::round_any((forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "män",ålder == "65+ år") %>% .$`Medianinkomst, tkr`/forvarvsinkomst_df %>% filter(region == "Dalarna", år == min(år),kön == "män",ålder == "65+ år") %>% .$`Medianinkomst, tkr`-1)*100,10)
+medianinkomst_kvinna_forandring_65 <- plyr::round_any((forvarvsinkomst_df %>% filter(region == "Dalarna", år == max(år),kön == "kvinnor",ålder == "65+ år") %>% .$`Medianinkomst, tkr`/forvarvsinkomst_df %>% filter(region == "Dalarna", år == min(år),kön == "kvinnor",ålder == "65+ år") %>% .$`Medianinkomst, tkr`-1)*100,10)
 
 # Använder funktionen ovan för att skriva text kopplat till kommuner
 medianinkomst_hogst <- hogst_lagst_text(medianinkomst_kommun_max_man, medianinkomst_kommun_max_kvinnor, "högst")
@@ -231,14 +231,14 @@ gg_etablering <- diag_etablering_utb_kon_scb(output_mapp = output_mapp_figur,
                                              skriv_diagrambildfil = skriv_diagramfiler,
                                              returnera_data_rmarkdown = TRUE)
 
-eftergym_0_1_kvinna <- round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: eftergymnasial utbildning") %>% .$andel,0)
-eftergym_0_1_man <- round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: eftergymnasial utbildning") %>% .$andel,0)
-eftergym_10_kvinna <- round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "10- år",år == max(år),utbildningsnivå == "utbildningsnivå: eftergymnasial utbildning") %>% .$andel,0)
+eftergym_0_1_kvinna <- round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0–1 år",år == max(år),utbildningsnivå == "utbildningsnivå: eftergymnasial utbildning") %>% .$andel,0)
+eftergym_0_1_man <- round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0–1 år",år == max(år),utbildningsnivå == "utbildningsnivå: eftergymnasial utbildning") %>% .$andel,0)
+eftergym_10_kvinna <- round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "10– år",år == max(år),utbildningsnivå == "utbildningsnivå: eftergymnasial utbildning") %>% .$andel,0)
 samtliga_inrikes_kvinna <- round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "Inrikes född",år == max(år),utbildningsnivå == "samtliga utbildningsnivåer") %>% .$andel,0)
-gym_0_1_kvinna <- round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: gymnasial utbildning") %>% .$andel,0)
-gym_0_1_man <-  round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: gymnasial utbildning") %>% .$andel,0)
-forgym_0_1_kvinna <- round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: förgymnasial utbildning") %>% .$andel,0)
-forgym_0_1_man <- round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0-1 år",år == max(år),utbildningsnivå == "utbildningsnivå: förgymnasial utbildning") %>% .$andel,0)
+gym_0_1_kvinna <- round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0–1 år",år == max(år),utbildningsnivå == "utbildningsnivå: gymnasial utbildning") %>% .$andel,0)
+gym_0_1_man <-  round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0–1 år",år == max(år),utbildningsnivå == "utbildningsnivå: gymnasial utbildning") %>% .$andel,0)
+forgym_0_1_kvinna <- round(etablering_df %>% filter(kön == "kvinnor",bakgrundsvariabel == "0–1 år",år == max(år),utbildningsnivå == "utbildningsnivå: förgymnasial utbildning") %>% .$andel,0)
+forgym_0_1_man <- round(etablering_df %>% filter(kön == "män",bakgrundsvariabel == "0–1 år",år == max(år),utbildningsnivå == "utbildningsnivå: förgymnasial utbildning") %>% .$andel,0)
 
 # Matchning - Uppdaterad med ny version av PXweb - verkar dock inte längre användas i rapporten
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diagram_matchning_lan_bakgrund.R")
@@ -507,6 +507,13 @@ arblosthet_utrikes_kvinna_min_kommun <- arbetsmarknadsstatus_kommun_df %>% filte
 arblosthet_utrikes_kvinna_kommun_min_varde <- gsub("\\.",",",arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>%
                                                      filter(variabel == "arbetslöshet" ) %>% filter(varde == min(varde)) %>%  .$varde) %>% first()
 
+arblosthet_inrikes_kvinna_rattvik_varde <- gsub("\\.",",",arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "inrikes född") %>%
+                                                  filter(variabel == "arbetslöshet",region == "Rättvik" )  %>%  .$varde) 
+
+arbloshet_utrikes_kommun_hogst <- hogst_lagst_text(arblosthet_utrikes_man_max_kommun, arblosthet_utrikes_kvinna_max_kommun, "högst")
+arbloshet_utrikes_kommun_lagst <- hogst_lagst_text(arblosthet_utrikes_man_min_kommun, arblosthet_utrikes_kvinna_min_kommun, "lägst")
+
+
 # Inrikes
 
 arblosthet_inrikes_man_max_kommun <- arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "inrikes född") %>%
@@ -533,6 +540,9 @@ arblosthet_inrikes_kvinna_min_kommun <- arbetsmarknadsstatus_kommun_df %>% filte
 
 arblosthet_inrikes_kvinna_min_varde <- gsub("\\.",",",arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "inrikes född") %>%
                                            filter(variabel == "arbetslöshet" ) %>% filter(varde ==min(varde)) %>%  .$varde) %>% first()
+
+# Använder funktion för att skriva text automatiskt (den varierar beroende på om samma kommuner är högst/lägst för kvinnor och män)
+arbloshet_inrikes_kommun_hogst <- hogst_lagst_text(arblosthet_inrikes_man_max_kommun, arblosthet_inrikes_kvinna_max_kommun, "högst")
 
 # Arbetslöshet, tidsserie Arbetsförmedlingen
 source(here("Skript","diagram_arbetsloshet_AF_bakgrund_ny.R"))
