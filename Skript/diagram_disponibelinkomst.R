@@ -60,7 +60,7 @@ diag_disponibelinkomst<-function(region_vekt = "20",
     rename(!!new_name := value) %>% 
     select(-tabellinnehåll,-region_kod) %>%
       mutate(region = skapa_kortnamn_lan(region,byt_ut_riket_mot_sverige = TRUE)) %>% 
-        filter(hushållstyp %in% c("ensamstående kvinnor utan barn","ensamstående kvinnor med barn 0-19 år","ensamstående män utan barn","ensamstående män med barn 0-19 år","sammanboende utan barn","sammanboende med barn 0-19 år")) %>%
+        filter(hushållstyp %in% c("ensamstående kvinnor utan barn","ensamstående kvinnor med barn 0–19 år","ensamstående män utan barn","ensamstående män med barn 0–19 år","sammanboende utan barn","sammanboende med barn 0–19 år")) %>%
           filter(ålder==alder,
             år %in% c(min(år),max(år)))
   
