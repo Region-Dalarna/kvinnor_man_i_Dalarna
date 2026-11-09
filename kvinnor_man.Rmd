@@ -685,51 +685,57 @@ Delmålet följs upp genom den Nationella Trygghetsundersökningen som går att 
 
 I denna uppföljning läggs fokus på övergripande frågor kring misshandel, sexualbrott och hot samt oro och otrygghet för dessa brottskategorier och huruvida man avstått från någon aktivitet som en följd av oro. Självrapporterad utsatthet för misshandel är en bred kategori och i denna enkätfråga berörs inte förövarens kön vilket görs i delmålet. Frågan ger ändå en bild över utvecklingen av utsatthet för misshandel per kön över tid. 
 
+Uppgifterna kommer från Nationella trygghetsundersökningen (NTU), en enkätundersökning som Brå genomför årligen och som skickas till ett urval av befolkningen i åldrarna 16-84 år. Resultaten bygger därför på människors egna uppgifter och är skattningar, inte exakta mått. Särskilt på länsnivå, och för grupper och händelser som är små (till exempel sexualbrott bland män), kan skattningarna vara osäkra, och små förändringar mellan enskilda år bör tolkas med försiktighet. Fokus bör därför ligga på de längre trenderna snarare än på enskilda år. Läs mer om undersökningen och dess osäkerhet hos [Brottsförebyggande rådet (Brå)](https://bra.se/statistik/statistik-fran-enkatundersokningar/nationella-trygghetsundersokningen){target="_blank"}.
+
+Notera att årtalen för utsatthet avser det år då händelserna inträffade, vilket innebär att NTU 2026 avser utsatthet under 2025. Oro för brott avser uppfattningen under det senaste året, medan otrygghet och avstående från aktiviteter avser uppfattningen när enkäten besvaras. För oro, otrygghet och avstående avser årtalen NTU-året.
+
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_bra_ntu_lista$`Självrapporterad utsatthet för misshandel`
 ```
 
-Skillnaden mellan kvinnor och män är små och varierar mellan åren. Även om det skett både upp- och nedgångar mellan åren visar den längre trenden en minskning av utsatthet för misshandel för båda könen, om än ännu tydligare bland män. 
+Den självrapporterade utsattheten för misshandel varierar mellan åren, och skillnaden mellan kvinnor och män är i vissa år betydande, framför allt under 2016-2019 då männen var tydligt mer utsatta. Under senare år (2020-2025) ligger könen närmare varandra, och 2022-2024 var andelen något högre bland kvinnor. Sett över hela perioden har den självrapporterade utsattheten minskat för båda könen, men minskningen är större bland män. Nedgången syns främst i början av perioden, och de senaste åren har nivåerna legat relativt stabilt kring 2 procent, med en viss uppgång bland män 2025. 
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_bra_ntu_lista$`Självrapporterad utsatthet för sexualbrott`
 ```
 
-Skillnaden mellan kvinnor och män vad gäller utsatthet för sexualbrott är stor, och betydligt vanligare bland kvinnor än män. Även här sker upp- och nedgångar mellan enskilda år och även här är den längre trenden glädjande nog minskande. Åtminstone bland kvinnor.
+Skillnaden mellan kvinnor och män vad gäller självrapporterad utsatthet för sexualbrott är stor, och utsattheten är betydligt vanligare bland kvinnor än bland män. Även här sker upp- och nedgångar mellan enskilda år. Den längre trenden är glädjande nog minskande, åtminstone bland kvinnor, där andelen har sjunkit från omkring 8 procent 2016 till omkring 5 procent de senaste två åren. Bland män är nivåerna låga och svårtolkade, men 2025 är lägsta värdet under perioden.
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_bra_ntu_lista$`Självrapporterad utsatthet för hot`
 ```
 
-Utsatthet för hot är något större bland kvinnor än män med viss variation mellan åren, där utsattheten är större bland män vissa enstaka år. Utsattheten var särskilt stor bland kvinnor år 2017 och år 2019 men har annars legat på ungefär samma nivå alla år. 
+Den självrapporterade utsattheten för hot är något större bland kvinnor än bland män, med viss variation mellan åren. Vissa år, framför allt 2016 och 2023, är utsattheten större bland män. Utsattheten var särskilt stor bland kvinnor 2017 och 2019, då närmare 10 procent uppgav att de utsatts. Sedan 2020 har nivåerna varit lägre för båda könen, kring 6 procent bland kvinnor och 4-5 procent bland män (med undantag för 2023), och skillnaden mellan könen är liten. 
 
 Utsatthet för brott är en kränkning i sig för den som blir utsatt, men utöver det finns individer som kanske inte har utsatts för brott men ändå känner en oro för att det ska ske. Vilket i sig kan begränsa en individs handlingsutrymme. Därför är det intressant att se huruvida oro för brott utvecklas i takt med att utsatten för samma brott förändas. Leder färre brott till en mindre oro och vice versa. 
+
+Notera att årtalen för utsatthet avser det år då händelserna inträffade, vilket innebär att NTU 2026 avser utsatthet under 2025. Oro för brott avser uppfattningen under det senaste året, och årtalen avser NTU-året. Otrygghet och förtroende avser uppfattningen när enkäten besvaras, och årtalen avser även här NTU-året. Se [BRÅ](https://bra.se/statistik/statistik-fran-enkatundersokningar/nationella-trygghetsundersokningen){target="_blank"} för ytterligare information.
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_bra_ntu_lista$`Oro för att utsättas för misshandel`
 ```
 
-Oro för misshandel följer ungefär samma nedåtgående trend som utsattheten, även om kvinnor genomgående är mer oroliga än män. Skillnaderna är inte dramatiska och nivåerna relativt stabila över tid. 
+Oron för misshandel har i stort minskat i takt med den självrapporterade utsattheten, för både kvinnor och män: bland kvinnor från omkring 12 procent 2017 till omkring 7 procent 2026, och bland män från omkring 9 till omkring 5 procent. Utvecklingen är dock inte helt jämn. Oron var tillfälligt hög i NTU 2020, då männen för enda gången under perioden var mer oroliga än kvinnorna, vilket sammanfaller med den höga utsattheten för misshandel 2019. I övrigt är kvinnor mer oroliga än män. De senaste åren har oron bland kvinnor legat kring 6-7 procent medan den bland män fortsatt att minska, vilket har gjort att skillnaden mellan könen ökat något. 
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_bra_ntu_lista$`Oro för att utsättas för våldtäkt eller sexuella angrepp`
 ```
 
-När det gäller oro för att utsättas för våldtäkt eller sexuella övergrepp är könsskillnaden stor där en väsentligt högre andel kvinnor än män känner oro. De flesta år oroar sig var sjätte kvinna i befolkningen ganska eller mycket ofta över att utsättas för dessa brott. Glädjande nog är det även här en nedåtgående trend över tid där andelen kvinnor under senare år närmar sig 10 procent. För män har andelen varierat mellan en och tre procent och även för män ser vi en trend av en sjunkande oro. 
+När det gäller oro för att utsättas för våldtäkt eller sexuella angrepp är könsskillnaden stor, med en väsentligt högre andel kvinnor än män som känner oro. I början av perioden oroade sig ungefär var sjätte kvinna i befolkningen ganska eller mycket ofta över att utsättas för dessa brott. Över tid har andelen minskat, och den lägsta nivån nåddes i NTU 2024 (omkring 11 procent), men de senaste två åren har den ökat igen till knappt 14 procent 2026. För män har andelen varierat mellan en och tre procent, och även bland män syns en sjunkande trend över hela perioden, även om nivåerna är låga och svårtolkade. 
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_bra_ntu_lista$`Otrygghet vid utevistelse sent på kvällen i det egna bostadsområdet`
 ```
 
-I Nationella Trygghetsundersökningen ställs också frågor om hur oro för brott påverkar otryggheten samt hur den i sin tur påverkar människors handlingar. Nästan var tredje kvinna känner sig ganska eller mycket otrygga i det egna bostadsområdet sent på kvällen, men det är en svagt sjunkande trend. Bland männen är det runt 15 procent de flesta år och även här är trenden svagt sjunkande. 
+I Nationella trygghetsundersökningen ställs också frågor om hur oro för brott påverkar otryggheten samt hur den i sin tur påverkar människors handlingar. Under första delen av perioden kände sig nästan var tredje kvinna ganska eller mycket otrygg vid utevistelse sent på kvällen i det egna bostadsområdet, eller avstod från att gå ut på grund av otrygghet. Andelen har sedan minskat och ligger de senaste åren på omkring 24-29 procent, med en kraftig nedgång i NTU 2024 följd av en viss uppgång. Bland männen låg andelen på omkring 15 procent under de flesta år fram till 2024, med en tillfällig topp 2020, och har därefter sjunkit till omkring 11 procent 2026, vilket är den lägsta nivån under perioden. 
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center'}
 gg_bra_ntu_lista$`Avstått från någon aktivitet på grund av oro för att utsättas för brott`
 ```
 
-Strax under femton procent av kvinnorna har ganska eller mycket ofta avstått från någon aktivitet på grund av oro för att utsättas för brott. De senaste åren har andelen sjunkit till 10-12 procent. Bland män har det under flera år varit ungefär hälften så många, men skillnaden mellan kvinnor och män har varit mindre de senaste två åren. 
+Omkring 14-16 procent av kvinnorna uppgav under perioden 2017-2023 att de ganska eller mycket ofta avstått från någon aktivitet på grund av oro för att utsättas för brott. Från och med NTU 2024 har andelen sjunkit till omkring 10-12 procent. Bland män har andelen under flera år varit ungefär hälften så stor, kring 7-8 procent, med en tillfällig topp 2020. De senaste tre åren har skillnaden mellan kvinnor och män varit mindre än tidigare.
 
-Trots att utsattheten för flera brottstyper minskar över tid kvarstår stora skillnader mellan kvinnor och män – särskilt när det gäller sexualbrott och upplevd trygghet. Kvinnor utsätts i betydligt högre grad för sexualiserat våld och upplever också en större oro, vilket i sin tur påverkar deras rörelsefrihet och vardagliga val. Samtidigt visar trenderna att både utsatthet och oro sakta minskar, även i grupper där nivåerna länge varit höga. Skillnaderna mellan könen är dock tydliga och återkommande, vilket understryker behovet av fortsatt arbete med normer, trygghet och förebyggande insatser.
+Trots att utsattheten för flera brottstyper har minskat över tid kvarstår stora skillnader mellan kvinnor och män, särskilt när det gäller sexualbrott och upplevd trygghet. Kvinnor utsätts i betydligt högre grad för sexualiserat våld och upplever också större oro, vilket i sin tur påverkar deras rörelsefrihet och vardagliga val. För misshandel och hot är skillnaderna mindre, och vissa år är män mer utsatta än kvinnor. Över hela perioden minskar både utsatthet och oro, men utvecklingen är ojämn och på flera områden har nedgången avstannat de senaste åren. Skillnaderna mellan könen är dock tydliga och återkommande, vilket understryker behovet av fortsatt arbete med normer, trygghet och förebyggande insatser.
 
 
 # Referenser {-}
