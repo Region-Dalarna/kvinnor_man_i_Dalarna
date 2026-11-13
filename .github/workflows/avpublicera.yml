@@ -1,0 +1,64 @@
+name: Avpublicera rapport
+run-name: Avpublicera ${{ github.event.repository.name }} från ${{ inputs.target }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'Vilken server ska rapporten tas bort från?'
+        required: true
+        type: choice
+        options:
+          - publik
+          - intern
+      bekraftelse:
+        description: 'Skriv repo-namnet för att bekräfta'
+        required: true
+        type: string
+
+jobs:
+  avpublicera:
+    runs-on:
+      - self-hosted
+      - ${{ inputs.target == 'intern' && 'rapport-intern' || 'rapport' }}
+
+    steps:
+      - name: Kontrollera bekräftelse
+        run: |
+          BEKRAFTELSE_GEMENER=$(echo "${{ inputs.bekraftelse }}" | tr '[:upper:]' '[:lower:]')
+          REPO_NAMN_GEMENER=$(echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
+
+          if [ "$BEKRAFTELSE_GEMENER" != "$REPO_NAMN_GEMENER" ]; then
+            echo "FEL: Bekräftelseordet matchar inte repo-namnet."
+            exit 1
+          fi
+          echo "Bekräftelse OK. Tar bort ${{ github.event.repository.name }} från ${{ inputs.target }} server."
+
+      - name: Ta bort rapport från servern
+        run: |
+          REPO_NAMN="${{ github.event.repository.name }}"
+          if [ -f ".rapport_deploy_namn" ]; then
+            REPO_NAMN="$(cat .rapport_deploy_namn | tr -d '[:space:]')"
+          fi
+          RAPPORT_DIR="/srv/rapporter/${REPO_NAMN}"
+
+          if [[ "$RAPPORT_DIR" != /srv/rapporter/* ]] || [ "$RAPPORT_DIR" = "/srv/rapporter/" ]; then
+            echo "FEL: Otillåten sökväg: $RAPPORT_DIR"
+            exit 1
+          fi
+
+          if [ -d "$RAPPORT_DIR" ]; then
+            echo "Tar bort $RAPPORT_DIR"
+            sudo rm -rf "$RAPPORT_DIR"
+            echo "Rapport borttagen."
+          else
+            echo "Ingen rapport hittades i $RAPPORT_DIR — inget att ta bort."
+          fi
+
+      - name: Regenerera landningssida
+        run: |
+          sudo -u shiny /usr/local/bin/generera_landningssida.sh || echo "Varning: kunde inte regenerera landningssidan (ej kritiskt fel)"
+
+      - name: Synka app-lista mot databasen
+        run: |
+          sudo -u shiny /usr/local/bin/synka_app_lista.sh || echo "Varning: kunde inte synka app-listan (ej kritiskt fel)"
